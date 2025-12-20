@@ -1,0 +1,7 @@
+Digoxin, a cardiac glycoside, has been used for decades in the management of heart failure.
+However, recent studies have raised concerns about its safety profile in specific subpopulations.
+A randomized controlled trial investigated the effect of digoxin on 30-day all-cause hospital admission in older patients (≥65 years) with chronic diastolic heart failure.
+The study found that among patients aged ≥65 years, the main endpoint of all-cause hospitalization during the first 30 days after randomization occurred in 9.0% of patients in the digoxin group versus 3.8% in the placebo group (p=0.026).
+This suggests that digoxin increased the risk of 30-day all-cause hospital admission in this demographic.
+Interestingly, digoxin did not show a similar benefit in older patients with diastolic heart failure as it did in older patients with systolic heart failure regarding 30-day hospitalization.
+Most of the increased risk was driven by cardiovascular hospitalization, specifically unstable angina.

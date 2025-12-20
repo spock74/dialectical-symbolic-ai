@@ -1,0 +1,33 @@
+---
+model: ollama/gemma3:4b
+input:
+  schema:
+    images: array
+output:
+  format: json
+config:
+  temperature: 0.1
+  maxOutputTokens: 4096
+---
+{{#each images}}
+{{media url=this.url contentType=this.contentType}}
+{{/each}}
+
+Analyze the attached document images (pages from a PDF) and extract the key knowledge concepts into a structured JSON format.
+
+IMPORTANT: You must return ONLY valid JSON.
+- Output MUST be a JSON Object with a single key "knowledgeBase".
+- Example: { "knowledgeBase": [ { "core_concept": "...", ... } ] }
+- Output MUST be raw JSON. No markdown code blocks (e.g. ```json). 
+- Do NOT add any preamble or postscript.
+- Ensure all arrays and objects are properly closed.
+
+For each concept in the "knowledgeBase" array, extract:
+1. Core Concept: A main summary.
+2. Knowledge Nuggets: Atomic facts.
+3. Source Quote: visible text in the image.
+4. Bloom Levels: Cognitive levels required.
+5. Conceptual Complexity & Clinical Relevance.
+6. Related Concepts & Metacognitive Prompts.
+
+Format the output strictly according to the KnowledgeBase schema.

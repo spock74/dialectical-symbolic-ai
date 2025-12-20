@@ -1,0 +1,15 @@
+---
+model: ollama/gemma3:4b
+input:
+  schema:
+    image: any
+output:
+  format: json
+  schema:
+    transcription: string
+config:
+  keep_alive: 1m
+---
+{{media url=image.url contentType=image.contentType}}
+
+Transcribe the text visible in this image exactly as it appears. Do not add any commentary.

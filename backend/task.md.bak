@@ -1,0 +1,30 @@
+# Project: NeuroLisp Lab (AI Learning Environment)
+
+## Status
+- [x] Initialize Project Structure
+- [/] Knowledge Extraction & Verification
+    - [x] Define Zod Schemas (KnowledgeConcept, Nuggets)
+    - [x] Implement Lisp Text Loader (`load-text-to-lisp`)
+    - [x] Implement Verification Logic (Genkit -> Lisp `search`)
+    - [x] Implement "Judge Loop" (Retry if quote unfound)
+    - [x] Verify with Sample Text
+    - [x] Implement PDF Parsing
+        - [x] Install `pdf-parse` (v1.1.4)
+        - [x] Create `PdfService`
+        - [x] Create `/api/extract-from-pdf` endpoint
+    - [ ] Implement Multimodal PDF Flow (Gemma 3)
+        - [ ] Create `multimodal-flow.ts`
+        - [ ] Add `/api/extract-multimodal-pdf` endpoint
+- [x] Backend Setup (Node.js/TypeScript)
+- [/] Frontend Setup (React Vite)
+    - [x] Initialize Vite + TypeScript project
+    - [x] Setup Tailwind + Shadcn/UI + Themes
+    - [x] Create 3-Panel Layout
+    - [x] Connect Knowledge Extraction to Frontend
+        - [x] Create `types.ts`
+        - [x] Create `api.ts`
+        - [x] Create `KnowledgeView.tsx`
+        - [x] Update `SourceManager` (Upload)
+        - [x] Update `Workspace` (Display)
+- [ ] Core Features Implementation
+    - [ ] FSRS Scheduling Engine

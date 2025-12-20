@@ -1,0 +1,23 @@
+---
+model: ollama/gemma3:4b
+input:
+  schema:
+    text: string
+    feedback?: string
+output:
+  format: json
+  schema: KnowledgeBaseOutputSchema
+config:
+  temperature: 0.1
+---
+Extract knowledge concepts from the following text.
+{{#if feedback}}
+PREVIOUS ERROR (Please Fix): {{feedback}}
+{{/if}}
+
+CRITICAL:
+1. 'source_quote' MUST be an EXACT VERBATIM copy of a substring in the text.
+2. Do not paraphrase the quote. Copy-paste it exactly.
+
+Text:
+{{text}}

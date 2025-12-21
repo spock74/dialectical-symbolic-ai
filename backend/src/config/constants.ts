@@ -18,8 +18,13 @@ function getEnv(key: string): string {
 
 export const CONFIG = {
   // AI Model Configuration
-  OLLAMA_MODEL_NAME: getEnv('OLLAMA_MODEL_NAME'),
-  
+  OLLAMA_MODEL_NAME: getEnv("OLLAMA_MODEL_NAME"),
+  OLLAMA_VISION_MODEL_NAME: getEnv("OLLAMA_VISION_MODEL_NAME"),
+  OLLAMA_UNLOAD_DELAY_SECONDS: parseInt(
+    getEnv("OLLAMA_UNLOAD_DELAY_SECONDS"),
+    10
+  ),
+
   // Server Configuration
-  PORT: parseInt(getEnv('PORT'), 10), // Strict check for PORT too
+  PORT: parseInt(getEnv("PORT"), 10), // Strict check for PORT too
 };

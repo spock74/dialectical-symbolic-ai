@@ -10,6 +10,7 @@ export class SbclProcess extends EventEmitter {
     | ((value: { result: string; output: string }) => void)
     | null = null;
   protected isReady: boolean = false;
+  private isRecovering: boolean = false;
   private readonly SENTINEL = "|||GEMINI_SENTINEL|||";
 
   private static instance: SbclProcess | null = null;
@@ -108,6 +109,9 @@ export class SbclProcess extends EventEmitter {
         resolve({ result, output });
       }
     } else if (debuggerRegex.test(this.buffer)) {
+      if (this.isRecovering) return; // Prevent loop
+      this.isRecovering = true;
+
       console.error("[SBCL] Debugger detected! Aborting to toplevel...");
       const fullBuffer = this.buffer;
       const fullOutput = this.currentOutputAccumulator;
@@ -124,11 +128,16 @@ export class SbclProcess extends EventEmitter {
         this.buffer = "";
         this.currentOutputAccumulator = "";
 
-        // In SBCL, sending '0' or 'abort' usually gets out.
-        // We'll send (abort) but also a literal '0' if that fails.
-        this.process.stdin.write("(abort)\n");
+        // In SBCL, sending '0', 'abort' or '(abort)' usually gets out.
+        // We send a sequence to be sure.
+        this.process.stdin.write("abort\n0\n(abort)\n");
         // Also send a newline +Sentinel to ensure we catch up if the abort worked
         this.process.stdin.write(`(format t "~%${this.SENTINEL}~%~%")\n`);
+
+        setTimeout(() => {
+          this.isRecovering = false;
+          this.isProcessing = false; // Reset processing flag to allow queue recovery
+        }, 1000);
       }
 
       if (this.currentResolve) {
@@ -269,43 +278,25 @@ export class SbclProcess extends EventEmitter {
   async getGraphData(): Promise<
     import("../services/graph-service").LispGraphExport
   > {
-    const { result: rawOutput } = await this.eval(
-      "(s-dialectic:listar-dados-json)"
+    // We use print-graph-json which uses (princ ...) to send raw characters to stdout,
+    // avoiding the REPL's truncation of long return values.
+    const { output: rawOutput } = await this.eval(
+      "(s-dialectic:print-graph-json)"
     );
 
-    // SBCL returns strings wrapped in quotes if they are return values.
-    // The format logic in Lisp is (format nil ...), which returns a string.
-    // The REPL output for a string is "the string content".
-    // We need to unwrap the outer quotes if they exist and unescape specific Lisp escapes.
-
-    // Regex: Match the first occurrence of { ... } that looks like our JSON structure.
-    // Lisp returns quotes escaped like \" so we need to handle that.
-    // We look for everything between the first { and the last }
-    // The previous regex was too strict about surrounding quotes.
+    // Look for everything between the first { and the last }
     const match = rawOutput.match(/(\{.*\})/s);
 
     let jsonString = "";
     if (match && match[1]) {
-      jsonString = match[1];
-      // When SBCL returns a string via eval, it might escape internal quotes.
-      // If the string starts with \" and ends with \", it's double-encoded.
-      // However, usually `format nil` inside `eval` just returns the string content if not printed to stdout.
-      // Let's heuristically clean it.
-
-      // 1. Remove escaped quotes \" -> "
-      jsonString = jsonString.replace(/\\"/g, '"');
-
-      // 2. Remove double backslashes \\ -> \
-      jsonString = jsonString.replace(/\\\\/g, "\\");
-
-      // 3. Sometimes the outer Lisp string quotes are included in the capture if we aren't careful,
-      // but our regex captures from { to }.
+      jsonString = match[1].trim();
     } else {
       console.warn("Could not find JSON in SBCL output. Raw:", rawOutput);
       return { nodes: [], edges: [] };
     }
 
     try {
+      // Since we used princ, the output should be clean JSON without Lisp escaping
       const data = JSON.parse(jsonString);
       return {
         nodes: data.nodes || [],

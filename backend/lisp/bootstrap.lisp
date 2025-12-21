@@ -9,6 +9,16 @@
 (defmacro lisp (&body body)
   `(progn ,@body))
 
+;; Ensure no truncation for large outputs
+(setf *print-length* nil)
+(setf *print-level* nil)
+(setf *print-lines* nil)
+(setf *print-base* 10)
+(setf *print-case* :upcase)
+
+;; Alias for easier recovery
+(defun top () (abort))
+
 ;; 2. Definir pacote principal S-DIALECTIC
 (defpackage :s-dialectic
   (:use :cl)
@@ -21,6 +31,7 @@
            :adicionar-relacao
            :listar-relacoes
            :listar-dados-json
+           :print-graph-json
            ;; Persistence
            :salvar-estado
            :carregar-estado
@@ -29,6 +40,7 @@
            :inferir))
 
 (in-package :s-dialectic)
+
 
 ;;; --- Memory System ---
 
@@ -335,3 +347,13 @@
 ;; Inicialização
 (format t "~%SDialectic Cognitive Bootstrap 2.0 Carregado.~%")
 (format t "JSON Support: ENABLED. Persistence: ENABLED. Graph: RELATIONAL.~%")
+
+(in-package :s-dialectic)
+
+(defun print-graph-json ()
+  "Explicitly prints the graph JSON to stdout to avoid REPL truncation."
+  (princ (listar-dados-json))
+  (terpri)
+  (values))
+
+(in-package :cl-user)

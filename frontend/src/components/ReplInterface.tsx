@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Terminal, Circle } from "lucide-react";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { useDialecticStore } from "../store/useStore";
+
 
 interface LogEntry {
   timestamp: string;
@@ -30,14 +33,27 @@ export function ReplInterface() {
       setLogs(prev => [...prev, { timestamp: new Date().toISOString(), content: ";; Stream Connection Established" }]);
     };
 
+
     eventSource.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
         bufferRef.current.push(data);
+        
+        // Detect state changes to refresh graph
+        const content = data.content || "";
+        if (
+          content.includes("Memorizado:") || 
+          content.includes("Relacao adicionada:") ||
+          content.includes("Ferramenta aprendida:") ||
+          content.includes("Estado carregado")
+        ) {
+           useDialecticStore.getState().incrementGraphVersion();
+        }
       } catch (e) {
         console.error("Failed to parse log", e);
       }
     };
+
 
     eventSource.onerror = () => {
       if (isMounted.current) setIsConnected(false);

@@ -1,29 +1,33 @@
-import { useEffect, useState } from 'react';
-import ReactFlow, { Background, Controls } from 'reactflow';
-import type { Node, Edge } from 'reactflow';
+
+
+import { useEffect } from 'react';
+import ReactFlow, { Background, Controls, useNodesState, useEdgesState } from 'reactflow';
 import 'reactflow/dist/style.css';
+
 import type { KnowledgeBase } from '../types';
 import { fetchGraph } from '../api';
+import { useDialecticStore } from '../store/useStore';
 
 interface WorkspaceProps {
   knowledgeBase: KnowledgeBase | null;
 }
 
 export function Workspace({ knowledgeBase: _ }: WorkspaceProps) {
-  const [nodes, setNodes] = useState<Node[]>([]);
-  const [edges, setEdges] = useState<Edge[]>([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const graphVersion = useDialecticStore((state) => state.graphVersion);
 
-  // Fetch graph data on mount
+  // Fetch graph data on mount AND when version changes
   useEffect(() => {
     fetchGraph()
       .then(data => {
+        // @ts-ignore - mismatch between API types and ReactFlow types needs more explicit mapping or casting
         setNodes(data.nodes);
+        // @ts-ignore
         setEdges(data.edges);
       })
       .catch(err => console.error("Failed to fetch graph nodes:", err));
-  }, []); // Run once on mount
-
-  // Optionally merge local knowledgeBase stats if needed, or just rely on backend Lisp memory
+  }, [graphVersion, setNodes, setEdges]); // Trigger re-fetch when graphVersion increments
 
   return (
     <div className="flex flex-col h-full bg-background relative">
@@ -31,17 +35,17 @@ export function Workspace({ knowledgeBase: _ }: WorkspaceProps) {
         <ReactFlow 
           nodes={nodes}
           edges={edges}
-          onNodesChange={(_changes) => {
-             // We need to implement onNodesChange if we want interactivity (dragging)
-             // For static view, this is optional but recommended.
-          }}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
           nodesDraggable={true}
           fitView
+          attributionPosition="bottom-left"
         >
-          <Background />
+          <Background color="#444" gap={16} />
           <Controls />
         </ReactFlow>
       </div>
     </div>
   );
 }
+

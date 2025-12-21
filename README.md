@@ -2,81 +2,118 @@
 
 > **"Logic and Intuition are not opposites, but the two wings of the same bird."**
 
-**SDialectic** (Symbolic Dialectic) is a cognitive architecture that fuses the fluid semantic intuition of **Large Language Models (LLMs)** with the rigid structural logic of **Common Lisp**.
+**SDialectic** (Symbolic Dialectic) is a neuro-symbolic cognitive architecture that fuses the fluid semantic intuition of **Generation 3 LLMs** with the rigid structural logic of **Common Lisp**.
 
-Unlike traditional "Stateless" AI interaction, SDialectic embeds a persistent **Lisp Runtime (SBCL)** directly into the cognitive loop. The LLM doesn't just "talk"; it *thinks* by interacting with a persistent symbolic world, creating a feedback loop where:
-1.  **Thesis**: The LLM proposes an idea or concept.
-2.  **Antithesis**: The Lisp Engine structures, validates, or challenges this concept against existing symbolic data.
-3.  **Synthesis**: A new, grounded knowledge representation is formed and persisted.
+Unlike traditional "Stateless" AI interaction, SDialectic embeds a persistent **Lisp Runtime (SBCL)** directly into the cognitive loop. The LLM doesn't just "talk"; it *thinks* by interacting with a persistent symbolic world, creating a feedback loop of continuous self-refinement.
 
-![Architecture Diagram](https://mermaid.ink/img/pako:eNptkctOwzAQRX9lmnWr8AN6Q2hFqkogwQOwYIM1cWLEdjQeRyrEvyNn2gR1l-cze-7xDDhTDRw4W_h8VbBStjJ4U3fKOK3g4fkyW7y_LZaL2eL183L2_rG4W2XJClg4qV6U1lqjDfgQtdFGO_CDtUqD8_A10l4b8MOt1to4eO-M1saAjwHj1sZASa3B-c8lW61hB3yIlLIG3GSt0hruwOusVdrAD9M63E1-vE_2p06_3-v3_0-9yY8mSH_o4V4rY9H3oQ996EMf-tCHfvoD7e-iH00M_Wh20I9W2_xo-upHV4s_ml370dSrP5pG_mga_aNp_I-W0T_axv9oW_mjbZ2PtnU-2tb5aFvno22dj7Z1PtpW_mhb-6Nt44-2zT_aNv9o2_yjbfOPts0_2jb_aNv8o23zj7bNP9o2_2jb_KNt84-2jT_a1v9o2_r_f-sP7e8=?type=png)
+---
 
-## 🏛️ The Philosophy: The Antidote to "Vibe Coding"
+## 🏛️ System Concept: The Neuro-Symbolic Loop
 
-> **"Code is the raw material... The valuable end is someone safe inside a house."**
+The system operates on a dual-process theory (System 1 vs System 2):
 
-The industry suffers from an **"LLM Curse"** (or Reversal Curse): relying on "vibe coding" leads to memory drift and erosion of robustness. SDialectic is the antidote.
+1.  **System 1 (Neural/Intuition)**: `Gemma 3 1b` acts as the natural language interface, synthesizing information and communicating with the user.
+2.  **System 2 (Symbolic/Logic)**: `Qwen 2.5 Coder 3b` acts as the Logic Engine, translating natural language into formal Lisp code and executing it within a persistent environment.
 
-We view the LLM not as a code generator, but as a **Collaborative Architect**. To build a safe "house", we need more than just bricks (tokens); we need physics (logic).
-*   **The Neural (Chaos/Intuition)**: The creative architect, designing concepts.
-*   **The Symbolic (Order/Logic)**: The Lisp Core, enforcing structural integrity and persistent state.
+```mermaid
+graph TD
+    User((User)) <--> S1[System 1: Neural Cortex<br/>Gemma 3 1b]
+    S1 <--> Loop{Reflective Loop}
+    Loop <--> S2[System 2: Symbolic Kernel<br/>SBCL + Qwen 3b]
+    S2 <--> KG[(Knowledge Graph<br/>Lisp State)]
+    KG -.->|Persistence| File[(knowledge.lisp)]
+```
 
-By grounding neural intuition in symbolic reality (`gemma3` <-> `SBCL`), we enable **Dialectical Self-Improvement** rather than entropic drift.
+---
 
-## 🚀 Features
+## 🛠️ Architecture & Code Artifacts
 
-*   **Persistent Metacognition**: The AI retains a "state of mind" across chats via the Lisp Kernel.
-*   **Self-Modifying Agents**: The Model can inspect and modify its own reasoning tools (Lisp macros/functions).
-*   **Symbolic Grounding**: Concepts aren't just vectors; they are actionable Lisp atoms and lists.
-*   **Visual Logic**: Integrated Graph Visualization to see the "Mind Map" of the AI in real-time.
+The system is split between a TypeScript/Node.js shell and a Common Lisp core.
 
-## 🛠️ Architecture
-
-*   **Cognitive Cortex**: Google Gemma 3 / Gemini (via Genkit)
-*   **Symbolic Kernel**: SBCL (Steel Bank Common Lisp)
-*   **Membrane**: TypeScript / Node.js (Inter-process Communication)
-*   **Visualizer**: React + ReactFlow
-
-## 📦 Installation
-
-### Prerequisites
-*   Node.js 20+
-*   SBCL (`brew install sbcl`)
-*   pnpm
-
-### Getting Started
-
-1.  **Clone:**
-    ```bash
-    git clone https://github.com/your-username/s-dialectic.git
-    cd s-dialectic
-    ```
-
-2.  **Install Dependencies:**
-    ```bash
-    cd backend && pnpm install
-    cd ../frontend && pnpm install
-    ```
-
-3.  **Run the Engine:**
-    ```bash
-    # Terminal 1 - Backend
-    cd backend
-    pnpm dev
+```mermaid
+graph LR
+    subgraph TypeScript_Shell
+        Server[server.ts] --> RLoop[reflective-loop.ts]
+        Server --> KFlow[knowledge-flow.ts]
+        RLoop --> SBCLProc[sbcl-process.ts]
+        SBCLProc --> Stream((IPC Stream))
+    end
+    subgraph Lisp_Kernel
+        Stream --> Boot[bootstrap.lisp]
+        Boot --> State[(knowledge.lisp)]
+    end
     
-    # Terminal 2 - Frontend
-    cd frontend
-    pnpm dev
-    ```
+    subgraph Frontend
+        React[ReactFlow UI] <-->|JSON API| Server
+    end
+```
 
-4.  **Access:** Open `http://localhost:5173`
+### Key Components:
+- **`sbcl-process.ts`**: Manages the life-cycle of the SBCL process, handles IPC communication via a sentinel-based protocol, and recovers from Lisp debuggers automatically.
+- **`reflective-loop.ts`**: Orchestrates the multi-turn interaction between the Logic Model and the Lisp kernel.
+- **`bootstrap.lisp`**: The "operating system" inside SBCL, defining concepts, relations, rules, and JSON serialization.
 
-## 📚 Citation
+---
 
-This project implements concepts discussed in:
-> *De la Torre, J. (2025). From Tool Calling to Symbolic Thinking: LLMs in a Persistent Lisp Metaprogramming Loop. arXiv:2512.12345 [cs.AI]*
+## 🔄 Sequence: User Messaging & Reflection
 
-## 📄 License
+When a user sends a message, the system undergoes a **Reflective Loop** before replying.
 
-Proprietary / Closed Source (Currently in Stealth/Beta)
-*Copyright © 2025 SDialectic Labs.*
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant S1 as System 1 (Gemma)
+    participant L as Logic Engine (Qwen)
+    participant SK as Symbolic Kernel (SBCL)
+
+    U->>S1: "Einstein and Gödel were friends in Princeton"
+    S1->>L: "Extract and Structure this information"
+    
+    loop Reflection (Turn n)
+        L->>SK: (adicionar-memoria "Einstein" "Físico")
+        SK-->>L: "Memorizado: Einstein"
+        L->>SK: (adicionar-relacao "Einstein" "amigo" "Gödel")
+        SK-->>L: "Relacao estruturada: EINSTEIN -[AMIGO]-> GÖDEL"
+    end
+    
+    Note over SK: (salvar-estado "knowledge.lisp")
+    
+    S1->>U: "Einstein e Gödel eram amigos em Princeton."
+```
+
+---
+
+## 🔌 Lisp-Node.js API (Bridging Functions)
+
+The communication is performed via S-Expressions. Below is the mapping of core functions:
+
+| Function | Arguments | Description |
+| :--- | :--- | :--- |
+| `adicionar-memoria` | `(name description)` | Creates or updates a node in the Knowledge Graph. |
+| `adicionar-relacao` | `(sub pred obj)` | Creates a directed edge between two concepts. |
+| `adicionar-regra` | `(name conditions consequences)` | Defines a logical rule for the inference engine. |
+| `inferir` | `()` | Runs forward-chaining inference on all relations. |
+| `listar-dados-json` | `()` | Serializes the entire graph for the ReactFlow frontend. |
+| `salvar-estado` | `(filename)` | Persists the internal state to a Lisp file. |
+
+---
+
+## 🚀 Current State (Status 2.0)
+
+- **Models**: Currently utilizing `gemma3:1b` (Chat) and `qwen2.5-coder:3b` (Logic) via Ollama.
+- **Enriched Reasoning**: The chat model now receives the **full stdout trace** from the Lisp execution, ensuring it "sees" the same reality as the kernel.
+- **Stability**: Singleton SBCL enforcement and debugger-recovery logic allow for 24/7 uptime.
+- **Deep Extraction**: The logic model is tuned to atomize complex sentences into granular locations, topics, and actions.
+
+---
+
+## 📦 Installation & Usage
+
+1. **Install Prerequisites**: SBCL, Node.js 20+, and Ollama.
+2. **Setup**: `pnpm install` in both `backend` and `frontend`.
+3. **Environment**: Configure `.env.local` in `backend` with your model names.
+4. **Run**: `pnpm dev:pm2` for a supervised backend experience.
+
+---
+
+*Copyright © 2025 SDialectic Labs. Proprietary / Stealth Beta.*

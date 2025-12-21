@@ -1,20 +1,9 @@
 import { create } from 'zustand';
 import type { Group, Source } from '../types';
 
-interface DialecticState {
-  groups: Group[];
-  activeGroupId: string | null;
-  activeSourceId: string | null;
-
-  // Actions
-  createGroup: (name: string) => void;
-  setActiveGroup: (id: string) => void;
-  addSourceToActiveGroup: (source: Source) => void;
-  setActiveSource: (id: string | null) => void; // Null allows deselecting
-}
 
 export interface Message {
-  role: 'user' | 'model' | 'tool';
+  role: "user" | "model" | "tool";
   content: string;
 }
 
@@ -22,19 +11,24 @@ interface DialecticState {
   groups: Group[];
   activeGroupId: string | null;
   activeSourceId: string | null;
-  
+
   // Chat Persistence
   messages: Message[];
+
+  // Graph State
+  graphVersion: number;
 
   // Actions
   createGroup: (name: string) => void;
   setActiveGroup: (id: string) => void;
   addSourceToActiveGroup: (source: Source) => void;
-  setActiveSource: (id: string | null) => void; // Null allows deselecting
-  
+  setActiveSource: (id: string | null) => void;
+
   addMessage: (msg: Message) => void;
   clearMessages: () => void;
   setMessages: (msgs: Message[]) => void;
+
+  incrementGraphVersion: () => void;
 }
 
 export const useDialecticStore = create<DialecticState>((set, get) => ({
@@ -42,16 +36,17 @@ export const useDialecticStore = create<DialecticState>((set, get) => ({
   activeGroupId: null,
   activeSourceId: null,
   messages: [],
+  graphVersion: 0,
 
   createGroup: (name: string) => {
     const newGroup: Group = {
       id: crypto.randomUUID(),
       name,
-      sources: []
+      sources: [],
     };
     set((state) => ({
       groups: [...state.groups, newGroup],
-      activeGroupId: newGroup.id // Auto-select new group
+      activeGroupId: newGroup.id,
     }));
   },
 
@@ -64,23 +59,23 @@ export const useDialecticStore = create<DialecticState>((set, get) => ({
     if (!activeGroupId) return;
 
     set({
-      groups: groups.map((g) => 
-        g.id === activeGroupId 
-          ? { ...g, sources: [...g.sources, source] }
-          : g
+      groups: groups.map((g) =>
+        g.id === activeGroupId ? { ...g, sources: [...g.sources, source] } : g
       ),
-      activeSourceId: source.id // Auto-select uploaded source
+      activeSourceId: source.id,
     });
   },
 
   setActiveSource: (id: string | null) => {
-    // VITE_ALLOW_MULTIPLE_SOURCES logic check (implied false by default for now)
-    // Since we store a single string ID, multiple selection is naturally prevented here.
-    // If we wanted multiple, we'd use string[] and toggle logic.
     set({ activeSourceId: id });
   },
 
-  addMessage: (msg: Message) => set((state) => ({ messages: [...state.messages, msg] })),
+  addMessage: (msg: Message) =>
+    set((state) => ({ messages: [...state.messages, msg] })),
   clearMessages: () => set({ messages: [] }),
-  setMessages: (msgs: Message[]) => set({ messages: msgs })
+  setMessages: (msgs: Message[]) => set({ messages: msgs }),
+
+  incrementGraphVersion: () =>
+    set((state) => ({ graphVersion: state.graphVersion + 1 })),
 }));
+

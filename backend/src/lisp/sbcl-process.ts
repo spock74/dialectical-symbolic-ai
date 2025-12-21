@@ -2,14 +2,26 @@ import { spawn, ChildProcess } from 'child_process';
 import crypto from 'crypto';
 import { EventEmitter } from 'events';
 
+
 export class SbclProcess extends EventEmitter {
-  private process: ChildProcess | null = null;
+  protected process: ChildProcess | null = null;
   private buffer: string = "";
-  private currentResolve: ((result: string) => void) | null = null;
-  private isReady: boolean = false;
+  private currentResolve:
+    | ((value: { result: string; output: string }) => void)
+    | null = null;
+  protected isReady: boolean = false;
   private readonly SENTINEL = "|||GEMINI_SENTINEL|||";
 
-  constructor() {
+  private static instance: SbclProcess | null = null;
+
+  public static getInstance(): SbclProcess {
+    if (!SbclProcess.instance) {
+      SbclProcess.instance = new SbclProcess();
+    }
+    return SbclProcess.instance;
+  }
+
+  private constructor() {
     super();
     this.start();
 
@@ -25,9 +37,10 @@ export class SbclProcess extends EventEmitter {
     });
   }
 
-  private start() {
+  protected start() {
     // Limit heap to 1GB to prevent OOM on user machine
     // Load bootstrap file on startup
+
     const bootstrapFile = "lisp/bootstrap.lisp";
     this.process = spawn("sbcl", [
       "--dynamic-space-size",
@@ -50,6 +63,7 @@ export class SbclProcess extends EventEmitter {
       const chunk = data.toString();
       this.emit("log", chunk); // Emit log event
       this.buffer += chunk;
+      this.currentOutputAccumulator += chunk;
       this.checkBuffer();
     });
 
@@ -60,7 +74,7 @@ export class SbclProcess extends EventEmitter {
     });
 
     this.process.on("close", (code) => {
-      console.log(`SBCL process exited with code ${code}`);
+      console.log(`[SBCL] Process exited with code ${code}`);
       this.process = null;
       this.isReady = false;
     });
@@ -73,63 +87,88 @@ export class SbclProcess extends EventEmitter {
     // This indicates an error that wasn't caught by normal error handling
     // EXCLUDE the standard toplevel prompt "*" or it will loop infinitely!
     const debuggerRegex = /^([0-9]+\])\s*$/m;
-    
+
     if (this.buffer.includes(this.SENTINEL)) {
       const parts = this.buffer.split(this.SENTINEL);
       const result = parts[0].trim();
       this.buffer = parts.slice(1).join(this.SENTINEL);
 
       if (this.currentResolve) {
+        const output = this.currentOutputAccumulator
+          .split(this.SENTINEL)[0]
+          .trim();
+        this.currentOutputAccumulator = this.currentOutputAccumulator
+          .split(this.SENTINEL)
+          .slice(1)
+          .join(this.SENTINEL);
+
         const resolve = this.currentResolve;
         this.currentResolve = null;
         this.clearTimeout(); // Clear timeout on success
-        resolve(result);
+        resolve({ result, output });
       }
     } else if (debuggerRegex.test(this.buffer)) {
-        console.error("[SBCL] Debugger detected! Aborting to toplevel...");
-        
-        // Log the error buffer for debugging
-        this.emit("log", `\n[Use 'abort' to exit debugger]\nBuffer capture:\n${this.buffer}\n`);
+      console.error("[SBCL] Debugger detected! Aborting to toplevel...");
+      const fullBuffer = this.buffer;
+      const fullOutput = this.currentOutputAccumulator;
 
-        // Fail the current request
-        if (this.currentReject) {
-            const reject = this.currentReject;
-            const resolve = this.currentResolve; // Capture reference
-            this.currentReject = null;
-            this.currentResolve = null;
-            this.clearTimeout();
-            
-            // Reject with the buffer content as error message
-            reject(new Error(`SBCL Debugger Invoked. Buffer:\n${this.buffer}`));
-            
-            // IMPORTANT: We must NOT leave the promise hanging.
-            // If we resolved, we wouldn't be here.
-        }
+      // Log the error buffer for debugging
+      this.emit(
+        "log",
+        `\n[Use 'abort' to exit debugger]\nBuffer capture:\n${fullBuffer}\n`
+      );
 
-        // Try to recover process: send abort to return to toplevel
-        if (this.process?.stdin) {
-            this.process.stdin.write("(abort)\n");
-            // Clear buffer to prevent re-triggering immediately
-            this.buffer = ""; 
+      // Try to recover process: send abort to return to toplevel
+      if (this.process?.stdin) {
+        // Clear buffer and state BEFORE sending abort to prevent race conditions
+        this.buffer = "";
+        this.currentOutputAccumulator = "";
+
+        // In SBCL, sending '0' or 'abort' usually gets out.
+        // We'll send (abort) but also a literal '0' if that fails.
+        this.process.stdin.write("(abort)\n");
+        // Also send a newline +Sentinel to ensure we catch up if the abort worked
+        this.process.stdin.write(`(format t "~%${this.SENTINEL}~%~%")\n`);
+      }
+
+      if (this.currentResolve) {
+        const reject = this.currentReject;
+        this.currentResolve = null;
+        this.currentReject = null;
+        this.clearTimeout();
+
+        if (reject) {
+          reject(
+            new Error(
+              `SBCL Debugger Invoked. Buffer:\n${fullBuffer}\nOutput:\n${fullOutput}`
+            )
+          );
         }
-        
-        // Ensure processing continues for subsequent items
-        this.isProcessing = false;
-        setTimeout(() => this.processQueue(), 100);
+      }
+
+      // Ensure processing continues for subsequent items
+      this.isProcessing = false;
+      setTimeout(() => this.processQueue(), 100);
     }
   }
 
-  private queue: Array<{ code: string; resolve: (value: string) => void; reject: (reason?: any) => void }> = [];
+  private queue: Array<{
+    code: string;
+    resolve: (value: { result: string; output: string }) => void;
+    reject: (reason?: any) => void;
+  }> = [];
   private isProcessing = false;
   private currentReject: ((reason?: any) => void) | null = null;
   private timeoutId: NodeJS.Timeout | null = null;
   private readonly TIMEOUT_MS = 30000; // 30s timeout
 
-  async eval(code: string): Promise<string> {
+  private currentOutputAccumulator: string = "";
+
+  async eval(code: string): Promise<{ result: string; output: string }> {
     if (!this.process || !this.isReady) {
       throw new Error("SBCL process is not running");
     }
-    
+
     // Wrap in promise and push to queue
     return new Promise((resolve, reject) => {
       this.queue.push({ code, resolve, reject });
@@ -138,10 +177,10 @@ export class SbclProcess extends EventEmitter {
   }
 
   private clearTimeout() {
-      if (this.timeoutId) {
-          clearTimeout(this.timeoutId);
-          this.timeoutId = null;
-      }
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
   }
 
   private async processQueue() {
@@ -193,8 +232,8 @@ export class SbclProcess extends EventEmitter {
       // Modifying checkBuffer strategy:
       // We can wrap the original resolve to also call processQueue()
       const originalResolve = this.currentResolve;
-      this.currentResolve = (result: string) => {
-        if (originalResolve) originalResolve(result);
+      this.currentResolve = (value: { result: string; output: string }) => {
+        if (originalResolve) originalResolve(value);
         this.isProcessing = false;
         this.processQueue();
       };
@@ -212,45 +251,114 @@ export class SbclProcess extends EventEmitter {
   async loadText(variableName: string, text: string): Promise<string> {
     // Escaping double quotes for Lisp string
     const escapedText = text.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-    return this.eval(`(defparameter ${variableName} "${escapedText}")`);
+    const { result } = await this.eval(
+      `(defparameter ${variableName} "${escapedText}")`
+    );
+    return result;
   }
 
   async verifyQuote(textVar: string, quote: string): Promise<boolean> {
     const escapedQuote = quote.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
     // (search "needle" "haystack") returns 0-based index or NIL
-    const result = await this.eval(
+    const { result } = await this.eval(
       `(if (search "${escapedQuote}" ${textVar}) "FOUND" "NIL")`
     );
     return result.includes("FOUND");
   }
 
-  async getMemories(): Promise<Array<{ key: string; value: string }>> {
-    // Returns format: (("concept" "definition") ("concept2" "def2"))
-    const rawOutput = await this.eval('(s-dialectic:listar-memorias)');
-    
-    // Simple S-expression parser for list of string pairs
-    // Removes outer parens, then finds inner parens
-    const memories: Array<{ key: string; value: string }> = [];
+  async getGraphData(): Promise<
+    import("../services/graph-service").LispGraphExport
+  > {
+    const { result: rawOutput } = await this.eval(
+      "(s-dialectic:listar-dados-json)"
+    );
 
-    // Normalize: remove newlines, consolidate spaces
-    const cleanFn = rawOutput.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+    // SBCL returns strings wrapped in quotes if they are return values.
+    // The format logic in Lisp is (format nil ...), which returns a string.
+    // The REPL output for a string is "the string content".
+    // We need to unwrap the outer quotes if they exist and unescape specific Lisp escapes.
 
-    // If empty or NIL
-    if (cleanFn === "NIL" || cleanFn === "()") return [];
+    // Regex: Match the first occurrence of { ... } that looks like our JSON structure.
+    // Lisp returns quotes escaped like \" so we need to handle that.
+    // We look for everything between the first { and the last }
+    // The previous regex was too strict about surrounding quotes.
+    const match = rawOutput.match(/(\{.*\})/s);
 
-    // Regex to match ("key" "value") pairs
-    // Note: This is a basic parser and might fail on complex nested strings with escaped quotes
-    const regex = /\("([^"]+)"\s+"([^"]+)"\)/g;
-    let match;
+    let jsonString = "";
+    if (match && match[1]) {
+      jsonString = match[1];
+      // When SBCL returns a string via eval, it might escape internal quotes.
+      // If the string starts with \" and ends with \", it's double-encoded.
+      // However, usually `format nil` inside `eval` just returns the string content if not printed to stdout.
+      // Let's heuristically clean it.
 
-    while ((match = regex.exec(cleanFn)) !== null) {
-      memories.push({ key: match[1], value: match[2] });
+      // 1. Remove escaped quotes \" -> "
+      jsonString = jsonString.replace(/\\"/g, '"');
+
+      // 2. Remove double backslashes \\ -> \
+      jsonString = jsonString.replace(/\\\\/g, "\\");
+
+      // 3. Sometimes the outer Lisp string quotes are included in the capture if we aren't careful,
+      // but our regex captures from { to }.
+    } else {
+      console.warn("Could not find JSON in SBCL output. Raw:", rawOutput);
+      return { nodes: [], edges: [] };
     }
 
-    return memories;
+    try {
+      const data = JSON.parse(jsonString);
+      return {
+        nodes: data.nodes || [],
+        edges: data.edges || [],
+      };
+    } catch (e) {
+      console.error("Failed to parse Lisp JSON output:", jsonString);
+      console.error("Error:", e);
+      return { nodes: [], edges: [] };
+    }
   }
 
+  async saveState(filepath: string): Promise<string> {
+    // Escape path for Lisp
+    const escapedPath = filepath.replace(/\\/g, "/");
+    const { result } = await this.eval(
+      `(s-dialectic:salvar-estado "${escapedPath}")`
+    );
+    return result;
+  }
+
+  async addRule(
+    name: string,
+    conditions: string,
+    consequences: string
+  ): Promise<string> {
+    // conditions/consequences should be Lisp list strings, e.g. "((?x is-a ?y))"
+    const { result } = await this.eval(
+      `(s-dialectic:adicionar-regra '${name} '${conditions} '${consequences})`
+    );
+    return result;
+  }
+
+  async runInference(): Promise<string> {
+    const { result } = await this.eval(`(s-dialectic:inferir)`);
+    return result;
+  }
+
+  async loadState(filepath: string): Promise<string> {
+    const escapedPath = filepath.replace(/\\/g, "/");
+    const { result } = await this.eval(
+      `(s-dialectic:carregar-estado "${escapedPath}")`
+    );
+    return result;
+  }
+
+  // Ensure kill resets the instance so a new one can be created if needed (though unlikely in a running app)
   kill() {
-    this.process?.kill();
+    if (this.process) {
+      this.process.kill();
+      this.process = null;
+    }
+    SbclProcess.instance = null;
   }
 }
+

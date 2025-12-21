@@ -6,7 +6,7 @@ import crypto from 'crypto';
 import { prompt } from '@genkit-ai/dotprompt';
 
 // Singleton SBCL for now. In prod, maybe one per request or a pool.
-const lisp = new SbclProcess();
+const lisp = SbclProcess.getInstance();
 
 const ExtractionInput = z.object({
   text: z.string(),

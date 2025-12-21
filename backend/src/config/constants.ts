@@ -18,8 +18,9 @@ function getEnv(key: string): string {
 
 export const CONFIG = {
   // AI Model Configuration
-  OLLAMA_MODEL_NAME: getEnv("OLLAMA_MODEL_NAME"),
+  OLLAMA_LISP_MODEL_NAME: getEnv("OLLAMA_LISP_MODEL_NAME"),
   OLLAMA_VISION_MODEL_NAME: getEnv("OLLAMA_VISION_MODEL_NAME"),
+  OLLAMA_CHAT_MODEL_NAME: getEnv("OLLAMA_CHAT_MODEL_NAME"),
   OLLAMA_UNLOAD_DELAY_SECONDS: parseInt(
     getEnv("OLLAMA_UNLOAD_DELAY_SECONDS"),
     10

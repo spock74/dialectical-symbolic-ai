@@ -4,7 +4,10 @@ import multer from 'multer';
 import { reflectiveLoop } from './flows/reflective-loop';
 import { extractKnowledge } from './flows/extraction/knowledge-flow';
 import { extractKnowledgeMultimodal } from './flows/extraction/multimodal-flow';
-import { pdfService } from './services/pdf-service';
+
+import { pdfService } from "./services/pdf-service";
+import { lisp } from "./flows/reflective-loop";
+import { transformMemoriesToGraph } from "./services/graph-service";
 
 import { CONFIG } from "./config";
 
@@ -14,7 +17,7 @@ const upload = multer({ dest: "uploads/" }); // Use disk storage for memory safe
 
 app.use(cors());
 app.use((req, res, next) => {
-  res.setHeader("X-AI-Model", CONFIG.OLLAMA_MODEL_NAME);
+  res.setHeader("X-AI-Model", CONFIG.OLLAMA_LISP_MODEL_NAME);
   next();
 });
 app.use(express.json({ limit: "50mb" })); // Increase JSON body limit for Base64 fallbacks
@@ -163,13 +166,13 @@ app.post(
 );
 
 // Graph Data Endpoint
-import { transformMemoriesToGraph } from "./services/graph-service";
+// Graph Data Endpoint
 
 app.get("/api/graph-data", async (req, res) => {
   try {
-    const rawMemories = await lisp.getMemories();
+    const rawGraph = await lisp.getGraphData();
     // Transform into Node/Edge format for ReactFlow
-    const { nodes, edges } = transformMemoriesToGraph(rawMemories);
+    const { nodes, edges } = transformMemoriesToGraph(rawGraph);
 
     // Create edges? ideally Lisp should return relationships.
     // For now, implicit central node or just disconnected.
@@ -183,7 +186,6 @@ app.get("/api/graph-data", async (req, res) => {
 });
 
 // Live Lisp REPL Stream (SSE)
-import { lisp } from "./flows/reflective-loop";
 
 app.get("/api/lisp-stream", (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
@@ -226,7 +228,7 @@ app.get("/api/lisp-stream", (req, res) => {
   });
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`
   ____  ____  _       _           _   _      
  / ___||  _ \\(_) __ _| | ___  ___| |_(_) ___ 
@@ -235,8 +237,20 @@ app.listen(port, () => {
  |____/|____/|_|\\__,_|_|\\___|\\___|\\__|_|\\___|
     `);
   console.log(`[System] Server running at http://localhost:${port}`);
-  console.log(`[System] Active AI Model: ${CONFIG.OLLAMA_MODEL_NAME}`);
+  console.log(`[System] Active LISP Model: ${CONFIG.OLLAMA_LISP_MODEL_NAME}`);
+  console.log(`[System] Active CHAT Model: ${CONFIG.OLLAMA_CHAT_MODEL_NAME}`);
   console.log(
     `[System] Environment: ${process.env.NODE_ENV || "development"}\n`
   );
+
+  // Auto-Load Knowledge Graph on Startup
+  try {
+    console.log("[System] Loading Knowledge Graph...");
+    const loadResult = await lisp.loadState("knowledge.lisp");
+    console.log(`[System] Knowledge Graph Loaded: ${loadResult}`);
+  } catch (e) {
+    console.warn(
+      "[System] No previous knowledge graph found (or load failed). Starting fresh."
+    );
+  }
 });

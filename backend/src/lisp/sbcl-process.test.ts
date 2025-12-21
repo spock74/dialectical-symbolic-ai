@@ -2,7 +2,7 @@ import { describe, it, expect, afterAll } from 'vitest';
 import { SbclProcess } from './sbcl-process';
 
 describe('SbclProcess', () => {
-  const sbcl = new SbclProcess();
+  const sbcl = SbclProcess.getInstance();
 
   afterAll(() => {
     sbcl.kill();

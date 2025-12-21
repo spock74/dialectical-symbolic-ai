@@ -1,6 +1,7 @@
 import type { KnowledgeBase } from './types';
 
-const API_BASE = 'http://localhost:3000/api';
+export const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE = API_BASE_URL; // Keep local ref for internal use if needed, or just replace usage.
 
 export async function uploadPdf(file: File): Promise<KnowledgeBase> {
   const formData = new FormData();
@@ -72,4 +73,16 @@ export async function extractMarkdown(file: File): Promise<KnowledgeBase> {
   }
 
   return response.json();
+}
+
+
+/**
+ * Fetches the knowledge graph data (nodes) from the backend/Lisp.
+ */
+export async function fetchGraph(): Promise<{ nodes: any[], edges: any[] }> {
+    const response = await fetch(`${API_BASE}/graph-data`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch graph data');
+    }
+    return response.json();
 }

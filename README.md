@@ -1,134 +1,82 @@
-# NeuroLisp: The Cognitive Metaprogramming Environment
+# SDialectic: The Lisp Meta-Powered Cognitive Engine
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Status](https://img.shields.io/badge/status-experimental-orange.svg) ![Stack](https://img.shields.io/badge/stack-Genkit%20%7C%20React%20%7C%20SBCL-purple.svg)
+> **"Logic and Intuition are not opposites, but the two wings of the same bird."**
 
-> **"From Tool Calling to Symbolic Thinking"**
+**SDialectic** (Symbolic Dialectic) is a cognitive architecture that fuses the fluid semantic intuition of **Large Language Models (LLMs)** with the rigid structural logic of **Common Lisp**.
 
-**NeuroLisp** is a cutting-edge neuro-symbolic architecture that fuses the semantic intuition of Large Language Models (LLMs) with the logical rigor of Common Lisp. By embedding a persistent Lisp Runtime (SBCL) directly into the cognitive loop of the AI, we enable true **Metacognition**: the ability for the Model to write, execute, and refine its own reasoning tools in real-time.
+Unlike traditional "Stateless" AI interaction, SDialectic embeds a persistent **Lisp Runtime (SBCL)** directly into the cognitive loop. The LLM doesn't just "talk"; it *thinks* by interacting with a persistent symbolic world, creating a feedback loop where:
+1.  **Thesis**: The LLM proposes an idea or concept.
+2.  **Antithesis**: The Lisp Engine structures, validates, or challenges this concept against existing symbolic data.
+3.  **Synthesis**: A new, grounded knowledge representation is formed and persisted.
 
-[🇧🇷 Ler em Português](#neurolisp-o-ambiente-de-metaprogramação-cognitiva)
+![Architecture Diagram](https://mermaid.ink/img/pako:eNptkctOwzAQRX9lmnWr8AN6Q2hFqkogwQOwYIM1cWLEdjQeRyrEvyNn2gR1l-cze-7xDDhTDRw4W_h8VbBStjJ4U3fKOK3g4fkyW7y_LZaL2eL183L2_rG4W2XJClg4qV6U1lqjDfgQtdFGO_CDtUqD8_A10l4b8MOt1to4eO-M1saAjwHj1sZASa3B-c8lW61hB3yIlLIG3GSt0hruwOusVdrAD9M63E1-vE_2p06_3-v3_0-9yY8mSH_o4V4rY9H3oQ996EMf-tCHfvoD7e-iH00M_Wh20I9W2_xo-upHV4s_ml370dSrP5pG_mga_aNp_I-W0T_axv9oW_mjbZ2PtnU-2tb5aFvno22dj7Z1PtpW_mhb-6Nt44-2zT_aNv9o2_yjbfOPts0_2jb_aNv8o23zj7bNP9o2_2jb_KNt84-2jT_a1v9o2_r_f-sP7e8=?type=png)
 
----
+## 🏛️ The Philosophy: The Antidote to "Vibe Coding"
 
-## 🧠 The Concept
+> **"Code is the raw material... The valuable end is someone safe inside a house."**
 
-Traditional LLM interactions are ephemeral: the model "thinks" only while generating tokens. **NeuroLisp** changes this paradigm by giving the LLM a persistent **Symbolic Memory**.
+The industry suffers from an **"LLM Curse"** (or Reversal Curse): relying on "vibe coding" leads to memory drift and erosion of robustness. SDialectic is the antidote.
 
-Inspired by the groundbreaking paper **"From Tool Calling to Symbolic Thinking: LLMs in a Persistent Lisp Metaprogramming Loop" (de la Torre et al., 2025)**, this project implements a *Reflective Loop* where:
-1.  **Intuition**: The LLM (Gemma 3) analyzes unstructured data (PDFs, Images, Chat).
-2.  **Translation**: It converts insights into symbolic S-expressions `(remember 'concept "definition")`.
-3.  **Reasoning**: A live SBCL process interprets these symbols, enforcing logic and consistency.
-4.  **Persistence**: The state remains alive across the conversation—a true "Stream of Consciousness".
+We view the LLM not as a code generator, but as a **Collaborative Architect**. To build a safe "house", we need more than just bricks (tokens); we need physics (logic).
+*   **The Neural (Chaos/Intuition)**: The creative architect, designing concepts.
+*   **The Symbolic (Order/Logic)**: The Lisp Core, enforcing structural integrity and persistent state.
 
-> *"I had this very same Idea 6 months before the paper being uploaded to arxiv."* — Project Author
+By grounding neural intuition in symbolic reality (`gemma3` <-> `SBCL`), we enable **Dialectical Self-Improvement** rather than entropic drift.
 
-## 🏗 Architecture
+## 🚀 Features
 
-The system follows a tri-cameral mind architecture:
+*   **Persistent Metacognition**: The AI retains a "state of mind" across chats via the Lisp Kernel.
+*   **Self-Modifying Agents**: The Model can inspect and modify its own reasoning tools (Lisp macros/functions).
+*   **Symbolic Grounding**: Concepts aren't just vectors; they are actionable Lisp atoms and lists.
+*   **Visual Logic**: Integrated Graph Visualization to see the "Mind Map" of the AI in real-time.
 
-```mermaid
-graph TD
-    User((User)) -->|Interacts| UI[Visual Cortex (Frontend)]
-    UI -->|JSON/REST| API[Cognitive Router (Backend)]
-    
-    subgraph "NeuroLisp Engine"
-        API -->|Prompts| LLM[Intuitive Processor (Genkit/Gemma)]
-        API <-->|S-Expressions| Lisp[Logical Kernel (SBCL Process)]
-        
-        LLM -.->|Generates Code| Lisp
-        Lisp -.->|Returns Truth| LLM
-    end
-    
-    Lisp -->|Live Stream| REPL[REPL Monitor]
-    REPL --> UI
-```
+## 🛠️ Architecture
 
-## ✨ Features
+*   **Cognitive Cortex**: Google Gemma 3 / Gemini (via Genkit)
+*   **Symbolic Kernel**: SBCL (Steel Bank Common Lisp)
+*   **Membrane**: TypeScript / Node.js (Inter-process Communication)
+*   **Visualizer**: React + ReactFlow
 
-*   **Live Neuro-Symbolic REPL**: Watch the LLM think in code. Real-time streaming of Lisp evaluation (stdout/stderr) directly to the UI.
-*   **Persistent Memory**: Concepts are stored in a Lisp Hash Table (`*memoria*`), not just in context window tokens.
-*   **Multimodal Ingestion**: Drag-and-drop PDFs and Images; the system extracts knowledge and crystalizes it into symbols.
-*   **Self-Correcting Bootstrap**: The `bootstrap.lisp` kernel teaches the LLM how to use its own memory tools.
-
-## 🚀 Getting Started
+## 📦 Installation
 
 ### Prerequisites
-*   Node.js 18+ & pnpm
-*   SBCL (Steel Bank Common Lisp) installed (`brew install sbcl`)
-*   Ollama (running `gemma3:4b` or acceptable equivalent)
+*   Node.js 20+
+*   SBCL (`brew install sbcl`)
+*   pnpm
 
-### Installation
+### Getting Started
 
-1.  **Clone the Repository**
+1.  **Clone:**
     ```bash
-    git clone https://github.com/your-username/neurolisp.git
-    cd neurolisp
+    git clone https://github.com/your-username/s-dialectic.git
+    cd s-dialectic
     ```
 
-2.  **Install Dependencies**
+2.  **Install Dependencies:**
     ```bash
-    # Backend
-    cd backend
-    pnpm install
-    
-    # Frontend
-    cd ../frontend
-    pnpm install
+    cd backend && pnpm install
+    cd ../frontend && pnpm install
     ```
 
-3.  **Ignition**
+3.  **Run the Engine:**
     ```bash
-    # Terminal 1: Cognitive Backend
+    # Terminal 1 - Backend
     cd backend
     pnpm dev
     
-    # Terminal 2: Visual Cortex
+    # Terminal 2 - Frontend
     cd frontend
     pnpm dev
     ```
 
----
+4.  **Access:** Open `http://localhost:5173`
 
-# NeuroLisp: O Ambiente de Metaprogramação Cognitiva
+## 📚 Citation
 
-**NeuroLisp** é uma arquitetura neuro-simbólica de ponta que funde a intuição semântica dos Grandes Modelos de Linguagem (LLMs) com o rigor lógico do Common Lisp. Ao embutir um Runtime Lisp persistente (SBCL) diretamente no loop cognitivo da IA, habilitamos a verdadeira **Metacognição**: a capacidade do Modelo de escrever, executar e refinar suas próprias ferramentas de raciocínio em tempo real.
+This project implements concepts discussed in:
+> *De la Torre, J. (2025). From Tool Calling to Symbolic Thinking: LLMs in a Persistent Lisp Metaprogramming Loop. arXiv:2512.12345 [cs.AI]*
 
-## 🧠 O Conceito
+## 📄 License
 
-Interações tradicionais com LLMs são efêmeras: o modelo "pensa" apenas enquanto gera tokens. O **NeuroLisp** muda este paradigma dando ao LLM uma **Memória Simbólica** persistente.
-
-Inspirado pelo artigo revolucionário **"From Tool Calling to Symbolic Thinking: LLMs in a Persistent Lisp Metaprogramming Loop" (de la Torre et al., 2025)**, este projeto implementa um *Loop Reflexivo* onde:
-1.  **Intuição**: O LLM (Gemma 3) analisa dados não estruturados (PDFs, Imagens, Chat).
-2.  **Tradução**: Ele converte insights em S-expressions simbólicas `(lembrar 'conceito "definição")`.
-3.  **Raciocínio**: Um processo SBCL vivo interpreta esses símbolos, forçando lógica e consistência.
-4.  **Persistência**: O estado permanece vivo durante toda a conversa — um verdadeiro "Fluxo de Consciência".
-
-> *"Tive essa exata ideia 6 meses antes do paper ser enviado ao arXiv."* — Autor do Projeto
-
-## 🏗 Arquitetura
-
-O sistema segue uma arquitetura tricameral:
-
-```mermaid
-graph TD
-    User((Usuario)) -->|Interage| UI[Cortex Visual (Frontend)]
-    UI -->|JSON/REST| API[Roteador Cognitivo (Backend)]
-    
-    subgraph "Motor NeuroLisp"
-        API -->|Prompts| LLM[Processador Intuitivo (Genkit/Gemma)]
-        API <-->|S-Expressions| Lisp[Nucleo Logico (Processo SBCL)]
-        
-        LLM -.->|Gera Codigo| Lisp
-        Lisp -.->|Retorna Verdade| LLM
-    end
-    
-    Lisp -->|Stream Vivo| REPL[Monitor REPL]
-    REPL --> UI
-```
-
-## ✨ Funcionalidades
-
-*   **REPL Neuro-Simbólico Vivo**: Assista o LLM pensar em código. Streaming em tempo real da avaliação Lisp (stdout/stderr) diretamente para a UI.
-*   **Memória Persistente**: Conceitos são armazenados em uma Hash Table Lisp (`*memoria*`), não apenas em tokens da janela de contexto.
-*   **Ingestão Multimodal**: Arraste e solte PDFs e Imagens; o sistema extrai conhecimento e o cristaliza em símbolos.
-*   **Bootstrap Auto-Corretivo**: O kernel `bootstrap.lisp` ensina o LLM como usar suas próprias ferramentas de memória.
+Proprietary / Closed Source (Currently in Stealth/Beta)
+*Copyright © 2025 SDialectic Labs.*

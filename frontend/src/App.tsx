@@ -29,10 +29,10 @@ function App() {
          <ResizablePanel defaultSize={60} minSize={30}>
             <Tabs defaultValue="chat" className="h-full flex flex-col">
               <div className="border-b px-4 py-2 bg-muted/40 flex items-center justify-between shrink-0 h-14">
-                <div className="flex items-center gap-2 font-semibold">
-                   <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                   NeuroLisp
-                </div>
+                <div className="flex items-center gap-2">
+            <h1 className="text-xl font-bold">SDialectic</h1>
+            <span className="text-xs bg-zinc-800 px-2 py-0.5 rounded text-zinc-400">Genkit + Lisp Core</span>
+          </div>
                 
                 <TabsList className="grid w-full max-w-[400px] grid-cols-2">
                   <TabsTrigger value="chat">Chat</TabsTrigger>

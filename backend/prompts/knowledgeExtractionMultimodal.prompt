@@ -1,8 +1,6 @@
 ---
-model: ollama/gemma3:4b
-input:
-  schema:
-    images: array
+# model: inherited from system config
+# input schema removed to fallback to code validation
 output:
   format: json
 config:

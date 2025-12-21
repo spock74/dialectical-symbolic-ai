@@ -8,25 +8,34 @@ export class ImageService {
    * Converts a PDF buffer to an array of Base64 encoded PNG images.
    * Limits to specific number of pages to avoid context overflow.
    */
-  async convertPdfToImages(pdfBuffer: Buffer, maxPages: number = 5): Promise<string[]> {
-    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'neurolisp-pdf-'));
-    const pdfPath = path.join(tempDir, 'input.pdf');
-    const outputPathPrefix = path.join(tempDir, 'page');
+  async convertPdfToImages(input: Buffer | string, maxPages: number = 5): Promise<string[]> {
+    // If input is a path (string), use it. If buffer, write to temp.
+    let tempDir: string | null = null;
+    let pdfPath: string;
+
+    if (Buffer.isBuffer(input)) {
+        tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'neurolisp-pdf-'));
+        pdfPath = path.join(tempDir, 'input.pdf');
+        await fs.writeFile(pdfPath, input);
+    } else {
+        pdfPath = input; // Input is already a file path
+    }
+    
+    // We still need a temp dir for outputting images even if input is path
+    const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), 'neurolisp-img-'));
+    const outputPathPrefix = path.join(outputDir, 'page');
 
     try {
-      // 1. Write PDF to temp file
-      await fs.writeFile(pdfPath, pdfBuffer);
-
       // 2. Run pdftoppm
-      // pdftoppm -png -r 72 -l <maxPages> input.pdf prefix (Reduced DPI for memory safety)
+      // pdftoppm -png -r 72 -l <maxPages> input.pdf prefix
       await new Promise<void>((resolve, reject) => {
         const process = spawn('pdftoppm', ['-png', '-r', '72', '-l', maxPages.toString(), pdfPath, outputPathPrefix]);
         
-        // Timeout protection (e.g., 30 seconds)
+        // Timeout protection (e.g., 60 seconds for heavy files)
         const timeout = setTimeout(() => {
             process.kill();
-            reject(new Error('pdftoppm timed out after 30s'));
-        }, 30000);
+            reject(new Error('pdftoppm timed out after 60s'));
+        }, 60000);
 
         let stderr = '';
         if (process.stderr) {
@@ -50,12 +59,12 @@ export class ImageService {
       });
 
       // 3. Read generated images
-      const files = await fs.readdir(tempDir);
+      const files = await fs.readdir(outputDir);
       const imageFiles = files.filter(f => f.startsWith('page-') && f.endsWith('.png')).sort();
       
       const images: string[] = [];
       for (const file of imageFiles) {
-        const filePath = path.join(tempDir, file);
+        const filePath = path.join(outputDir, file);
         const buffer = await fs.readFile(filePath);
         images.push(buffer.toString('base64'));
       }
@@ -63,7 +72,8 @@ export class ImageService {
       return images;
     } finally {
       // Cleanup
-      await fs.rm(tempDir, { recursive: true, force: true });
+      if (tempDir) await fs.rm(tempDir, { recursive: true, force: true }).catch(console.error);
+      await fs.rm(outputDir, { recursive: true, force: true }).catch(console.error);
     }
   }
 }

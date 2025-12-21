@@ -1,13 +1,14 @@
 import { genkit } from 'genkit';
 import { ollama } from 'genkitx-ollama';
+import { CONFIG } from './config';
 
 export const ai = genkit({
   plugins: [
     ollama({
-      models: [{ name: 'gemma3:4b', type: 'chat' }],
+      models: [{ name: CONFIG.OLLAMA_MODEL_NAME }],
       serverAddress: 'http://127.0.0.1:11434',
     }),
   ],
-  model: 'ollama/gemma3:4b',
+  model: `ollama/${CONFIG.OLLAMA_MODEL_NAME}`,
   promptDir: 'prompts',
 });

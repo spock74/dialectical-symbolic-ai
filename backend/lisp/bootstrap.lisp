@@ -1,39 +1,61 @@
 ;;; NeuroLisp Cognitive Bootstrap
 ;;; Provides high-level primitives for the LLM to manage state and logic.
 
-(defpackage :neurolisp
-  (:use :cl)
-  (:export :*memoria* :lembrar :recuperar :esquecer :listar-memorias :definir-ferramenta))
+;;; N(in-package :cl-user)
 
-(in-package :neurolisp)
+(format t "~&Iniciando Bootstrap SDialectic no CL-USER...~%")
+
+;; 1. Definir a Macro LISP imediatamente para o CL-USER
+;; Isso permite que (lisp ...) funcione imediatamente
+(defmacro lisp (&body body)
+  `(progn ,@body))
+
+;; 2. Definir pacote principal S-DIALECTIC
+(defpackage :s-dialectic
+  (:use :cl)
+  (:export :adicionar-memoria
+           :recuperar-memoria
+           :listar-memorias
+           :limpar-memoria)) ; Changed from :limpar-memorias to :limpar-memoria to match function signature
+
+(in-package :s-dialectic)
 
 ;;; --- Memory System ---
 
-(defvar *memoria* (make-hash-table :test 'equal)
-  "Global associative memory for the AI agent.")
+(defvar *knowledge-graph* (make-hash-table :test 'equal)
+  "Armazena o grafo de conhecimento como pares chave-valor.")
 
-(defun lembrar (chave valor)
+(format t "~&Pacote S-DIALECTIC carregado.~%")
+
+(defun adicionar-memoria (chave valor)
   "Stores a fact in memory. Key should be a string or symbol."
-  (setf (gethash (string chave) *memoria*) valor)
+  (setf (gethash (string chave) *knowledge-graph*) valor)
   (format nil "Memorizado: ~a = ~a" chave valor))
 
-(defun recuperar (chave)
+(defun recuperar-memoria (chave)
   "Retrieves a fact from memory."
-  (let ((val (gethash (string chave) *memoria*)))
+  (let ((val (gethash (string chave) *knowledge-graph*)))
     (if val
         val
         (format nil "Nao encontrado: ~a" chave))))
 
-(defun esquecer (chave)
-  "Removes a fact from memory."
-  (remhash (string chave) *memoria*)
-  (format nil "Esquecido: ~a" chave))
+(defun limpar-memoria ()
+  "Clears all memory."
+  (clrhash *knowledge-graph*)
+  "Memoria limpa.")
 
 (defun listar-memorias ()
   "Lists all stored keys and values."
   (let ((result nil))
-    (maphash (lambda (k v) (push (list k v) result)) *memoria*)
+    (maphash (lambda (k v) (push (list k v) result)) *knowledge-graph*)
     result))
+
+;;; --- Aliases for Legacy LLM Support ---
+(defun lembrar (chave valor)
+  (format t "~&[WARN] Deprecated function 'lembrar' called. Redirecting...~%")
+  (adicionar-memoria chave valor))
+(export 'lembrar)
+
 
 ;;; --- Tooling System ---
 
@@ -45,7 +67,7 @@
 
 ;;; --- Initialize User Package ---
 (in-package :cl-user)
-(use-package :neurolisp)
+(use-package :s-dialectic)
 
 ;; Macro para permitir que o LLM use (lisp ...) como wrapper sem erro
 ;; Definido diretamente no CL-USER para garantir visibilidade
@@ -53,5 +75,5 @@
   `(progn ,@body))
 
 ;; Inicialização
-(format t "~%NeuroLisp Cognitive Bootstrap Carregado.~%")
-(format t "Use (lembrar 'chave 'valor), (recuperar 'chave), (listar-memorias)~%")
+(format t "~%SDialectic Cognitive Bootstrap Carregado.~%")
+(format t "Use (adicionar-memoria 'chave 'valor), (recuperar-memoria 'chave), (listar-memorias)~%")

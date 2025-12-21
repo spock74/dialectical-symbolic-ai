@@ -1,5 +1,5 @@
 ---
-model: ollama/gemma3:4b
+# model: inherited from system config
 input:
   schema:
     text: string

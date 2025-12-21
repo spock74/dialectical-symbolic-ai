@@ -16,7 +16,8 @@
   (:export :adicionar-memoria
            :recuperar-memoria
            :listar-memorias
-           :limpar-memoria)) ; Changed from :limpar-memorias to :limpar-memoria to match function signature
+           :limpar-memoria
+           :definir-ferramenta))
 
 (in-package :s-dialectic)
 
@@ -62,7 +63,9 @@
 (defmacro definir-ferramenta (nome args &body corpo)
   "Defines a new tool (function) available to the agent."
   `(progn
-     (defun ,nome ,args ,@corpo)
+     (defun ,nome ,args 
+       (declare (ignorable ,@args))
+       ,@corpo)
      (format nil "Ferramenta aprendida: ~a" ',nome)))
 
 ;;; --- Initialize User Package ---

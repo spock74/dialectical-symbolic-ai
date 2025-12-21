@@ -23,3 +23,16 @@ export interface KnowledgeConcept {
 export interface KnowledgeBase {
   knowledgeBase: KnowledgeConcept[];
 }
+
+export interface Source {
+  id: string;
+  name: string;
+  type: "pdf" | "markdown";
+  uploadDate: string;
+}
+
+export interface Group {
+  id: string;
+  name: string;
+  sources: Source[];
+}

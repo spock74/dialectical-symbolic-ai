@@ -69,6 +69,11 @@ export class SbclProcess extends EventEmitter {
   }
 
   private checkBuffer() {
+    // Detect SBCL Debugger Prompt (e.g., "0] ", "1] ")
+    // This indicates an error that wasn't caught by normal error handling
+    // EXCLUDE the standard toplevel prompt "*" or it will loop infinitely!
+    const debuggerRegex = /^([0-9]+\])\s*$/m;
+    
     if (this.buffer.includes(this.SENTINEL)) {
       const parts = this.buffer.split(this.SENTINEL);
       const result = parts[0].trim();
@@ -77,13 +82,48 @@ export class SbclProcess extends EventEmitter {
       if (this.currentResolve) {
         const resolve = this.currentResolve;
         this.currentResolve = null;
+        this.clearTimeout(); // Clear timeout on success
         resolve(result);
       }
+    } else if (debuggerRegex.test(this.buffer)) {
+        console.error("[SBCL] Debugger detected! Aborting to toplevel...");
+        
+        // Log the error buffer for debugging
+        this.emit("log", `\n[Use 'abort' to exit debugger]\nBuffer capture:\n${this.buffer}\n`);
+
+        // Fail the current request
+        if (this.currentReject) {
+            const reject = this.currentReject;
+            const resolve = this.currentResolve; // Capture reference
+            this.currentReject = null;
+            this.currentResolve = null;
+            this.clearTimeout();
+            
+            // Reject with the buffer content as error message
+            reject(new Error(`SBCL Debugger Invoked. Buffer:\n${this.buffer}`));
+            
+            // IMPORTANT: We must NOT leave the promise hanging.
+            // If we resolved, we wouldn't be here.
+        }
+
+        // Try to recover process: send abort to return to toplevel
+        if (this.process?.stdin) {
+            this.process.stdin.write("(abort)\n");
+            // Clear buffer to prevent re-triggering immediately
+            this.buffer = ""; 
+        }
+        
+        // Ensure processing continues for subsequent items
+        this.isProcessing = false;
+        setTimeout(() => this.processQueue(), 100);
     }
   }
 
   private queue: Array<{ code: string; resolve: (value: string) => void; reject: (reason?: any) => void }> = [];
   private isProcessing = false;
+  private currentReject: ((reason?: any) => void) | null = null;
+  private timeoutId: NodeJS.Timeout | null = null;
+  private readonly TIMEOUT_MS = 30000; // 30s timeout
 
   async eval(code: string): Promise<string> {
     if (!this.process || !this.isReady) {
@@ -95,6 +135,13 @@ export class SbclProcess extends EventEmitter {
       this.queue.push({ code, resolve, reject });
       this.processQueue();
     });
+  }
+
+  private clearTimeout() {
+      if (this.timeoutId) {
+          clearTimeout(this.timeoutId);
+          this.timeoutId = null;
+      }
   }
 
   private async processQueue() {
@@ -109,31 +156,52 @@ export class SbclProcess extends EventEmitter {
 
     try {
       this.currentResolve = item.resolve;
+      this.currentReject = item.reject; // Store reject to fail on debugger/timeout
+
       // Echo the command
       this.emit("log", `> ${item.code}\n`);
-      
+
       if (this.process?.stdin) {
         this.process.stdin.write(`${item.code}\n`);
         this.process.stdin.write(`(format t "${this.SENTINEL}~%")\n`);
       } else {
         throw new Error("SBCL stdin not available");
       }
-      
-      // Verification logic: we wait for checkBuffer to call item.resolve
-      // But we need to ensure local processing flag is cleared only after resolution.
-      // Actually, checkBuffer calls currentResolve.
-      // We need to hook into that resolution to trigger next item.
-      
+
+      // Set Safety Timeout
+      this.timeoutId = setTimeout(() => {
+        if (this.currentReject) {
+          console.error(
+            `[SBCL] Timeout waiting for: ${item.code.substring(0, 50)}...`
+          );
+          const reject = this.currentReject;
+          this.currentReject = null;
+          this.currentResolve = null;
+          reject(new Error("SBCL Execution Timeout"));
+
+          // If timed out, process might be stuck.
+          // We could try (abort) or just kill/restart?
+          // For now, try (abort)
+          if (this.process?.stdin)
+            this.process.stdin.write("(abort)\n(sb-ext:gc :full t)\n");
+
+          this.isProcessing = false;
+          this.processQueue();
+        }
+      }, this.TIMEOUT_MS);
+
       // Modifying checkBuffer strategy:
       // We can wrap the original resolve to also call processQueue()
       const originalResolve = this.currentResolve;
       this.currentResolve = (result: string) => {
-          originalResolve(result);
-          this.isProcessing = false;
-          this.processQueue();
+        if (originalResolve) originalResolve(result);
+        this.isProcessing = false;
+        this.processQueue();
       };
 
+      // Wait for checkBuffer to handle resolution
     } catch (e) {
+      this.clearTimeout();
       item.reject(e);
       this.isProcessing = false;
       this.processQueue();

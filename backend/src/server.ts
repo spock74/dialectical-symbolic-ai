@@ -190,7 +190,20 @@ app.get("/api/lisp-stream", (req, res) => {
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
 
+  let lastLogTime = 0;
   const onLog = (data: string) => {
+    const now = Date.now();
+    // Throttle high-frequency logs (e.g. > 20 messages/sec) to save bandwidth
+    // Unless it's a critical error or connection message
+    if (
+      now - lastLogTime < 50 &&
+      !data.includes("ERR") &&
+      !data.includes("Connected")
+    ) {
+      return;
+    }
+    lastLogTime = now;
+
     // Escape newlines for SSE data protocol
     const sanitized = data.replace(/\n/g, "\\n");
     res.write(

@@ -13,35 +13,59 @@ export function ReplInterface() {
   const [isConnected, setIsConnected] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  /* 
+   * Optimization: Use Ref for buffer to prevent frequent re-renders on high-speed log streams.
+   * Only update state every X ms. 
+   */
+  const bufferRef = useRef<LogEntry[]>([]);
+  const isMounted = useRef(true);
+
   useEffect(() => {
+    isMounted.current = true;
     const eventSource = new EventSource('http://localhost:3000/api/lisp-stream');
     
     eventSource.onopen = () => {
       setIsConnected(true);
+      // Direct update for connection message
       setLogs(prev => [...prev, { timestamp: new Date().toISOString(), content: ";; Stream Connection Established" }]);
     };
 
     eventSource.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        setLogs(prev => [...prev, data]);
+        bufferRef.current.push(data);
       } catch (e) {
         console.error("Failed to parse log", e);
       }
     };
 
     eventSource.onerror = () => {
-      setIsConnected(false);
+      if (isMounted.current) setIsConnected(false);
       eventSource.close();
-      // Simple retry logic could be added here
     };
 
+    // Flux Buffer Interval
+    const interval = setInterval(() => {
+      if (bufferRef.current.length > 0) {
+        setLogs(prev => {
+          // Keep only last 1000 logs to prevent memory leak / DOM lag
+          const newLogs = [...prev, ...bufferRef.current];
+          bufferRef.current = []; // Clear buffer
+          return newLogs.slice(-1000); 
+        });
+      }
+    }, 200); // 5 updates per second max
+
     return () => {
+      isMounted.current = false;
+      clearInterval(interval);
       eventSource.close();
     };
   }, []);
 
   useEffect(() => {
+    // Only scroll if we are near bottom? Or always?
+    // For monitoring, typically always scroll.
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [logs]);
 

@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { Paperclip, Loader2, Sparkles, Brain, Clock, ChevronUp, Bot, User } from "lucide-react";
+import { Paperclip, Loader2, Sparkles, Brain, Clock, ChevronUp, Bot, User, FileText } from "lucide-react";
 import { chat, extractMarkdown } from "../api";
 import { cn } from "../lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useDialecticStore } from "@/store/useStore";
 
 interface Message {
   role: 'user' | 'model' | 'tool';
@@ -12,12 +13,23 @@ interface Message {
 }
 
 export function ChatInterface() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  /* Global Store State */
+  const { 
+    groups, 
+    activeGroupId, 
+    activeSourceId,
+    messages,
+    addMessage
+  } = useDialecticStore();
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  const activeGroup = groups.find(g => g.id === activeGroupId);
+  const activeSource = activeGroup?.sources.find(s => s.id === activeSourceId);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -26,18 +38,24 @@ export function ChatInterface() {
   const handleSend = async () => {
     if (!input.trim() || loading) return;
 
-    const userMsg: Message = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMsg]);
+    let promptToSend = input;
+    // Inject Context if Source is Active
+    if (activeSource) {
+        promptToSend = `[Context: Focused on Source "${activeSource.name}"]\n${input}`;
+    }
+
+    const userMsg: Message = { role: 'user', content: input }; 
+    addMessage(userMsg); // Add to store
     setInput("");
     setLoading(true);
 
     try {
       const history = messages.map(m => ({ role: m.role, content: m.content }));
-      const response = await chat(userMsg.content, history);
-      setMessages(prev => [...prev, { role: 'model', content: response.text }]);
+      const response = await chat(promptToSend, history);
+      addMessage({ role: 'model', content: response.text });
     } catch (error) {
       console.error(error);
-      setMessages(prev => [...prev, { role: 'tool', content: `Error: ${String(error)}` }]);
+      addMessage({ role: 'tool', content: `Error: ${String(error)}` });
     } finally {
       setLoading(false);
     }
@@ -50,14 +68,11 @@ export function ChatInterface() {
     try {
       const result = await extractMarkdown(file);
       const knowledgeSummary = `Analyzed ${file.name}. Extracted ${result.knowledgeBase.length} concepts.`;
-      setMessages(prev => [
-        ...prev, 
-        { role: 'user', content: `[Uploaded ${file.name}]` },
-        { role: 'tool', content: knowledgeSummary + `\n\n(Context added to backend memory)` }
-      ]);
+      addMessage({ role: 'user', content: `[Uploaded ${file.name}]` });
+      addMessage({ role: 'tool', content: knowledgeSummary + `\n\n(Context added to backend memory)` });
     } catch (error) {
       console.error(error);
-      setMessages(prev => [...prev, { role: 'tool', content: `Upload Error: ${String(error)}` }]);
+      addMessage({ role: 'tool', content: `Upload Error: ${String(error)}` });
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -128,6 +143,12 @@ export function ChatInterface() {
       <div className="p-4 bg-card/50 backdrop-blur-sm">
          {/* Context Pills */}
          <div className="flex items-center gap-2 mb-3 overflow-x-auto pb-1 scrollbar-hide">
+            {activeSource && (
+                <Button variant="secondary" size="sm" className="h-7 text-xs gap-1 rounded-full bg-primary/10 text-primary border border-primary/20">
+                    <FileText size={12} />
+                    Context: {activeSource.name}
+                </Button>
+            )}
             <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50">
                <Brain size={12} />
                Raciocínio

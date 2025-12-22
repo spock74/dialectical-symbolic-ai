@@ -3,6 +3,7 @@ input:
   schema:
     userRequest: string
     context: string
+    sensedContext: string
 config:
   temperature: 0.1
 ---

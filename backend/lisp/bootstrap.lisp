@@ -127,6 +127,7 @@
   "Clears all memory."
   (clrhash *knowledge-graph*)
   (setf *relations* nil)
+  (setf *rules* nil)
   "Memoria limpa.")
 
 (defun adicionar-relacao (sujeito predicado objeto)
@@ -294,31 +295,49 @@
 ;;; --- Persistence ---
 
 (defun salvar-estado (filepath)
-  "Saves the current state to a file using Lisp S-expressions."
+  "Saves the current state to a file as executable Lisp commands."
   (with-open-file (stream filepath :direction :output 
                                    :if-exists :supersede
                                    :if-does-not-exist :create)
-    (let ((mem-list nil))
-      (maphash (lambda (k v) (push (cons k v) mem-list)) *knowledge-graph*)
-      (print mem-list stream)
-      (print *relations* stream)))
+    (format stream ";;; SDialectic Persistent Knowledge Base~%")
+    (format stream "(in-package :s-dialectic)~%")
+    (format stream "(limpar-memoria)~%~%")
+
+    (format stream ";;; --- Memories ---~%")
+    (maphash (lambda (k v) 
+               (format stream "(adicionar-memoria ~s ~s)~%" k v))
+             *knowledge-graph*)
+    
+    (format stream "~%;;; --- Relations ---~%")
+    (dolist (r (reverse *relations*)) ;; Reverse to maintain original order if important
+      (format stream "(adicionar-relacao '~a '~a '~a)~%" 
+              (relation-subject r) 
+              (relation-predicate r) 
+              (relation-object r)))
+
+    (format stream "~%;;; --- Rules ---~%")
+    (dolist (rule (reverse *rules*))
+      (format stream "(adicionar-regra '~a '~s '~s)~%" 
+              (rule-name rule) 
+              (rule-conditions rule) 
+              (rule-consequences rule)))
+    
+    (format stream "~%(format t \"~&;;; Knowledge Base Loaded Successfully.~%\")~%"))
   (format nil "Estado salvo em ~a" filepath))
 
 (defun carregar-estado (filepath)
-  "Loads state from a file."
-  (handler-case
-      (with-open-file (stream filepath :direction :input)
-        (let ((mem-list (read stream))
-              (rel-list (read stream)))
-          ;; Restore Hash Table
-          (clrhash *knowledge-graph*)
-          (dolist (pair mem-list)
-            (setf (gethash (car pair) *knowledge-graph*) (cdr pair)))
-          ;; Restore Relations
-          (setf *relations* rel-list)
-          (format nil "Estado carregado de ~a. ~a memorias, ~a relacoes."
-                  filepath (length mem-list) (length rel-list))))
-    (error (e) (format nil "Erro ao carregar: ~a" e))))
+  "Loads state from a file by executing it."
+  (if (probe-file filepath)
+      (handler-case
+          (progn
+            (load filepath)
+            (format nil "Estado carregado de ~a. Atualmente: ~a memorias, ~a relacoes, ~a regras."
+                    filepath 
+                    (hash-table-count *knowledge-graph*) 
+                    (length *relations*)
+                    (length *rules*)))
+        (error (e) (format nil "Erro ao carregar script: ~a" e)))
+      (format nil "Arquivo nao encontrado: ~a" filepath)))
 
 ;;; --- Aliases for Legacy LLM Support ---
 (defun lembrar (chave valor)

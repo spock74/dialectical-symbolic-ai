@@ -8,6 +8,7 @@
     "dev:pm2": "pm2 start ecosystem.config.js && pm2 logs",
     "stop:pm2": "pm2 delete ecosystem.config.js",
     "logs:pm2": "pm2 logs",
+    "refresh:pm2": "pm2 flush && pm2 restart ecosystem.config.js",
     "test": "vitest",
     "build": "tsc"
   },

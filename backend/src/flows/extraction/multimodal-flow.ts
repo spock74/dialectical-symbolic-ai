@@ -40,7 +40,7 @@ export const extractKnowledgeMultimodal = ai.defineFlow(
       // 2. Load Prompt
       // @ts-ignore
       const multimodalPrompt = await prompt(
-        ai.registry,
+        ai.registry as any,
         "knowledgeExtractionMultimodal"
       );
 

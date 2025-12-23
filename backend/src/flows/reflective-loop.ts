@@ -30,6 +30,7 @@ const InputSchema = z.object({
   prompt: z.string(),
   history: z.array(z.any()).optional(),
   useMemory: z.boolean().optional(),
+  bypassSDialect: z.boolean().optional(),
 });
 
 export const reflectiveLoop = ai.defineFlow(
@@ -44,15 +45,28 @@ export const reflectiveLoop = ai.defineFlow(
     const maxTurns = 5;
     let turn = 0;
 
-    // 1. INITIALIZE COGNITIVE WORKSPACE (System 1.5)
-    const orchestrator = new ReflectiveOrchestrator(
-      input.prompt,
-      input.history || []
-    );
+    let factPackage = "";
+    let reasoningLogs = "";
 
-    // 2. THINKING PHASE (Orchestration of sensing, logic, and refinement)
-    const factPackage = await orchestrator.think();
-    const reasoningLogs = orchestrator.getReasoningLogs();
+    if (input.bypassSDialect) {
+      console.log(
+        "[Flow] S-Dialect Bypass ENABLED. Skipping symbolic reasoning."
+      );
+      lisp.emit(
+        "log",
+        ";; [System] S-Dialect Bypass ENABLED. Direct LLM interaction."
+      );
+    } else {
+      // 1. INITIALIZE COGNITIVE WORKSPACE (System 1.5)
+      const orchestrator = new ReflectiveOrchestrator(
+        input.prompt,
+        input.history || []
+      );
+
+      // 2. THINKING PHASE (Orchestration of sensing, logic, and refinement)
+      factPackage = await orchestrator.think();
+      reasoningLogs = orchestrator.getReasoningLogs();
+    }
 
     // 3. SYNTHESIS PHASE (Voice of S-Dialectic)
     console.log(
@@ -88,8 +102,10 @@ export const reflectiveLoop = ai.defineFlow(
         finalText = `The Logic Engine processed your request, but the Synthesis Layer (Gemma model: ${CONFIG.OLLAMA_CHAT_MODEL_NAME}) returned an empty response. Please check the Reasoning Console for the full trace.`;
       }
 
-      // Auto-Save at the end of the turn
-      await saveKnowledgeGraph();
+      // Auto-Save at the end of the turn (only if not bypassed, though it's harmless if bypassed since nothing changed)
+      if (!input.bypassSDialect) {
+        await saveKnowledgeGraph();
+      }
 
       console.log("Chat Model:", finalText);
       return finalText;

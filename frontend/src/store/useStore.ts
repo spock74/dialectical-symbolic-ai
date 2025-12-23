@@ -20,6 +20,7 @@ interface DialecticState {
 
   // Configuration
   useConversationalMemory: boolean;
+  useBypassSDialect: boolean;
 
   // Actions
   createGroup: (name: string) => void;
@@ -33,6 +34,7 @@ interface DialecticState {
 
   incrementGraphVersion: () => void;
   setUseConversationalMemory: (val: boolean) => void;
+  setUseBypassSDialect: (val: boolean) => void;
 }
 
 export const useDialecticStore = create<DialecticState>()(
@@ -44,6 +46,7 @@ export const useDialecticStore = create<DialecticState>()(
       messages: [],
       graphVersion: 0,
       useConversationalMemory: true,
+      useBypassSDialect: false,
 
       createGroup: (name: string) => {
         const newGroup: Group = {
@@ -89,6 +92,8 @@ export const useDialecticStore = create<DialecticState>()(
 
       setUseConversationalMemory: (val: boolean) =>
         set({ useConversationalMemory: val }),
+
+      setUseBypassSDialect: (val: boolean) => set({ useBypassSDialect: val }),
     }),
     {
       name: "dialectic-storage",

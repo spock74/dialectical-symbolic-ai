@@ -6,7 +6,7 @@
 
 ---
 
-## 🏛️ System Architecture: The Reflective Orchestrator
+## System Architecture: The Reflective Orchestrator
 
 The system core has evolved into a dedicated **Reflective Orchestrator** layer (System 1.5). This middleware manages the cognitive gap between unstructured text and structured logic.
 
@@ -15,6 +15,7 @@ The system core has evolved into a dedicated **Reflective Orchestrator** layer (
 2.  **Logic Loop (Multi-Turn)**: The Logic Model (`qwen2.5-coder:3b`) writes Common Lisp code to query or modify the world state.
 3.  **Refinement**: Packaging results into a structured **Fact Package** (Logic Engine Results + Internal Reasoning Trace).
 4.  **Synthesis**: The Chat Model (`gemma3:4b`) synthesizes the formal facts into natural, human-grounded language.
+5.  **Bypass Mode**: Option to bypass System 2 logic for direct LLM interaction.
 
 ### 2. Physical Architecture
 ```mermaid
@@ -75,7 +76,7 @@ sequenceDiagram
 
 ---
 
-## 🛑 Resilience & Abortion Protocol (New)
+## Resilience and Abortion Protocol
 
 Unlike stateless bots, SDialectic manages a persistent Lisp state. To prevent data corruption during interrupted operations, we implemented a sophisticated resilience layer:
 
@@ -86,14 +87,31 @@ Unlike stateless bots, SDialectic manages a persistent Lisp state. To prevent da
 
 ---
 
-## 🔧 Component Breakdown
+## Core Features and Tools
+
+### Hybrid Reasoning
+- **System 1**: Fast, intuitive responses using Gemma 3.
+- **System 2**: Formal reasoning and persistence using SBCL.
+- **Bypass S-Dialectic**: Toggle to skip symbolic engine for pure neural conversation.
+
+### Knowledge Management
+- **Knowledge Base Reset**: Destructive action to wipe the Lisp kernel and reset files.
+- **Conversational Memory**: Toggleable persistence of dialogue history in the synthesis layer.
+- **Entity Alignment**: Strict grounding of LLM output on verified symbolic facts.
+
+### Optimization
+- **Ollama Unload Control**: Active management of model memory using `OLLAMA_UNLOAD_DELAY_SECONDS` to prevent GPU lockup.
+
+---
+
+## Component Breakdown
 
 ### Backend Services
-*   **`ReflectiveOrchestrator.ts`**: The cognitive coordinator that manages `WorkspaceState` and the thinking-synthesis pipeline.
-*   **`sbcl-process.ts`**: A robust IPC bridge that handles SBCL process life-cycles, provides non-blocking evaluation, and features automatic debugger-recovery (anti-lockup).
-*   **`multimodal-flow.ts`**: An advanced pipeline that uses Vision models to transcribe and extract structured facts from PDF page images.
+*   **ReflectiveOrchestrator.ts**: The cognitive coordinator that manages `WorkspaceState` and the thinking-synthesis pipeline.
+*   **sbcl-process.ts**: A robust IPC bridge that handles SBCL process life-cycles, provides non-blocking evaluation, and features automatic debugger-recovery (anti-lockup).
+*   **multimodal-flow.ts**: An advanced pipeline that uses Vision models to transcribe and extract structured facts from PDF page images.
 
-### Symbolic Kernel (`bootstrap.lisp`)
+### Symbolic Kernel (bootstrap.lisp)
 Provides the formal primitives for world-modeling:
 - `adicionar-memoria`: Atomize facts into nodes.
 - `adicionar-relacao`: Build the Knowledge Graph (Triples).
@@ -103,7 +121,7 @@ Provides the formal primitives for world-modeling:
 
 ---
 
-## 🔌 Current Technical Stack
+## Technical Stack
 
 *   **Chat/Synthesis Model**: `gemma3:4b` (Neural grounding)
 *   **Vision Model**: `gemma3:4b` (Visual grounding)
@@ -111,17 +129,6 @@ Provides the formal primitives for world-modeling:
 *   **Symbolic Engine**: Steel Bank Common Lisp (SBCL)
 *   **Backend**: Node.js 20+, Express, Genkit (for orchestration)
 - **Frontend**: React, Tailwind CSS, Shadcn/UI, ReactFlow (for graph visualization)
-
----
-
-## 🚀 Getting Started
-
-1.  **Configure Environment**: Ensure `.env.local` exists in `backend/` with defined model names and `PORT`.
-2.  **Lisp Support**: Install `sbcl` (available via `brew install sbcl` on macOS).
-3.  **Startup**:
-    *   Backend: `pnpm run dev` (standard) or `pnpm dev:pm2` (supervised).
-    *   Frontend: `pnpm dev` in the `frontend` directory.
-4.  **Verification**: Run `pnpm vitest` in the backend to verify the orchestration and resilience tests.
 
 ---
 

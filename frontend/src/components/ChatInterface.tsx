@@ -33,6 +33,8 @@ export function ChatInterface() {
     clearMessages,
     useConversationalMemory,
     setUseConversationalMemory,
+    useBypassSDialect,
+    setUseBypassSDialect,
     incrementGraphVersion
   } = useDialecticStore();
 
@@ -80,10 +82,10 @@ export function ChatInterface() {
     setLoading(true);
 
     try {
-      const { useConversationalMemory } = useDialecticStore.getState();
+      const { useConversationalMemory, useBypassSDialect } = useDialecticStore.getState();
       const history = messages.map(m => ({ role: m.role, content: m.content }));
       
-      const response = await chat(promptToSend, history, useConversationalMemory);
+      const response = await chat(promptToSend, history, useConversationalMemory, useBypassSDialect);
       addMessage({ role: 'model', content: response.text });
     } catch (error) {
       console.error(error);
@@ -249,6 +251,22 @@ export function ChatInterface() {
                >
                  <Clock size={11} className="opacity-70" />
                  Memória
+               </label>
+            </div>
+
+            <div className="flex items-center gap-2 bg-background/50 px-3 py-1 h-7 rounded-full border border-dashed border-border shadow-sm group hover:border-destructive/40 transition-colors">
+               <Checkbox 
+                 id="input-bypass-toggle" 
+                 checked={useBypassSDialect} 
+                 onCheckedChange={(checked) => setUseBypassSDialect(!!checked)}
+                 className="h-3.5 w-3.5 data-[state=checked]:bg-destructive data-[state=checked]:border-destructive"
+               />
+               <label 
+                 htmlFor="input-bypass-toggle" 
+                 className="text-[11px] font-medium cursor-pointer select-none text-muted-foreground group-hover:text-destructive transition-colors flex items-center gap-1"
+               >
+                 <Sparkles size={11} className="opacity-70" />
+                 Não Usar S-Dialect
                </label>
             </div>
          </div>

@@ -43,12 +43,13 @@ export async function uploadPdfMultimodal(file: File): Promise<KnowledgeBase> {
 export async function chat(
   prompt: string,
   history: any[] = [],
-  useMemory: boolean = true
+  useMemory: boolean = true,
+  bypassSDialect: boolean = false
 ): Promise<{ text: string }> {
   const response = await fetch(`${API_BASE}/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt, history, useMemory }),
+    body: JSON.stringify({ prompt, history, useMemory, bypassSDialect }),
   });
 
   if (!response.ok) {

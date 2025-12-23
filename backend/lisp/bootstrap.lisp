@@ -1,7 +1,7 @@
 ;;; NeuroLisp Cognitive Bootstrap
 ;;; Provides high-level primitives for the LLM to manage state and logic.
 
-;;; N(in-package :cl-user)
+(in-package :cl-user)
 
 (format t "~&Iniciando Bootstrap SDialectic no CL-USER...~%")
 
@@ -27,14 +27,17 @@
            :listar-memorias
            :limpar-memoria
            :definir-ferramenta
+           :buscar-relacoes
            ;; New Graph capabilities
            :adicionar-relacao
            :listar-relacoes
+           :listar-regras
            :listar-dados-json
            :print-graph-json
            ;; Persistence
            :salvar-estado
            :carregar-estado
+           :reset-total
            ;; Symbolic Inference
            :adicionar-regra
            :inferir))
@@ -109,16 +112,39 @@
           (escape-json-string pred)
           (escape-json-string prov)))
 
+;;; --- Core Helpers ---
+
+(defun variable-p (x)
+  "Checks if a term is a logic variable (starts with ?)."
+  (and (symbolp x) (char= (char (symbol-name x) 0) #\?)))
+
+(defun normalizar-termo (x)
+  "Normalizes a term into a symbol in the S-DIALECTIC package. Everything becomes a symbol in S-DIALECTIC."
+  (cond
+    ((symbolp x) (intern (string-upcase (symbol-name x)) :s-dialectic))
+    ((stringp x) (intern (string-upcase x) :s-dialectic))
+    (t x)))
+
+(defun normalizar-tripla (tripla)
+  "Normalizes each element of a triple (S P O)."
+  (mapcar #'normalizar-termo tripla))
+
 ;;; --- Core Functions ---
 
 (defun adicionar-memoria (chave valor)
-  "Stores a fact in memory. Key should be a string or symbol."
-  (setf (gethash (string chave) *knowledge-graph*) (string valor))
-  (format nil "Memorizado: ~a" chave))
+  "Stores a fact in memory. Key should be a string or symbol. Detects redundancy."
+  (let* ((k (string-upcase (string chave)))
+         (v (string valor))
+         (existing (gethash k *knowledge-graph*)))
+    (if (and existing (string-equal existing v))
+        (format nil "AVISO: O conceito '~a' ja esta na memoria com esta descricao." k)
+        (progn
+          (setf (gethash k *knowledge-graph*) v)
+          (format nil "Memorizado: ~a" k)))))
 
 (defun recuperar-memoria (chave)
   "Retrieves a fact from memory."
-  (let ((val (gethash (string chave) *knowledge-graph*)))
+  (let ((val (gethash (string-upcase (string chave)) *knowledge-graph*)))
     (if val
         val
         (format nil "Nao encontrado: ~a" chave))))
@@ -131,36 +157,54 @@
   "Memoria limpa.")
 
 (defun adicionar-relacao (sujeito predicado objeto)
-  "Adds a structured relation between concepts."
-  (let ((s (intern (string-upcase (string sujeito))))
-      (p (intern (string-upcase (string predicado))))
-        (o (intern (string-upcase (string objeto)))))
+  "Adds a structured relation between concepts. Detects redundancy."
+  (let ((s (normalizar-termo sujeito))
+        (p (normalizar-termo predicado))
+        (o (normalizar-termo objeto)))
     
-    ;; [Auto-Discovery] Ensure Nodes exist for Subject and Object
-    (unless (gethash (string s) *knowledge-graph*)
-      (setf (gethash (string s) *knowledge-graph*) "Implicit Concept"))
-    (unless (gethash (string o) *knowledge-graph*)
-      (setf (gethash (string o) *knowledge-graph*) "Implicit Concept"))
-
     ;; Avoid duplicates
-    (unless (find-if (lambda (r) 
-                       (and (eq (relation-subject r) s)
-                            (eq (relation-predicate r) p)
-                            (eq (relation-object r) o)))
-                     *relations*)
-      (push (make-relation :subject s :predicate p :object o :provenance :user) *relations*)
-      (format nil "Relacao estruturada: ~a -[~a]-> ~a" s p o))))
+    (if (find-if (lambda (r) 
+                    (and (eq (relation-subject r) s)
+                         (eq (relation-predicate r) p)
+                         (eq (relation-object r) o)))
+                  *relations*)
+        (format nil "AVISO: A relacao ~a -[~a]-> ~a ja existe." s p o)
+        (progn
+          ;; [Auto-Discovery] Ensure Nodes exist for Subject and Object
+          (unless (gethash (string s) *knowledge-graph*)
+            (setf (gethash (string s) *knowledge-graph*) "Implicit Concept"))
+          (unless (gethash (string o) *knowledge-graph*)
+            (setf (gethash (string o) *knowledge-graph*) "Implicit Concept"))
+          
+          (push (make-relation :subject s :predicate p :object o :provenance :user) *relations*)
+          (format nil "Relacao estruturada: ~a -[~a]-> ~a" s p o)))))
+
+(defun buscar-relacoes (conceito)
+  "Searches for all relations involving the given concept (as subject or object)."
+  (let* ((c (normalizar-termo conceito))
+         (found (remove-if-not (lambda (r) 
+                                 (or (eq (relation-subject r) c)
+                                     (eq (relation-object r) c)))
+                               *relations*)))
+    (if found
+        (mapcar (lambda (r) 
+                  (format nil "~a -[~a]-> ~a" 
+                          (relation-subject r) 
+                          (relation-predicate r) 
+                          (relation-object r))) 
+                found)
+        (format nil "Nenhuma relacao formal encontrada para: ~a" conceito))))
 
 (defun adicionar-regra (nome condicoes consequencias)
-  "Adds a logical rule. Example: (adicionar-regra 'transitivity '((?x part-of ?y) (?y part-of ?z)) '((?x part-of ?z)))"
-  (let ((nova-regra (make-rule :name nome :conditions condicoes :consequences consequencias)))
-    (push nova-regra *rules*)
-    (format nil "Regra aprendida: ~a" nome)))
+  "Adds a logical rule. Automatically normalizes terms."
+  (let ((n (normalizar-termo nome))
+        (conds (mapcar #'normalizar-tripla condicoes))
+        (consq (mapcar #'normalizar-tripla consequencias)))
+    (let ((nova-regra (make-rule :name n :conditions conds :consequences consq)))
+      (push nova-regra *rules*)
+      (format nil "Regra aprendida: ~a" n))))
 
 ;;; --- Inference Engine (Basic Forward Chaining) ---
-
-(defun variable-p (x)
-  (and (symbolp x) (char= (char (symbol-name x) 0) #\?)))
 
 (defun unify (var val bindings)
   "Simple Unification."
@@ -179,37 +223,17 @@
       term))
 
 (defun match-pattern (pattern fact bindings)
-  "Unifies a pattern ((?x p ?y)) with a fact (subject p object). Returns updated bindings or NIL."
-  (let ((pat-s (first pattern))
-        (pat-p (second pattern))
-        (pat-o (third pattern))
+  "Tries to match a pattern triple against a relation fact."
+  (let ((pat-s (normalizar-termo (first pattern)))
+        (pat-p (normalizar-termo (second pattern)))
+        (pat-o (normalizar-termo (third pattern)))
         (fact-s (relation-subject fact))
         (fact-p (relation-predicate fact))
         (fact-o (relation-object fact)))
-    
-    ;; Check Predicate Match (Exactness required for now)
     (unless (or (variable-p pat-p) (eq pat-p fact-p))
       (return-from match-pattern nil))
-
-    ;; Match Subject
     (let ((b2 (unify pat-s fact-s bindings)))
-      (unless b2 (return-from match-pattern nil))
-      ;; Match Object
-      (unify pat-o fact-o b2))))
-
-(defun variable-p (x)
-  (and (symbolp x) (char= (char (symbol-name x) 0) #\?)))
-
-(defun unify (var val bindings)
-  "Simple Unification."
-  (cond
-    ((equal var val) bindings)
-    ((variable-p var)
-     (let ((existing (assoc var bindings)))
-       (if existing
-           (if (eq (cdr existing) val) bindings nil)
-           (cons (cons var val) bindings))))
-    (t nil)))
+      (when b2 (unify pat-o fact-o b2)))))
 
 (defun apply-rule (rule facts)
   "Tries to apply a rule to the known facts. Returns list of NEW facts."
@@ -222,8 +246,8 @@
                            (new-p (subst-bindings (second cons-pattern) current-bindings))
                            (new-o (subst-bindings (third cons-pattern) current-bindings)))
                        (unless (find-if (lambda (f) (and (eq (relation-subject f) new-s)
-                                                         (eq (relation-predicate f) new-p)
-                                                         (eq (relation-object f) new-o)))
+                                                          (eq (relation-predicate f) new-p)
+                                                          (eq (relation-object f) new-o)))
                                         facts)
                          (push (make-relation :subject new-s :predicate new-p :object new-o :provenance :inference) new-facts))))
                    ;; Else, try to match next condition
@@ -234,11 +258,6 @@
                            (find-matches (rest remaining-conditions) new-bindings))))))))
       (find-matches (rule-conditions rule) nil))
     new-facts))
-
-(defun subst-bindings (term bindings)
-  (if (variable-p term)
-      (or (cdr (assoc term bindings)) term)
-      term))
 
 (defun inferir ()
   "Runs forward chaining inference until no new facts are derived."
@@ -254,8 +273,8 @@
               ;; Double check duplicate in global *relations* inside the loop to be safe
               (unless (find-if (lambda (r) 
                                  (and (eq (relation-subject r) (relation-subject f))
-                                      (eq (relation-predicate r) (relation-predicate f))
-                                      (eq (relation-object r) (relation-object f))))
+                                       (eq (relation-predicate r) (relation-predicate f))
+                                       (eq (relation-object r) (relation-object f))))
                                *relations*)
                 (push f new-this-round)
                 (push f *relations*)))))
@@ -263,16 +282,26 @@
         (when (null new-this-round) (return))
         (when (> iteration max-iterations) (return))
         (setf derived-count (+ derived-count (length new-this-round)))))
-    (format nil "Inferencia concluida. ~a novos fatos derivados." derived-count)))
+    (if (> derived-count 0)
+        (format nil "Inferencia concluida. ~a novos fatos derivados." derived-count)
+        "Nenhum fato novo derivado.")))
 
-(defun listar-memorias ()
-  "Lists all stored keys and values."
+(defun listar-memorias (&rest args)
+  "Lists all stored keys and values. Ignores extra arguments from LLMs."
+  (declare (ignore args))
   (let ((result nil))
     (maphash (lambda (k v) (push (list k v) result)) *knowledge-graph*)
     result))
 
-(defun listar-relacoes ()
+(defun listar-relacoes (&rest args)
+  "Lists all structured relations. Ignores extra arguments."
+  (declare (ignore args))
   *relations*)
+
+(defun listar-regras (&rest args)
+  "Lists all learned rules. Ignores extra arguments."
+  (declare (ignore args))
+  *rules*)
 
 (defun listar-dados-json ()
   "Returns the entire state (memories + relations) as a valid JSON string."
@@ -310,10 +339,10 @@
     
     (format stream "~%;;; --- Relations ---~%")
     (dolist (r (reverse *relations*)) ;; Reverse to maintain original order if important
-      (format stream "(adicionar-relacao '~a '~a '~a)~%" 
-              (relation-subject r) 
-              (relation-predicate r) 
-              (relation-object r)))
+      (format stream "(adicionar-relacao ~s ~s ~s)~%" 
+              (string (relation-subject r))
+              (string (relation-predicate r))
+              (string (relation-object r))))
 
     (format stream "~%;;; --- Rules ---~%")
     (dolist (rule (reverse *rules*))
@@ -339,6 +368,12 @@
         (error (e) (format nil "Erro ao carregar script: ~a" e)))
       (format nil "Arquivo nao encontrado: ~a" filepath)))
 
+(defun reset-total (filepath)
+  "Completely clears RAM and overwrites the persistence file to a clean state."
+  (limpar-memoria)
+  (salvar-estado filepath)
+  (format nil "Resiliencia: Memoria e arquivo ~a resetados com sucesso." filepath))
+
 ;;; --- Aliases for Legacy LLM Support ---
 (defun lembrar (chave valor)
   (format t "~&[WARN] Deprecated function 'lembrar' called. Redirecting...~%")
@@ -357,7 +392,25 @@
 
 ;;; --- Initialize User Package ---
 (in-package :cl-user)
-(use-package :s-dialectic)
+
+;; Use shadowing-import to ensure we win over any cl-user garbage
+(shadowing-import '(s-dialectic:adicionar-memoria
+                    s-dialectic:recuperar-memoria
+                    s-dialectic:listar-memorias
+                    s-dialectic:limpar-memoria
+                    s-dialectic:buscar-relacoes
+                    s-dialectic:adicionar-relacao
+                    s-dialectic:listar-relacoes
+                    s-dialectic:listar-regras
+                    s-dialectic:listar-dados-json
+                    s-dialectic:print-graph-json
+                    s-dialectic:salvar-estado
+                    s-dialectic:carregar-estado
+                    s-dialectic:reset-total
+                    s-dialectic:adicionar-regra
+                    s-dialectic:inferir
+                    s-dialectic:lembrar
+                    s-dialectic:definir-ferramenta) :cl-user)
 
 ;; Macro para permitir que o LLM use (lisp ...) como wrapper sem erro
 (defmacro lisp (&body body)

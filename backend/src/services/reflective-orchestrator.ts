@@ -2,6 +2,7 @@ import { ai } from '../genkit';
 import { prompt } from '@genkit-ai/dotprompt';
 import { SbclProcess } from '../lisp/sbcl-process';
 import { CONFIG } from '../config/constants';
+import { scheduleModelUnload } from "./model-cleanup";
 
 export interface WorkspaceState {
   userRequest: string;
@@ -65,24 +66,28 @@ export class ReflectiveOrchestrator {
     const maxTurns = 3;
     let turn = 0;
     let currentTask = this.state.userRequest;
-    
+
     // @ts-ignore
     const refPrompt = await prompt(ai.registry, "reflectiveLoop");
 
     while (turn < maxTurns) {
       this.lisp.emit("log", `;; [Orchestrator] Logic Turn ${turn + 1}...`);
-      
+
       const llmResponse = await refPrompt.generate({
         model: `ollama/${CONFIG.OLLAMA_LISP_MODEL_NAME}`,
         input: {
           userRequest: currentTask,
-          context: JSON.stringify(this.state.history),
+          context: this.state.history
+            .map((h) => `${h.role === "user" ? "USER" : "AI"}: ${h.content}`)
+            .join("\n"),
           sensedContext: this.state.sensedContext.join(", "),
         },
       });
 
       const responseText = llmResponse.text;
-      this.state.reasoningLogs += `\n\n--- Step ${turn + 1} (Logic) ---\n${responseText}`;
+      this.state.reasoningLogs += `\n\n--- Step ${
+        turn + 1
+      } (Logic) ---\n${responseText}`;
 
       const lispRegex = /```(?:lisp|cl|common-lisp)\b\s*([\s\S]*?)```/gi;
       let match;
@@ -94,11 +99,14 @@ export class ReflectiveOrchestrator {
           try {
             const { result, output } = await this.lisp.eval(code);
             const toolOutput = output || result;
-            
-            this.state.history.push({ role: "model", content: responseText });
+
+            this.state.history.push({
+              role: "model",
+              content: `Tool Call: ${code}`,
+            });
             this.state.history.push({ role: "tool", content: toolOutput });
-            this.state.reasoningLogs += `\n[Execution Output]: ${toolOutput}`;
-            
+            this.state.reasoningLogs += `\n[Lisp]: ${code} -> ${toolOutput}`;
+
             this.state.lispProducts.push({ code, result: toolOutput });
             executedSomething = true;
           } catch (e) {
@@ -110,6 +118,9 @@ export class ReflectiveOrchestrator {
       if (!executedSomething) break;
       turn++;
     }
+
+    // Schedule unload for the Logic Model after reasoning turns are complete
+    scheduleModelUnload(CONFIG.OLLAMA_LISP_MODEL_NAME);
   }
 
   /**
@@ -119,15 +130,15 @@ export class ReflectiveOrchestrator {
     this.lisp.emit("log", ";; [Orchestrator] Refinement: Packaging products for System 1...");
     
     // Create a structured summary of what was deduced
-    const resultsSummary = this.state.lispProducts.map((p, i) => 
-      `Fact ${i+1}: Executing "${p.code}" returned "${p.result}"`
-    ).join("\n");
+    const resultsSummary = this.state.lispProducts
+      .map((p, i) => `Turn ${i + 1}: "${p.code}" -> Result: "${p.result}"`)
+      .join("\n");
 
     this.state.factPackage = `
-### LOGIC ENGINE RESULTS (VERIFIED)
+### KERNEL DATA (NEW OR RETRIEVED)
 ${resultsSummary || "No direct facts were extracted or inferred in this turn."}
 
-### INTERNAL REASONING TRACE (CONTEXT)
+### FULL REASONING TRACE (INTERNAL)
 ${this.state.reasoningLogs}
     `.trim();
   }

@@ -2,6 +2,8 @@ import { ai } from '../../genkit';
 import { prompt } from '@genkit-ai/dotprompt';
 import { z } from 'genkit';
 import { imageService } from '../../services/image-service';
+import { scheduleModelUnload } from "../../services/model-cleanup";
+import { CONFIG } from "../../config/constants";
 
 export const extractSimpleTranscription = ai.defineFlow(
   {
@@ -44,6 +46,10 @@ export const extractSimpleTranscription = ai.defineFlow(
       throw new Error("Failed to transcribe image.");
     }
 
-    return response.output;
+    try {
+      return response.output;
+    } finally {
+      scheduleModelUnload(CONFIG.OLLAMA_LISP_MODEL_NAME);
+    }
   }
 );

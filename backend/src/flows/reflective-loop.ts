@@ -9,6 +9,7 @@ import { ai } from '../genkit';
 import { prompt } from '@genkit-ai/dotprompt';
 import { CONFIG } from "../config/constants.js";
 import { ReflectiveOrchestrator } from "../services/reflective-orchestrator";
+import { scheduleModelUnload } from "../services/model-cleanup";
 
 const nameModel = CONFIG.OLLAMA_LISP_MODEL_NAME;
 
@@ -28,6 +29,7 @@ const saveKnowledgeGraph = async () => {
 const InputSchema = z.object({
   prompt: z.string(),
   history: z.array(z.any()).optional(),
+  useMemory: z.boolean().optional(),
 });
 
 export const reflectiveLoop = ai.defineFlow(
@@ -61,34 +63,39 @@ export const reflectiveLoop = ai.defineFlow(
       `;; [Synthesis] Generating final natural language response...`
     );
 
-    // @ts-ignore
-    const synthesisPrompt = await prompt(ai.registry, "chatSynthesis");
+    try {
+      // @ts-ignore
+      const synthesisPrompt = await prompt(ai.registry, "chatSynthesis");
 
-    const finalResponse = await synthesisPrompt.generate({
-      model: `ollama/${CONFIG.OLLAMA_CHAT_MODEL_NAME}`,
-      input: {
-        userRequest: originalPrompt,
-        history: context, // Passing the history here
-        factPackage: factPackage, // Updated key name to match prompt
-      },
-    });
+      const finalResponse = await synthesisPrompt.generate({
+        model: `ollama/${CONFIG.OLLAMA_CHAT_MODEL_NAME}`,
+        input: {
+          userRequest: originalPrompt,
+          history: input.useMemory !== false ? context : [], // Conditional history for System 1
+          factPackage: factPackage,
+        },
+      });
 
-    let finalText = finalResponse.text;
-    // Fallback Mechanism
-    if (!finalText || finalText.trim().length === 0) {
-      console.warn(
-        "Chat Model returned empty. Falling back to Logic Model output."
-      );
+      let finalText = finalResponse.text;
+      // Fallback Mechanism
+      if (!finalText || finalText.trim().length === 0) {
+        console.warn(
+          "Chat Model returned empty. Falling back to Logic Model output."
+        );
 
-      // Fallback: Use the last valid response from the logic loop (basic parsing)
-      // or a generic message if logic was silent (unlikely).
-      finalText = `The Logic Engine processed your request, but the Synthesis Layer (Gemma model: ${CONFIG.OLLAMA_CHAT_MODEL_NAME}) returned an empty response. Please check the Reasoning Console for the full trace.`;
+        // Fallback: Use the last valid response from the logic loop (basic parsing)
+        // or a generic message if logic was silent (unlikely).
+        finalText = `The Logic Engine processed your request, but the Synthesis Layer (Gemma model: ${CONFIG.OLLAMA_CHAT_MODEL_NAME}) returned an empty response. Please check the Reasoning Console for the full trace.`;
+      }
+
+      // Auto-Save at the end of the turn
+      await saveKnowledgeGraph();
+
+      console.log("Chat Model:", finalText);
+      return finalText;
+    } finally {
+      // Schedule unload for the Chat/Synthesis Model
+      scheduleModelUnload(CONFIG.OLLAMA_CHAT_MODEL_NAME);
     }
-
-    // Auto-Save at the end of the turn
-    await saveKnowledgeGraph();
-
-    console.log("Chat Model:", finalText);
-    return finalText;
   }
 );

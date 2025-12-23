@@ -185,6 +185,17 @@ app.get("/api/graph-data", async (req, res) => {
   }
 });
 
+// Reset Knowledge Base
+app.post("/api/reset-knowledge", async (req, res) => {
+  try {
+    const result = await lisp.resetTotal("knowledge.lisp");
+    res.json({ message: result });
+  } catch (error) {
+    console.error("Reset Error:", error);
+    res.status(500).json({ error: String(error) });
+  }
+});
+
 // Live Lisp REPL Stream (SSE)
 
 app.get("/api/lisp-stream", (req, res) => {

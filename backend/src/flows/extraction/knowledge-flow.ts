@@ -4,6 +4,8 @@ import { SbclProcess } from '../../lisp/sbcl-process';
 import { KnowledgeBaseOutputSchema } from './schemas';
 import crypto from 'crypto';
 import { prompt } from '@genkit-ai/dotprompt';
+import { scheduleModelUnload } from "../../services/model-cleanup";
+import { CONFIG } from "../../config/constants";
 
 // Singleton SBCL for now. In prod, maybe one per request or a pool.
 const lisp = SbclProcess.getInstance();
@@ -93,6 +95,12 @@ export const extractKnowledge = ai.defineFlow(
       attempts++;
     }
 
-    throw new Error(`Failed to extract valid knowledge after ${maxAttempts} attempts. Feedback: ${feedback}`);
+    try {
+      throw new Error(
+        `Failed to extract valid knowledge after ${maxAttempts} attempts. Feedback: ${feedback}`
+      );
+    } finally {
+      scheduleModelUnload(CONFIG.OLLAMA_LISP_MODEL_NAME);
+    }
   }
 );

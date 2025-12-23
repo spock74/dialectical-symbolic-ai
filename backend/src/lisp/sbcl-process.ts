@@ -343,6 +343,14 @@ export class SbclProcess extends EventEmitter {
     return result;
   }
 
+  async resetTotal(filepath: string): Promise<string> {
+    const escapedPath = filepath.replace(/\\/g, "\\\\");
+    const { result } = await this.eval(
+      `(s-dialectic:reset-total "${escapedPath}")`
+    );
+    return result;
+  }
+
   // Ensure kill resets the instance so a new one can be created if needed (though unlikely in a running app)
   kill() {
     if (this.process) {

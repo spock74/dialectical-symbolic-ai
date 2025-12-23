@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import type { Group, Source } from '../types';
-
+import { persist } from "zustand/middleware";
+import type { Group, Source } from "../types";
 
 export interface Message {
   role: "user" | "model" | "tool";
@@ -18,6 +18,9 @@ interface DialecticState {
   // Graph State
   graphVersion: number;
 
+  // Configuration
+  useConversationalMemory: boolean;
+
   // Actions
   createGroup: (name: string) => void;
   setActiveGroup: (id: string) => void;
@@ -29,53 +32,67 @@ interface DialecticState {
   setMessages: (msgs: Message[]) => void;
 
   incrementGraphVersion: () => void;
+  setUseConversationalMemory: (val: boolean) => void;
 }
 
-export const useDialecticStore = create<DialecticState>((set, get) => ({
-  groups: [],
-  activeGroupId: null,
-  activeSourceId: null,
-  messages: [],
-  graphVersion: 0,
+export const useDialecticStore = create<DialecticState>()(
+  persist(
+    (set, get) => ({
+      groups: [],
+      activeGroupId: null,
+      activeSourceId: null,
+      messages: [],
+      graphVersion: 0,
+      useConversationalMemory: true,
 
-  createGroup: (name: string) => {
-    const newGroup: Group = {
-      id: crypto.randomUUID(),
-      name,
-      sources: [],
-    };
-    set((state) => ({
-      groups: [...state.groups, newGroup],
-      activeGroupId: newGroup.id,
-    }));
-  },
+      createGroup: (name: string) => {
+        const newGroup: Group = {
+          id: crypto.randomUUID(),
+          name,
+          sources: [],
+        };
+        set((state) => ({
+          groups: [...state.groups, newGroup],
+          activeGroupId: newGroup.id,
+        }));
+      },
 
-  setActiveGroup: (id: string) => {
-    set({ activeGroupId: id });
-  },
+      setActiveGroup: (id: string) => {
+        set({ activeGroupId: id });
+      },
 
-  addSourceToActiveGroup: (source: Source) => {
-    const { activeGroupId, groups } = get();
-    if (!activeGroupId) return;
+      addSourceToActiveGroup: (source: Source) => {
+        const { activeGroupId, groups } = get();
+        if (!activeGroupId) return;
 
-    set({
-      groups: groups.map((g) =>
-        g.id === activeGroupId ? { ...g, sources: [...g.sources, source] } : g
-      ),
-      activeSourceId: source.id,
-    });
-  },
+        set({
+          groups: groups.map((g) =>
+            g.id === activeGroupId
+              ? { ...g, sources: [...g.sources, source] }
+              : g
+          ),
+          activeSourceId: source.id,
+        });
+      },
 
-  setActiveSource: (id: string | null) => {
-    set({ activeSourceId: id });
-  },
+      setActiveSource: (id: string | null) => {
+        set({ activeSourceId: id });
+      },
 
-  addMessage: (msg: Message) =>
-    set((state) => ({ messages: [...state.messages, msg] })),
-  clearMessages: () => set({ messages: [] }),
-  setMessages: (msgs: Message[]) => set({ messages: msgs }),
+      addMessage: (msg: Message) =>
+        set((state) => ({ messages: [...state.messages, msg] })),
+      clearMessages: () => set({ messages: [] }),
+      setMessages: (msgs: Message[]) => set({ messages: msgs }),
 
-  incrementGraphVersion: () =>
-    set((state) => ({ graphVersion: state.graphVersion + 1 })),
-}));
+      incrementGraphVersion: () =>
+        set((state) => ({ graphVersion: state.graphVersion + 1 })),
+
+      setUseConversationalMemory: (val: boolean) =>
+        set({ useConversationalMemory: val }),
+    }),
+    {
+      name: "dialectic-storage",
+    }
+  )
+);
 

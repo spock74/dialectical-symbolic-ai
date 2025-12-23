@@ -1,11 +1,21 @@
 import { useState, useRef, useEffect } from "react";
-import { Paperclip, Loader2, Sparkles, Brain, Clock, ChevronUp, Bot, User, FileText } from "lucide-react";
-import { chat, extractMarkdown } from "../api";
+import { Paperclip, Loader2, Sparkles, Brain, Clock, ChevronUp, Bot, User, FileText, Trash2, Database } from "lucide-react";
+import { chat, extractMarkdown, resetKnowledge } from "../api";
 import { cn } from "../lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useDialecticStore } from "@/store/useStore";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface Message {
   role: 'user' | 'model' | 'tool';
@@ -19,21 +29,41 @@ export function ChatInterface() {
     activeGroupId, 
     activeSourceId,
     messages,
-    addMessage
+    addMessage,
+    clearMessages,
+    useConversationalMemory,
+    setUseConversationalMemory,
+    incrementGraphVersion
   } = useDialecticStore();
 
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+  const [resetDialogOpen, setResetDialogOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const activeGroup = groups.find(g => g.id === activeGroupId);
   const activeSource = activeGroup?.sources.find(s => s.id === activeSourceId);
 
+  const adjustHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
+
+  useEffect(() => {
+    if (input === "") {
+        adjustHeight();
+    }
+  }, [input]);
 
   const handleSend = async () => {
     if (!input.trim() || loading) return;
@@ -50,8 +80,10 @@ export function ChatInterface() {
     setLoading(true);
 
     try {
+      const { useConversationalMemory } = useDialecticStore.getState();
       const history = messages.map(m => ({ role: m.role, content: m.content }));
-      const response = await chat(promptToSend, history);
+      
+      const response = await chat(promptToSend, history, useConversationalMemory);
       addMessage({ role: 'model', content: response.text });
     } catch (error) {
       console.error(error);
@@ -76,6 +108,25 @@ export function ChatInterface() {
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  const handleResetKB = async () => {
+    setIsResetting(true);
+    try {
+      await resetKnowledge();
+      clearMessages(); // Full wipe as per user requirement "zerar o Knowledge Base" and context of cleaning up
+      incrementGraphVersion();
+      addMessage({ 
+        role: 'tool', 
+        content: "Knowledge Base e histórico de chat resetados com sucesso. O motor semântico está limpo." 
+      });
+      setResetDialogOpen(false);
+    } catch (error) {
+      console.error(error);
+      addMessage({ role: 'tool', content: `Erro ao resetar: ${String(error)}` });
+    } finally {
+      setIsResetting(false);
     }
   };
 
@@ -149,14 +200,57 @@ export function ChatInterface() {
                     Context: {activeSource.name}
                 </Button>
             )}
+            
+            {/* Knowledge Base Reset Dialog */}
+            <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/40 transition-colors">
+                   <Database size={12} />
+                   Knowledge Base
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px] border-destructive/20 shadow-2xl bg-background/95 backdrop-blur-xl">
+                <DialogHeader>
+                  <DialogTitle className="flex items-center gap-2 text-destructive">
+                    <Trash2 size={18} />
+                    Resetar Base de Conhecimento
+                  </DialogTitle>
+                  <DialogDescription className="pt-2">
+                    Esta ação irá <strong>apagar permanentemente</strong> todos os dados do motor semântico (Lisp) e limpar o histórico de chat. Esta ação não pode ser desfeita.
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className="mt-4 gap-2 sm:gap-0">
+                  <Button variant="outline" onClick={() => setResetDialogOpen(false)} disabled={isResetting}>
+                    Cancelar
+                  </Button>
+                  <Button variant="destructive" onClick={handleResetKB} disabled={isResetting} className="gap-2">
+                    {isResetting && <Loader2 className="h-4 w-4 animate-spin" />}
+                    Confirmar Reset
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
             <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50">
                <Brain size={12} />
                Raciocínio
             </Button>
-            <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50">
-               <Clock size={12} />
-               Memória
-            </Button>
+            
+            <div className="flex items-center gap-2 bg-background/50 px-3 py-1 h-7 rounded-full border border-dashed border-border shadow-sm group hover:border-primary/40 transition-colors">
+               <Checkbox 
+                 id="input-memory-toggle" 
+                 checked={useConversationalMemory} 
+                 onCheckedChange={(checked) => setUseConversationalMemory(!!checked)}
+                 className="h-3.5 w-3.5 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+               />
+               <label 
+                 htmlFor="input-memory-toggle" 
+                 className="text-[11px] font-medium cursor-pointer select-none text-muted-foreground group-hover:text-primary transition-colors flex items-center gap-1"
+               >
+                 <Clock size={11} className="opacity-70" />
+                 Memória
+               </label>
+            </div>
          </div>
 
          {/* Main Input Container */}
@@ -179,13 +273,22 @@ export function ChatInterface() {
                 accept=".md,.txt" 
                 onChange={handleFileUpload} 
              />
-             
-             <input
-               className="flex-1 bg-transparent border-none px-2 py-3 text-sm focus:outline-none placeholder:text-muted-foreground/70"
+             <textarea
+               ref={textareaRef}
+               rows={1}
+               className="flex-1 bg-transparent border-none px-2 py-3 text-sm focus:outline-none placeholder:text-muted-foreground/70 resize-none max-h-40 overflow-y-auto"
                placeholder={isUploading ? "Uploading context..." : "Escolha uma sugestão ou digite sua pergunta..."}
                value={input}
-               onChange={(e) => setInput(e.target.value)}
-               onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
+               onChange={(e) => {
+                 setInput(e.target.value);
+                 adjustHeight();
+               }}
+               onKeyDown={(e) => {
+                 if (e.key === 'Enter' && !e.shiftKey) {
+                   e.preventDefault();
+                   handleSend();
+                 }
+               }}
                disabled={loading || isUploading}
              />
              
@@ -194,7 +297,7 @@ export function ChatInterface() {
                onClick={handleSend}
                disabled={!input.trim() || loading || isUploading}
                className={cn(
-                 "h-8 w-8 mr-1 rounded-lg transition-all", 
+                 "h-8 w-8 mr-1 mb-1 self-end rounded-lg transition-all", 
                  input.trim() ? "bg-primary text-primary-foreground shadow-md" : "bg-muted text-muted-foreground"
                )}
              >
@@ -205,7 +308,7 @@ export function ChatInterface() {
              </Button>
          </div>
          <div className="mt-2 text-[10px] text-center text-muted-foreground opacity-50">
-            AI can make mistakes. Verify important information.
+            AI can make mistakes. Verify important information. Presione <kbd className="font-sans px-1 rounded bg-muted border border-border shadow-sm">Shift+Enter</kbd> para nova linha.
          </div>
       </div>
     </div>

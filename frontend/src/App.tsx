@@ -5,7 +5,8 @@ import { ThemeToggle } from "./components/ThemeToggle"
 import { Workspace } from "./components/Workspace"
 import { ReplInterface } from "./components/ReplInterface"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import * as TabsPrimitive from "@radix-ui/react-tabs"
 import type { KnowledgeBase } from "./types"
 
 function App() {
@@ -45,12 +46,16 @@ function App() {
               </div>
               
               <div className="flex-1 overflow-hidden relative">
-                <TabsContent value="chat" className="h-full m-0 p-0 border-0 data-[state=active]:flex flex-col">
+                {/* 
+                  Instead of TabsContent which unmounts, we use a hidden class approach 
+                  to preserve the internal state (scroll, input) of ChatInterface.
+                */}
+                <TabsPrimitive.Content value="chat" className="h-full m-0 p-0 border-0 data-[state=active]:flex flex-col data-[state=inactive]:hidden">
                    <ChatInterface />
-                </TabsContent>
-                <TabsContent value="graph" className="h-full m-0 p-0 border-0 data-[state=active]:block">
+                </TabsPrimitive.Content>
+                <TabsPrimitive.Content value="graph" className="h-full m-0 p-0 border-0 data-[state=active]:block data-[state=inactive]:hidden">
                    <Workspace knowledgeBase={knowledgeBase} />
-                </TabsContent>
+                </TabsPrimitive.Content>
               </div>
             </Tabs>
          </ResizablePanel>

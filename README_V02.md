@@ -26,8 +26,13 @@ graph TD
 
     subgraph Backend_Node_Genkit
         API <--> Server[Express Server + Rollback Middleware]
-        Server <--> Orch[Reflective Orchestrator]
-        Orch <--> LLM[Ollama Models: Gemma 3 / Qwen]
+        Server <--> Loop[Reflective Loop Flow]
+        Loop <--> Orch[Reflective Orchestrator]
+        Loop <--> S[Synthesis Model: Gemma 3]
+        Orch <--> L[Logic Model: Qwen]
+        
+        %% Bypass Path
+        Loop -- Bypass Toggle --> S
     end
 
     subgraph Symbolic_Kernel_SBCL
@@ -39,39 +44,43 @@ graph TD
 
 ### 3. Interaction Sequence
 
-Below is the high-level flow of a single user interaction, illustrating the orchestration between neural synthesis and symbolic execution.
+Below is the high-level flow of a single user interaction, illustrating the orchestration between neural synthesis and symbolic execution, including the optional bypass mode.
 
 ```mermaid
 sequenceDiagram
     participant U as User
     participant F as Frontend
+    participant FL as Reflective Loop (Genkit)
     participant O as Orchestrator
     participant L as Logic Model (Qwen)
     participant SK as Symbolic Kernel (SBCL)
     participant S as Synthesis Model (Gemma)
 
     U->>F: "Alice visits London"
-    F->>O: POST /api/chat
-    Note over O: Stage 1: Context Sensing
-    O->>SK: (recuperar-memoria "London")
-    SK-->>O: "A city in UK"
-
-    loop Logic turns (max 3)
-        Note over O: Stage 2: Logic Processing
-        O->>L: Context + Entities
-        L->>O: ```lisp (adicionar-relacao "Alice" "visit" "London") ```
-        O->>SK: (adicionar-relacao ...)
-        SK-->>O: "Relacao estruturada: ALICE -> LONDON"
+    F->>FL: POST /api/chat { bypassSDialect: boolean }
+    
+    alt Bypass is False (Standard)
+        FL->>O: think()
+        Note over O: Stage 1: Context Sensing (Entity Matching)
+        
+        loop Logic turns (max 3)
+            Note over O: Stage 2: Logic Processing
+            O->>L: Generate Reasoning/Code
+            L-->>O: ```lisp (adicionar-relacao ...) ```
+            O->>SK: eval(code)
+            SK-->>O: Result (Verified Fact)
+        end
+        O-->>FL: Fact Package + Reasoning Trace
+    else Bypass is True (Direct)
+        Note over FL: Skip System 2 logic
+        FL->>FL: factPackage = empty
     end
 
-    Note over O: Stage 3: Refinement
-    O->>S: Input + Fact Package (Verified Results)
-    S-->>O: "Alice has visited London (Grounding: Verified)"
-    O->>F: HTTP 200 { text: "..." }
+    Note over FL: Stage 3: Synthesis
+    FL->>S: Request + Context + Fact Package
+    S-->>FL: Natural Language Response
+    FL->>F: HTTP 200 { text: "..." }
     F->>U: Display Response
-
-    Note over O: Persistence
-    O->>SK: (salvar-estado "knowledge.lisp")
 ```
 
 ---

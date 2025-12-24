@@ -22,7 +22,7 @@ export class SbclProcess extends EventEmitter {
     return SbclProcess.instance;
   }
 
-  private constructor() {
+  protected constructor() {
     super();
     this.start();
 
@@ -60,6 +60,13 @@ export class SbclProcess extends EventEmitter {
       this.process.stdin.write(loadCommand);
     }
 
+    this.process.on("error", (err) => {
+      console.error(`[SBCL] Failed to start process:`, err);
+      this.emit("log", `CRITICAL ERR: Failed to start SBCL: ${err.message}`);
+      this.isReady = false;
+      this.process = null;
+    });
+
     this.process.stdout?.on("data", (data) => {
       const chunk = data.toString();
       this.emit("log", chunk); // Emit log event
@@ -81,6 +88,7 @@ export class SbclProcess extends EventEmitter {
     });
 
     this.isReady = true;
+    console.log("[SBCL] Process spawned successfully.");
   }
 
   private checkBuffer() {
@@ -175,7 +183,15 @@ export class SbclProcess extends EventEmitter {
 
   async eval(code: string): Promise<{ result: string; output: string }> {
     if (!this.process || !this.isReady) {
-      throw new Error("SBCL process is not running");
+      console.log("[SBCL] Process not running, attempting restart...");
+      this.start();
+
+      // Wait a bit for it to spawn
+      await new Promise((r) => setTimeout(r, 1000));
+
+      if (!this.process || !this.isReady) {
+        throw new Error("SBCL process failed to restart");
+      }
     }
 
     // Wrap in promise and push to queue
@@ -284,29 +300,55 @@ export class SbclProcess extends EventEmitter {
       "(s-dialectic:print-graph-json)"
     );
 
-    // Look for everything between the first { and the last }
-    const match = rawOutput.match(/(\{.*\})/s);
+    let jsonString = rawOutput.trim();
 
-    let jsonString = "";
-    if (match && match[1]) {
-      jsonString = match[1].trim();
-    } else {
-      console.warn("Could not find JSON in SBCL output. Raw:", rawOutput);
-      return { nodes: [], edges: [] };
+    // 1. Try raw directly if it looks like a JSON object
+    if (jsonString.startsWith("{") && jsonString.endsWith("}")) {
+      try {
+        const data = JSON.parse(jsonString);
+        return { nodes: data.nodes || [], edges: data.edges || [] };
+      } catch (e) {
+        // Fall through
+      }
     }
 
-    try {
-      // Since we used princ, the output should be clean JSON without Lisp escaping
-      const data = JSON.parse(jsonString);
-      return {
-        nodes: data.nodes || [],
-        edges: data.edges || [],
-      };
-    } catch (e) {
-      console.error("Failed to parse Lisp JSON output:", jsonString);
-      console.error("Error:", e);
-      return { nodes: [], edges: [] };
+    // 2. Try to extract content between first { and last }
+    const firstBrace = rawOutput.indexOf("{");
+    const lastBrace = rawOutput.lastIndexOf("}");
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+      jsonString = rawOutput.substring(firstBrace, lastBrace + 1).trim();
+      try {
+        const data = JSON.parse(jsonString);
+        return { nodes: data.nodes || [], edges: data.edges || [] };
+      } catch (e) {
+        // 3. If it looks like a Lisp-escaped string (surrounded by quotes or containing \")
+        // we might need to unescape it.
+        let cleaned = jsonString;
+        try {
+          // Simplistic unescape: if it starts/ends with quotes, remove them
+          if (cleaned.startsWith('"') && cleaned.endsWith('"')) {
+            cleaned = cleaned.slice(1, -1);
+          }
+          // Lisp string unescaping logic
+          cleaned = cleaned
+            .replace(/\\\\/g, "\\") // Unescape backslashes first
+            .replace(/\\"/g, '"'); // Unescape quotes
+
+          const data = JSON.parse(cleaned);
+          return { nodes: data.nodes || [], edges: data.edges || [] };
+        } catch (e2) {
+          // Final fallback
+          console.error("!!! [DEBUG] Failed to parse cleaned JSON:", cleaned);
+          console.error("!!! [DEBUG] Parse Error:", e2);
+        }
+      }
     }
+
+    console.warn(
+      "Could not find or parse JSON in SBCL output. Raw:",
+      rawOutput
+    );
+    return { nodes: [], edges: [] };
   }
 
   async saveState(filepath: string): Promise<string> {

@@ -56,29 +56,31 @@ describe('S-Dialectic Bypass', () => {
         vi.clearAllMocks();
     });
 
-    it('should NOT call ReflectiveOrchestrator when bypassSDialect is true', async () => {
-        const input = {
-            prompt: "Test prompt",
-            bypassSDialect: true
-        };
+    it("should NOT call ReflectiveOrchestrator when bypassSDialect is true", async () => {
+      const input = {
+        prompt: "Test prompt",
+        bypassSDialect: true,
+      };
 
-        // @ts-ignore
-        const result = await reflectiveLoop(input);
+      // @ts-ignore
+      const result = await reflectiveLoop(input);
 
-        expect(result).toBe("Synthesis Response");
-        expect(ReflectiveOrchestrator).not.toHaveBeenCalled();
+      expect(result.text).toBe("Synthesis Response");
+      expect(result.reasoningLogs).toContain("bypassed");
+      expect(ReflectiveOrchestrator).not.toHaveBeenCalled();
     });
 
-    it('should call ReflectiveOrchestrator when bypassSDialect is false or missing', async () => {
-        const input = {
-            prompt: "Test prompt",
-            bypassSDialect: false
-        };
+    it("should call ReflectiveOrchestrator when bypassSDialect is false or missing", async () => {
+      const input = {
+        prompt: "Test prompt",
+        bypassSDialect: false,
+      };
 
-        // @ts-ignore
-        const result = await reflectiveLoop(input);
+      // @ts-ignore
+      const result = await reflectiveLoop(input);
 
-        expect(result).toBe("Synthesis Response");
-        expect(ReflectiveOrchestrator).toHaveBeenCalled();
+      expect(result.text).toBe("Synthesis Response");
+      expect(result.reasoningLogs).toBe("mocked reasoning logs");
+      expect(ReflectiveOrchestrator).toHaveBeenCalled();
     });
 });

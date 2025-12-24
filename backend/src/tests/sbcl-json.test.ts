@@ -4,20 +4,23 @@ import { SbclProcess } from '../lisp/sbcl-process';
 
 // Mock subclass to avoid actual child process spawning
 class MockSbclProcess extends SbclProcess {
-    mockOutput: string = "";
-    
+  mockOutput: string = "";
 
-    // Override start to do nothing
-    // @ts-ignore
-    protected start() {
-        this.isReady = true;
-    }
+  constructor() {
+    super();
+  }
+  // Override start to do nothing
+  // @ts-ignore
+  protected start() {
+    this.isReady = true;
+  }
 
-
-    // Override eval to return mock output
-    override async eval(code: string): Promise<string> {
-        return this.mockOutput;
-    }
+  // Override eval to return mock output
+  override async eval(
+    code: string
+  ): Promise<{ result: string; output: string }> {
+    return { result: this.mockOutput, output: this.mockOutput };
+  }
 }
 
 describe('SBCL JSON Parsing', () => {

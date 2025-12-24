@@ -47,15 +47,21 @@ export class ReflectiveOrchestrator {
    * Senses relevant keywords in the Knowledge Graph to prime the Thinking phase.
    */
   private async recognizeContext() {
-    this.lisp.emit("log", ";; [Orchestrator] Recognition: Sensing relevant nodes...");
-    
-    // Simple mock for now: extract nouns and check if they exist in Lisp
-    // Future: Use a small LLM call to extract entities for lookup
-    const potentialNodes = this.state.userRequest.match(/[A-Z][a-z]+/g) || [];
-    
+    this.lisp.emit(
+      "log",
+      ";; [Orchestrator] Recognition: Sensing relevant nodes..."
+    );
+
+    // Sense entities: Proper nouns (uppercase) OR single uppercase letters (A, B, X, Y)
+    const potentialNodes =
+      this.state.userRequest.match(/\b[A-Z][a-z]*\b/g) || [];
+
     if (potentialNodes.length > 0) {
-      this.state.sensedContext = potentialNodes;
-      this.state.reasoningLogs += `\n[Recognition]: Sensed potential entities: ${potentialNodes.join(", ")}`;
+      // Remove duplicates
+      this.state.sensedContext = [...new Set(potentialNodes)];
+      this.state.reasoningLogs += `\n[Recognition]: Sensed potential entities: ${this.state.sensedContext.join(
+        ", "
+      )}`;
     }
   }
 
@@ -69,6 +75,8 @@ export class ReflectiveOrchestrator {
 
     // @ts-ignore
     const refPrompt = await prompt(ai.registry, "reflectiveLoop");
+
+    let lastResponseText = "";
 
     while (turn < maxTurns) {
       this.lisp.emit("log", `;; [Orchestrator] Logic Turn ${turn + 1}...`);
@@ -85,33 +93,81 @@ export class ReflectiveOrchestrator {
       });
 
       const responseText = llmResponse.text;
+
+      // Loop Protection: if AI repeats itself exactly, stop the loop
+      if (responseText.trim() === lastResponseText.trim()) {
+        this.lisp.emit(
+          "log",
+          ";; [Orchestrator] No progress in turn. Breaking loop."
+        );
+        break;
+      }
+      lastResponseText = responseText;
+
       this.state.reasoningLogs += `\n\n--- Step ${
         turn + 1
       } (Logic) ---\n${responseText}`;
 
-      const lispRegex = /```(?:lisp|cl|common-lisp)\b\s*([\s\S]*?)```/gi;
+      const lispRegex =
+        /<lisp>([\s\S]*?)<\/lisp>|```(?:lisp|cl|common-lisp)\b\s*([\s\S]*?)```/gi;
       let match;
       let executedSomething = false;
 
-      if ((match = lispRegex.exec(responseText)) !== null) {
-        const code = match[1].trim();
-        if (code.length > 0) {
-          try {
-            const { result, output } = await this.lisp.eval(code);
-            const toolOutput = output || result;
+      while ((match = lispRegex.exec(responseText)) !== null) {
+        let code = (match[1] || match[2] || "").trim();
 
-            this.state.history.push({
-              role: "model",
-              content: `Tool Call: ${code}`,
-            });
-            this.state.history.push({ role: "tool", content: toolOutput });
-            this.state.reasoningLogs += `\n[Lisp]: ${code} -> ${toolOutput}`;
+        // Remove common REPL prompts and junk if AI accidentally included them
+        // This regex matches lines starting with >, *, cl-user>, 0] etc.
+        code = code.replace(/^([*>\s]|cl-user>|[0-9]+\])+/, "").trim();
 
-            this.state.lispProducts.push({ code, result: toolOutput });
-            executedSomething = true;
-          } catch (e) {
-            this.state.reasoningLogs += `\n[Execution Error]: ${e}`;
+        // If it's just garbage like ">" after cleaning, skip it
+        if (!code || code === ">" || code === "*" || !code.includes("(")) {
+          continue;
+        }
+        // Heuristic to skip raw data blocks (lists of lists) that AI sometimes outputs
+        if (
+          code.startsWith("((") ||
+          (code.startsWith("(") &&
+            code.length > 5 &&
+            !/^\(\s*[a-zA-Z0-9$!%&*+_./:<>?@^~-]+/.test(code))
+        ) {
+          console.warn(
+            `[Orchestrator] Skipping potential data block: ${code.substring(
+              0,
+              50
+            )}...`
+          );
+          this.state.reasoningLogs += `\n[Info]: Skipped data-only block: ${code.substring(
+            0,
+            100
+          )}`;
+          continue;
+        }
+
+        try {
+          const { result, output } = await this.lisp.eval(code);
+          const toolOutput = output || result;
+
+          this.state.history.push({
+            role: "model",
+            content: `Tool Call: ${code}`,
+          });
+          this.state.history.push({ role: "tool", content: toolOutput });
+          this.state.reasoningLogs += `\n[Lisp]: ${code} -> ${toolOutput}`;
+
+          this.state.lispProducts.push({ code, result: toolOutput });
+          executedSomething = true;
+
+          // Proactive Inference: if adding a relation, run inference to stay updated
+          if (code.includes("adicionar-relacao")) {
+            const inferResult = await this.lisp.eval("(inferir)");
+            this.state.reasoningLogs += `\n[Inference]: ${
+              inferResult.output || inferResult.result
+            }`;
           }
+        } catch (e) {
+          this.state.reasoningLogs += `\n[Execution Error]: ${e}`;
+          console.error(`[Orchestrator] Eval failed:`, e);
         }
       }
 
@@ -127,8 +183,15 @@ export class ReflectiveOrchestrator {
    * Package all results into a coherent Fact Package for the Synthesis Layer.
    */
   private async refineKnowledge() {
-    this.lisp.emit("log", ";; [Orchestrator] Refinement: Packaging products for System 1...");
-    
+    this.lisp.emit(
+      "log",
+      ";; [Orchestrator] Refinement: Packaging products for System 1..."
+    );
+
+    // Get final grounded state from the kernel
+    const { result: finalMems } = await this.lisp.eval("(listar-memorias)");
+    const { result: finalRels } = await this.lisp.eval("(listar-relacoes)");
+
     // Create a structured summary of what was deduced
     const resultsSummary = this.state.lispProducts
       .map((p, i) => `Turn ${i + 1}: "${p.code}" -> Result: "${p.result}"`)
@@ -137,6 +200,10 @@ export class ReflectiveOrchestrator {
     this.state.factPackage = `
 ### KERNEL DATA (NEW OR RETRIEVED)
 ${resultsSummary || "No direct facts were extracted or inferred in this turn."}
+
+### GROUNDED KNOWLEDGE BASE (FINAL STATE)
+Concepts: ${finalMems}
+Relations: ${finalRels}
 
 ### FULL REASONING TRACE (INTERNAL)
 ${this.state.reasoningLogs}

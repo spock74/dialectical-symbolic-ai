@@ -22,11 +22,13 @@
 ;; 2. Definir pacote principal S-DIALECTIC
 (defpackage :s-dialectic
   (:use :cl)
-  (:export :adicionar-memoria
+    (:export :adicionar-memoria
            :recuperar-memoria
            :listar-memorias
            :limpar-memoria
            :definir-ferramenta
+           :definir-funcao
+           :definir-macro
            :buscar-relacoes
            ;; New Graph capabilities
            :adicionar-relacao
@@ -40,15 +42,21 @@
            :reset-total
            ;; Symbolic Inference
            :adicionar-regra
-           :inferir))
+           :inferir
+           :carregar-regras-essenciais))
 
 (in-package :s-dialectic)
+
+
 
 
 ;;; --- Memory System ---
 
 (defvar *knowledge-graph* (make-hash-table :test 'equal)
   "Armazena o grafo de conhecimento como pares chave-valor. (Legacy support)")
+
+(defvar *custom-definitions* nil
+  "Source code of custom tools (functions/macros) defined by the LLM.")
 
 ;; Structural Definitions
 (defstruct concept
@@ -149,12 +157,7 @@
         val
         (format nil "Nao encontrado: ~a" chave))))
 
-(defun limpar-memoria ()
-  "Clears all memory."
-  (clrhash *knowledge-graph*)
-  (setf *relations* nil)
-  (setf *rules* nil)
-  "Memoria limpa.")
+
 
 (defun adicionar-relacao (sujeito predicado objeto)
   "Adds a structured relation between concepts. Detects redundancy."
@@ -204,12 +207,20 @@
       (push nova-regra *rules*)
       (format nil "Regra aprendida: ~a" n))))
 
+(defun carregar-regras-essenciais ()
+  "Adiciona regras lógicas básicas ao sistema."
+  (adicionar-regra 'TRANSITIVIDADE-CATEGORICA
+                   '((?x "É UM" ?y) (?y "É UM" ?z))
+                   '((?x "É UM" ?z)))
+  "Regras essenciais carregadas.")
+
 ;;; --- Inference Engine (Basic Forward Chaining) ---
 
 (defun unify (var val bindings)
   "Simple Unification."
   (cond
     ((equal var val) bindings)
+
     ((variable-p var)
      (let ((existing (assoc var bindings)))
        (if existing
@@ -234,6 +245,15 @@
       (return-from match-pattern nil))
     (let ((b2 (unify pat-s fact-s bindings)))
       (when b2 (unify pat-o fact-o b2)))))
+
+(defun limpar-memoria ()
+  "Clears all memory and custom definitions."
+  (clrhash *knowledge-graph*)
+  (setf *relations* nil)
+  (setf *rules* nil)
+  (setf *custom-definitions* nil)
+  (carregar-regras-essenciais)
+  "Memoria limpa.")
 
 (defun apply-rule (rule facts)
   "Tries to apply a rule to the known facts. Returns list of NEW facts."
@@ -332,6 +352,10 @@
     (format stream "(in-package :s-dialectic)~%")
     (format stream "(limpar-memoria)~%~%")
 
+    (format stream ";;; --- Custom Definitions (Functions & Macros) ---~%")
+    (dolist (def (reverse *custom-definitions*))
+      (format stream "~s~%~%" def))
+
     (format stream ";;; --- Memories ---~%")
     (maphash (lambda (k v) 
                (format stream "(adicionar-memoria ~s ~s)~%" k v))
@@ -346,10 +370,12 @@
 
     (format stream "~%;;; --- Rules ---~%")
     (dolist (rule (reverse *rules*))
-      (format stream "(adicionar-regra '~a '~s '~s)~%" 
-              (rule-name rule) 
-              (rule-conditions rule) 
-              (rule-consequences rule)))
+      ;; Skip essential rules to avoid duplicates upon reload
+      (unless (eq (rule-name rule) 'TRANSITIVIDADE-CATEGORICA)
+        (format stream "(adicionar-regra '~a '~s '~s)~%" 
+                (rule-name rule) 
+                (rule-conditions rule) 
+                (rule-consequences rule))))
     
     (format stream "~%(format t \"~&;;; Knowledge Base Loaded Successfully.~%\")~%"))
   (format nil "Estado salvo em ~a" filepath))
@@ -382,13 +408,25 @@
 
 ;;; --- Tooling System ---
 
+(defmacro definir-funcao (nome args &body corpo)
+  "Defines a new function and persists its source."
+  (let ((def `(defun ,nome ,args (declare (ignorable ,@args)) ,@corpo)))
+    `(progn
+       (eval ',def)
+       (pushnew ',def *custom-definitions* :test #'equal)
+       (format nil "Funcao aprendida e persistida: ~a" ',nome))))
+
+(defmacro definir-macro (nome args &body corpo)
+  "Defines a new macro and persists its source."
+  (let ((def `(defmacro ,nome ,args ,@corpo)))
+    `(progn
+       (eval ',def)
+       (pushnew ',def *custom-definitions* :test #'equal)
+       (format nil "Macro aprendida e persistida: ~a" ',nome))))
+
 (defmacro definir-ferramenta (nome args &body corpo)
-  "Defines a new tool (function) available to the agent."
-  `(progn
-     (defun ,nome ,args 
-       (declare (ignorable ,@args))
-       ,@corpo)
-     (format nil "Ferramenta aprendida: ~a" ',nome)))
+  "Legacy alias for definir-funcao."
+  `(definir-funcao ,nome ,args ,@corpo))
 
 ;;; --- Initialize User Package ---
 (in-package :cl-user)
@@ -409,8 +447,11 @@
                     s-dialectic:reset-total
                     s-dialectic:adicionar-regra
                     s-dialectic:inferir
+                    s-dialectic:carregar-regras-essenciais
                     s-dialectic:lembrar
-                    s-dialectic:definir-ferramenta) :cl-user)
+                    s-dialectic:definir-ferramenta
+                    s-dialectic:definir-funcao
+                    s-dialectic:definir-macro) :cl-user)
 
 ;; Macro para permitir que o LLM use (lisp ...) como wrapper sem erro
 (defmacro lisp (&body body)
@@ -429,3 +470,4 @@
   (values))
 
 (in-package :cl-user)
+(s-dialectic::carregar-regras-essenciais)

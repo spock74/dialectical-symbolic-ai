@@ -22,6 +22,9 @@ interface DialecticState {
   useConversationalMemory: boolean;
   useBypassSDialect: boolean;
 
+  // Reasoning Console
+  lastReasoningLogs: string;
+
   // Actions
   createGroup: (name: string) => void;
   setActiveGroup: (id: string) => void;
@@ -35,6 +38,7 @@ interface DialecticState {
   incrementGraphVersion: () => void;
   setUseConversationalMemory: (val: boolean) => void;
   setUseBypassSDialect: (val: boolean) => void;
+  setLastReasoningLogs: (logs: string) => void;
 }
 
 export const useDialecticStore = create<DialecticState>()(
@@ -47,6 +51,7 @@ export const useDialecticStore = create<DialecticState>()(
       graphVersion: 0,
       useConversationalMemory: true,
       useBypassSDialect: false,
+      lastReasoningLogs: "",
 
       createGroup: (name: string) => {
         const newGroup: Group = {
@@ -94,6 +99,7 @@ export const useDialecticStore = create<DialecticState>()(
         set({ useConversationalMemory: val }),
 
       setUseBypassSDialect: (val: boolean) => set({ useBypassSDialect: val }),
+      setLastReasoningLogs: (logs: string) => set({ lastReasoningLogs: logs }),
     }),
     {
       name: "dialectic-storage",

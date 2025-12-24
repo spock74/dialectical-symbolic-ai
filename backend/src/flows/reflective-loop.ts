@@ -41,9 +41,6 @@ export const reflectiveLoop = ai.defineFlow(
   async (input) => {
     let context = input.history || [];
     const originalPrompt = input.prompt;
-    let currentPrompt = input.prompt;
-    const maxTurns = 5;
-    let turn = 0;
 
     let factPackage = "";
     let reasoningLogs = "";
@@ -56,6 +53,25 @@ export const reflectiveLoop = ai.defineFlow(
         "log",
         ";; [System] S-Dialect Bypass ENABLED. Direct LLM interaction."
       );
+
+      try {
+        // @ts-ignore
+        const directPrompt = await prompt(ai.registry, "directChat");
+        const response = await directPrompt.generate({
+          model: `ollama/${CONFIG.OLLAMA_CHAT_MODEL_NAME}`,
+          input: {
+            userRequest: originalPrompt,
+            history: input.useMemory !== false ? context : [],
+          },
+        });
+
+        return {
+          text: response.text,
+          reasoningLogs: "S-Dialect bypassed. No symbolic trace available.",
+        };
+      } finally {
+        scheduleModelUnload(CONFIG.OLLAMA_CHAT_MODEL_NAME);
+      }
     } else {
       // 1. INITIALIZE COGNITIVE WORKSPACE (System 1.5)
       const orchestrator = new ReflectiveOrchestrator(
@@ -63,18 +79,14 @@ export const reflectiveLoop = ai.defineFlow(
         input.history || []
       );
 
-      // 2. THINKING PHASE (Orchestration of sensing, logic, and refinement)
+      // 2. THINKING PHASE
       factPackage = await orchestrator.think();
       reasoningLogs = orchestrator.getReasoningLogs();
     }
 
-    // 3. SYNTHESIS PHASE (Voice of S-Dialectic)
+    // 3. SYNTHESIS PHASE
     console.log(
       `[Flow] Synthesizing final response with Chat Model (Gemma ${CONFIG.OLLAMA_CHAT_MODEL_NAME})...`
-    );
-    lisp.emit(
-      "log",
-      `;; [Synthesis] Generating final natural language response...`
     );
 
     try {
@@ -85,32 +97,23 @@ export const reflectiveLoop = ai.defineFlow(
         model: `ollama/${CONFIG.OLLAMA_CHAT_MODEL_NAME}`,
         input: {
           userRequest: originalPrompt,
-          history: input.useMemory !== false ? context : [], // Conditional history for System 1
+          history: input.useMemory !== false ? context : [],
           factPackage: factPackage,
         },
       });
 
       let finalText = finalResponse.text;
-      // Fallback Mechanism
       if (!finalText || finalText.trim().length === 0) {
-        console.warn(
-          "Chat Model returned empty. Falling back to Logic Model output."
-        );
-
-        // Fallback: Use the last valid response from the logic loop (basic parsing)
-        // or a generic message if logic was silent (unlikely).
-        finalText = `The Logic Engine processed your request, but the Synthesis Layer (Gemma model: ${CONFIG.OLLAMA_CHAT_MODEL_NAME}) returned an empty response. Please check the Reasoning Console for the full trace.`;
+        finalText = `The Logic Engine processed your request, but the Synthesis Layer returned an empty response.`;
       }
 
-      // Auto-Save at the end of the turn (only if not bypassed, though it's harmless if bypassed since nothing changed)
-      if (!input.bypassSDialect) {
-        await saveKnowledgeGraph();
-      }
+      await saveKnowledgeGraph();
 
-      console.log("Chat Model:", finalText);
-      return finalText;
+      return {
+        text: finalText,
+        reasoningLogs: reasoningLogs,
+      };
     } finally {
-      // Schedule unload for the Chat/Synthesis Model
       scheduleModelUnload(CONFIG.OLLAMA_CHAT_MODEL_NAME);
     }
   }

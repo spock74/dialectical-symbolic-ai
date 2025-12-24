@@ -24,9 +24,14 @@ app.use(express.json({ limit: "50mb" })); // Increase JSON body limit for Base64
 
 app.post("/api/chat", async (req, res) => {
   try {
-    const { prompt, history } = req.body;
-    const result = await reflectiveLoop({ prompt, history });
-    res.json({ text: result });
+    const { prompt, history, useMemory, bypassSDialect } = req.body;
+    const result = await reflectiveLoop({
+      prompt,
+      history,
+      useMemory,
+      bypassSDialect,
+    });
+    res.json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: String(error) });

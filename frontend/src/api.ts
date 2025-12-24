@@ -45,7 +45,7 @@ export async function chat(
   history: any[] = [],
   useMemory: boolean = true,
   bypassSDialect: boolean = false
-): Promise<{ text: string }> {
+): Promise<{ text: string; reasoningLogs: string }> {
   const response = await fetch(`${API_BASE}/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

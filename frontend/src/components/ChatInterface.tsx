@@ -35,6 +35,8 @@ export function ChatInterface() {
     setUseConversationalMemory,
     useBypassSDialect,
     setUseBypassSDialect,
+    lastReasoningLogs,
+    setLastReasoningLogs,
     incrementGraphVersion
   } = useDialecticStore();
 
@@ -43,6 +45,7 @@ export function ChatInterface() {
   const [isUploading, setIsUploading] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
+  const [reasoningDialogOpen, setReasoningDialogOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -85,8 +88,12 @@ export function ChatInterface() {
       const { useConversationalMemory, useBypassSDialect } = useDialecticStore.getState();
       const history = messages.map(m => ({ role: m.role, content: m.content }));
       
-      const response = await chat(promptToSend, history, useConversationalMemory, useBypassSDialect);
-      addMessage({ role: 'model', content: response.text });
+      const { text, reasoningLogs } = await chat(promptToSend, history, useConversationalMemory, useBypassSDialect);
+      addMessage({ role: 'model', content: text });
+      
+      if (reasoningLogs) {
+        setLastReasoningLogs(reasoningLogs);
+      }
     } catch (error) {
       console.error(error);
       addMessage({ role: 'tool', content: `Error: ${String(error)}` });
@@ -204,39 +211,70 @@ export function ChatInterface() {
             )}
             
             {/* Knowledge Base Reset Dialog */}
-            <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/40 transition-colors">
-                   <Database size={12} />
-                   Knowledge Base
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] border-destructive/20 shadow-2xl bg-background/95 backdrop-blur-xl">
-                <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2 text-destructive">
-                    <Trash2 size={18} />
-                    Resetar Base de Conhecimento
-                  </DialogTitle>
-                  <DialogDescription className="pt-2">
-                    Esta ação irá <strong>apagar permanentemente</strong> todos os dados do motor semântico (Lisp) e limpar o histórico de chat. Esta ação não pode ser desfeita.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter className="mt-4 gap-2 sm:gap-0">
-                  <Button variant="outline" onClick={() => setResetDialogOpen(false)} disabled={isResetting}>
-                    Cancelar
+            {!useBypassSDialect && (
+              <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/40 transition-colors">
+                     <Database size={12} />
+                     Limpar Knowledge Base
                   </Button>
-                  <Button variant="destructive" onClick={handleResetKB} disabled={isResetting} className="gap-2">
-                    {isResetting && <Loader2 className="h-4 w-4 animate-spin" />}
-                    Confirmar Reset
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px] border-destructive/20 shadow-2xl bg-background/95 backdrop-blur-xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2 text-destructive">
+                      <Trash2 size={18} />
+                      Resetar Base de Conhecimento
+                    </DialogTitle>
+                    <DialogDescription className="pt-2">
+                      Esta ação irá <strong>apagar permanentemente</strong> todos os dados do motor semântico (Lisp) e limpar o histórico de chat. Esta ação não pode ser desfeita.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter className="mt-4 gap-2 sm:gap-0">
+                    <Button variant="outline" onClick={() => setResetDialogOpen(false)} disabled={isResetting}>
+                      Cancelar
+                    </Button>
+                    <Button variant="destructive" onClick={handleResetKB} disabled={isResetting} className="gap-2">
+                      {isResetting && <Loader2 className="h-4 w-4 animate-spin" />}
+                      Confirmar Reset
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            )}
 
-            <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50">
-               <Brain size={12} />
-               Raciocínio
-            </Button>
+            {!useBypassSDialect && (
+              <Dialog open={reasoningDialogOpen} onOpenChange={setReasoningDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50 hover:bg-primary/10 hover:text-primary transition-colors">
+                    <Brain size={12} />
+                    Raciocínio
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[700px] h-[80vh] flex flex-col border-primary/20 shadow-2xl bg-background/95 backdrop-blur-xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2 text-primary">
+                      <Brain size={18} />
+                      Console de Raciocínio Simbólico
+                    </DialogTitle>
+                    <DialogDescription>
+                      Trace completo da execução no Kernel Lisp (System 2).
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="flex-1 overflow-hidden mt-4 bg-muted/30 rounded-lg border border-border/50">
+                    <ScrollArea className="h-full p-4">
+                      <pre className="text-[11px] font-mono leading-relaxed whitespace-pre-wrap opacity-80">
+                        {lastReasoningLogs || ";; Aguardando primeira execução simbólica..."}
+                      </pre>
+                    </ScrollArea>
+                  </div>
+                  <DialogFooter className="mt-4">
+                    <Button variant="outline" onClick={() => setReasoningDialogOpen(false)}>
+                      Fechar
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            )}
             
             <div className="flex items-center gap-2 bg-background/50 px-3 py-1 h-7 rounded-full border border-dashed border-border shadow-sm group hover:border-primary/40 transition-colors">
                <Checkbox 
@@ -250,7 +288,7 @@ export function ChatInterface() {
                  className="text-[11px] font-medium cursor-pointer select-none text-muted-foreground group-hover:text-primary transition-colors flex items-center gap-1"
                >
                  <Clock size={11} className="opacity-70" />
-                 Memória
+                 Memória Conversacional
                </label>
             </div>
 
@@ -266,7 +304,7 @@ export function ChatInterface() {
                  className="text-[11px] font-medium cursor-pointer select-none text-muted-foreground group-hover:text-destructive transition-colors flex items-center gap-1"
                >
                  <Sparkles size={11} className="opacity-70" />
-                 Não Usar S-Dialect
+                 Bypass S-Dialect
                </label>
             </div>
          </div>

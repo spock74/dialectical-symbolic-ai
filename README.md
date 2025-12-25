@@ -1,119 +1,257 @@
-# SDialectic: The Lisp Meta-Powered Cognitive Engine
+# SDialectic: Neuro-Symbolic Cognitive Architecture
 
-> **"Logic and Intuition are not opposites, but the two wings of the same bird."**
+SDialectic is an advanced neuro-symbolic framework designed for high-precision knowledge extraction and logical reasoning. It implements a Dual-Process architecture that bridges the creative flexibility of Large Language Models (LLMs) with the formal rigor of a Symbolic Logic Kernel.
 
-**SDialectic** (Symbolic Dialectic) is a neuro-symbolic cognitive architecture that fuses the fluid semantic intuition of **Generation 3 LLMs** with the rigid structural logic of **Common Lisp**.
+## 1. Executive Summary: The Dual-Process Theory
 
-Unlike traditional "Stateless" AI interaction, SDialectic embeds a persistent **Lisp Runtime (SBCL)** directly into the cognitive loop. The LLM doesn't just "talk"; it *thinks* by interacting with a persistent symbolic world, creating a feedback loop of continuous self-refinement.
+The system is built upon the Dual-Process theory of cognition, distinguishing between two primary modes of processing:
+
+1.  **System 1 (Neural Intuition)**: Handled by Generation 3 LLMs (e.g., Gemma 3, Qwen 2.5). This layer manages natural language understanding, context sensing, and creative synthesis.
+2.  **System 2 (Symbolic Logic)**: Driven by the TS-Kernel (Local JSCL). This layer provides an immutable environment for formal logic, atomic fact storage, and deterministic inference.
+
+The interaction between these layers is managed by the **Reflective Orchestrator**, ensuring that every neural intuition is grounded in symbolic truth.
 
 ---
 
-## 🏛️ System Concept: The Neuro-Symbolic Loop
+## 2. System Architecture
 
-The system operates on a dual-process theory (System 1 vs System 2):
+The architecture is composed of three primary layers: the User Interface, the Orchestration Layer, and the Symbolic Kernel.
 
-1.  **System 1 (Neural/Intuition)**: `Gemma 3 1b` acts as the natural language interface, synthesizing information and communicating with the user.
-2.  **System 2 (Symbolic/Logic)**: `Qwen 2.5 Coder 3b` acts as the Logic Engine, translating natural language into formal Lisp code and executing it within a persistent environment.
+### 2.1 Concept: The Digital Brain (Didactic View)
 
 ```mermaid
 graph TD
-    User((User)) <--> S1[System 1: Neural Cortex<br/>Gemma 3 1b]
-    S1 <--> Loop{Reflective Loop}
-    Loop <--> S2[System 2: Symbolic Kernel<br/>SBCL + Qwen 3b]
-    S2 <--> KG[(Knowledge Graph<br/>Lisp State)]
-    KG -.->|Persistence| File[(knowledge.lisp)]
-```
-
----
-
-## 🛠️ Architecture & Code Artifacts
-
-The system is split between a TypeScript/Node.js shell and a Common Lisp core.
-
-```mermaid
-graph LR
-    subgraph TypeScript_Shell
-        Server[server.ts] --> RLoop[reflective-loop.ts]
-        Server --> KFlow[knowledge-flow.ts]
-        RLoop --> SBCLProc[sbcl-process.ts]
-        SBCLProc --> Stream((IPC Stream))
-    end
-    subgraph Lisp_Kernel
-        Stream --> Boot[bootstrap.lisp]
-        Boot --> State[(knowledge.lisp)]
+    subgraph "The Digital Brain"
+        subgraph "Left Hemisphere: Logic"
+            SK["Symbolic Kernel (Lisp)<br/>Atomic Facts<br/>Formal Inference"]
+        end
+        subgraph "Right Hemisphere: Intuition"
+            LLM["LLM Layer<br/>Language Synthesis<br/>Contextual Fluidity"]
+        end
+        ORCH["Reflective Orchestrator<br/>(The Bridge)"]
     end
     
-    subgraph Frontend
-        React[ReactFlow UI] <-->|JSON API| Server
-    end
+    UserRequest([User Query]) --> ORCH
+    ORCH <--> LLM
+    ORCH <--> SK
+    ORCH --> FinalResponse([Rational Response])
 ```
 
-### Key Components:
-- **`sbcl-process.ts`**: Manages the life-cycle of the SBCL process, handles IPC communication via a sentinel-based protocol, and recovers from Lisp debuggers automatically.
-- **`reflective-loop.ts`**: Orchestrates the multi-turn interaction between the Logic Model and the Lisp kernel.
-- **`bootstrap.lisp`**: The "operating system" inside SBCL, defining concepts, relations, rules, and JSON serialization.
+### 2.2 Technical Topology
+
+```mermaid
+graph TB
+    subgraph "Frontend: React Application"
+        UI["UI Layer"]
+        ZST["Zustand State (Modular Slices)"]
+        RF["ReactFlow Analysis Engine"]
+    end
+
+    subgraph "Backend: Node.js / Genkit"
+        API["Express API Server"]
+        RO["Reflective Orchestrator Class"]
+        FLOW["Genkit Knowledge Flow"]
+    end
+
+    subgraph "Symbolic Layer: TS-Kernel"
+        AD["JSCL Adapter (Bridge)"]
+        ENG["JSCL Lisp Engine"]
+        KG["Knowledge Graph (Typedef)"]
+    end
+
+    subgraph "Neural Layer: Ollama"
+        LOGIC["Logic Model (Qwen 2.5 Coder)"]
+        CHAT["Synthesis Model (Gemma 3)"]
+    end
+
+    %% Interactions
+    UI <--> ZST
+    UI <--> API
+    API <--> FLOW
+    FLOW <--> RO
+    RO <--> AD
+    AD <--> ENG
+    ENG <--> KG
+    RO <--> LOGIC
+    RO <--> CHAT
+```
 
 ---
 
-## 🔄 Sequence: User Messaging & Reflection
+## 3. Core Component: The Reflective Loop
 
-When a user sends a message, the system undergoes a **Reflective Loop** before replying.
+The Reflective Loop is a multi-turn cognitive process where the AI "reasons" by writing and executing symbolic code before presenting a result.
+
+### 3.1 Interaction Sequence
 
 ```mermaid
 sequenceDiagram
+    autonumber
     participant U as User
-    participant S1 as System 1 (Gemma)
-    participant L as Logic Engine (Qwen)
-    participant SK as Symbolic Kernel (SBCL)
+    participant ORCH as Orchestrator
+    participant LM as Logic Model (Qwen)
+    participant SK as Symbolic Kernel (JSCL)
+    participant SM as Synthesis Model (Gemma)
 
-    U->>S1: "Einstein and Gödel were friends in Princeton"
-    S1->>L: "Extract and Structure this information"
+    U->>ORCH: Input Query
     
-    loop Reflection (Turn n)
-        L->>SK: (adicionar-memoria "Einstein" "Físico")
-        SK-->>L: "Memorizado: Einstein"
-        L->>SK: (adicionar-relacao "Einstein" "amigo" "Gödel")
-        SK-->>L: "Relacao estruturada: EINSTEIN -[AMIGO]-> GÖDEL"
+    Note over ORCH, SK: Stage 1: Contextual Grounding
+    ORCH->>SK: Query current Knowledge Graph
+    SK-->>ORCH: Return relevant Entities/Relations
+
+    Note over ORCH, SK: Stage 2: Logical Reasoning (Loop)
+    loop Thinking Turn
+        ORCH->>LM: Request Logic Plan (based on Context)
+        LM-->>ORCH: Symbolic Code (S-Expressions)
+        ORCH->>SK: Execute S-Expressions
+        SK->>SK: Perform Inference / Graph Mutation
+        SK-->>ORCH: Execution Result / Observations
     end
-    
-    Note over SK: (salvar-estado "knowledge.lisp")
-    
-    S1->>U: "Einstein e Gödel eram amigos em Princeton."
+
+    Note over ORCH, SM: Stage 3: Human Synthesis
+    ORCH->>SM: Prompt with Fact Package + Reasoning Trace
+    SM-->>ORCH: Natural Language Response
+    ORCH-->>U: Final Verified Response
 ```
 
 ---
 
-## 🔌 Lisp-Node.js API (Bridging Functions)
+## 4. Cognitive Specialization and Context Engineering
 
-The communication is performed via S-Expressions. Below is the mapping of core functions:
+The system optimizes for accuracy by treating the Logic Model and the Synthesis Model as two specialized agents with distinct context windows.
 
-| Function | Arguments | Description |
+### 4.1 Model Roles and Context Inputs
+
+| Feature | Logic Model (Qwen 2.5 Coder) | Synthesis Model (Gemma 3) |
 | :--- | :--- | :--- |
-| `adicionar-memoria` | `(name description)` | Creates or updates a node in the Knowledge Graph. |
-| `adicionar-relacao` | `(sub pred obj)` | Creates a directed edge between two concepts. |
-| `adicionar-regra` | `(name conditions consequences)` | Defines a logical rule for the inference engine. |
-| `inferir` | `()` | Runs forward-chaining inference on all relations. |
-| `listar-dados-json` | `()` | Serializes the entire graph for the ReactFlow frontend. |
-| `salvar-estado` | `(filename)` | Persists the internal state to a Lisp file. |
+| **Primary Goal** | Translate natural language into formal logic. | Translate formal facts into natural language. |
+| **Primary Context** | User Prompt + Current Graph Snapshot. | User Prompt + Fact Package + Reasoning Trace. |
+| **Output Type** | Executable Lisp (S-Expressions). | Formatted Markdown / Natural Language. |
+| **Tone** | Deterministic / Syntactic. | Explanatory / Grounded. |
+
+### 4.2 The Context Transformation Pipeline
+
+The diagram below illustrates how context is filtered and transformed as it moves from the unstructured user input to the final grounded response.
+
+```mermaid
+graph LR
+    subgraph "Input Processing"
+        UP([User Prompt]) --> CS[Context Sensing]
+    end
+
+    subgraph "Phase 1: Logic Context"
+        CS --> |"Filter Graph"| GS[Graph Snapshot]
+        UP --> LM[Logic Model<br/>Qwen 2.5 Coder]
+        GS --> LM
+    end
+
+    subgraph "Phase 2: Result Transformation"
+        LM --> |"Evaluate"| SK[Symbolic Kernel]
+        SK --> |"Validate Facts"| FP[Fact Package]
+        SK --> |"Log Operations"| RT[Reasoning Trace]
+    end
+
+    subgraph "Phase 3: Synthesis Context"
+        UP --> SM[Synthesis Model<br/>Gemma 3]
+        FP --> SM
+        RT --> SM
+        SM --> FR([Final Response])
+    end
+
+    style FP fill:#eff6ff,stroke:#2563eb,stroke-width:2px
+    style RT fill:#f0fdf4,stroke:#16a34a,stroke-width:2px
+```
+
+### 4.3 Context Injection Mechanism
+
+1.  **Logic Injection**: The `ReflectiveOrchestrator` performs a "proximity search" on the Knowledge Graph before invoking the Logic Model. This ensures the prompt only contains entities relevant to the current conversation, preventing context overflow.
+2.  **Fact Injection**: The Synthesis Model is strictly instructed to prioritize the `Fact Package`. If the Symbolic Kernel returns a "Relationship added" or "Conflict found" result, the Synthesis Model must use this as its "Ground Truth," overriding any internal neural priors.
+
+### 4.4 Knowledge Ingestion Lifecycle
+
+When a user introduces new raw data (specifically Markdown or Text files) via the Source Manager, the system initiates an automated extraction lifecycle.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant UI as Source Manager (UI)
+    participant ST as Zustand Store
+    participant BE as Backend (API)
+    participant RO as Reflective Orchestrator
+    participant SK as Symbolic Kernel
+
+    UI->>UI: Select .md File
+    UI->>UI: Read content locally (FileReader)
+    UI->>ST: addMessage("[Archive loaded: filename]")
+    
+    Note over UI, BE: Automated Extraction Trigger
+    UI->>BE: POST /api/chat { prompt: "Analyze and extract...", source: "filename" }
+    
+    BE->>RO: think()
+    RO->>SK: Execute extracted Lisp triples
+    SK->>SK: Mutate Persistent Graph
+    
+    BE->>ST: addSourceToActiveGroup(newMetadata)
+    BE-->>UI: Display Extraction Success
+    
+    Note right of SK: Data is now part of the<br/>permanent Knowledge Base
+```
+
+**Key Ingestion Phases:**
+1.  **Detection & Pre-processing**: The frontend identifies the file type and wraps the content in a "Structured Extraction Prompt."
+2.  **Symbolic Injection**: The Logic Model analyzes the raw content and translates it into atomic `(add-node)` and `(add-relation)` commands.
+3.  **Source-Graph Association**: Every ingested file is treated as a distinct "Source" but contributes to the unified Knowledge Graph of the active Group (Study Trail).
+4.  **Persistent Mapping**: Metadata (Hash, Name, Date) is saved in the Zustand store, while the factual content is persisted as Lisp code in the backend data layer.
 
 ---
 
-## 🚀 Current State (Status 2.0)
+## 5. Key Features
 
-- **Models**: Currently utilizing `gemma3:1b` (Chat) and `qwen2.5-coder:3b` (Logic) via Ollama.
-- **Enriched Reasoning**: The chat model now receives the **full stdout trace** from the Lisp execution, ensuring it "sees" the same reality as the kernel.
-- **Stability**: Singleton SBCL enforcement and debugger-recovery logic allow for 24/7 uptime.
-- **Deep Extraction**: The logic model is tuned to atomize complex sentences into granular locations, topics, and actions.
+### 4.1 Advanced Graph Analysis
+The system includes a sophisticated visualization suite for interacting with the Knowledge Graph in real-time.
+- **Dynamic Filtering**: Toggle visibility of Entities and Relations independently.
+- **Predicate Filtering**: Select specific relation types (e.g., "is valid in", "causes") to isolate sub-graphs.
+- **Flexible Layout**: Switch between Vertical (Top-Bottom) and Horizontal (Left-Right) views with automatic centering (Fit View).
+- **High-Resolution Zoom**: Optimized for massive graphs with zoom-out capabilities up to 20x.
+
+### 4.2 Symbolic Live Stream (Live REPL)
+Every logical operation performed by the AI is streamed to the UI in real-time. This provides a "Glass Box" experience where users can monitor:
+- Lisp commands being generated.
+- Internal graph mutations.
+- Reasoning traces and formal inference logs.
+
+### 4.3 Resilience and Data Integrity
+- **Stateless Snapshots**: The Knowledge Graph is persisted as executable Lisp code, ensuring state can be reconstructed perfectly on boot.
+- **Rollback Mechanism**: If an interaction is aborted, the system automatically restores the last consistent state.
+- **Sandboxed Execution**: The JSCL engine prevents neural errors from compromising system stability.
 
 ---
 
-## 📦 Installation & Usage
+## 5. Technical Implementation Details
 
-1. **Install Prerequisites**: SBCL, Node.js 20+, and Ollama.
-2. **Setup**: `pnpm install` in both `backend` and `frontend`.
-3. **Environment**: Configure `.env.local` in `backend` with your model names.
-4. **Run**: `pnpm dev:pm2` for a supervised backend experience.
+### 5.1 Symbolic Primitives
+The kernel provides a set of high-level S-Expressions for the AI:
+- `(add-node id type)`: Injects a unique concept into the graph.
+- `(add-relation subject predicate object)`: Creates a formal triple.
+- `(infer)`: Triggers the Forward Chaining engine to derive implicit facts.
+- `(get-graph-snapshot)`: Telemetry for the ReactFlow engine.
+
+### 5.2 State Management
+The frontend employs a modular Zustand architecture divided into specialized slices:
+- **ConfigSlice**: Governance of system flags (Memory, Bypass).
+- **ChatSlice**: Thread-safe message history.
+- **SourceSlice**: Document and knowledge unit management.
+- **GraphSlice**: Persistent UI settings (Layout direction, filter states).
 
 ---
 
-*Copyright © 2025 SDialectic Labs. Proprietary / Stealth Beta.*
+## 6. Technical Stack
+
+- **Orchestration**: Node.js, Genkit, TypeScript.
+- **Cognitive Layer**: Ollama (Gemma 3, Qwen 2.5 Coder).
+- **Symbolic Layer**: JSCL (adapted for TS/Node side-car).
+- **Frontend**: React 19, ReactFlow, Zustand, TailwindCSS, Radix UI.
+
+---
+
+*Copyright © 2025 SDialectic Labs. Technical Documentation Internal Release.*

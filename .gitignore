@@ -68,5 +68,8 @@ labs/knowledge
 knowledge/
 pdf-sources/
 
-README_V02
+README_V02.md 
 
+*.pdf
+
+merge_result.*

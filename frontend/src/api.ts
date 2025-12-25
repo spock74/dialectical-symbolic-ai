@@ -44,12 +44,19 @@ export async function chat(
   prompt: string,
   history: any[] = [],
   useMemory: boolean = true,
-  bypassSDialect: boolean = false
+  bypassSDialect: boolean = false,
+  source?: string
 ): Promise<{ text: string; reasoningLogs: string }> {
   const response = await fetch(`${API_BASE}/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt, history, useMemory, bypassSDialect }),
+    body: JSON.stringify({
+      prompt,
+      history,
+      useMemory,
+      bypassSDialect,
+      source,
+    }),
   });
 
   if (!response.ok) {
@@ -83,8 +90,13 @@ export async function extractMarkdown(file: File): Promise<KnowledgeBase> {
 /**
  * Fetches the knowledge graph data (nodes) from the backend/Lisp.
  */
-export async function fetchGraph(): Promise<{ nodes: any[]; edges: any[] }> {
-  const response = await fetch(`${API_BASE}/graph-data`);
+export async function fetchGraph(
+  source?: string
+): Promise<{ nodes: any[]; edges: any[] }> {
+  const url = source
+    ? `${API_BASE}/graph-data?source=${encodeURIComponent(source)}`
+    : `${API_BASE}/graph-data`;
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error("Failed to fetch graph data");
   }
@@ -94,9 +106,13 @@ export async function fetchGraph(): Promise<{ nodes: any[]; edges: any[] }> {
 /**
  * Triggers a full reset of the Lisp knowledge base.
  */
-export async function resetKnowledge(): Promise<{ message: string }> {
+export async function resetKnowledge(
+  source?: string
+): Promise<{ message: string }> {
   const response = await fetch(`${API_BASE}/reset-knowledge`, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ source }),
   });
 
   if (!response.ok) {
@@ -104,5 +120,15 @@ export async function resetKnowledge(): Promise<{ message: string }> {
     throw new Error(`Reset failed: ${errorText}`);
   }
 
+  return response.json();
+}
+export async function fetchGraphRaw(source?: string): Promise<any> {
+  const url = source
+    ? `${API_BASE}/graph-raw?source=${encodeURIComponent(source)}`
+    : `${API_BASE}/graph-raw`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Failed to fetch raw graph data");
+  }
   return response.json();
 }

@@ -6,6 +6,7 @@ import { CONFIG } from "../../config/constants"; // Import CONFIG
 
 import { prompt } from "@genkit-ai/dotprompt";
 import { scheduleModelUnload } from "../../services/model-cleanup";
+import { safeParseJSON } from '../../logic/json-util';
 
 export const extractKnowledgeMultimodal = ai.defineFlow(
   {
@@ -46,24 +47,54 @@ export const extractKnowledgeMultimodal = ai.defineFlow(
 
       // 3. Generate using dedicated VISION MODEL
       // We pass 'model' in the options object to override the text-only default
+      const inputVars = {
+        images: images.map((img) => ({
+          url: `data:image/png;base64,${img}`,
+          contentType: "image/png",
+        })),
+      };
+
+      // Render total context for observability
+      // Truncate base64 for cleaner logs in multimodal
+      const rendered = await multimodalPrompt.render({ input: inputVars });
+      const promptText =
+        rendered.messages
+          ?.map((m) =>
+            m.content
+              ?.map((p) => p.text || (p.media ? "[Media]" : JSON.stringify(p)))
+              .join("")
+          )
+          .join("\n---\n") || "No message content";
+      const cleanLog = promptText.replace(
+        /data:image\/png;base64,[^"\s]+/g,
+        "[BASE64_IMAGE_DATA]"
+      );
+      console.log("--- [DEBUG] TOTAL CONTEXT (multimodalExtraction) ---");
+      console.log(cleanLog);
+      console.log("----------------------------------------------------");
+
       const response = await multimodalPrompt.generate({
-        model: `ollama/${CONFIG.OLLAMA_VISION_MODEL_NAME}`,
-        input: {
-          images: images.map((img) => ({
-            url: `data:image/png;base64,${img}`,
-            contentType: "image/png",
-          })),
-        },
+        model: CONFIG.VISION_MODEL,
+        input: inputVars,
       });
 
-      if (!response.output) {
-        throw new Error("Failed to generate knowledge from PDF images.");
+      let knowledge;
+      try {
+        knowledge = response.output || safeParseJSON(response.text);
+      } catch (e) {
+        console.warn("Multimodal JSON Parse Error, performing manual sanitization:", e);
+        knowledge = safeParseJSON(response.text);
       }
 
-      return response.output;
+      if (!knowledge) {
+        throw new Error("Failed to generate knowledge from PDF images (JSON malformed or missing). Raw: " + response.text);
+      }
+
+      return knowledge;
     } finally {
       // Schedule graceful unload (delayed to allow follow-up questions or retries)
-      scheduleModelUnload(CONFIG.OLLAMA_VISION_MODEL_NAME);
+      if (CONFIG.USE_LOCAL_MODELS)
+        scheduleModelUnload(CONFIG.OLLAMA_VISION_MODEL_NAME);
     }
   }
 );

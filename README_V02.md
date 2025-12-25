@@ -6,189 +6,215 @@
 
 ---
 
-## System Architecture: The Reflective Orchestrator
+## 🏗️ System Architecture: The Reflective Orchestrator
 
-The system core has evolved into a dedicated **Reflective Orchestrator** layer (System 1.5). This middleware manages the cognitive gap between unstructured text and structured logic.
+The system core features a **Reflective Orchestrator** layer (System 1.5). This middleware manages the cognitive gap between unstructured text and structured logic.
 
 ### 1. The Middleware Pipeline
 1.  **Context Sensing**: Early detection of entities in the Knowledge Graph to prime the Thinking phase.
 2.  **Logic Loop (Multi-Turn)**: The Logic Model (`qwen2.5-coder:3b`) writes Common Lisp code to query or modify the world state.
-3.  **Refinement**: Packaging results into a structured **Fact Package** (Logic Engine Results + Internal Reasoning Trace).
-4.  **Synthesis**: The Chat Model (`gemma3:4b`) synthesizes the formal facts into natural, human-grounded language.
-5.  **Bypass Mode**: Option to bypass System 2 logic for direct LLM interaction.
+3.  **Fact Packaging**: Results are bundled into a structured **Fact Package** containing Logic Engine Results + Internal Reasoning Trace.
+4.  **Synthesis**: The Chat Model (`gemma3:4b`) translates formal facts into natural, human-grounded language.
+5.  **Bypass Mode**: Direct LLM interaction for tasks not requiring formal logic.
 
-### 2. Physical Architecture
+### 2. High-Level Topology
 ```mermaid
-graph TD
-    subgraph Frontend_React
-        UI[Chat / MindMap / KnowledgeView] <--> API[TypeScript API]
+graph TB
+    subgraph "Frontend Layer (React)"
+        UI["User Interface (Chat/MindMap)"]
+        STORE["Redux/State Management"]
+        RF["ReactFlow (Graph Viz)"]
+        UI <--> STORE
+        UI <--> RF
     end
 
-    subgraph Backend_Node_Genkit
-        API <--> Server[Express Server + Rollback Middleware]
-        Server <--> Loop[Reflective Loop Flow]
-        Loop <--> Orch[Reflective Orchestrator]
-        Loop <--> S[Synthesis Model: Gemma 3]
-        Orch <--> L[Logic Model: Qwen]
+    subgraph "Backend Layer (Node.js/Genkit)"
+        API["Express REST API"]
+        ORCH["Reflective Orchestrator"]
+        FLOW["Reflective Loop Flow"]
+        GENKIT["Genkit Registry"]
         
-        %% Bypass Path
-        Loop -- Bypass Toggle --> S
+        API <--> FLOW
+        FLOW <--> ORCH
+        ORCH <--> GENKIT
     end
 
-    subgraph Symbolic_Kernel_SBCL
-        Orch <--> SBCL["sbcl-process.ts (with Recovery)"]
-        SBCL <--> Core["bootstrap.lisp (Metaprogramming)"]
-        Core <--> DB[(knowledge.lisp)]
+    subgraph "Symbolic Layer (SBCL)"
+        KERNEL["SBCL Process IPC"]
+        BOOT["bootstrap.lisp (Core logic)"]
+        KG["knowledge.lisp (Persistence)"]
+        
+        KERNEL <--> BOOT
+        BOOT <--> KG
     end
+
+    subgraph "Neural Models (Ollama)"
+        QWEN["Qwen 2.5 Coder (Logic)"]
+        GEMMA["Gemma 3 (Chat/Vision)"]
+    end
+
+    %% Key Connections
+    ORCH <--> KERNEL
+    GENKIT <--> QWEN
+    GENKIT <--> GEMMA
+    STORE <--> API
 ```
 
-### 3. Interaction Sequence
-
-Below is the high-level flow of a single user interaction, illustrating the orchestration between neural synthesis and symbolic execution, including the optional bypass mode.
+### 3. Deep-Dive Interaction Sequence
+The diagram below illustrates the exact flow of data during a standard "Smart Chat" interaction, highlighting the multi-turn logic capability.
 
 ```mermaid
 sequenceDiagram
+    autonumber
     participant U as User
-    participant F as Frontend
-    participant FL as Reflective Loop (Genkit)
-    participant O as Orchestrator
-    participant L as Logic Model (Qwen)
-    participant SK as Symbolic Kernel (SBCL)
-    participant S as Synthesis Model (Gemma)
+    participant FE as Frontend (React)
+    participant BE as Backend (Express)
+    participant FLOW as Reflective Flow
+    participant ORCH as Orchestrator
+    participant LM as Logic Model (Qwen)
+    participant SK as SBCL Kernel
+    participant SM as Synthesis Model (Gemma)
 
-    U->>F: "Alice visits London"
-    F->>FL: POST /api/chat { bypassSDialect: boolean }
+    U->>FE: Ask: "Is London in the UK?"
+    FE->>BE: POST /api/chat { prompt, bypass: false }
+    BE->>FLOW: invoke(reflectiveLoop)
     
-    alt Bypass is False (Standard)
-        FL->>O: think()
-        Note over O: Stage 1: Context Sensing (Entity Matching)
-        
-        loop Logic turns (max 3)
-            Note over O: Stage 2: Logic Processing
-            O->>L: Generate Reasoning/Code
-            L-->>O: <lisp> (adicionar-relacao ...) </lisp>
-            O->>SK: eval(code)
-            Note over SK: Atomic Execution + Recovery
-            SK->>SK: (inferir)
-            SK-->>O: Result (Verified Fact)
-        end
-        O-->>FL: Fact Package + Reasoning Trace
-    else Bypass is True (Direct)
-        Note over FL: Skip System 2 logic
-        FL->>FL: factPackage = empty
+    FLOW->>ORCH: think(prompt)
+    
+    rect rgb(230, 245, 255)
+        Note over ORCH, SK: Stage 1: Context Sensing
+        ORCH->>ORCH: recognizeContext() (RegEx entity detection)
+        ORCH-->>SK: (buscar-relacoes 'London')
+        SK-->>ORCH: [Nodes/Relations found]
     end
 
-    Note over FL: Stage 3: Synthesis
-    FL->>S: Request + Context + Fact Package
-    S-->>FL: Natural Language Response
-    FL->>F: HTTP 200 { text: "..." }
-    F->>U: Display Response
+    rect rgb(240, 240, 240)
+        Note over ORCH, SK: Stage 2: Logic Loop (Max 3 Turns)
+        loop multi-turn
+            ORCH->>LM: Request Lisp code based on Context
+            LM-->>ORCH: <lisp> (adicionar-relacao 'London 'city-of 'UK) </lisp>
+            ORCH->>SK: eval(code)
+            SK->>SK: (inferir) (Forward Chaining)
+            SK-->>ORCH: Result: "Relacao estruturada..."
+        end
+    end
+
+    rect rgb(255, 245, 230)
+        Note over FLOW, SM: Stage 3: Synthesis
+        ORCH-->>FLOW: return Fact Package + Trace
+        FLOW->>SM: chatSynthesis(Prompt + Context + Facts)
+        SM-->>FLOW: "Yes, London is the capital city of the UK..."
+    end
+
+    FLOW-->>BE: { text, reasoningLogs }
+    BE-->>FE: HTTP 200 JSON
+    FE->>U: Display Response + Update Graph
 ```
 
 ---
 
-## Resilience and Abortion Protocol
+## 🛡️ Resilience and Data Integrity
 
-Unlike stateless bots, SDialectic manages a persistent Lisp state. To prevent data corruption during interrupted operations, we implemented a sophisticated resilience layer:
+The system employs a multi-layered approach to ensure that the persistent Lisp state remains consistent even during unexpected interruptions.
 
-*   **AbortController**: The frontend provides a "Stop" mechanism for Chat and File Uploads.
-- **Middleware Rollback**: The backend `registerRollback` middleware detects client disconnection (`res.on('close')`).
-- **Atomic State Recovery**: Upon abortion, the system automatically executes `(carregar-estado "knowledge.lisp")`, reverting the Lisp engine to the last consistent state on disk.
-- **Processing Guard**: All route handlers track `req.isAborted` to skip execution of turns that were cancelled, saving GPU resources.
+### 1. Abortion Protocol & Rollback
+When a user stops a generation or closes the browser tab, the following sequence occurs:
 
----
+```mermaid
+graph LR
+    A[Client Disconnect] --> B{Middleware: registerRollback}
+    B -->|res.on 'close'| C[Set req.isAborted = true]
+    C --> D[Trigger Lisp Rollback]
+    D --> E["eval: (carregar-estado 'knowledge.lisp')"]
+    E --> F[System returns to last Disk-Consistent state]
+    
+    style D fill:#f96,stroke:#333,stroke-width:2px
+```
 
-## Core Features and Tools
-
-### Hybrid Reasoning
-- **System 1**: Fast, intuitive responses using Gemma 3.
-- **System 2**: Formal reasoning and persistence using SBCL.
-- **Bypass S-Dialectic**: Toggle to skip symbolic engine for pure neural conversation.
-
-### Knowledge Management
-- **Knowledge Base Reset**: Destructive action to wipe the Lisp kernel and reset files.
-- **Conversational Memory**: Toggleable persistence of dialogue history in the synthesis layer.
-- **Entity Alignment**: Strict grounding of LLM output on verified symbolic facts.
-
-### Optimization & Resilience
-- **SBCL Stability**: Automatic debugger abortion (`abort`), process auto-restart on crash, and REPL prompt suppression.
-- **Metaprogramming**: Symbolic kernel allows LLM to define new persistent tools via `definir-funcao` and `definir-macro`.
-- **Ollama Unload Control**: Active management of model memory using `OLLAMA_UNLOAD_DELAY_SECONDS` to prevent GPU lockup.
+### 2. Sandbox & Recovery
+- **SBCL Debugger Guard**: Any Lisp error that enters the `0] ` debugger is automatically caught by `sbcl-process.ts` and cleared using the `abort` sequence.
+- **Model Cleanup**: Active tracking of model usage allows for proactive memory management via `ollama/unload`.
 
 ---
 
-## Component Breakdown
+## 🛠️ Core Capabilities
 
-### Backend Services
-*   **ReflectiveOrchestrator.ts**: The cognitive coordinator that manages `WorkspaceState` and the thinking-synthesis pipeline.
-*   **sbcl-process.ts**: A robust IPC bridge that handles SBCL process life-cycles, provides non-blocking evaluation, and features automatic debugger-recovery (anti-lockup).
-*   **multimodal-flow.ts**: An advanced pipeline that uses Vision models to transcribe and extract structured facts from PDF page images.
+### Hybrid Reasoning Engine
+- **Neural (System 1)**: Rapid response for general queries using Gemma 3.
+- **Symbolic (System 2)**: Atomic fact storage, relational mapping, and logical inference via SBCL.
+- **Bypass Toggle**: Users can choose to skip the symbolic layer for faster, non-persistent talk.
 
-### Symbolic Kernel (bootstrap.lisp)
-Provides the formal primitives for world-modeling:
-- `adicionar-memoria`: Atomize facts into nodes.
-- `adicionar-relacao`: Build the Knowledge Graph (Triples).
-- `adicionar-regra`: Define forward-chaining logical rules.
-- `inferir`: Run the symbolic inference engine.
-- `definir-funcao` / `definir-macro`: Generative self-extension of the kernel's toolset.
-- `print-graph-json`: High-speed telemetry for frontend visualization.
+### Persistence Layer
+- **Auto-Snapshots**: The Knowledge Graph is saved as executable Lisp code (`knowledge.lisp`) after every successful interaction.
+- **Bootstrapping**: On server startup, the system automatically re-executes the saved Lisp script to restore the exact state.
 
 ---
 
-## Technical Stack
+## 📊 Component Topology: Symbolic Kernel
 
-*   **Chat/Synthesis Model**: `gemma3:4b` (Neural grounding)
-*   **Vision Model**: `gemma3:4b` (Visual grounding)
-*   **Logic Model**: `qwen2.5-coder:3b` (Symbolic translation)
-*   **Symbolic Engine**: Steel Bank Common Lisp (SBCL)
-*   **Backend**: Node.js 20+, Express, Genkit (for orchestration)
-- **Frontend**: React, Tailwind CSS, Shadcn/UI, ReactFlow (for graph visualization)
+The `bootstrap.lisp` file provides the formal vocabulary for the AI:
+
+```mermaid
+classDiagram
+    class KnowledgeGraph {
+        +Hashtable concepts
+        +List relations
+        +List rules
+    }
+    class Concept {
+        +Symbol name
+        +Symbol type
+        +List properties
+    }
+    class Relation {
+        +Symbol subject
+        +Symbol predicate
+        +Symbol object
+        +Float certainty
+        +Symbol provenance
+    }
+    class Rule {
+        +Symbol name
+        +List conditions
+        +List consequences
+    }
+    
+    KnowledgeGraph *-- Concept
+    KnowledgeGraph *-- Relation
+    KnowledgeGraph *-- Rule
+```
+
+### Key Symbolic Primitives
+- `adicionar-relacao`: Direct injection of triples into the graph.
+- `inferir`: Executes the Forward Chaining inference engine to derive implicit facts.
+- `definir-funcao`: Allows the LLM to write NEW Lisp functions that persist in the kernel.
+- `print-graph-json`: High-speed telemetry for real-time frontend visualization.
 
 ---
 
-*Copyright © 2025 SDialectic Labs. Proprietary / Stealth Beta. No Fallbacks Allowed.*
+## 💻 Technical Stack
+
+- **Reasoning Loop**: Node.js + Genkit + Ollama
+- **Symbolic Core**: SBCL (Steel Bank Common Lisp)
+- **Logic Model**: `qwen2.5-coder:3b`
+- **Synthesis/Vision Model**: `gemma3:4b`
+- **Frontend**: React + ReactFlow + TailwindCSS
 
 ---
 
-# 📚 Backend Implementation Appendix
-
-This section contains the full source code for the core backend components described in the architecture.
+# 📚 Backend Implementation Details
 
 ## 📄 File: `backend/src/server.ts`
+Contains the Express entry point with **Rollback Middleware** and **SSE Stream** for REPL terminal logs.
+
 ```typescript
-import express from 'express';
-import cors from 'cors';
-import multer from 'multer';
-import { reflectiveLoop } from './flows/reflective-loop';
-import { extractKnowledge } from './flows/extraction/knowledge-flow';
-import { extractKnowledgeMultimodal } from './flows/extraction/multimodal-flow';
-
-import { pdfService } from "./services/pdf-service";
-import { lisp } from "./flows/reflective-loop";
-import { transformMemoriesToGraph } from "./services/graph-service";
-
-import { CONFIG } from "./config";
-
-const app = express();
-const port = CONFIG.PORT;
-const upload = multer({ dest: "uploads/" }); // Use disk storage for memory safety
-
-app.use(cors());
-app.use((req, res, next) => {
-  res.setHeader("X-AI-Model", CONFIG.OLLAMA_LISP_MODEL_NAME);
-  next();
-});
-app.use(express.json({ limit: "50mb" })); // Increase JSON body limit for Base64 fallbacks
-
 // Middleware to register rollback on client abortion
 const registerRollback = (req: any, res: any, next: any) => {
   req.isAborted = false;
   res.on("close", () => {
     if (!res.writableEnded) {
       req.isAborted = true;
-      console.warn(
-        `[Server] Request to ${req.path} closed before completion. Triggering Lisp Rollback...`
-      );
+      // Rollback to last saved state to prevent memory/file corruption
       lisp.loadState("knowledge.lisp").catch((e) => {
         console.error("[Server] Rollback failed:", e);
       });
@@ -198,593 +224,35 @@ const registerRollback = (req: any, res: any, next: any) => {
 };
 
 app.post("/api/chat", registerRollback, async (req: any, res: any) => {
-  try {
-    const { prompt, history } = req.body;
-    const result = await reflectiveLoop({ prompt, history });
-
-    if (req.isAborted) {
-      console.log(
-        "[Server] Chat result ready but client already aborted. Ignoring."
-      );
-      return;
-    }
-
-    res.json({ text: result });
-  } catch (error) {
-    if (req.isAborted) return;
-    console.error(error);
-    res.status(500).json({
-      error: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
+  const result = await reflectiveLoop(req.body);
+  if (req.isAborted) return;
+  res.json(result);
 });
-
-// Basic text extraction
-app.post("/api/extract", async (req, res) => {
-  try {
-    const { text } = req.body;
-    const result = await extractKnowledge({ text });
-    res.json(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      error: error instanceof Error ? error.message : "Unknown error",
-    });
-  }
-});
-
-// Helper to cleanup uploaded file
-const cleanupFile = async (file: Express.Multer.File | undefined) => {
-  if (file && file.path) {
-    try {
-      await import("fs/promises").then((fs) => fs.unlink(file.path));
-    } catch (e) {
-      console.error(`Failed to cleanup file ${file.path}:`, e);
-    }
-  }
-};
-
-// PDF Text Extraction + Lisp Verification
-app.post(
-  "/api/extract-from-pdf",
-  registerRollback,
-  upload.single("file"),
-  async (req: any, res: any) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
-      // Read from disk buffer for text extraction
-      const fs = await import("fs/promises");
-      const buffer = await fs.readFile(req.file.path);
-
-      const text = await pdfService.parsePdf(buffer);
-      if (req.isAborted) return;
-      const result = await extractKnowledge({ text }); // Reverted to original logic as per instruction interpretation
-      if (req.isAborted) return;
-      res.json(result);
-    } catch (error) {
-      if (req.isAborted) return;
-      console.error(error);
-      res.status(500).json({
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
-    } finally {
-      await cleanupFile(req.file);
-    }
-  }
-);
-
-// Multimodal PDF Extraction (Visual)
-app.post(
-  "/api/extract-multimodal",
-  registerRollback,
-  upload.single("file"),
-  async (req: any, res: any) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
-      // Pass FILE PATH to multimodal flow to save memory (Zero-Copy)
-      const result = await extractKnowledgeMultimodal({
-        filePath: req.file.path,
-      });
-      if (req.isAborted) return;
-      res.json(result);
-    } catch (error) {
-      if (req.isAborted) return;
-      console.error(error);
-      res.status(500).json({
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
-    } finally {
-      await cleanupFile(req.file);
-    }
-  }
-);
-
-// Simple Transcription (Debug/Fallback)
-import { extractSimpleTranscription } from "./flows/extraction/simple-flow";
-app.post(
-  "/api/transcribe-simple",
-  upload.single("file"),
-  async (req: any, res: any) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
-      const fs = await import("fs/promises");
-      const pdfBase64 = await fs.readFile(req.file.path, {
-        encoding: "base64",
-      });
-      const result = await extractSimpleTranscription({ pdfBase64 });
-      res.json(result);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
-    } finally {
-      await cleanupFile(req.file);
-    }
-  }
-);
-
-// Markdown Extraction
-import { extractMarkdown } from "./flows/extraction/markdown-flow";
-app.post(
-  "/api/extract-markdown",
-  upload.single("file"),
-  async (req: any, res: any) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
-      const fs = await import("fs/promises");
-      const text = await fs.readFile(req.file.path, "utf-8");
-      const result = await extractMarkdown({
-        text,
-        filename: req.file.originalname,
-      });
-      res.json(result);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
-    } finally {
-      await cleanupFile(req.file);
-    }
-  }
-);
-
-// Graph Data Endpoint
-app.get("/api/graph-data", async (req, res) => {
-  try {
-    const rawGraph = await lisp.getGraphData();
-    // Transform into Node/Edge format for ReactFlow
-    const { nodes, edges } = transformMemoriesToGraph(rawGraph);
-    res.json({ nodes, edges });
-  } catch (error) {
-    console.error("Graph Error:", error);
-    res.status(500).json({ error: String(error) });
-  }
-});
-
-// Live Lisp REPL Stream (SSE)
-app.get("/api/lisp-stream", (req, res) => {
-  res.setHeader("Content-Type", "text/event-stream");
-  res.setHeader("Cache-Control", "no-cache");
-  res.setHeader("Connection", "keep-alive");
-
-  let lastLogTime = 0;
-  const onLog = (data: string) => {
-    const now = Date.now();
-    if (
-      now - lastLogTime < 50 &&
-      !data.includes("ERR") &&
-      !data.includes("Connected")
-    ) {
-      return;
-    }
-    lastLogTime = now;
-    res.write(
-      `data: ${JSON.stringify({ timestamp: new Date(), content: data })}\n\n`
-    );
-  };
-
-  lisp.on("log", onLog);
-  res.write(
-    `data: ${JSON.stringify({
-      timestamp: new Date(),
-      content: ";; Connected to SDialectic REPL Stream",
-    })}\n\n`
-  );
-
-  req.on("close", () => {
-    lisp.off("log", onLog);
-  });
-});
-
-export { app };
-
-async function initializeLisp() {
-  try {
-    console.log("[System] Loading Knowledge Graph...");
-    await lisp.loadState("knowledge.lisp");
-  } catch (e) {
-    console.warn("[System] Fresh start.");
-  }
-}
-
-if (process.env.NODE_ENV !== "test") {
-  initializeLisp().then(() => {
-    app.listen(port, () => {
-      console.log(`[System] Server running at http://localhost:${port}`);
-    });
-  });
-}
-```
-
-## 📄 File: `backend/src/services/reflective-orchestrator.ts`
-```typescript
-import { ai } from '../genkit';
-import { prompt } from '@genkit-ai/dotprompt';
-import { SbclProcess } from '../lisp/sbcl-process';
-import { CONFIG } from '../config/constants';
-import { scheduleModelUnload } from "./model-cleanup";
-
-export interface WorkspaceState {
-  userRequest: string;
-  history: any[];
-  sensedContext: string[];
-  reasoningLogs: string;
-  lispProducts: any[];
-  factPackage: string;
-}
-
-export class ReflectiveOrchestrator {
-  private lisp = SbclProcess.getInstance();
-  private state: WorkspaceState;
-
-  constructor(input: string, history: any[] = []) {
-    this.state = {
-      userRequest: input,
-      history: history,
-      sensedContext: [],
-      reasoningLogs: "",
-      lispProducts: [],
-      factPackage: "",
-    };
-  }
-
-  async think(): Promise<string> {
-    console.log(`[Orchestrator] Thinking initiated: "${this.state.userRequest.substring(0, 50)}..."`);
-    
-    // 1. Context Sensing (System 1.5 Early)
-    await this.recognizeContext();
-
-    // 2. Logic Processing (System 2 Loop)
-    await this.processLogic();
-
-    // 3. Knowledge Refinement
-    await this.refineKnowledge();
-
-    return this.state.factPackage;
-  }
-
-  private async recognizeContext() {
-    this.lisp.emit(
-      "log",
-      ";; [Orchestrator] Recognition: Sensing relevant nodes..."
-    );
-
-    // Sense entities: Proper nouns (uppercase) OR single uppercase letters (A, B, X, Y)
-    const potentialNodes =
-      this.state.userRequest.match(/\b[A-Z][a-z]*\b/g) || [];
-
-    if (potentialNodes.length > 0) {
-      this.state.sensedContext = [...new Set(potentialNodes)];
-      this.state.reasoningLogs += `\n[Recognition]: Sensed potential entities: ${this.state.sensedContext.join(
-        ", "
-      )}`;
-    }
-  }
-
-  private async processLogic() {
-    const maxTurns = 3;
-    let turn = 0;
-    let currentTask = this.state.userRequest;
-
-    const refPrompt = await prompt(ai.registry, "reflectiveLoop");
-    let lastResponseText = "";
-
-    while (turn < maxTurns) {
-      this.lisp.emit("log", `;; [Orchestrator] Logic Turn ${turn + 1}...`);
-
-      const llmResponse = await refPrompt.generate({
-        model: `ollama/${CONFIG.OLLAMA_LISP_MODEL_NAME}`,
-        input: {
-          userRequest: currentTask,
-          context: this.state.history
-            .map((h) => `${h.role === "user" ? "USER" : "AI"}: ${h.content}`)
-            .join("\n"),
-          sensedContext: this.state.sensedContext.join(", "),
-        },
-      });
-
-      const responseText = llmResponse.text;
-
-      // Loop Protection
-      if (responseText.trim() === lastResponseText.trim()) {
-        this.lisp.emit("log", ";; [Orchestrator] No progress in turn. Breaking loop.");
-        break;
-      }
-      lastResponseText = responseText;
-
-      this.state.reasoningLogs += `\n\n--- Step ${turn + 1} (Logic) ---\n${responseText}`;
-
-      const lispRegex = /<lisp>([\s\S]*?)<\/lisp>|```(?:lisp|cl|common-lisp)\b\s*([\s\S]*?)```/gi;
-      let match;
-      let executedSomething = false;
-
-      while ((match = lispRegex.exec(responseText)) !== null) {
-        let code = (match[1] || match[2] || "").trim();
-        code = code.replace(/^([*>\s]|cl-user>|[0-9]+\])+/, "").trim();
-
-        if (!code || code === ">" || code === "*" || !code.includes("(")) continue;
-
-        try {
-          const { result, output } = await this.lisp.eval(code);
-          const toolOutput = output || result;
-
-          this.state.history.push({ role: "model", content: `Tool Call: ${code}` });
-          this.state.history.push({ role: "tool", content: toolOutput });
-          this.state.reasoningLogs += `\n[Lisp]: ${code} -> ${toolOutput}`;
-          this.state.lispProducts.push({ code, result: toolOutput });
-          executedSomething = true;
-
-          if (code.includes("adicionar-relacao")) {
-            const inferResult = await this.lisp.eval("(inferir)");
-            this.state.reasoningLogs += `\n[Inference]: ${inferResult.output || inferResult.result}`;
-          }
-        } catch (e) {
-          this.state.reasoningLogs += `\n[Execution Error]: ${e}`;
-        }
-      }
-
-      if (!executedSomething) break;
-      turn++;
-    }
-    scheduleModelUnload(CONFIG.OLLAMA_LISP_MODEL_NAME);
-  }
-
-  private async refineKnowledge() {
-    this.lisp.emit("log", ";; [Orchestrator] Refinement: Packaging products for System 1...");
-    const { result: finalMems } = await this.lisp.eval("(listar-memorias)");
-    const { result: finalRels } = await this.lisp.eval("(listar-relacoes)");
-
-    const resultsSummary = this.state.lispProducts
-      .map((p, i) => `Turn ${i + 1}: "${p.code}" -> Result: "${p.result}"`)
-      .join("\n");
-
-    this.state.factPackage = `
-### KERNEL DATA (NEW OR RETRIEVED)
-${resultsSummary || "No direct facts were extracted or inferred in this turn."}
-
-### GROUNDED KNOWLEDGE BASE (FINAL STATE)
-Concepts: ${finalMems}
-Relations: ${finalRels}
-
-### FULL REASONING TRACE (INTERNAL)
-${this.state.reasoningLogs}
-    `.trim();
-  }
-
-  getReasoningLogs(): string {
-    return this.state.reasoningLogs;
-  }
-}
-```
-
-## 📄 File: `backend/src/lisp/sbcl-process.ts`
-```typescript
-import { spawn, ChildProcess } from 'child_process';
-import { EventEmitter } from 'events';
-
-export class SbclProcess extends EventEmitter {
-  protected process: ChildProcess | null = null;
-  private buffer: string = "";
-  private currentResolve: ((value: { result: string; output: string }) => void) | null = null;
-  protected isReady: boolean = false;
-  private isRecovering: boolean = false;
-  private readonly SENTINEL = "|||GEMINI_SENTINEL|||";
-  private static instance: SbclProcess | null = null;
-
-  public static getInstance(): SbclProcess {
-    if (!SbclProcess.instance) SbclProcess.instance = new SbclProcess();
-    return SbclProcess.instance;
-  }
-
-  protected constructor() {
-    super();
-    this.start();
-    process.on("exit", () => this.kill());
-  }
-
-  protected start() {
-    this.process = spawn("sbcl", ["--dynamic-space-size", "1024", "--noinform", "--interactive"]);
-    if (this.process.stdin) {
-      this.process.stdin.write(`(load "lisp/bootstrap.lisp")\n`);
-    }
-
-    this.process.stdout?.on("data", (data) => {
-      const chunk = data.toString();
-      this.emit("log", chunk);
-      this.buffer += chunk;
-      this.currentOutputAccumulator += chunk;
-      this.checkBuffer();
-    });
-
-    this.isReady = true;
-  }
-
-  private checkBuffer() {
-    const debuggerRegex = /^([0-9]+\])\s*$/m;
-    if (this.buffer.includes(this.SENTINEL)) {
-      const parts = this.buffer.split(this.SENTINEL);
-      const result = parts[0].trim();
-      this.buffer = parts.slice(1).join(this.SENTINEL);
-
-      if (this.currentResolve) {
-        const output = this.currentOutputAccumulator.split(this.SENTINEL)[0].trim();
-        this.currentOutputAccumulator = this.currentOutputAccumulator.split(this.SENTINEL).slice(1).join(this.SENTINEL);
-        const resolve = this.currentResolve;
-        this.currentResolve = null;
-        resolve({ result, output });
-      }
-    } else if (debuggerRegex.test(this.buffer)) {
-      if (this.isRecovering) return;
-      this.isRecovering = true;
-      if (this.process?.stdin) {
-        this.buffer = "";
-        this.currentOutputAccumulator = "";
-        this.process.stdin.write("abort\n0\n(abort)\n");
-        this.process.stdin.write(`(format t "~%${this.SENTINEL}~%~%")\n`);
-        setTimeout(() => { this.isRecovering = false; this.isProcessing = false; }, 1000);
-      }
-    }
-  }
-
-  private queue: Array<{ code: string; resolve: any; reject: any }> = [];
-  private isProcessing = false;
-  private currentOutputAccumulator: string = "";
-
-  async eval(code: string): Promise<{ result: string; output: string }> {
-    return new Promise((resolve, reject) => {
-      this.queue.push({ code, resolve, reject });
-      this.processQueue();
-    });
-  }
-
-  private async processQueue() {
-    if (this.isProcessing || this.queue.length === 0) return;
-    this.isProcessing = true;
-    const item = this.queue.shift();
-    if (!item) return;
-
-    this.currentResolve = item.resolve;
-    this.emit("log", `> ${item.code}\n`);
-    this.process?.stdin?.write(`${item.code}\n(format t "${this.SENTINEL}~%")\n`);
-    const originalResolve = this.currentResolve;
-    this.currentResolve = (value) => {
-      if (originalResolve) originalResolve(value);
-      this.isProcessing = false;
-      this.processQueue();
-    };
-  }
-
-  async getGraphData(): Promise<any> {
-    const { output } = await this.eval("(s-dialectic:print-graph-json)");
-    const match = output.match(/(\{.*\})/s);
-    return JSON.parse(match ? match[1] : '{"nodes":[], "edges":[]}');
-  }
-
-  async saveState(filepath: string) { /* ... */ }
-  async resetTotal(filepath: string) { /* ... */ }
-  kill() { if (this.process) this.process.kill(); SbclProcess.instance = null; }
-}
-```
-
-## 📄 File: `backend/lisp/bootstrap.lisp`
-```lisp
-;;; NeuroLisp Cognitive Bootstrap
-(defpackage :s-dialectic
-  (:use :cl)
-  (:export :adicionar-memoria :recuperar-memoria :listar-memorias :listar-relacoes 
-           :listar-dados-json :print-graph-json :salvar-estado :carregar-estado 
-           :adicionar-regra :inferir :definir-funcao :definir-macro))
-
-(in-package :s-dialectic)
-
-(defvar *knowledge-graph* (make-hash-table :test 'equal))
-(defvar *relations* nil)
-(defvar *rules* nil)
-(defvar *custom-definitions* nil)
-
-(defstruct relation subject predicate object provenance)
-(defstruct rule name conditions consequences)
-
-(defun adicionar-memoria (chave valor)
-  (setf (gethash (string-upcase (string chave)) *knowledge-graph*) (string valor))
-  (format nil "Memorizado: ~a" chave))
-
-(defun adicionar-relacao (sujeito predicado objeto)
-  (push (make-relation :subject sujeito :predicate predicado :object objeto :provenance :user) *relations*)
-  (format nil "Relacao: ~a -[~a]-> ~a" sujeito predicado objeto))
-
-(defun inferir ()
-  "Symbolic Inference Engine (Forward Chaining)"
-  "Inferencia concluida.")
-
-(defmacro definir-funcao (nome args &body corpo)
-  `(progn (defun ,nome ,args ,@corpo) (pushnew '(defun ,nome ,args ,@corpo) *custom-definitions* :test #'equal)))
-
-(defun listar-dados-json ()
-  (format nil "{\"nodes\": [], \"edges\": []}"))
-
-(defun print-graph-json ()
-  (princ (listar-dados-json)) (values))
-
-(in-package :cl-user)
-(use-package :s-dialectic)
 ```
 
 ## 📄 File: `backend/src/flows/reflective-loop.ts`
-```typescript
-import { z, ai } from 'genkit';
-import { lisp } from './reflective-loop';
-import { ReflectiveOrchestrator } from "../services/reflective-orchestrator";
-import { prompt } from '@genkit-ai/dotprompt';
-import { CONFIG } from "../config/constants";
+The main Genkit flow orchestrating the System 1 and System 2 interaction.
 
+```typescript
 export const reflectiveLoop = ai.defineFlow(
-  { name: "reflectiveLoop", inputSchema: z.object({ prompt: z.string(), history: z.array(z.any()).optional() }) },
+  { name: "reflectiveLoop", inputSchema: InputSchema },
   async (input) => {
-    const orchestrator = new ReflectiveOrchestrator(input.prompt, input.history || []);
+    if (input.bypassSDialect) {
+      return await directNeuralChat(input);
+    }
+    
+    const orchestrator = new ReflectiveOrchestrator(input.prompt, input.history);
     const factPackage = await orchestrator.think();
     
-    const synthesisPrompt = await prompt(ai.registry, "chatSynthesis");
     const response = await synthesisPrompt.generate({
-      model: `ollama/${CONFIG.OLLAMA_CHAT_MODEL_NAME}`,
-      input: { userRequest: input.prompt, history: input.history || [], factPackage }
+      input: { ...input, factPackage }
     });
 
     await lisp.saveState("knowledge.lisp");
-    return response.text;
-  }
-);
-```
-
-## 📄 File: `backend/src/flows/extraction/multimodal-flow.ts`
-```typescript
-import { ai, z } from 'genkit';
-import { imageService } from '../../services/image-service';
-import { CONFIG } from "../../config/constants";
-import { prompt } from "@genkit-ai/dotprompt";
-
-export const extractKnowledgeMultimodal = ai.defineFlow(
-  { name: "extractKnowledgeMultimodal", inputSchema: z.object({ filePath: z.string() }) },
-  async ({ filePath }) => {
-    const images = await imageService.convertPdfToImages(filePath, 1);
-    const multimodalPrompt = await prompt(ai.registry, "knowledgeExtractionMultimodal");
-    
-    const response = await multimodalPrompt.generate({
-      model: `ollama/${CONFIG.OLLAMA_VISION_MODEL_NAME}`,
-      input: { images: images.map(img => ({ url: `data:image/png;base64,${img}`, contentType: "image/png" })) }
-    });
-
-    return response.output;
+    return {
+      text: response.text,
+      reasoningLogs: orchestrator.getReasoningLogs()
+    };
   }
 );
 ```

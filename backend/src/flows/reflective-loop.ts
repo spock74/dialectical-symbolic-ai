@@ -1,26 +1,23 @@
-// Reflective Loop with SBCL integration
+// Reflective Loop with TS-Symbolic-Kernel integration
 
-
-import { z } from 'genkit'; // 'zod' is exported as 'z' from genkit usually, or just use 'zod' package.
-// Re-reading docs (memory): genkit 1.x exports z.
-
-import { SbclProcess } from '../lisp/sbcl-process';
-import { ai } from '../genkit';
-import { prompt } from '@genkit-ai/dotprompt';
+import { z } from "genkit";
+import { ai } from "../genkit";
+import { prompt } from "@genkit-ai/dotprompt";
 import { CONFIG } from "../config/constants.js";
 import { ReflectiveOrchestrator } from "../services/reflective-orchestrator";
 import { scheduleModelUnload } from "../services/model-cleanup";
-
-const nameModel = CONFIG.OLLAMA_LISP_MODEL_NAME;
-
-// Initialize SBCL process
-export const lisp = SbclProcess.getInstance();
+import { getActiveGraph } from "../logic/graph-engine";
+import { kernelEvents } from "../logic/kernel-events";
 
 // Helper to save state efficiently
-const saveKnowledgeGraph = async () => {
+const saveKnowledgeGraph = (source?: string) => {
   try {
-    const result = await lisp.saveState("knowledge.lisp");
-    lisp.emit("log", `;; [System] Auto-Saved Knowledge Graph: ${result}`);
+    const graph = getActiveGraph(source);
+    graph.saveState(`data/graphs/${source || "default"}.json`);
+    kernelEvents.emit(
+      "log",
+      `;; [System] Auto-Saved Knowledge Graph (${source || "default"})`
+    );
   } catch (e) {
     console.error("Failed to auto-save KG:", e);
   }
@@ -31,6 +28,7 @@ const InputSchema = z.object({
   history: z.array(z.any()).optional(),
   useMemory: z.boolean().optional(),
   bypassSDialect: z.boolean().optional(),
+  source: z.string().optional(),
 });
 
 export const reflectiveLoop = ai.defineFlow(
@@ -49,7 +47,7 @@ export const reflectiveLoop = ai.defineFlow(
       console.log(
         "[Flow] S-Dialect Bypass ENABLED. Skipping symbolic reasoning."
       );
-      lisp.emit(
+      kernelEvents.emit(
         "log",
         ";; [System] S-Dialect Bypass ENABLED. Direct LLM interaction."
       );
@@ -57,8 +55,38 @@ export const reflectiveLoop = ai.defineFlow(
       try {
         // @ts-ignore
         const directPrompt = await prompt(ai.registry, "directChat");
+        // Render total context for observability
+        const rendered = await directPrompt.render({
+          input: {
+            userRequest: originalPrompt,
+            history: input.useMemory !== false ? context : [],
+          },
+        });
+        console.log("--- [DEBUG] TOTAL CONTEXT (directChat) ---");
+        try {
+          const text = rendered.messages
+            ?.map((m) =>
+              m.content?.map((p) => p.text || JSON.stringify(p)).join("")
+            )
+            .join("\n---\n");
+          if (text) {
+            console.log(text);
+          } else {
+            console.log(
+              "Empty text extraction. Full object:",
+              JSON.stringify(rendered, null, 2)
+            );
+          }
+        } catch (e) {
+          console.log(
+            "Extraction Error. Full object:",
+            JSON.stringify(rendered, null, 2)
+          );
+        }
+        console.log("------------------------------------------");
+
         const response = await directPrompt.generate({
-          model: `ollama/${CONFIG.OLLAMA_CHAT_MODEL_NAME}`,
+          model: CONFIG.CHAT_MODEL,
           input: {
             userRequest: originalPrompt,
             history: input.useMemory !== false ? context : [],
@@ -70,13 +98,15 @@ export const reflectiveLoop = ai.defineFlow(
           reasoningLogs: "S-Dialect bypassed. No symbolic trace available.",
         };
       } finally {
-        scheduleModelUnload(CONFIG.OLLAMA_CHAT_MODEL_NAME);
+        if (CONFIG.USE_LOCAL_MODELS)
+          scheduleModelUnload(CONFIG.OLLAMA_CHAT_MODEL_NAME);
       }
     } else {
       // 1. INITIALIZE COGNITIVE WORKSPACE (System 1.5)
       const orchestrator = new ReflectiveOrchestrator(
         input.prompt,
-        input.history || []
+        input.history || [],
+        input.source
       );
 
       // 2. THINKING PHASE
@@ -86,15 +116,46 @@ export const reflectiveLoop = ai.defineFlow(
 
     // 3. SYNTHESIS PHASE
     console.log(
-      `[Flow] Synthesizing final response with Chat Model (Gemma ${CONFIG.OLLAMA_CHAT_MODEL_NAME})...`
+      `[Flow] Synthesizing final response with Chat Model (${CONFIG.CHAT_MODEL})...`
     );
 
     try {
       // @ts-ignore
       const synthesisPrompt = await prompt(ai.registry, "chatSynthesis");
 
+      // Render total context for observability
+      const rendered = await synthesisPrompt.render({
+        input: {
+          userRequest: originalPrompt,
+          history: input.useMemory !== false ? context : [],
+          factPackage: factPackage,
+        },
+      });
+      console.log("--- [DEBUG] TOTAL CONTEXT (chatSynthesis) ---");
+      try {
+        const text = rendered.messages
+          ?.map((m) =>
+            m.content?.map((p) => p.text || JSON.stringify(p)).join("")
+          )
+          .join("\n---\n");
+        if (text) {
+          console.log(text);
+        } else {
+          console.log(
+            "Empty text extraction. Full object:",
+            JSON.stringify(rendered, null, 2)
+          );
+        }
+      } catch (e) {
+        console.log(
+          "Extraction Error. Full object:",
+          JSON.stringify(rendered, null, 2)
+        );
+      }
+      console.log("----------------------------------------------");
+
       const finalResponse = await synthesisPrompt.generate({
-        model: `ollama/${CONFIG.OLLAMA_CHAT_MODEL_NAME}`,
+        model: CONFIG.CHAT_MODEL,
         input: {
           userRequest: originalPrompt,
           history: input.useMemory !== false ? context : [],
@@ -107,14 +168,15 @@ export const reflectiveLoop = ai.defineFlow(
         finalText = `The Logic Engine processed your request, but the Synthesis Layer returned an empty response.`;
       }
 
-      await saveKnowledgeGraph();
+      saveKnowledgeGraph(input.source);
 
       return {
         text: finalText,
         reasoningLogs: reasoningLogs,
       };
     } finally {
-      scheduleModelUnload(CONFIG.OLLAMA_CHAT_MODEL_NAME);
+      if (CONFIG.USE_LOCAL_MODELS)
+        scheduleModelUnload(CONFIG.OLLAMA_CHAT_MODEL_NAME);
     }
   }
 );

@@ -17,6 +17,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
 interface Message {
   role: 'user' | 'model' | 'tool';
   content: string;
@@ -74,10 +77,7 @@ export function ChatInterface() {
     if (!input.trim() || loading) return;
 
     let promptToSend = input;
-    // Inject Context if Source is Active
-    if (activeSource) {
-        promptToSend = `[Context: Focused on Source "${activeSource.name}"]\n${input}`;
-    }
+    // Context injection removed - system now relies on Lisp symbolic memory
 
     const userMsg: Message = { role: 'user', content: input }; 
     addMessage(userMsg); // Add to store
@@ -86,13 +86,25 @@ export function ChatInterface() {
 
     try {
       const { useConversationalMemory, useBypassSDialect } = useDialecticStore.getState();
-      const history = messages.map(m => ({ role: m.role, content: m.content }));
       
-      const { text, reasoningLogs } = await chat(promptToSend, history, useConversationalMemory, useBypassSDialect);
+      // EXCLUDE the last message from history because it IS the userMsg we just added, 
+      // but 'chat' API expects history to be previous turns only.
+      // promptToSend is already the current userRequest.
+      const history = messages.slice(0, -1).map(m => ({ role: m.role, content: m.content }));
+      
+      const { text, reasoningLogs } = await chat(
+        promptToSend, 
+        history, 
+        useConversationalMemory, 
+        useBypassSDialect,
+        activeSource?.name
+      );
       addMessage({ role: 'model', content: text });
       
       if (reasoningLogs) {
         setLastReasoningLogs(reasoningLogs);
+        // If reasoning happened, graph likely changed
+        incrementGraphVersion();
       }
     } catch (error) {
       console.error(error);
@@ -109,6 +121,10 @@ export function ChatInterface() {
     try {
       const result = await extractMarkdown(file);
       const knowledgeSummary = `Analyzed ${file.name}. Extracted ${result.knowledgeBase.length} concepts.`;
+      
+      // Notify Graph change
+      incrementGraphVersion();
+      
       addMessage({ role: 'user', content: `[Uploaded ${file.name}]` });
       addMessage({ role: 'tool', content: knowledgeSummary + `\n\n(Context added to backend memory)` });
     } catch (error) {
@@ -123,7 +139,7 @@ export function ChatInterface() {
   const handleResetKB = async () => {
     setIsResetting(true);
     try {
-      await resetKnowledge();
+      await resetKnowledge(activeSource?.name);
       clearMessages(); // Full wipe as per user requirement "zerar o Knowledge Base" and context of cleaning up
       incrementGraphVersion();
       addMessage({ 
@@ -171,16 +187,20 @@ export function ChatInterface() {
                   </AvatarFallback>
                </Avatar>
                
-               <div className={cn(
-                 "max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm",
-                 msg.role === 'user' 
-                  ? "bg-primary text-primary-foreground rounded-tr-sm" 
-                  : msg.role === 'tool' 
-                    ? "bg-secondary text-secondary-foreground font-mono text-xs border border-border rounded-tl-sm ring-1 ring-ring/5"
-                    : "bg-background border border-border rounded-tl-sm text-foreground"
-               )}>
-                  <div className="whitespace-pre-wrap leading-relaxed">{msg.content}</div>
-               </div>
+                <div className={cn(
+                  "max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm",
+                  msg.role === 'user' 
+                   ? "bg-primary text-primary-foreground rounded-tr-sm" 
+                   : msg.role === 'tool' 
+                     ? "bg-secondary text-secondary-foreground font-mono text-xs border border-border rounded-tl-sm ring-1 ring-ring/5"
+                     : "bg-background border border-border rounded-tl-sm text-foreground"
+                )}>
+                   <div className={cn("prose-markdown", msg.role === 'user' && "text-primary-foreground")}>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {msg.content}
+                      </ReactMarkdown>
+                   </div>
+                </div>
             </div>
           ))}
           

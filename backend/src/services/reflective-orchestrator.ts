@@ -1,8 +1,10 @@
 import { ai } from '../genkit';
-import { prompt } from '@genkit-ai/dotprompt';
-import { SbclProcess } from '../lisp/sbcl-process';
-import { CONFIG } from '../config/constants';
+import { prompt } from "@genkit-ai/dotprompt";
+import { CONFIG } from "../config/constants";
 import { scheduleModelUnload } from "./model-cleanup";
+import { lispInterpreter } from "../logic/lisp-interpreter";
+import { getActiveGraph } from "../logic/graph-engine";
+import { kernelEvents } from "../logic/kernel-events";
 
 export interface WorkspaceState {
   userRequest: string;
@@ -11,26 +13,33 @@ export interface WorkspaceState {
   reasoningLogs: string;
   lispProducts: any[];
   factPackage: string;
+  sourceName?: string;
 }
 
 export class ReflectiveOrchestrator {
-  private lisp = SbclProcess.getInstance();
+  private events = kernelEvents;
   private state: WorkspaceState;
 
-  constructor(input: string, history: any[] = []) {
+  constructor(input: string, history: any[] = [], sourceName?: string) {
     this.state = {
       userRequest: input,
-      history: history,
+      history: [...history], // Clone to prevent polluting main history
       sensedContext: [],
       reasoningLogs: "",
       lispProducts: [],
       factPackage: "",
+      sourceName: sourceName || "default",
     };
   }
 
   async think(): Promise<string> {
-    console.log(`[Orchestrator] Thinking initiated: "${this.state.userRequest.substring(0, 50)}..."`);
-    
+    console.log(
+      `[Orchestrator] Thinking initiated: "${this.state.userRequest.substring(
+        0,
+        50
+      )}..."`
+    );
+
     // 1. Context Sensing (System 1.5 Early)
     await this.recognizeContext();
 
@@ -47,7 +56,7 @@ export class ReflectiveOrchestrator {
    * Senses relevant keywords in the Knowledge Graph to prime the Thinking phase.
    */
   private async recognizeContext() {
-    this.lisp.emit(
+    this.events.emit(
       "log",
       ";; [Orchestrator] Recognition: Sensing relevant nodes..."
     );
@@ -66,7 +75,7 @@ export class ReflectiveOrchestrator {
   }
 
   /**
-   * Executing the multi-turn logic loop (Qwen + SBCL).
+   * Executing the multi-turn logic loop (Gemini + TS-Kernel).
    */
   private async processLogic() {
     const maxTurns = 3;
@@ -79,24 +88,72 @@ export class ReflectiveOrchestrator {
     let lastResponseText = "";
 
     while (turn < maxTurns) {
-      this.lisp.emit("log", `;; [Orchestrator] Logic Turn ${turn + 1}...`);
+      this.events.emit("log", `;; [Orchestrator] Logic Turn ${turn + 1}...`);
+
+      const contextString = this.state.history
+        .map((h) => {
+          let contentText = "";
+          if (Array.isArray(h.content)) {
+            contentText = h.content.map((p: any) => p.text || "").join("");
+          } else if (typeof h.content === "string") {
+            contentText = h.content;
+          } else {
+            contentText = JSON.stringify(h.content);
+          }
+          return `${h.role.toUpperCase()}: ${contentText}`;
+        })
+        .join("\n");
+
+      const inputVars = {
+        userRequest: currentTask,
+        context: contextString,
+        sensedContext: this.state.sensedContext.join(", "),
+      };
+
+      // Render total context for observability
+      const rendered = await refPrompt.render({ input: inputVars });
+      console.log(
+        `--- [DEBUG] TOTAL CONTEXT (reflectiveLoop - Turn ${turn + 1}) ---`
+      );
+      try {
+        const text = rendered.messages
+          ?.map((m) =>
+            m.content?.map((p) => p.text || JSON.stringify(p)).join("")
+          )
+          .join("\n---\n");
+        if (text) {
+          console.log(text);
+        } else {
+          console.log(
+            "Empty text extraction. Full object:",
+            JSON.stringify(rendered, null, 2)
+          );
+        }
+      } catch (e) {
+        console.log(
+          "Extraction Error. Full object:",
+          JSON.stringify(rendered, null, 2)
+        );
+      }
+      console.log(
+        "----------------------------------------------------------------"
+      );
 
       const llmResponse = await refPrompt.generate({
-        model: `ollama/${CONFIG.OLLAMA_LISP_MODEL_NAME}`,
-        input: {
-          userRequest: currentTask,
-          context: this.state.history
-            .map((h) => `${h.role === "user" ? "USER" : "AI"}: ${h.content}`)
-            .join("\n"),
-          sensedContext: this.state.sensedContext.join(", "),
-        },
+        model: CONFIG.LISP_MODEL,
+        input: inputVars,
       });
 
       const responseText = llmResponse.text;
 
-      // Loop Protection: if AI repeats itself exactly, stop the loop
+      console.log(
+        `[Orchestrator] LLM Thought (Turn ${turn + 1}):`,
+        responseText.substring(0, 100).replace(/\n/g, " ") + "..."
+      );
+
+      // Loop Protection
       if (responseText.trim() === lastResponseText.trim()) {
-        this.lisp.emit(
+        this.events.emit(
           "log",
           ";; [Orchestrator] No progress in turn. Breaking loop."
         );
@@ -115,56 +172,27 @@ export class ReflectiveOrchestrator {
 
       while ((match = lispRegex.exec(responseText)) !== null) {
         let code = (match[1] || match[2] || "").trim();
-
-        // Remove common REPL prompts and junk if AI accidentally included them
-        // This regex matches lines starting with >, *, cl-user>, 0] etc.
         code = code.replace(/^([*>\s]|cl-user>|[0-9]+\])+/, "").trim();
 
-        // If it's just garbage like ">" after cleaning, skip it
-        if (!code || code === ">" || code === "*" || !code.includes("(")) {
-          continue;
-        }
-        // Heuristic to skip raw data blocks (lists of lists) that AI sometimes outputs
-        if (
-          code.startsWith("((") ||
-          (code.startsWith("(") &&
-            code.length > 5 &&
-            !/^\(\s*[a-zA-Z0-9$!%&*+_./:<>?@^~-]+/.test(code))
-        ) {
-          console.warn(
-            `[Orchestrator] Skipping potential data block: ${code.substring(
-              0,
-              50
-            )}...`
-          );
-          this.state.reasoningLogs += `\n[Info]: Skipped data-only block: ${code.substring(
-            0,
-            100
-          )}`;
-          continue;
-        }
+        if (!code || !code.includes("(")) continue;
 
         try {
-          const { result, output } = await this.lisp.eval(code);
-          const toolOutput = output || result;
+          // Execute via TS-Interpreter
+          const graph = getActiveGraph(this.state.sourceName);
+          const output = lispInterpreter.execute(code, graph);
 
           this.state.history.push({
             role: "model",
             content: `Tool Call: ${code}`,
           });
-          this.state.history.push({ role: "tool", content: toolOutput });
-          this.state.reasoningLogs += `\n[Lisp]: ${code} -> ${toolOutput}`;
+          this.state.history.push({ role: "tool", content: output });
+          this.state.reasoningLogs += `\n[Lisp]: ${code} -> ${output}`;
 
-          this.state.lispProducts.push({ code, result: toolOutput });
+          this.state.lispProducts.push({ code, result: output });
           executedSomething = true;
 
-          // Proactive Inference: if adding a relation, run inference to stay updated
-          if (code.includes("adicionar-relacao")) {
-            const inferResult = await this.lisp.eval("(inferir)");
-            this.state.reasoningLogs += `\n[Inference]: ${
-              inferResult.output || inferResult.result
-            }`;
-          }
+          console.log(`[Orchestrator] Lisp Exec: ${code} -> ${output}`);
+          this.events.emit("log", `;; [Lisp] ${code} -> ${output}`);
         } catch (e) {
           this.state.reasoningLogs += `\n[Execution Error]: ${e}`;
           console.error(`[Orchestrator] Eval failed:`, e);
@@ -175,24 +203,23 @@ export class ReflectiveOrchestrator {
       turn++;
     }
 
-    // Schedule unload for the Logic Model after reasoning turns are complete
-    scheduleModelUnload(CONFIG.OLLAMA_LISP_MODEL_NAME);
+    if (CONFIG.USE_LOCAL_MODELS)
+      scheduleModelUnload(CONFIG.OLLAMA_LISP_MODEL_NAME);
   }
 
   /**
    * Package all results into a coherent Fact Package for the Synthesis Layer.
    */
   private async refineKnowledge() {
-    this.lisp.emit(
+    this.events.emit(
       "log",
       ";; [Orchestrator] Refinement: Packaging products for System 1..."
     );
 
-    // Get final grounded state from the kernel
-    const { result: finalMems } = await this.lisp.eval("(listar-memorias)");
-    const { result: finalRels } = await this.lisp.eval("(listar-relacoes)");
+    const graph = getActiveGraph(this.state.sourceName);
+    const finalMems = graph.listNodes();
+    const finalRels = graph.listRelations();
 
-    // Create a structured summary of what was deduced
     const resultsSummary = this.state.lispProducts
       .map((p, i) => `Turn ${i + 1}: "${p.code}" -> Result: "${p.result}"`)
       .join("\n");
@@ -208,6 +235,9 @@ Relations: ${finalRels}
 ### FULL REASONING TRACE (INTERNAL)
 ${this.state.reasoningLogs}
     `.trim();
+
+    // Append the synthesis package to reasoning logs for UI visibility
+    this.state.reasoningLogs += `\n\n--- Final Knowledge State ---\n${this.state.factPackage}`;
   }
 
   getReasoningLogs(): string {

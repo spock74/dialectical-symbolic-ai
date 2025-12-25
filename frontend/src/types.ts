@@ -27,12 +27,15 @@ export interface KnowledgeBase {
 export interface Source {
   id: string;
   name: string;
-  type: "pdf" | "markdown";
+  type: "pdf" | "markdown" | "txt";
   uploadDate: string;
+  hash: string;
+  active: boolean;
 }
 
 export interface Group {
   id: string;
   name: string;
+  createdAt: string;
   sources: Source[];
 }

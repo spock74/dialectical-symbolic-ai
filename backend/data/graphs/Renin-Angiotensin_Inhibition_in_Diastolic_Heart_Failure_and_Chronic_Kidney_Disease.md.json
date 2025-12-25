@@ -1,0 +1,554 @@
+{
+  "nodes": [
+    {
+      "id": "Renin-Angiotensin Inhibition",
+      "type": "A class of drugs that block the renin-angiotensin system."
+    },
+    {
+      "id": "Diastolic Heart Failure",
+      "type": "Heart failure with preserved ejection fraction (ejection fraction ≥45%)."
+    },
+    {
+      "id": "Chronic Kidney Disease",
+      "type": "Kidney disease defined by an estimated glomerular filtration rate <60 ml/min/1.73 m²."
+    },
+    {
+      "id": "Angiotensin-Converting Enzyme Inhibitors",
+      "type": "A type of drug that blocks the renin-angiotensin system."
+    },
+    {
+      "id": "Angiotensin Receptor Blockers",
+      "type": "A type of drug that blocks the renin-angiotensin system."
+    },
+    {
+      "id": "Propensity Score Matching",
+      "type": "A statistical method used to create comparable groups in observational studies."
+    },
+    {
+      "id": "All-cause mortality",
+      "type": "Death from any cause."
+    },
+    {
+      "id": "Heart Failure Hospitalization",
+      "type": "Hospitalization due to heart failure."
+    },
+    {
+      "id": "All-cause Hospitalization",
+      "type": "Hospitalization for any cause."
+    },
+    {
+      "id": "Am J Med",
+      "type": "A medical journal."
+    },
+    {
+      "id": "Ali Ahmed",
+      "type": "Lead author of the study."
+    },
+    {
+      "id": "Michael W. Rich",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "Michael Zile",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "Paul W. Sanders",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "Kanan Patel",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "Yan Zhang",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "Inmaculada B. Aban",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "Thomas E. Love",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "Gregg C. Fonarow",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "Wilbert S. Aronow",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "Richard M. Allman",
+      "type": "Co-author of the study."
+    },
+    {
+      "id": "University of Alabama at Birmingham",
+      "type": "An academic institution."
+    },
+    {
+      "id": "Veterans Affairs Medical Center",
+      "type": "A medical facility."
+    },
+    {
+      "id": "Washington University",
+      "type": "An academic institution."
+    },
+    {
+      "id": "Medical University of South Carolina",
+      "type": "An academic institution."
+    },
+    {
+      "id": "Ralph H. Johnson Veterans Affairs Medical Center",
+      "type": "A medical facility."
+    },
+    {
+      "id": "Case Western Reserve University",
+      "type": "An academic institution."
+    },
+    {
+      "id": "University of California, Los Angeles",
+      "type": "An academic institution."
+    },
+    {
+      "id": "New York Medical College",
+      "type": "An academic institution."
+    },
+    {
+      "id": "Renin-Angiotensin Inhibition in Diastolic Heart Failure and Chronic Kidney Disease",
+      "type": "concept"
+    },
+    {
+      "id": "2013",
+      "type": "concept"
+    },
+    {
+      "id": "126",
+      "type": "concept"
+    },
+    {
+      "id": "2",
+      "type": "concept"
+    },
+    {
+      "id": "150–161",
+      "type": "concept"
+    },
+    {
+      "id": "Study Population",
+      "type": "concept"
+    },
+    {
+      "id": "Older patients",
+      "type": "concept"
+    },
+    {
+      "id": "Ejection Fraction ≥45%",
+      "type": "concept"
+    },
+    {
+      "id": "Estimated Glomerular Filtration Rate <60 ml/min/1.73 m²",
+      "type": "concept"
+    },
+    {
+      "id": "Study",
+      "type": "concept"
+    },
+    {
+      "id": "More than 8 years",
+      "type": "concept"
+    },
+    {
+      "id": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "type": "concept"
+    },
+    {
+      "id": "18% relative risk reduction in all-cause mortality",
+      "type": "concept"
+    },
+    {
+      "id": "Hazard Ratio 0.82 for all-cause mortality",
+      "type": "concept"
+    },
+    {
+      "id": "P value 0.021 for all-cause mortality",
+      "type": "concept"
+    },
+    {
+      "id": "Median survival 41 months",
+      "type": "concept"
+    },
+    {
+      "id": "Patients without Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "type": "concept"
+    },
+    {
+      "id": "30 months",
+      "type": "concept"
+    },
+    {
+      "id": "Subgroup with eGFR <45 ml/min/1.73 m²",
+      "type": "concept"
+    },
+    {
+      "id": "Hazard Ratio 0.81 for mortality",
+      "type": "concept"
+    },
+    {
+      "id": "P value 0.045 for mortality",
+      "type": "concept"
+    },
+    {
+      "id": "Patients without Chronic Kidney Disease",
+      "type": "concept"
+    },
+    {
+      "id": "Hazard Ratio 1.03 for mortality",
+      "type": "concept"
+    },
+    {
+      "id": "P value 0.826 for mortality",
+      "type": "concept"
+    },
+    {
+      "id": "Hazard Ratio 0.98 for heart failure hospitalization",
+      "type": "concept"
+    },
+    {
+      "id": "P value 0.816 for heart failure hospitalization",
+      "type": "concept"
+    },
+    {
+      "id": "1% lower relative risk of all-cause hospitalization",
+      "type": "concept"
+    },
+    {
+      "id": "3 months longer median time to all-cause hospitalization",
+      "type": "concept"
+    },
+    {
+      "id": "Hazard Ratio 0.81 for all-cause hospitalization",
+      "type": "concept"
+    },
+    {
+      "id": "P value 0.005 for all-cause hospitalization",
+      "type": "concept"
+    },
+    {
+      "id": "Study Conclusion",
+      "type": "concept"
+    },
+    {
+      "id": "associated with significant reduction in all-cause mortality",
+      "type": "concept"
+    },
+    {
+      "id": "associated with significant reduction in all-cause hospitalization",
+      "type": "concept"
+    },
+    {
+      "id": "had no association with heart failure hospitalization",
+      "type": "concept"
+    },
+    {
+      "id": "may extend to heart failure patients with chronic kidney disease regardless of ejection fraction",
+      "type": "concept"
+    },
+    {
+      "id": "metodologia do estudo",
+      "type": "Informação sobre a metodologia de um estudo específico."
+    },
+    {
+      "id": "base de conhecimento",
+      "type": "concept"
+    },
+    {
+      "id": "IECA",
+      "type": "Inibidores da enzima conversora de angiotensina"
+    },
+    {
+      "id": "BRA",
+      "type": "Bloqueadores do receptor de angiotensina"
+    },
+    {
+      "id": "mortalidade por todas as causas",
+      "type": "Mortalidade por todas as causas"
+    },
+    {
+      "id": "hospitalização por todas as causas",
+      "type": "Hospitalização por todas as causas"
+    },
+    {
+      "id": "uso de IECA ou BRA",
+      "type": "concept"
+    },
+    {
+      "id": "a",
+      "type": "Entidade a"
+    },
+    {
+      "id": "f",
+      "type": "Entidade f"
+    },
+    {
+      "id": "u",
+      "type": "Entidade u"
+    }
+  ],
+  "relations": [
+    {
+      "subject": "Renin-Angiotensin Inhibition",
+      "predicate": "is studied in the context of",
+      "object": "Diastolic Heart Failure",
+      "provenance": "user"
+    },
+    {
+      "subject": "Renin-Angiotensin Inhibition",
+      "predicate": "is studied in the context of",
+      "object": "Chronic Kidney Disease",
+      "provenance": "user"
+    },
+    {
+      "subject": "Diastolic Heart Failure",
+      "predicate": "is defined by",
+      "object": "Ejection Fraction ≥45%",
+      "provenance": "user"
+    },
+    {
+      "subject": "Chronic Kidney Disease",
+      "predicate": "is defined by",
+      "object": "Estimated Glomerular Filtration Rate <60 ml/min/1.73 m²",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors",
+      "predicate": "or",
+      "object": "Angiotensin Receptor Blockers",
+      "provenance": "user"
+    },
+    {
+      "subject": "Ali Ahmed",
+      "predicate": "is lead author of",
+      "object": "Renin-Angiotensin Inhibition in Diastolic Heart Failure and Chronic Kidney Disease",
+      "provenance": "user"
+    },
+    {
+      "subject": "Renin-Angiotensin Inhibition in Diastolic Heart Failure and Chronic Kidney Disease",
+      "predicate": "was published in",
+      "object": "Am J Med",
+      "provenance": "user"
+    },
+    {
+      "subject": "Renin-Angiotensin Inhibition in Diastolic Heart Failure and Chronic Kidney Disease",
+      "predicate": "was published in year",
+      "object": "2013",
+      "provenance": "user"
+    },
+    {
+      "subject": "Renin-Angiotensin Inhibition in Diastolic Heart Failure and Chronic Kidney Disease",
+      "predicate": "was published in volume",
+      "object": "126",
+      "provenance": "user"
+    },
+    {
+      "subject": "Renin-Angiotensin Inhibition in Diastolic Heart Failure and Chronic Kidney Disease",
+      "predicate": "was published in issue",
+      "object": "2",
+      "provenance": "user"
+    },
+    {
+      "subject": "Renin-Angiotensin Inhibition in Diastolic Heart Failure and Chronic Kidney Disease",
+      "predicate": "was published on pages",
+      "object": "150–161",
+      "provenance": "user"
+    },
+    {
+      "subject": "Study Population",
+      "predicate": "consists of",
+      "object": "Older patients",
+      "provenance": "user"
+    },
+    {
+      "subject": "Older patients",
+      "predicate": "have",
+      "object": "Diastolic Heart Failure",
+      "provenance": "user"
+    },
+    {
+      "subject": "Older patients",
+      "predicate": "have",
+      "object": "Chronic Kidney Disease",
+      "provenance": "user"
+    },
+    {
+      "subject": "Study",
+      "predicate": "used",
+      "object": "Propensity Score Matching",
+      "provenance": "user"
+    },
+    {
+      "subject": "Study",
+      "predicate": "had a follow-up of",
+      "object": "More than 8 years",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "18% relative risk reduction in all-cause mortality",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "Hazard Ratio 0.82 for all-cause mortality",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "P value 0.021 for all-cause mortality",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "Median survival 41 months",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "had no association with",
+      "object": "Heart Failure Hospitalization",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "Hazard Ratio 0.98 for heart failure hospitalization",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "P value 0.816 for heart failure hospitalization",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "1% lower relative risk of all-cause hospitalization",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "3 months longer median time to all-cause hospitalization",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "Hazard Ratio 0.81 for all-cause hospitalization",
+      "provenance": "user"
+    },
+    {
+      "subject": "Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "associated with",
+      "object": "P value 0.005 for all-cause hospitalization",
+      "provenance": "user"
+    },
+    {
+      "subject": "Patients without Angiotensin-Converting Enzyme Inhibitors or Angiotensin Receptor Blockers",
+      "predicate": "had median survival of",
+      "object": "30 months",
+      "provenance": "user"
+    },
+    {
+      "subject": "Subgroup with eGFR <45 ml/min/1.73 m²",
+      "predicate": "associated with",
+      "object": "Hazard Ratio 0.81 for mortality",
+      "provenance": "user"
+    },
+    {
+      "subject": "Subgroup with eGFR <45 ml/min/1.73 m²",
+      "predicate": "associated with",
+      "object": "P value 0.045 for mortality",
+      "provenance": "user"
+    },
+    {
+      "subject": "Patients without Chronic Kidney Disease",
+      "predicate": "associated with",
+      "object": "Hazard Ratio 1.03 for mortality",
+      "provenance": "user"
+    },
+    {
+      "subject": "Patients without Chronic Kidney Disease",
+      "predicate": "associated with",
+      "object": "P value 0.826 for mortality",
+      "provenance": "user"
+    },
+    {
+      "subject": "Study Conclusion",
+      "predicate": "Discharge prescription of ACEIs or ARBs",
+      "object": "associated with significant reduction in all-cause mortality",
+      "provenance": "user"
+    },
+    {
+      "subject": "Study Conclusion",
+      "predicate": "Discharge prescription of ACEIs or ARBs",
+      "object": "associated with significant reduction in all-cause hospitalization",
+      "provenance": "user"
+    },
+    {
+      "subject": "Study Conclusion",
+      "predicate": "Discharge prescription of ACEIs or ARBs",
+      "object": "had no association with heart failure hospitalization",
+      "provenance": "user"
+    },
+    {
+      "subject": "Study Conclusion",
+      "predicate": "Benefit of ACEIs or ARBs",
+      "object": "may extend to heart failure patients with chronic kidney disease regardless of ejection fraction",
+      "provenance": "user"
+    },
+    {
+      "subject": "metodologia do estudo",
+      "predicate": "não encontrado",
+      "object": "base de conhecimento",
+      "provenance": "user"
+    },
+    {
+      "subject": "uso de IECA ou BRA",
+      "predicate": "associado a redução de",
+      "object": "mortalidade por todas as causas",
+      "provenance": "user"
+    },
+    {
+      "subject": "uso de IECA ou BRA",
+      "predicate": "associado a redução de",
+      "object": "hospitalização por todas as causas",
+      "provenance": "user"
+    },
+    {
+      "subject": "a",
+      "predicate": "É UM",
+      "object": "f",
+      "provenance": "user"
+    },
+    {
+      "subject": "a",
+      "predicate": "É UM",
+      "object": "u",
+      "provenance": "user"
+    },
+    {
+      "subject": "f",
+      "predicate": "É UM",
+      "object": "u",
+      "provenance": "user"
+    }
+  ]
+}

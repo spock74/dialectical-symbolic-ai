@@ -40,10 +40,8 @@ export interface GraphData {
 export function transformMemoriesToGraph(data: LispGraphExport): GraphData {
   const nodes = data.nodes.map((mem) => ({
     id: mem.key,
-    // Ideally we would layout these properly, e.g. using dagre or elkjs,
-    // but for now random positioning is the placeholder.
-    // We explicitly leave Math.random() here for now as per original implementation.
-    position: { x: Math.random() * 500, y: Math.random() * 500 },
+    // We use {0,0} because the frontend (Workspace.tsx) will handle the layout using Dagre.
+    position: { x: 0, y: 0 },
     data: { label: mem.key, details: mem.value },
     type: "default",
   }));
@@ -54,7 +52,14 @@ export function transformMemoriesToGraph(data: LispGraphExport): GraphData {
     target: rel.target,
     label: rel.relation,
     animated: true,
-    type: "smoothstep", // or 'straight', 'default'
+    type: "default", // Curved Bezier lines
+    markerEnd: {
+      type: "arrowclosed", // ReactFlow marker type as string for backend-frontend portability
+      color:
+        rel.provenance === "INFERENCE" || rel.provenance === "inference"
+          ? "#a855f7"
+          : "#b1b1b7",
+    },
     style:
       rel.provenance === "INFERENCE" || rel.provenance === "inference"
         ? { stroke: "#a855f7", strokeDasharray: "5,5" } // Purple dashed for inferred
@@ -64,3 +69,61 @@ export function transformMemoriesToGraph(data: LispGraphExport): GraphData {
   return { nodes, edges };
 }
 
+
+import { getActiveGraph } from "../logic/graph-engine";
+
+export function commitKnowledgeToGraph(
+  knowledge: any,
+  filename?: string
+): void {
+  if (!knowledge || !knowledge.knowledgeBase) return;
+
+  const graph = getActiveGraph(filename);
+
+  if (filename) {
+    graph.addNode(filename, "source");
+  }
+
+  knowledge.knowledgeBase.forEach((concept: any) => {
+    // 1. Add Concept Node
+    graph.addNode(concept.core_concept, "concept");
+
+    if (filename) {
+      graph.addRelation(concept.core_concept, "tem fonte", filename);
+    }
+
+    // 3. Add Relations
+    if (concept.relatedConcepts) {
+      concept.relatedConcepts.forEach((rel: any) => {
+        const predicate =
+          rel.type === "prerequisite"
+            ? "depende de"
+            : rel.type === "application"
+            ? "aplica-se a"
+            : rel.type === "contrast"
+            ? "contrasta com"
+            : "relacionado a";
+
+        graph.addRelation(concept.core_concept, predicate, rel.conceptId);
+      });
+    }
+
+    // 4. Add Nuggets as atomic facts
+    if (concept.knowledgeNuggets) {
+      concept.knowledgeNuggets.forEach((nugget: any) => {
+        const factId = `fact-${Math.random().toString(36).substring(2, 9)}`;
+        // We use the new KnowledgeGraph ability to store values (though we should check if addNode supports it)
+        // For now, let's just make the factId descriptive or store the text in a way Lisp can see.
+        graph.addNode(factId, "fact");
+        // We add the relation
+        graph.addRelation(concept.core_concept, "contem fato", factId);
+      });
+    }
+  });
+
+  // GraphManager.getGraph already handles loading.
+  // We just need to make sure we save to the right place.
+  // Actually, the manager should handle the base path.
+  // Let's just save manually for now using the filename or tell the manager to saveAll.
+  graph.saveState(`data/graphs/${filename || "knowledge_base"}.json`);
+}

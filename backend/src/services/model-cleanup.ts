@@ -29,16 +29,22 @@ export function scheduleModelUnload(
 async function executeUnload(modelName: string, innerFetch: typeof fetch) {
   try {
     console.log(`[Resource Manager] Unloading now: ${modelName}`);
-    // Ollama API expects model name exactly as pulled.
-    // Note: If modelName has 'ollama/' prefix (Genkit style), we might need to strip it?
-    // Genkit config uses 'ollama/gemma3:4b', but usually passes 'gemma3:4b' to Ollama.
-    // We'll trust the input is correct for now, or strip 'ollama/' if present to be safe testing both.
-    const cleanName = modelName.replace(/^ollama\//, '');
-    
-    await innerFetch('http://127.0.0.1:11434/api/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: cleanName, keep_alive: 0 })
+
+    // Only attempt to unload local Ollama models.
+    // If it's a googleai/ model, we can't unload it via local fetch.
+    if (!modelName.includes("ollama") && !CONFIG.USE_LOCAL_MODELS) {
+      console.log(
+        `[Resource Manager] Skipping unload for non-Ollama model: ${modelName}`
+      );
+      return;
+    }
+
+    const cleanName = modelName.replace(/^ollama\//, "");
+
+    await innerFetch("http://127.0.0.1:11434/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: cleanName, keep_alive: 0 }),
     });
     console.log(`[Resource Manager] Success: ${modelName} unloaded.`);
   } catch (e) {

@@ -6,39 +6,79 @@ import { extractKnowledge } from './flows/extraction/knowledge-flow';
 import { extractKnowledgeMultimodal } from './flows/extraction/multimodal-flow';
 
 import { pdfService } from "./services/pdf-service";
-import { lisp } from "./flows/reflective-loop";
-import { transformMemoriesToGraph } from "./services/graph-service";
+import { getActiveGraph, graphManager } from "./logic/graph-engine";
+import { kernelEvents } from "./logic/kernel-events";
+import {
+  transformMemoriesToGraph,
+  commitKnowledgeToGraph,
+} from "./services/graph-service";
 
 import { CONFIG } from "./config";
 
+import { extractSimpleTranscription } from "./flows/extraction/simple-flow";
+import { extractMarkdown } from "./flows/extraction/markdown-flow";
+
 const app = express();
 const port = CONFIG.PORT;
-const upload = multer({ dest: "uploads/" }); // Use disk storage for memory safety
+const upload = multer({ dest: "uploads/" });
 
 app.use(cors());
 app.use((req, res, next) => {
   res.setHeader("X-AI-Model", CONFIG.OLLAMA_LISP_MODEL_NAME);
   next();
 });
-app.use(express.json({ limit: "50mb" })); // Increase JSON body limit for Base64 fallbacks
+app.use(express.json({ limit: "50mb" }));
 
-app.post("/api/chat", async (req, res) => {
+// Middleware to register rollback on client abortion
+const registerRollback = (req: any, res: any, next: any) => {
+  req.isAborted = false;
+  const source = req.body?.source || req.query?.source;
+  res.on("close", () => {
+    if (!res.writableEnded) {
+      req.isAborted = true;
+      console.warn(
+        `[Server] Request to ${
+          req.path
+        } closed before completion. Triggering Rollback for source: ${
+          source || "default"
+        }...`
+      );
+      const graph = getActiveGraph(source);
+      graph.loadState(`data/graphs/${source || "default"}.json`);
+    }
+  });
+  next();
+};
+
+app.post("/api/chat", registerRollback, async (req: any, res: any) => {
   try {
-    const { prompt, history, useMemory, bypassSDialect } = req.body;
+    const { prompt, history, useMemory, bypassSDialect, source } = req.body;
     const result = await reflectiveLoop({
       prompt,
       history,
       useMemory,
       bypassSDialect,
+      source,
     });
+
+    if (req.isAborted) {
+      console.log(
+        "[Server] Chat result ready but client already aborted. Ignoring."
+      );
+      return;
+    }
+
     res.json(result);
+    // Auto-save after each interaction
+    const graph = getActiveGraph(source);
+    graph.saveState(`data/graphs/${source || "default"}.json`);
   } catch (error) {
+    if (req.isAborted) return;
     console.error(error);
     res.status(500).json({ error: String(error) });
   }
 });
 
-// Basic text extraction
 app.post("/api/extract", async (req, res) => {
   try {
     const { text } = req.body;
@@ -52,7 +92,6 @@ app.post("/api/extract", async (req, res) => {
   }
 });
 
-// Helper to cleanup uploaded file
 const cleanupFile = async (file: Express.Multer.File | undefined) => {
   if (file && file.path) {
     try {
@@ -63,23 +102,29 @@ const cleanupFile = async (file: Express.Multer.File | undefined) => {
   }
 };
 
-// PDF Text Extraction + Lisp Verification
 app.post(
   "/api/extract-from-pdf",
+  registerRollback,
   upload.single("file"),
   async (req: any, res: any) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
       }
-      // Read from disk buffer for text extraction
       const fs = await import("fs/promises");
       const buffer = await fs.readFile(req.file.path);
 
       const text = await pdfService.parsePdf(buffer);
+      if (req.isAborted) return;
+
       const result = await extractKnowledge({ text });
+      if (req.isAborted) return;
+
       res.json(result);
+      const graph = getActiveGraph(req.file.originalname);
+      graph.saveState(`data/graphs/${req.file.originalname}.json`);
     } catch (error) {
+      if (req.isAborted) return;
       console.error(error);
       res.status(500).json({
         error: error instanceof Error ? error.message : "Unknown error",
@@ -90,21 +135,24 @@ app.post(
   }
 );
 
-// Multimodal PDF Extraction (Visual)
 app.post(
   "/api/extract-multimodal",
+  registerRollback,
   upload.single("file"),
   async (req: any, res: any) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
       }
-      // Pass FILE PATH to multimodal flow to save memory (Zero-Copy)
       const result = await extractKnowledgeMultimodal({
         filePath: req.file.path,
       });
+      if (req.isAborted) return;
       res.json(result);
+      const graph = getActiveGraph(req.file.originalname);
+      graph.saveState(`data/graphs/${req.file.originalname}.json`);
     } catch (error) {
+      if (req.isAborted) return;
       console.error(error);
       res.status(500).json({
         error: error instanceof Error ? error.message : "Unknown error",
@@ -115,8 +163,6 @@ app.post(
   }
 );
 
-// Simple Transcription (Debug/Fallback)
-import { extractSimpleTranscription } from "./flows/extraction/simple-flow";
 app.post(
   "/api/transcribe-simple",
   upload.single("file"),
@@ -142,8 +188,6 @@ app.post(
   }
 );
 
-// Markdown Extraction
-import { extractMarkdown } from "./flows/extraction/markdown-flow";
 app.post(
   "/api/extract-markdown",
   upload.single("file"),
@@ -158,6 +202,7 @@ app.post(
         text,
         filename: req.file.originalname,
       });
+      commitKnowledgeToGraph(result, req.file.originalname);
       res.json(result);
     } catch (error) {
       console.error(error);
@@ -170,19 +215,13 @@ app.post(
   }
 );
 
-// Graph Data Endpoint
-// Graph Data Endpoint
-
 app.get("/api/graph-data", async (req, res) => {
   try {
-    const rawGraph = await lisp.getGraphData();
-    // Transform into Node/Edge format for ReactFlow
+    const source = req.query.source as string;
+    const graph = getActiveGraph(source);
+    const rawGraph = graph.getGraphSnapshot();
+    // @ts-ignore
     const { nodes, edges } = transformMemoriesToGraph(rawGraph);
-
-    // Create edges? ideally Lisp should return relationships.
-    // For now, implicit central node or just disconnected.
-    // Let's verify we just get nodes first.
-
     res.json({ nodes, edges });
   } catch (error) {
     console.error("Graph Error:", error);
@@ -190,18 +229,32 @@ app.get("/api/graph-data", async (req, res) => {
   }
 });
 
-// Reset Knowledge Base
+app.get("/api/graph-raw", async (req, res) => {
+  try {
+    const source = req.query.source as string;
+    const graph = getActiveGraph(source);
+    const rawGraph = graph.getGraphSnapshot();
+    res.json(rawGraph);
+  } catch (error) {
+    console.error("Raw Graph Error:", error);
+    res.status(500).json({ error: String(error) });
+  }
+});
+
 app.post("/api/reset-knowledge", async (req, res) => {
   try {
-    const result = await lisp.resetTotal("knowledge.lisp");
-    res.json({ message: result });
+    const { source } = req.body;
+    const graph = getActiveGraph(source);
+    graph.clear();
+    graph.saveState(`data/graphs/${source || "default"}.json`);
+    res.json({
+      message: `Knowledge base (${source || "default"}) reset successfully.`,
+    });
   } catch (error) {
     console.error("Reset Error:", error);
     res.status(500).json({ error: String(error) });
   }
 });
-
-// Live Lisp REPL Stream (SSE)
 
 app.get("/api/lisp-stream", (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
@@ -211,8 +264,6 @@ app.get("/api/lisp-stream", (req, res) => {
   let lastLogTime = 0;
   const onLog = (data: string) => {
     const now = Date.now();
-    // Throttle high-frequency logs (e.g. > 20 messages/sec) to save bandwidth
-    // Unless it's a critical error or connection message
     if (
       now - lastLogTime < 50 &&
       !data.includes("ERR") &&
@@ -222,29 +273,26 @@ app.get("/api/lisp-stream", (req, res) => {
     }
     lastLogTime = now;
 
-    // Escape newlines for SSE data protocol
-    const sanitized = data.replace(/\n/g, "\\n");
     res.write(
       `data: ${JSON.stringify({ timestamp: new Date(), content: data })}\n\n`
     );
   };
 
-  lisp.on("log", onLog);
+  kernelEvents.on("log", onLog);
 
-  // Send initial connection message
   res.write(
     `data: ${JSON.stringify({
       timestamp: new Date(),
-      content: ";; Connected to SDialectic REPL Stream",
+      content: ";; Connected to TS-Symbolic-Kernel Stream",
     })}\n\n`
   );
 
   req.on("close", () => {
-    lisp.off("log", onLog);
+    kernelEvents.off("log", onLog);
   });
 });
 
-app.listen(port, async () => {
+async function initializeSystem() {
   console.log(`
   ____  ____  _       _           _   _      
  / ___||  _ \\(_) __ _| | ___  ___| |_(_) ___ 
@@ -252,21 +300,32 @@ app.listen(port, async () => {
   ___) | |_| | | (_| | |  __/ (__| |_| | (__ 
  |____/|____/|_|\\__,_|_|\\___|\\___|\\__|_|\\___|
     `);
-  console.log(`[System] Server running at http://localhost:${port}`);
-  console.log(`[System] Active LISP Model: ${CONFIG.OLLAMA_LISP_MODEL_NAME}`);
-  console.log(`[System] Active CHAT Model: ${CONFIG.OLLAMA_CHAT_MODEL_NAME}`);
-  console.log(
-    `[System] Environment: ${process.env.NODE_ENV || "development"}\n`
-  );
 
-  // Auto-Load Knowledge Graph on Startup
   try {
-    console.log("[System] Loading Knowledge Graph...");
-    const loadResult = await lisp.loadState("knowledge.lisp");
-    console.log(`[System] Knowledge Graph Loaded: ${loadResult}`);
-  } catch (e) {
-    console.warn(
-      "[System] No previous knowledge graph found (or load failed). Starting fresh."
+    console.log("[System] Initializing Graph Manager...");
+    // The manager initializes with "default" automatically.
+    console.log(
+      `[System] Graph Manager ready. Loaded ${
+        graphManager.listGraphs().length
+      } instances.`
     );
+  } catch (e) {
+    console.warn("[System] Failed to initialize Graph Manager:", e);
   }
-});
+
+  app.listen(port, () => {
+    console.log(`[System] Server running at http://localhost:${port}`);
+    console.log(`[System] Active TS-Kernel Engine`);
+    console.log(`[System] Active CHAT Model: ${CONFIG.OLLAMA_CHAT_MODEL_NAME}`);
+    console.log(
+      `[System] Environment: ${process.env.NODE_ENV || "development"}\n`
+    );
+  });
+}
+
+if (process.env.NODE_ENV !== "test") {
+  initializeSystem();
+}
+
+export { app };
+

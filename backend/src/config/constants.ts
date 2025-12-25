@@ -18,14 +18,41 @@ function getEnv(key: string): string {
 
 export const CONFIG = {
   // AI Model Configuration
+  USE_LOCAL_MODELS: process.env.USE_LOCAL_MODELS === "true",
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+
+  // Local Model Names
   OLLAMA_LISP_MODEL_NAME: getEnv("OLLAMA_LISP_MODEL_NAME"),
   OLLAMA_VISION_MODEL_NAME: getEnv("OLLAMA_VISION_MODEL_NAME"),
   OLLAMA_CHAT_MODEL_NAME: getEnv("OLLAMA_CHAT_MODEL_NAME"),
+
+  // Gemini Model Names
+  GEMINI_LISP_MODEL_NAME: getEnv("GEMINI_LISP_MODEL_NAME"),
+  GEMINI_VISION_MODEL_NAME: getEnv("GEMINI_VISION_MODEL_NAME"),
+  GEMINI_CHAT_MODEL_NAME: getEnv("GEMINI_CHAT_MODEL_NAME"),
+
   OLLAMA_UNLOAD_DELAY_SECONDS: parseInt(
     getEnv("OLLAMA_UNLOAD_DELAY_SECONDS"),
     10
   ),
 
   // Server Configuration
-  PORT: parseInt(getEnv("PORT"), 10), // Strict check for PORT too
+  PORT: parseInt(getEnv("PORT"), 10),
+
+  // Dynamic Model References
+  get LISP_MODEL() {
+    return this.USE_LOCAL_MODELS
+      ? `ollama/${this.OLLAMA_LISP_MODEL_NAME}`
+      : `googleai/${this.GEMINI_LISP_MODEL_NAME}`;
+  },
+  get VISION_MODEL() {
+    return this.USE_LOCAL_MODELS
+      ? `ollama/${this.OLLAMA_VISION_MODEL_NAME}`
+      : `googleai/${this.GEMINI_VISION_MODEL_NAME}`;
+  },
+  get CHAT_MODEL() {
+    return this.USE_LOCAL_MODELS
+      ? `ollama/${this.OLLAMA_CHAT_MODEL_NAME}`
+      : `googleai/${this.GEMINI_CHAT_MODEL_NAME}`;
+  },
 };

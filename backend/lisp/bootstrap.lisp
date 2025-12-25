@@ -77,7 +77,10 @@
   (consequences nil :type list)) ; List of outcome triples: ((?x is-a ?z))
 
 (defvar *relations* nil
-  "Stores relations as a list of relation structs.")
+  "Stores relations as a list of relation structs (sequential storage).")
+
+(defvar *relation-index* (make-hash-table :test 'eq)
+  "Secondary index for relations. Key: subject symbol, Value: list of relation structs.")
 
 (defvar *rules* nil
   "Stores inference rules.")
@@ -160,35 +163,39 @@
 
 
 (defun adicionar-relacao (sujeito predicado objeto)
-  "Adds a structured relation between concepts. Detects redundancy."
+  "Adds a structured relation between concepts. Uses *relation-index* for O(1) redundancy checks."
   (let ((s (normalizar-termo sujeito))
         (p (normalizar-termo predicado))
         (o (normalizar-termo objeto)))
     
-    ;; Avoid duplicates
+    ;; Avoid duplicates using the index (bucket of current subject)
     (if (find-if (lambda (r) 
-                    (and (eq (relation-subject r) s)
-                         (eq (relation-predicate r) p)
+                    (and (eq (relation-predicate r) p)
                          (eq (relation-object r) o)))
-                  *relations*)
+                  (gethash s *relation-index*))
         (format nil "AVISO: A relacao ~a -[~a]-> ~a ja existe." s p o)
-        (progn
-          ;; [Auto-Discovery] Ensure Nodes exist for Subject and Object
+        (let ((new-rel (make-relation :subject s :predicate p :object o :provenance :user)))
+          ;; Ensure Nodes exist for Subject and Object (Legacy Graph Compatibility)
           (unless (gethash (string s) *knowledge-graph*)
             (setf (gethash (string s) *knowledge-graph*) "Implicit Concept"))
           (unless (gethash (string o) *knowledge-graph*)
             (setf (gethash (string o) *knowledge-graph*) "Implicit Concept"))
           
-          (push (make-relation :subject s :predicate p :object o :provenance :user) *relations*)
+          ;; Dual insertion: Global list (for order/serialization) and Index (for speed)
+          (push new-rel *relations*)
+          (push new-rel (gethash s *relation-index*))
+          
           (format nil "Relacao estruturada: ~a -[~a]-> ~a" s p o)))))
 
 (defun buscar-relacoes (conceito)
-  "Searches for all relations involving the given concept (as subject or object)."
+  "Searches for outgoing relations (via index) and incoming relations (via sequential search)."
   (let* ((c (normalizar-termo conceito))
-         (found (remove-if-not (lambda (r) 
-                                 (or (eq (relation-subject r) c)
-                                     (eq (relation-object r) c)))
-                               *relations*)))
+         ;; O(1) lookup for relations where concept is Subject
+         (outgoing (gethash c *relation-index*))
+         ;; O(N) lookup for relations where concept is Object
+         (incoming (remove-if-not (lambda (r) (eq (relation-object r) c))
+                                  *relations*))
+         (found (union outgoing incoming :test #'eq)))
     (if found
         (mapcar (lambda (r) 
                   (format nil "~a -[~a]-> ~a" 
@@ -247,8 +254,9 @@
       (when b2 (unify pat-o fact-o b2)))))
 
 (defun limpar-memoria ()
-  "Clears all memory and custom definitions."
+  "Clears all memory, relations, index, and custom definitions."
   (clrhash *knowledge-graph*)
+  (clrhash *relation-index*)
   (setf *relations* nil)
   (setf *rules* nil)
   (setf *custom-definitions* nil)

@@ -25,7 +25,7 @@ export function ReplInterface() {
 
   useEffect(() => {
     isMounted.current = true;
-    const eventSource = new EventSource('http://localhost:3000/api/lisp-stream');
+    const eventSource = new EventSource('/api/lisp-stream');
     
     eventSource.onopen = () => {
       setIsConnected(true);
@@ -43,9 +43,10 @@ export function ReplInterface() {
         const content = data.content || "";
         if (
           content.includes("Memorizado:") || 
-          content.includes("Relacao adicionada:") ||
+          content.includes("Relacao estruturada:") ||
           content.includes("Ferramenta aprendida:") ||
-          content.includes("Estado carregado")
+          content.includes("Estado carregado") ||
+          content.includes("Inferencia concluida")
         ) {
            useDialecticStore.getState().incrementGraphVersion();
         }
@@ -91,7 +92,7 @@ export function ReplInterface() {
       <div className="flex items-center justify-between px-3 py-2 bg-[#2d2d2d] border-b border-white/10 shrink-0">
         <div className="flex items-center gap-2">
           <Terminal size={14} className="text-green-400" />
-          <span className="font-semibold text-gray-300">SBCL REPL Monitor</span>
+          <span className="font-semibold text-gray-300">JSCL REPL</span>
         </div>
         <Badge variant="outline" className={`h-5 gap-1 ${isConnected ? "text-green-400 border-green-400/30" : "text-red-400 border-red-400/30"} bg-transparent`}>
            <Circle size={6} fill="currentColor" />

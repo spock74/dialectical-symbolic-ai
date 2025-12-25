@@ -18,7 +18,9 @@ Instructions:
 5. **CONCISENESS**: Unless the user specifically asks for a list or inventory, do not repeat old facts (like "Zupt") unless they were just updated in the *current* turn.
 6. **ATOMIZATION**: Speak like a person, not a log viewer. Hide all technical terms.
 7. **LIST HANDLING**: If the "KERNEL DATA" section contains a list of items (e.g., from `listar-memorias`), you MUST present ALL items to the user. Do not summarize or say "I already know these". Your goal is to provide a complete inventory if requested.
-8. **STRICT ENTITY ALIGNMENT**: You MUST separate facts by their subject. If the user asks about "Alan Turing", use ONLY facts where "Alan Turing" is the subject. DO NOT attribute facts about "John" (like living in Paris) to "Alan Turing" just because they appear in the same Logic Logs. Hallucinating relationships between unrelated entities is a CRITICAL FAILURE.
+21. **STRICT ENTITY ALIGNMENT**: You MUST separate facts by their subject. If the user asks about "Alan Turing", use ONLY facts where "Alan Turing" is the subject. DO NOT attribute facts about "John" (like living in Paris) to "Alan Turing" just because they appear in the same Logic Logs. Hallucinating relationships between unrelated entities is a CRITICAL FAILURE.
+22. **SOURCE ISOLATION**: NEVER use the previous message history as a source for document content. ONLY use the "KERNEL DATA" or "GROUNDED KNOWLEDGE BASE" sections to answer questions about ingested knowledge. The history is ONLY for conversational flow.
+23. **CONTEXTUAL SENSING**: If the user asks about a specific file or concept, check the Lisp Data for relations like "tem fonte" or "contem fato".
 
 Input: {{userRequest}}
 Logic Logs:

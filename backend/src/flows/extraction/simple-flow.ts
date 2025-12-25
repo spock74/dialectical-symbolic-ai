@@ -33,13 +33,34 @@ export const extractSimpleTranscription = ai.defineFlow(
     const transcriptionPrompt = await prompt(ai.registry, 'simpleTranscription');
 
     // 2. Call Model
+    const inputVars = {
+      image: {
+        url: `data:image/png;base64,${images[0]}`,
+        contentType: "image/png",
+      },
+    };
+
+    // Render total context for observability
+    const rendered = await transcriptionPrompt.render({ input: inputVars });
+    const promptText =
+      rendered.messages
+        ?.map((m) =>
+          m.content
+            ?.map((p) => p.text || (p.media ? "[Media]" : JSON.stringify(p)))
+            .join("")
+        )
+        .join("\n---\n") || "No message content";
+    const cleanLog = promptText.replace(
+      /data:image\/png;base64,[^"\s]+/g,
+      "[BASE64_IMAGE_DATA]"
+    );
+    console.log("--- [DEBUG] TOTAL CONTEXT (simpleTranscription) ---");
+    console.log(cleanLog);
+    console.log("--------------------------------------------------");
+
     const response = await transcriptionPrompt.generate({
-      input: {
-        image: {
-            url: `data:image/png;base64,${images[0]}`,
-            contentType: 'image/png'
-        }
-      }
+      model: CONFIG.VISION_MODEL,
+      input: inputVars,
     });
 
     if (!response.output) {
@@ -49,7 +70,8 @@ export const extractSimpleTranscription = ai.defineFlow(
     try {
       return response.output;
     } finally {
-      scheduleModelUnload(CONFIG.OLLAMA_LISP_MODEL_NAME);
+      if (CONFIG.USE_LOCAL_MODELS)
+        scheduleModelUnload(CONFIG.OLLAMA_VISION_MODEL_NAME);
     }
   }
 );

@@ -175,3 +175,68 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Markdown Styles for Chat */
+.prose-markdown {
+  @apply leading-relaxed;
+}
+
+.prose-markdown h1, .prose-markdown h2, .prose-markdown h3 {
+  @apply font-bold mt-4 mb-2;
+}
+
+.prose-markdown h1 { @apply text-xl; }
+.prose-markdown h2 { @apply text-lg; }
+.prose-markdown h3 { @apply text-base; }
+
+.prose-markdown p {
+  @apply mb-2 last:mb-0;
+}
+
+.prose-markdown ul, .prose-markdown ol {
+  @apply ml-4 mb-2;
+}
+
+.prose-markdown ul {
+  @apply list-disc;
+}
+
+.prose-markdown ol {
+  @apply list-decimal;
+}
+
+.prose-markdown li {
+  @apply mb-1;
+}
+
+.prose-markdown table {
+  @apply w-full border-collapse border border-border my-2 text-xs;
+}
+
+.prose-markdown th, .prose-markdown td {
+  @apply border border-border p-2 text-left;
+}
+
+.prose-markdown th {
+  @apply bg-muted/50 font-semibold;
+}
+
+.prose-markdown blockquote {
+  @apply border-l-4 border-primary/30 pl-4 my-2 italic text-muted-foreground;
+}
+
+.prose-markdown code {
+  @apply bg-muted px-1 py-0.5 rounded font-mono text-[0.9em];
+}
+
+.prose-markdown pre {
+  @apply bg-muted p-3 rounded-lg my-2 overflow-x-auto border border-border/50 shadow-inner;
+}
+
+.prose-markdown pre code {
+  @apply bg-transparent p-0 block text-[0.85em];
+}
+
+.prose-markdown a {
+  @apply text-primary hover:underline font-medium;
+}

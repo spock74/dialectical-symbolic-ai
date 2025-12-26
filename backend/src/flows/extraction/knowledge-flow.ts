@@ -65,6 +65,7 @@ export const extractKnowledge = ai.defineFlow(
       );
 
       const response = await extractionPrompt.generate({
+        model: CONFIG.LISP_MODEL,
         input: inputVars,
       });
 

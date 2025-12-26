@@ -147,8 +147,7 @@ export class ReflectiveOrchestrator {
       const responseText = llmResponse.text;
 
       console.log(
-        `[Orchestrator] LLM Thought (Turn ${turn + 1}):`,
-        responseText.substring(0, 100).replace(/\n/g, " ") + "..."
+        `[Orchestrator] LLM Thought (Turn ${turn + 1}):\n${responseText}\n---`
       );
 
       // Loop Protection
@@ -166,20 +165,20 @@ export class ReflectiveOrchestrator {
       } (Logic) ---\n${responseText}`;
 
       const lispRegex =
-        /<lisp>([\s\S]*?)<\/lisp>|```(?:lisp|cl|common-lisp)\b\s*([\s\S]*?)```/gi;
+        /<lisp>([\s\S]*?)<\/lisp>|```(?:lisp|cl|common-lisp)?\s*([\s\S]*?)```/gi;
       let match;
       let executedSomething = false;
 
       while ((match = lispRegex.exec(responseText)) !== null) {
         let code = (match[1] || match[2] || "").trim();
+        // Remove common REPL prefixes if present
         code = code.replace(/^([*>\s]|cl-user>|[0-9]+\])+/, "").trim();
 
         if (!code || !code.includes("(")) continue;
 
         try {
-          // Execute via TS-Interpreter
-          const graph = getActiveGraph(this.state.sourceName);
-          const output = lispInterpreter.execute(code, graph);
+          // Execute via SBCL Process
+          const output = await lispInterpreter.executeAsync(code);
 
           this.state.history.push({
             role: "model",
@@ -199,7 +198,13 @@ export class ReflectiveOrchestrator {
         }
       }
 
-      if (!executedSomething) break;
+      if (!executedSomething) {
+          // Debug check: did we miss something that LOOKS like lisp?
+          if (responseText.includes('<lisp>') || responseText.includes('```')) {
+              console.warn(`[Orchestrator] Warning: Found tags but Lisp extraction failed matching regex.`);
+          }
+          break;
+      }
       turn++;
     }
 

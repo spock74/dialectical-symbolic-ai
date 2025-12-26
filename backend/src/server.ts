@@ -6,6 +6,7 @@ import { extractKnowledge } from './flows/extraction/knowledge-flow';
 import { extractKnowledgeMultimodal } from './flows/extraction/multimodal-flow';
 
 import { pdfService } from "./services/pdf-service";
+import { SBCLProcess } from "./services/sbcl-process";
 import { getActiveGraph, graphManager } from "./logic/graph-engine";
 import { kernelEvents } from "./logic/kernel-events";
 import {
@@ -24,7 +25,7 @@ const upload = multer({ dest: "uploads/" });
 
 app.use(cors());
 app.use((req, res, next) => {
-  res.setHeader("X-AI-Model", CONFIG.OLLAMA_LISP_MODEL_NAME);
+  res.setHeader("X-AI-Model", CONFIG.LISP_MODEL);
   next();
 });
 app.use(express.json({ limit: "50mb" }));
@@ -53,7 +54,7 @@ const registerRollback = (req: any, res: any, next: any) => {
 app.post("/api/chat", registerRollback, async (req: any, res: any) => {
   try {
     const { prompt, history, useMemory, bypassSDialect, source } = req.body;
-    const result = await reflectiveLoop({
+    let result = await reflectiveLoop({
       prompt,
       history,
       useMemory,
@@ -220,9 +221,57 @@ app.get("/api/graph-data", async (req, res) => {
     const source = req.query.source as string;
     const graph = getActiveGraph(source);
     const rawGraph = graph.getGraphSnapshot();
+
+    // 1. Get JS-side data
     // @ts-ignore
-    const { nodes, edges } = transformMemoriesToGraph(rawGraph);
-    res.json({ nodes, edges });
+    const { nodes: jsNodes, edges: jsEdges } = transformMemoriesToGraph(rawGraph);
+
+    // 2. Get Lisp-side data
+    let lispNodes: any[] = [];
+    let lispEdges: any[] = [];
+    try {
+      const lispRaw = await SBCLProcess.getInstance().getLispGraphData();
+      if (lispRaw && (lispRaw.nodes || lispRaw.edges)) {
+         const transformed = transformMemoriesToGraph(lispRaw);
+         lispNodes = transformed.nodes || [];
+         lispEdges = transformed.edges || [];
+      }
+    } catch (e) {
+      console.error("[API] Failed to integrate Lisp graph data:", e);
+    }
+
+    // 3. Merge (Simple deduplication by ID/source-target-relation)
+    const allNodes = [...jsNodes];
+    const nodeIds = new Set(jsNodes.map(n => n.id));
+
+    lispNodes.forEach(ln => {
+      if (ln && ln.id && !nodeIds.has(ln.id)) {
+        allNodes.push(ln);
+        nodeIds.add(ln.id);
+      }
+    });
+
+    const allEdges = [...jsEdges];
+    const edgeKeys = new Set(jsEdges.map(e => `${e.source}-${e.target}-${e.label}`));
+
+    lispEdges.forEach(le => {
+      if (le && le.source && le.target) {
+        const key = `${le.source}-${le.target}-${le.label || ''}`;
+        if (!edgeKeys.has(key)) {
+          allEdges.push(le);
+          edgeKeys.add(key);
+        }
+      }
+    });
+
+    console.log(`[API] Graph State: JS(${jsNodes.length}n, ${jsEdges.length}e), Lisp(${lispNodes.length}n, ${lispEdges.length}e) -> Total(${allNodes.length}n, ${allEdges.length}e)`);
+
+    const response = {
+      nodes: allNodes,
+      edges: allEdges,
+    };
+
+    res.json(response);
   } catch (error) {
     console.error("Graph Error:", error);
     res.status(500).json({ error: String(error) });
@@ -316,7 +365,9 @@ async function initializeSystem() {
   app.listen(port, () => {
     console.log(`[System] Server running at http://localhost:${port}`);
     console.log(`[System] Active TS-Kernel Engine`);
-    console.log(`[System] Active CHAT Model: ${CONFIG.OLLAMA_CHAT_MODEL_NAME}`);
+    console.log(`[System] Active LISP Model: ${CONFIG.LISP_MODEL}`);
+    console.log(`[System] Active CHAT Model: ${CONFIG.CHAT_MODEL}`);
+    console.log(`[System] Active VISION Model: ${CONFIG.VISION_MODEL}`);
     console.log(
       `[System] Environment: ${process.env.NODE_ENV || "development"}\n`
     );

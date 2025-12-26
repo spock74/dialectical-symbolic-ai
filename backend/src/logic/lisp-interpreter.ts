@@ -1,51 +1,27 @@
 import { KnowledgeGraph } from './graph-engine';
-import { jsclAdapter } from './jscl-adapter';
+import { SBCLProcess } from '../services/sbcl-process';
 import { kernelEvents } from './kernel-events';
 
-/**
- * LispInterpreter: A wrapper around the JSCL native Lisp engine.
- * Passo 3: O Interpretador 'JSCL-Symbolic'
- */
 export class LispInterpreter {
-  /**
-   * Executes a Lisp-style command using the JSCL native runtime.
-   */
   execute(input: string, graph: KnowledgeGraph): string {
-    // Robust regex to extract top-level parentheses (S-Expressions)
-    const sExpressions = input.match(/\((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*\)/g);
+    // Envia direto para o processo SBCL
+    // Nota: O método evaluate agora é assíncrono, o Orchestrator deve tratar await
+    // Mas para manter compatibilidade síncrona se necessário, dispare e esqueça ou refatore o Orchestrator.
+    // IDEAL: Refatorar Orchestrator para await lispInterpreter.execute()
     
-    if (!sExpressions) return "Erro: Nenhum comando Lisp detectado.";
+    // Dispara a execução assíncrona mas retorna mensagem placeholder para compatibilidade imediata
+    this.executeAsync(input).then(res => {
+        kernelEvents.emit('log', `[SBCL Async Result]: ${res}`);
+    }).catch(err => {
+        kernelEvents.emit('log', `[SBCL Async Error]: ${err}`);
+    });
 
-    const outputs: string[] = [];
+    return "Comando enviado ao SBCL (Async Check logs)"; 
+  }
 
-    for (const expr of sExpressions) {
-      kernelEvents.emit('log', `> ${expr}`);
-      try {
-        // Delegate execution to JSCL
-        const result = jsclAdapter.eval(expr, graph);
-        
-        let output = "";
-        // Format result: if it's a JS object from our bridge, we might want a string
-        if (result === undefined || result === null) {
-          output = `OK: ${expr}`;
-        } else if (Array.isArray(result)) {
-           output = result.join('\n');
-        } else {
-           output = String(result);
-        }
-        outputs.push(output);
-        kernelEvents.emit('log', output);
-      } catch (error: any) {
-        const errMsg = `Erro de Lisp Nativo: ${error.message}`;
-        outputs.push(errMsg);
-        kernelEvents.emit('log', errMsg);
-      }
-    }
-
-    return outputs.join('\n');
+  // Método real async que o Orchestrator deve usar
+  async executeAsync(input: string): Promise<string> {
+     return await SBCLProcess.getInstance().evaluate(input);
   }
 }
-
 export const lispInterpreter = new LispInterpreter();
-
-

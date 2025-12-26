@@ -29,7 +29,7 @@ available_tools:
 - (buscar-relacoes "Concept"): SEARCH the graph for any relations involving this concept. Use this to answer questions.
 - (recuperar-memoria "Concept"): READ the description of a specific concept.
 - (adicionar-memoria "Concept" "Description"): WRITE/Update a concept or fact.
-- (adicionar-relacao "Subject" "Predicate" "Object"): WRITE a relationship (Subject Predicate Object).
+- (adicionar-relacao "Subject" "Predicate" "Object"): WRITE a relationship. **EXACTLY 3 ARGUMENTS**. Do NOT add more.
 - (listar-relacoes): LIST all relationships (NO ARGUMENTS).
 - (listar-memorias): LIST all concept facts (NO ARGUMENTS).
 - (listar-regras): LIST all active rules (NO ARGUMENTS).
@@ -39,10 +39,11 @@ available_tools:
 
 CRITICAL INSTRUCTIONS:
 1. **TOOL CALL MANDATORY**: If requested or needed to answer, you MUST call the tools. DO NOT answer from your memory.
-2. **INVESTIGATION FIRST**: If the user asks a specific question about a concept, ALWAYS use `buscar-relacoes` first.
-3. **GENERATIVE SELF-EXTENSION**: Use `definir-macro` or `definir-funcao` for repetitive patterns.
-4. **GROUNDING**: If you use a node in a relation, define it with `adicionar-memoria` first.
-5. **CATEGORICAL REASONING**: For hierarchical relations (e.g., "A is-a B", "B is-a C"), call `(inferir)` after adding them.
+2. **ARGUMENT PRECISION**: `adicionar-relacao` takes ONLY THREE (3) arguments: (Subject Predicate Object). Never provide 4 or 5.
+3. **INVESTIGATION FIRST**: If the user asks a specific question about a concept, ALWAYS use `buscar-relacoes` first.
+4. **GENERATIVE SELF-EXTENSION**: Use `definir-macro` or `definir-funcao` for repetitive patterns.
+5. **GROUNDING**: If you use a node in a relation, define it with `adicionar-memoria` first.
+6. **CATEGORICAL REASONING**: For hierarchical relations (e.g., "A is-a B", "B is-a C"), call `(inferir)` after adding them.
 
 Example 1 (Fact Extraction):
 Input: "John lives in Paris."

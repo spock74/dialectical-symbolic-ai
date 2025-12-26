@@ -236,7 +236,7 @@ function GraphView({ activeSource }: { activeSource: any }) {
                     <ChevronDown size={12} className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-64 p-0 bg-card/95 backdrop-blur-xl border-border shadow-2xl" align="end">
+                <PopoverContent className="w-80 p-0 bg-card/95 backdrop-blur-xl border-border shadow-2xl" align="end">
                   <CardHeader className="p-4 pb-2 flex flex-row items-center justify-between space-y-0">
                     <CardTitle className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground flex items-center gap-2">
                       <Filter size={12} />
@@ -276,14 +276,22 @@ function GraphView({ activeSource }: { activeSource: any }) {
                             <Hash size={12} />
                             Tipos de Relação
                           </div>
-                          {selectedRelationTypes.length > 0 && (
+                          <div className="flex gap-2">
                             <button 
-                              onClick={() => setSelectedRelationTypes([])}
+                              onClick={() => setSelectedRelationTypes(availableRelationTypes)}
                               className="text-[10px] text-blue-400 hover:text-blue-300 transition-colors"
                             >
-                              Limpar
+                              Tudo
                             </button>
-                          )}
+                            {selectedRelationTypes.length > 0 && (
+                              <button 
+                                onClick={() => setSelectedRelationTypes([])}
+                                className="text-[10px] text-red-400 hover:text-red-300 transition-colors"
+                              >
+                                Limpar
+                              </button>
+                            )}
+                          </div>
                         </div>
                         <ScrollArea className="h-[200px] -mr-4 pr-4">
                           <div className="space-y-1 pr-2">

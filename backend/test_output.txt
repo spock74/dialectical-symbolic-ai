@@ -1,0 +1,119 @@
+--- Starting Topological Integration Test (STDERR) ---
+--- Invoking think() ---
+[Orchestrator] Thinking initiated: "Joao e Maria gostam de Caes...."
+[KERNEL-LOG] ;; [Orchestrator] Topology: Injecting vectors for sensed entities...
+[TEST] Mock Embedding called for: Joao
+[TEST] Mock Embedding called for: Maria
+[TEST] Mock Embedding called for: Caes
+[TEST] SUCCESS: Lisp Received Vector Update: (atualizar-vetor 'Joao #(0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1))
+[TEST] Lisp Received Vector Update: (atualizar-vetor 'Joao #(0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1))
+[SBCL] Spawning child process...
+[TEST] SUCCESS: Lisp Received Vector Update: (atualizar-vetor 'Maria #(0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1))
+[TEST] Lisp Received Vector Update: (atualizar-vetor 'Maria #(0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1))
+[TEST] SUCCESS: Lisp Received Vector Update: (atualizar-vetor 'Caes #(0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1))
+[TEST] Lisp Received Vector Update: (atualizar-vetor 'Caes #(0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1))
+[SBCL] Process ready for input.
+[SBCL] Loading bootstrap from /Users/moraes/Documents/PROJETOS/local-gemma3-4b-genkit/labs/s-dialectic/backend/lisp/bootstrap.lisp...
+[SBCL] Loading Bootstrap Part 1/4...
+[SBCL] Loading Bootstrap Part 2/4...
+[SBCL] Loading Bootstrap Part 3/4...
+[SBCL] Loading Bootstrap Part 4/4...
+[SBCL stderr] ; in: DEFUN LIMPAR-MEMORIA
+;     (S-DIALECTIC:CARREGAR-REGRAS-ESSENCIAIS)
+; 
+
+[SBCL stderr] ; caught STYLE-WARNING:
+;   undefined function: S-DIALECTIC:CARREGAR-REGRAS-ESSENCIAIS
+; 
+; compilation unit finished
+;   Undefined function:
+;     CARREGAR-REGRAS-ESSENCIAIS
+;   caught 1 STYLE-WARNING condition
+
+[SBCL] Bootstrap Complete.
+[KERNEL-LOG] ;; [Orchestrator] Topology: 3 vectors injected.
+--- [DEBUG] TOTAL CONTEXT (reflectiveLoop - Turn 1) ---
+Empty text extraction. Full object: {
+  "config": {
+    "temperature": 0.1
+  },
+  "messages": [],
+  "prompt": [
+    {
+      "text": "You are the S-Dialectic Kernel Interface (Logic Engine).\nYOU ARE AN API. YOU ARE NOT A CHATBOT.\nDO NOT SIMULATE A TERMINAL. DO NOT OUTPUT PROMPT SYMBOLS.\n\n### THE ONLY ALLOWED OUTPUT\n1. `<lisp>(function ...)</lisp>` tags to interact with the persistent kernel.\n2. Concise internal reasoning (System 2 thinking) for your own planning.\n\n### FORBIDDEN BEHAVIOR\n- NEVER output symbols like `>`, `*`, `cl-user>`, `0]`.\n- NEVER use Markdown code blocks (```lisp). Use ONLY `<lisp>` tags.\n- NEVER wait for user input. You provide all commands at once.\n\nRULE ZERO: IF THE USER ASKS TO \"LIST\", \"SHOW\", OR \"DESCRIBE EVERYTHING\" (E.G., \"LISTAR\"), YOU MUST OUTPUT `<lisp>(listar-memorias)</lisp>` AND `<lisp>(listar-relacoes)</lisp>` IMMEDIATELY.\n**EXCEPTION**: Do not trigger Rule Zero for simple greetings like \"ola\", \"oi\", \"bom dia\", \"hello\", etc. For these, use Rule 4.\n\nYour GOAL is to update or query the Knowledge Graph by extracting EVERY piece of information or answering questions using tools.\n\navailable_tools:\n- (buscar-relacoes \"Concept\"): SEARCH the graph for any relations involving this concept. Use this to answer questions.\n- (recuperar-memoria \"Concept\"): READ the description of a specific concept.\n- (adicionar-memoria \"Concept\" \"Description\"): WRITE/Update a concept or fact.\n- (adicionar-relacao \"Subject\" \"Predicate\" \"Object\"): WRITE a relationship. **EXACTLY 3 ARGUMENTS**. Do NOT add more.\n- (listar-relacoes): LIST all relationships (NO ARGUMENTS).\n- (listar-memorias): LIST all concept facts (NO ARGUMENTS).\n- (listar-regras): LIST all active rules (NO ARGUMENTS).\n- (inferir): Execute inference (NO ARGUMENTS).\n- (definir-funcao nome args &body corpo): CREATE a new persistent tool.\n- (definir-macro nome args &body corpo): CREATE a new persistent meta-tool.\n\nCRITICAL INSTRUCTIONS:\n1. **TOOL CALL MANDATORY**: If requested or needed to answer, you MUST call the tools. DO NOT answer from your memory.\n2. **ARGUMENT PRECISION**: `adicionar-relacao` takes ONLY THREE (3) arguments: (Subject Predicate Object). Never provide 4 or 5.\n3. **INVESTIGATION FIRST**: If the user asks a specific question about a concept, ALWAYS use `buscar-relacoes` first.\n4. **GENERATIVE SELF-EXTENSION**: Use `definir-macro` or `definir-funcao` for repetitive patterns.\n5. **GROUNDING**: If you use a node in a relation, define it with `adicionar-memoria` first.\n6. **CATEGORICAL REASONING**: For hierarchical relations (e.g., \"A is-a B\", \"B is-a C\"), call `(inferir)` after adding them.\n\nExample 1 (Fact Extraction):\nInput: \"John lives in Paris.\"\nOutput:\nReasoning: I must record that John is a person and lives in Paris.\n<lisp>(adicionar-memoria \"John\" \"A person\")</lisp>\n<lisp>(adicionar-memoria \"Paris\" \"A city\")</lisp>\n<lisp>(adicionar-relacao \"John\" \"mora em\" \"Paris\")</lisp>\n<lisp>(inferir)</lisp>\n\nExample 2 (Abstract Logic):\nInput: \"A é um B, B é um C.\"\nOutput:\nReasoning: The user is providing categorical hierarchical relations. I must record A->B and B->C and run inference.\n<lisp>(adicionar-memoria \"A\" \"Entidade A\")</lisp>\n<lisp>(adicionar-memoria \"B\" \"Entidade B\")</lisp>\n<lisp>(adicionar-memoria \"C\" \"Entidade C\")</lisp>\n<lisp>(adicionar-relacao \"A\" \"É UM\" \"B\")</lisp>\n<lisp>(adicionar-relacao \"B\" \"É UM\" \"C\")</lisp>\n<lisp>(inferir)</lisp>\n\nInput: Joao e Maria gostam de Caes.\nContext: \nSensed Nodes: Joao, Maria, Caes"
+    }
+  ],
+  "output": {},
+  "tools": []
+}
+----------------------------------------------------------------
+[Orchestrator] LLM Thought (Turn 1):
+Reasoning: The user is stating that Joao and Maria like dogs. I need to add memories for Joao, Maria, and Caes, and then add the relationship "gostam de".
+<lisp>(adicionar-memoria "Joao" "Pessoa")</lisp>
+<lisp>(adicionar-memoria "Maria" "Pessoa")</lisp>
+<lisp>(adicionar-memoria "Caes" "Animal")</lisp>
+<lisp>(adicionar-relacao "Joao" "gostam de" "Caes")</lisp>
+<lisp>(adicionar-relacao "Maria" "gostam de" "Caes")</lisp>
+---
+[Orchestrator] Lisp Exec: (adicionar-memoria "Joao" "Pessoa") -> "Memorizado: JOAO"
+[Orchestrator] Lisp Exec: (adicionar-memoria "Maria" "Pessoa") -> "Memorizado: MARIA"
+[Orchestrator] Lisp Exec: (adicionar-memoria "Caes" "Animal") -> "Memorizado: CAES"
+[Orchestrator] Lisp Exec: (adicionar-relacao "Joao" "gostam de" "Caes") -> "Relacao adicionada: JOAO -[GOSTAM DE]-> CAES"
+[Orchestrator] Lisp Exec: (adicionar-relacao "Maria" "gostam de" "Caes") -> "Relacao adicionada: MARIA -[GOSTAM DE]-> CAES"
+--- [DEBUG] TOTAL CONTEXT (reflectiveLoop - Turn 2) ---
+Empty text extraction. Full object: {
+  "config": {
+    "temperature": 0.1
+  },
+  "messages": [],
+  "prompt": [
+    {
+      "text": "You are the S-Dialectic Kernel Interface (Logic Engine).\nYOU ARE AN API. YOU ARE NOT A CHATBOT.\nDO NOT SIMULATE A TERMINAL. DO NOT OUTPUT PROMPT SYMBOLS.\n\n### THE ONLY ALLOWED OUTPUT\n1. `<lisp>(function ...)</lisp>` tags to interact with the persistent kernel.\n2. Concise internal reasoning (System 2 thinking) for your own planning.\n\n### FORBIDDEN BEHAVIOR\n- NEVER output symbols like `>`, `*`, `cl-user>`, `0]`.\n- NEVER use Markdown code blocks (```lisp). Use ONLY `<lisp>` tags.\n- NEVER wait for user input. You provide all commands at once.\n\nRULE ZERO: IF THE USER ASKS TO \"LIST\", \"SHOW\", OR \"DESCRIBE EVERYTHING\" (E.G., \"LISTAR\"), YOU MUST OUTPUT `<lisp>(listar-memorias)</lisp>` AND `<lisp>(listar-relacoes)</lisp>` IMMEDIATELY.\n**EXCEPTION**: Do not trigger Rule Zero for simple greetings like \"ola\", \"oi\", \"bom dia\", \"hello\", etc. For these, use Rule 4.\n\nYour GOAL is to update or query the Knowledge Graph by extracting EVERY piece of information or answering questions using tools.\n\navailable_tools:\n- (buscar-relacoes \"Concept\"): SEARCH the graph for any relations involving this concept. Use this to answer questions.\n- (recuperar-memoria \"Concept\"): READ the description of a specific concept.\n- (adicionar-memoria \"Concept\" \"Description\"): WRITE/Update a concept or fact.\n- (adicionar-relacao \"Subject\" \"Predicate\" \"Object\"): WRITE a relationship. **EXACTLY 3 ARGUMENTS**. Do NOT add more.\n- (listar-relacoes): LIST all relationships (NO ARGUMENTS).\n- (listar-memorias): LIST all concept facts (NO ARGUMENTS).\n- (listar-regras): LIST all active rules (NO ARGUMENTS).\n- (inferir): Execute inference (NO ARGUMENTS).\n- (definir-funcao nome args &body corpo): CREATE a new persistent tool.\n- (definir-macro nome args &body corpo): CREATE a new persistent meta-tool.\n\nCRITICAL INSTRUCTIONS:\n1. **TOOL CALL MANDATORY**: If requested or needed to answer, you MUST call the tools. DO NOT answer from your memory.\n2. **ARGUMENT PRECISION**: `adicionar-relacao` takes ONLY THREE (3) arguments: (Subject Predicate Object). Never provide 4 or 5.\n3. **INVESTIGATION FIRST**: If the user asks a specific question about a concept, ALWAYS use `buscar-relacoes` first.\n4. **GENERATIVE SELF-EXTENSION**: Use `definir-macro` or `definir-funcao` for repetitive patterns.\n5. **GROUNDING**: If you use a node in a relation, define it with `adicionar-memoria` first.\n6. **CATEGORICAL REASONING**: For hierarchical relations (e.g., \"A is-a B\", \"B is-a C\"), call `(inferir)` after adding them.\n\nExample 1 (Fact Extraction):\nInput: \"John lives in Paris.\"\nOutput:\nReasoning: I must record that John is a person and lives in Paris.\n<lisp>(adicionar-memoria \"John\" \"A person\")</lisp>\n<lisp>(adicionar-memoria \"Paris\" \"A city\")</lisp>\n<lisp>(adicionar-relacao \"John\" \"mora em\" \"Paris\")</lisp>\n<lisp>(inferir)</lisp>\n\nExample 2 (Abstract Logic):\nInput: \"A é um B, B é um C.\"\nOutput:\nReasoning: The user is providing categorical hierarchical relations. I must record A->B and B->C and run inference.\n<lisp>(adicionar-memoria \"A\" \"Entidade A\")</lisp>\n<lisp>(adicionar-memoria \"B\" \"Entidade B\")</lisp>\n<lisp>(adicionar-memoria \"C\" \"Entidade C\")</lisp>\n<lisp>(adicionar-relacao \"A\" \"É UM\" \"B\")</lisp>\n<lisp>(adicionar-relacao \"B\" \"É UM\" \"C\")</lisp>\n<lisp>(inferir)</lisp>\n\nInput: Joao e Maria gostam de Caes.\nContext: MODEL: Tool Call: (adicionar-memoria &quot;Joao&quot; &quot;Pessoa&quot;)\nTOOL: &quot;Memorizado: JOAO&quot;\nMODEL: Tool Call: (adicionar-memoria &quot;Maria&quot; &quot;Pessoa&quot;)\nTOOL: &quot;Memorizado: MARIA&quot;\nMODEL: Tool Call: (adicionar-memoria &quot;Caes&quot; &quot;Animal&quot;)\nTOOL: &quot;Memorizado: CAES&quot;\nMODEL: Tool Call: (adicionar-relacao &quot;Joao&quot; &quot;gostam de&quot; &quot;Caes&quot;)\nTOOL: &quot;Relacao adicionada: JOAO -[GOSTAM DE]-&gt; CAES&quot;\nMODEL: Tool Call: (adicionar-relacao &quot;Maria&quot; &quot;gostam de&quot; &quot;Caes&quot;)\nTOOL: &quot;Relacao adicionada: MARIA -[GOSTAM DE]-&gt; CAES&quot;\nSensed Nodes: Joao, Maria, Caes"
+    }
+  ],
+  "output": {},
+  "tools": []
+}
+----------------------------------------------------------------
+[Orchestrator] LLM Thought (Turn 2):
+Reasoning: The user is stating that Joao and Maria like dogs. I need to add memories for Joao, Maria, and Dogs, and then add the relationships.
+<lisp>(adicionar-memoria "Joao" "Pessoa")</lisp>
+<lisp>(adicionar-memoria "Maria" "Pessoa")</lisp>
+<lisp>(adicionar-memoria "Caes" "Animal")</lisp>
+<lisp>(adicionar-relacao "Joao" "gostam de" "Caes")</lisp>
+<lisp>(adicionar-relacao "Maria" "gostam de" "Caes")</lisp>
+---
+[Orchestrator] Lisp Exec: (adicionar-memoria "Joao" "Pessoa") -> "Memorizado: JOAO"
+[Orchestrator] Lisp Exec: (adicionar-memoria "Maria" "Pessoa") -> "Memorizado: MARIA"
+[Orchestrator] Lisp Exec: (adicionar-memoria "Caes" "Animal") -> "Memorizado: CAES"
+[Orchestrator] Lisp Exec: (adicionar-relacao "Joao" "gostam de" "Caes") -> "AVISO: Relacao JOAO-GOSTAM DE-CAES ja existe."
+[Orchestrator] Lisp Exec: (adicionar-relacao "Maria" "gostam de" "Caes") -> "AVISO: Relacao MARIA-GOSTAM DE-CAES ja existe."
+--- [DEBUG] TOTAL CONTEXT (reflectiveLoop - Turn 3) ---
+Empty text extraction. Full object: {
+  "config": {
+    "temperature": 0.1
+  },
+  "messages": [],
+  "prompt": [
+    {
+      "text": "You are the S-Dialectic Kernel Interface (Logic Engine).\nYOU ARE AN API. YOU ARE NOT A CHATBOT.\nDO NOT SIMULATE A TERMINAL. DO NOT OUTPUT PROMPT SYMBOLS.\n\n### THE ONLY ALLOWED OUTPUT\n1. `<lisp>(function ...)</lisp>` tags to interact with the persistent kernel.\n2. Concise internal reasoning (System 2 thinking) for your own planning.\n\n### FORBIDDEN BEHAVIOR\n- NEVER output symbols like `>`, `*`, `cl-user>`, `0]`.\n- NEVER use Markdown code blocks (```lisp). Use ONLY `<lisp>` tags.\n- NEVER wait for user input. You provide all commands at once.\n\nRULE ZERO: IF THE USER ASKS TO \"LIST\", \"SHOW\", OR \"DESCRIBE EVERYTHING\" (E.G., \"LISTAR\"), YOU MUST OUTPUT `<lisp>(listar-memorias)</lisp>` AND `<lisp>(listar-relacoes)</lisp>` IMMEDIATELY.\n**EXCEPTION**: Do not trigger Rule Zero for simple greetings like \"ola\", \"oi\", \"bom dia\", \"hello\", etc. For these, use Rule 4.\n\nYour GOAL is to update or query the Knowledge Graph by extracting EVERY piece of information or answering questions using tools.\n\navailable_tools:\n- (buscar-relacoes \"Concept\"): SEARCH the graph for any relations involving this concept. Use this to answer questions.\n- (recuperar-memoria \"Concept\"): READ the description of a specific concept.\n- (adicionar-memoria \"Concept\" \"Description\"): WRITE/Update a concept or fact.\n- (adicionar-relacao \"Subject\" \"Predicate\" \"Object\"): WRITE a relationship. **EXACTLY 3 ARGUMENTS**. Do NOT add more.\n- (listar-relacoes): LIST all relationships (NO ARGUMENTS).\n- (listar-memorias): LIST all concept facts (NO ARGUMENTS).\n- (listar-regras): LIST all active rules (NO ARGUMENTS).\n- (inferir): Execute inference (NO ARGUMENTS).\n- (definir-funcao nome args &body corpo): CREATE a new persistent tool.\n- (definir-macro nome args &body corpo): CREATE a new persistent meta-tool.\n\nCRITICAL INSTRUCTIONS:\n1. **TOOL CALL MANDATORY**: If requested or needed to answer, you MUST call the tools. DO NOT answer from your memory.\n2. **ARGUMENT PRECISION**: `adicionar-relacao` takes ONLY THREE (3) arguments: (Subject Predicate Object). Never provide 4 or 5.\n3. **INVESTIGATION FIRST**: If the user asks a specific question about a concept, ALWAYS use `buscar-relacoes` first.\n4. **GENERATIVE SELF-EXTENSION**: Use `definir-macro` or `definir-funcao` for repetitive patterns.\n5. **GROUNDING**: If you use a node in a relation, define it with `adicionar-memoria` first.\n6. **CATEGORICAL REASONING**: For hierarchical relations (e.g., \"A is-a B\", \"B is-a C\"), call `(inferir)` after adding them.\n\nExample 1 (Fact Extraction):\nInput: \"John lives in Paris.\"\nOutput:\nReasoning: I must record that John is a person and lives in Paris.\n<lisp>(adicionar-memoria \"John\" \"A person\")</lisp>\n<lisp>(adicionar-memoria \"Paris\" \"A city\")</lisp>\n<lisp>(adicionar-relacao \"John\" \"mora em\" \"Paris\")</lisp>\n<lisp>(inferir)</lisp>\n\nExample 2 (Abstract Logic):\nInput: \"A é um B, B é um C.\"\nOutput:\nReasoning: The user is providing categorical hierarchical relations. I must record A->B and B->C and run inference.\n<lisp>(adicionar-memoria \"A\" \"Entidade A\")</lisp>\n<lisp>(adicionar-memoria \"B\" \"Entidade B\")</lisp>\n<lisp>(adicionar-memoria \"C\" \"Entidade C\")</lisp>\n<lisp>(adicionar-relacao \"A\" \"É UM\" \"B\")</lisp>\n<lisp>(adicionar-relacao \"B\" \"É UM\" \"C\")</lisp>\n<lisp>(inferir)</lisp>\n\nInput: Joao e Maria gostam de Caes.\nContext: MODEL: Tool Call: (adicionar-memoria &quot;Joao&quot; &quot;Pessoa&quot;)\nTOOL: &quot;Memorizado: JOAO&quot;\nMODEL: Tool Call: (adicionar-memoria &quot;Maria&quot; &quot;Pessoa&quot;)\nTOOL: &quot;Memorizado: MARIA&quot;\nMODEL: Tool Call: (adicionar-memoria &quot;Caes&quot; &quot;Animal&quot;)\nTOOL: &quot;Memorizado: CAES&quot;\nMODEL: Tool Call: (adicionar-relacao &quot;Joao&quot; &quot;gostam de&quot; &quot;Caes&quot;)\nTOOL: &quot;Relacao adicionada: JOAO -[GOSTAM DE]-&gt; CAES&quot;\nMODEL: Tool Call: (adicionar-relacao &quot;Maria&quot; &quot;gostam de&quot; &quot;Caes&quot;)\nTOOL: &quot;Relacao adicionada: MARIA -[GOSTAM DE]-&gt; CAES&quot;\nMODEL: Tool Call: (adicionar-memoria &quot;Joao&quot; &quot;Pessoa&quot;)\nTOOL: &quot;Memorizado: JOAO&quot;\nMODEL: Tool Call: (adicionar-memoria &quot;Maria&quot; &quot;Pessoa&quot;)\nTOOL: &quot;Memorizado: MARIA&quot;\nMODEL: Tool Call: (adicionar-memoria &quot;Caes&quot; &quot;Animal&quot;)\nTOOL: &quot;Memorizado: CAES&quot;\nMODEL: Tool Call: (adicionar-relacao &quot;Joao&quot; &quot;gostam de&quot; &quot;Caes&quot;)\nTOOL: &quot;AVISO: Relacao JOAO-GOSTAM DE-CAES ja existe.&quot;\nMODEL: Tool Call: (adicionar-relacao &quot;Maria&quot; &quot;gostam de&quot; &quot;Caes&quot;)\nTOOL: &quot;AVISO: Relacao MARIA-GOSTAM DE-CAES ja existe.&quot;\nSensed Nodes: Joao, Maria, Caes"
+    }
+  ],
+  "output": {},
+  "tools": []
+}
+----------------------------------------------------------------
+[Orchestrator] LLM Thought (Turn 3):
+Reasoning: The user is providing information about what Joao and Maria like. I need to add memories for Joao, Maria, and Caes, and then add the relationships indicating their liking for dogs.
+<lisp>(adicionar-memoria "Joao" "Pessoa")</lisp>
+<lisp>(adicionar-memoria "Maria" "Pessoa")</lisp>
+<lisp>(adicionar-memoria "Caes" "Animal")</lisp>
+<lisp>(adicionar-relacao "Joao" "gostam de" "Caes")</lisp>
+<lisp>(adicionar-relacao "Maria" "gostam de" "Caes")</lisp>
+---
+[Orchestrator] Lisp Exec: (adicionar-memoria "Joao" "Pessoa") -> "Memorizado: JOAO"
+[Orchestrator] Lisp Exec: (adicionar-memoria "Maria" "Pessoa") -> "Memorizado: MARIA"
+[Orchestrator] Lisp Exec: (adicionar-memoria "Caes" "Animal") -> "Memorizado: CAES"
+[Orchestrator] Lisp Exec: (adicionar-relacao "Joao" "gostam de" "Caes") -> "AVISO: Relacao JOAO-GOSTAM DE-CAES ja existe."
+[Orchestrator] Lisp Exec: (adicionar-relacao "Maria" "gostam de" "Caes") -> "AVISO: Relacao MARIA-GOSTAM DE-CAES ja existe."
+--- TEST PASSED: 3 Vectors Injected ---

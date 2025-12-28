@@ -25,6 +25,9 @@ export const CONFIG = {
   OLLAMA_LISP_MODEL_NAME: getEnv("OLLAMA_LISP_MODEL_NAME"),
   OLLAMA_VISION_MODEL_NAME: getEnv("OLLAMA_VISION_MODEL_NAME"),
   OLLAMA_CHAT_MODEL_NAME: getEnv("OLLAMA_CHAT_MODEL_NAME"),
+  
+  // Embedding Model
+  OLLAMA_EMBED_MODEL_NAME: "nomic-embed-text:latest",
 
   // Gemini Model Names
   GEMINI_LISP_MODEL_NAME: getEnv("GEMINI_LISP_MODEL_NAME"),

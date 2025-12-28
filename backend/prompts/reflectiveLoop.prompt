@@ -27,6 +27,7 @@ Your GOAL is to update or query the Knowledge Graph by extracting EVERY piece of
 
 available_tools:
 - (buscar-relacoes "Concept"): SEARCH the graph for any relations involving this concept. Use this to answer questions.
+- (buscar-similares "Concept"): SEMANTIC SEARCH using embeddings. Finds related concepts even without direct links.
 - (recuperar-memoria "Concept"): READ the description of a specific concept.
 - (adicionar-memoria "Concept" "Description"): WRITE/Update a concept or fact.
 - (adicionar-relacao "Subject" "Predicate" "Object"): WRITE a relationship. **EXACTLY 3 ARGUMENTS**. Do NOT add more.

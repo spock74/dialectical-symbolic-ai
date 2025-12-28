@@ -5,6 +5,7 @@ import { scheduleModelUnload } from "./model-cleanup";
 import { lispInterpreter } from "../logic/lisp-interpreter";
 import { getActiveGraph } from "../logic/graph-engine";
 import { kernelEvents } from "../logic/kernel-events";
+import { embeddingService } from "./embedding-service";
 
 export interface WorkspaceState {
   userRequest: string;
@@ -71,6 +72,28 @@ export class ReflectiveOrchestrator {
       this.state.reasoningLogs += `\n[Recognition]: Sensed potential entities: ${this.state.sensedContext.join(
         ", "
       )}`;
+
+      // --- NEW: Topological Injection ---
+      this.events.emit("log", ";; [Orchestrator] Topology: Injecting vectors for sensed entities...");
+      const injectionPromises = this.state.sensedContext.map(async (entity) => {
+        try {
+          const vector = await embeddingService.getEmbedding(entity);
+          if (vector) {
+            const vecStr = embeddingService.formatVectorForLisp(vector);
+            const cmd = `(atualizar-vetor '${entity} ${vecStr})`;
+            // Execute silently to update graph state
+            await lispInterpreter.executeAsync(cmd);
+            return entity; 
+          }
+        } catch (e) {
+          console.warn(`[Orchestrator] Failed to inject vector for ${entity}`, e);
+        }
+        return null;
+      });
+
+      const injected = await Promise.all(injectionPromises);
+      const successCount = injected.filter(x => x !== null).length;
+      this.events.emit("log", `;; [Orchestrator] Topology: ${successCount} vectors injected.`);
     }
   }
 

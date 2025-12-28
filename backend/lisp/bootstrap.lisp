@@ -76,7 +76,9 @@
 (defstruct concept
   (name nil :type symbol)
   (type :concept :type symbol)
-  (properties nil :type list))
+  (properties nil :type list)
+  (description "" :type string)
+  (vector nil :type (or null vector)))
 
 (defstruct relation
   (subject nil :type symbol)
@@ -144,6 +146,24 @@
           (escape-json-string pred)
           (escape-json-string prov)))
 
+;;; --- Math Helpers (Topologia) ---
+
+(defun dot-product (v1 v2)
+  (let ((sum 0.0))
+    (loop for i from 0 below (length v1)
+          do (incf sum (* (aref v1 i) (aref v2 i))))
+    sum))
+
+(defun magnitude (v)
+  (sqrt (dot-product v v)))
+
+(defun cosine-similarity (v1 v2)
+  (if (or (null v1) (null v2) 
+          (/= (length v1) (length v2)) 
+          (zerop (magnitude v1)) (zerop (magnitude v2)))
+      0.0
+      (/ (dot-product v1 v2) (* (magnitude v1) (magnitude v2)))))
+
 ;;; --- Normalização Lógica ---
 
 (defun variable-p (x)
@@ -162,21 +182,90 @@
 
 ;;; --- Funções de Memória (Nodes) ---
 
-(defun adicionar-memoria (chave valor)
-  "Adiciona ou atualiza um nó no grafo."
+(defun adicionar-memoria (chave valor &key vector)
+  "Adiciona ou atualiza um nó no grafo. Agora suporta vetores (embeddings)."
   (let* ((k (string-upcase (string chave)))
-         (v (string valor)))
-    (setf (gethash k *knowledge-graph*) v)
+         (v-str (string valor))
+         (existing (gethash k *knowledge-graph*)))
+    
+    (if (concept-p existing)
+        ;; Atualiza existente
+        (progn
+          (setf (concept-description existing) v-str)
+          (when vector (setf (concept-vector existing) vector)))
+        ;; Cria novo (ou sobrescreve legado se fosse string)
+        (setf (gethash k *knowledge-graph*)
+              (make-concept :name (intern k :s-dialectic)
+                            :description v-str
+                            :vector vector)))
+    
     (format nil "Memorizado: ~a" k)))
 
+(defun atualizar-vetor (chave vector)
+  "Atualiza apenas o vetor de um conceito existente ou cria um novo stub."
+  (let* ((k (string-upcase (string chave)))
+         (existing (gethash k *knowledge-graph*)))
+    (if (concept-p existing)
+        (setf (concept-vector existing) vector)
+        (setf (gethash k *knowledge-graph*)
+              (make-concept :name (intern k :s-dialectic)
+                            :description "Vectorized Node"
+                            :vector vector)))
+    (format nil "Vetor atualizado para: ~a" k)))
+
 (defun recuperar-memoria (chave)
-  (let ((val (gethash (string-upcase (string chave)) *knowledge-graph*)))
-    (if val val "NIL")))
+  (let ((node (gethash (string-upcase (string chave)) *knowledge-graph*)))
+    (cond
+      ((concept-p node) (concept-description node))
+      ((stringp node) node) ;; Retrocompatibilidade
+      (t "NIL"))))
+
+(defun buscar-conceito (chave)
+  "Retorna a estrutura completa do conceito, nao apenas a descricao."
+  (gethash (string-upcase (string chave)) *knowledge-graph*))
+
+(defun buscar-proximos (target-vector &key (threshold 0.7) (limit 5))
+  "Encontra conceitos semanticamente proximos usando cosine-similarity."
+  (let ((candidates nil))
+    (maphash (lambda (k node)
+               (declare (ignore k))
+               (when (and (concept-p node) (concept-vector node))
+                 (let ((sim (cosine-similarity target-vector (concept-vector node))))
+                   (when (>= sim threshold)
+                     (push (cons sim node) candidates)))))
+             *knowledge-graph*)
+    ;; Ordena por similaridade (maior primeiro) e pega os top K
+    (let ((sorted (sort candidates #'> :key #'car)))
+      (subseq sorted 0 (min (length sorted) limit)))))
+
+(defun buscar-similares (chave &key (threshold 0.7) (limit 5))
+  "Busca conceitos similares a chave fornecida (baseado em vetor)."
+  (let ((node (gethash (string-upcase (string chave)) *knowledge-graph*)))
+    (if (and (concept-p node) (concept-vector node))
+        (let ((results (buscar-proximos (concept-vector node) :threshold threshold :limit limit)))
+          (mapcar (lambda (pair)
+                    (list (concept-name (cdr pair)) (car pair)))
+                  results))
+        "NIL (Sem vetor ou nao encontrado)")))
+
+(defun check-similarity (val1 val2 threshold)
+  "Verifica se dois conceitos sao similares (usado em regras)."
+  (let ((k1 (string-upcase (string val1)))
+        (k2 (string-upcase (string val2))))
+    (let ((n1 (gethash k1 *knowledge-graph*))
+          (n2 (gethash k2 *knowledge-graph*)))
+      (if (and (concept-p n1) (concept-vector n1)
+               (concept-p n2) (concept-vector n2))
+          (>= (cosine-similarity (concept-vector n1) (concept-vector n2)) threshold)
+          nil))))
 
 (defun listar-memorias (&rest args)
   (declare (ignore args))
   (let ((result nil))
-    (maphash (lambda (k v) (push (list k v) result)) *knowledge-graph*)
+    (maphash (lambda (k v) 
+               (let ((desc (if (concept-p v) (concept-description v) v)))
+                 (push (list k desc) result))) 
+             *knowledge-graph*)
     result))
 
 
@@ -250,7 +339,10 @@
   (let ((mem-strings nil)
         (rel-strings nil))
     ;; Nós
-    (maphash (lambda (k v) (push (to-json-pair k v) mem-strings)) *knowledge-graph*)
+    (maphash (lambda (k v) 
+               (let ((desc (if (concept-p v) (concept-description v) v)))
+                 (push (to-json-pair k desc) mem-strings))) 
+             *knowledge-graph*)
     ;; Arestas
     (dolist (r *relations*)
       (push (to-json-triple (relation-subject r) (relation-predicate r) (relation-object r) (relation-provenance r)) rel-strings))
@@ -296,7 +388,7 @@
   (let ((new-facts nil))
     (labels ((find-matches (remaining-conditions current-bindings)
                (if (null remaining-conditions)
-                   ;; Gerar consequências
+                   ;; Sucesso: Gerar consequências
                    (dolist (cons-pattern (rule-consequences rule))
                      (let ((new-s (subst-bindings (first cons-pattern) current-bindings))
                            (new-p (subst-bindings (second cons-pattern) current-bindings))
@@ -308,10 +400,62 @@
                          (push (make-relation :subject new-s :predicate new-p :object new-o :provenance :inference) new-facts))))
                    ;; Continuar buscando matches
                    (let ((condition (first remaining-conditions)))
-                     (dolist (fact facts)
-                       (let ((new-bindings (match-pattern condition fact current-bindings)))
-                         (when new-bindings
-                           (find-matches (rest remaining-conditions) new-bindings))))))))
+                     (if (eq (first condition) 'similar-p)
+                         ;; Condição Procedural: (similar-p ?x "Termo" 0.9)
+                         (let* ((var (second condition))
+                                (term (third condition))
+                                (thresh (fourth condition))
+                                (val (subst-bindings var current-bindings)))
+                           (if (symbolp val) ;; Se ainda é variável (ex: ?x)
+                               ;; GENERATOR MODE: Itera sobre todos os conceitos buscando similares
+                               (maphash (lambda (k node) 
+                                          (declare (ignore k))
+                                          (when (and (concept-p node) 
+                                                     (check-similarity (concept-name node) term thresh))
+                                            ;; Bind e Recurse
+                                            (let ((new-bindings (unify var (concept-name node) current-bindings)))
+                                              (when new-bindings
+                                                (find-matches (rest remaining-conditions) new-bindings)))))
+                                        *knowledge-graph*)
+                               ;; FILTER MODE: Verifica valor já ligado
+                               (when (check-similarity val term thresh)
+                                 (find-matches (rest remaining-conditions) current-bindings))))
+                         (if (eq (first condition) 'not)
+                             ;; Condição Negada: (not (...))
+                             (let ((inner (second condition)))
+                               ;; A negacao so funciona como FILTRO (variaveis devem estar ligadas)
+                               (cond
+                                 ((eq (first inner) 'similar-p)
+                                  (let* ((var (second inner))
+                                         (term (third inner))
+                                         (thresh (fourth inner))
+                                         (val (subst-bindings var current-bindings)))
+                                    ;; Se val for variavel, não podemos negar ainda (unsafe negation).
+                                    ;; Assumimos safeness: variavel ja ligada anteriormente.
+                                    (when (or (variable-p val) (not (check-similarity val term thresh)))
+                                      ;; Se for variavel, nao sabemos, entao falha ou assume true?
+                                      ;; Logica padrao Prolog: Negation as Failure. Var deve estar bound.
+                                      ;; Se unbounded, eh complicado. Vamos assumir que deve estar bound.
+                                      (when (not (variable-p val))
+                                        (find-matches (rest remaining-conditions) current-bindings)))))
+                                 ;; Negacao de relacao
+                                 (t
+                                  ;; TODO: Match padrao negado. Simplificado para o exemplo Similar-P.
+                                  ;; Para (not (A pred B)), verificamos se NAO unify.
+                                  ;; Mas unify gera bindings. Negacao nao deve gerar bindings.
+                                  ;; Apenas verificar se match falha.
+                                  (let ((matches-found nil))
+                                    (dolist (fact facts)
+                                      (when (match-pattern inner fact current-bindings)
+                                        (setf matches-found t)))
+                                    (unless matches-found
+                                      (find-matches (rest remaining-conditions) current-bindings))))))
+                             
+                             ;; Condição de Relação Padrão: (?x "pred" ?y)
+                             (dolist (fact facts)
+                               (let ((new-bindings (match-pattern condition fact current-bindings)))
+                                 (when new-bindings
+                                   (find-matches (rest remaining-conditions) new-bindings))))))))))
       (find-matches (rule-conditions rule) nil))
     new-facts))
 
@@ -335,9 +479,22 @@
         (setf derived-count (+ derived-count (length new-this-round)))))
     (format nil "Inferencia: ~a novos fatos derivados." derived-count)))
 
+(defun normalizar-condicao (cond)
+  (cond
+    ((eq (first cond) 'similar-p)
+     (list 'similar-p (second cond) (third cond) (fourth cond)))
+    ((eq (first cond) 'not)
+     (list 'not (normalizar-condicao (second cond))))
+    (t (normalizar-tripla cond))))
+
+(defun normalizar-tripla (tripla)
+  (list (normalizar-termo (first tripla))
+        (normalizar-termo (second tripla))
+        (normalizar-termo (third tripla))))
+
 (defun adicionar-regra (nome condicoes consequencias)
   (let ((n (normalizar-termo nome))
-        (conds (mapcar #'normalizar-tripla condicoes))
+        (conds (mapcar #'normalizar-condicao condicoes))
         (consq (mapcar #'normalizar-tripla consequencias)))
     (push (make-rule :name n :conditions conds :consequences consq) *rules*)
     (format nil "Regra ~a aprendida." n)))
@@ -360,7 +517,11 @@
     (format stream "(in-package :s-dialectic)~%")
     (format stream "(limpar-memoria)~%~%")
     (dolist (def (reverse *custom-definitions*)) (format stream "~s~%~%" def))
-    (maphash (lambda (k v) (format stream "(adicionar-memoria ~s ~s)~%" k v)) *knowledge-graph*)
+    (maphash (lambda (k v) 
+               (if (concept-p v)
+                   (format stream "(adicionar-memoria ~s ~s :vector ~s)~%" k (concept-description v) (concept-vector v))
+                   (format stream "(adicionar-memoria ~s ~s)~%" k v))) 
+             *knowledge-graph*)
     (dolist (r (reverse *relations*))
       (format stream "(adicionar-relacao ~s ~s ~s)~%" (string (relation-subject r)) (string (relation-predicate r)) (string (relation-object r))))
     (format stream "~%"))

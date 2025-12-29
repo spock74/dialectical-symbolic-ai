@@ -32,7 +32,7 @@ function App() {
               <div className="border-b px-4 py-2 bg-muted/40 flex items-center justify-between shrink-0 h-14">
                 <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold">SDialectic</h1>
-            <span className="text-xs bg-zinc-800 px-2 py-0.5 rounded text-zinc-400">Genkit + TS-Kernel Core</span>
+            <span className="text-xs bg-zinc-800 px-2 py-0.5 rounded text-zinc-400">Embeddings::Semantic + Zehn::NeuroSymbolic</span>
           </div>
                 
                 <TabsList className="grid w-full max-w-[400px] grid-cols-2">

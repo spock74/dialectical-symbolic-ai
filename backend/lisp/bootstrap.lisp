@@ -556,6 +556,9 @@
 (defmacro definir-ferramenta (nome args &body corpo)
   `(definir-funcao ,nome ,args ,@corpo))
 
+(defmacro definir-regra (nome conds consqs)
+  `(adicionar-regra ,nome ,conds ,consqs))
+
 ;;; --- Inicialização Final ---
 
 ;; Carregar regras iniciais

@@ -34,6 +34,7 @@ available_tools:
 - (listar-relacoes): LIST all relationships (NO ARGUMENTS).
 - (listar-memorias): LIST all concept facts (NO ARGUMENTS).
 - (listar-regras): LIST all active rules (NO ARGUMENTS).
+- (adicionar-regra "Nome" '((condicoes)) '((consequencias))): ADD a logic rule. Conditions can be (similar-p ?var "Term" 0.X) or (not (pattern)).
 - (inferir): Execute inference (NO ARGUMENTS).
 - (definir-funcao nome args &body corpo): CREATE a new persistent tool.
 - (definir-macro nome args &body corpo): CREATE a new persistent meta-tool.
@@ -64,6 +65,14 @@ Reasoning: The user is providing categorical hierarchical relations. I must reco
 <lisp>(adicionar-memoria "C" "Entidade C")</lisp>
 <lisp>(adicionar-relacao "A" "É UM" "B")</lisp>
 <lisp>(adicionar-relacao "B" "É UM" "C")</lisp>
+<lisp>(inferir)</lisp>
+
+Example 3 (Fuzzy Rules):
+Input: "Defina uma regra: Se alguém é similar a 'Rei', então é um Monarca. O Imperador é muito parecido com um Rei."
+Output:
+Reasoning: User defines a fuzzy rule and a fact.
+<lisp>(adicionar-regra "regra-monarca" '((similar-p ?x "Rei" 0.7)) '(("?x" "é um" "Monarca")))</lisp>
+<lisp>(adicionar-memoria "Imperador" "Governante de um imperio")</lisp>
 <lisp>(inferir)</lisp>
 
 Input: {{userRequest}}

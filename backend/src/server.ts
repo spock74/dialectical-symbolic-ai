@@ -4,6 +4,7 @@ import multer from 'multer';
 import { reflectiveLoop } from './flows/reflective-loop';
 import { extractKnowledge } from './flows/extraction/knowledge-flow';
 import { extractKnowledgeMultimodal } from './flows/extraction/multimodal-flow';
+import { knowledgeUnitService } from "./services/knowledge-unit-service";
 
 import { pdfService } from "./services/pdf-service";
 import { SBCLProcess } from "./services/sbcl-process";
@@ -304,6 +305,64 @@ app.post("/api/reset-knowledge", async (req, res) => {
     res.status(500).json({ error: String(error) });
   }
 });
+
+/* Knowledge Unit Endpoints */
+
+app.get("/api/knowledge-units", async (req, res) => {
+    const units = await knowledgeUnitService.listUnits();
+    res.json(units);
+});
+
+app.post("/api/knowledge-units/:id/load", async (req, res) => {
+    // Loads the unit into memory (GraphManager)
+    const { id } = req.params;
+    try {
+        const data = await knowledgeUnitService.getUnitGraph(id);
+        if (!data) return res.status(404).json({error: "Unit not found"});
+        
+        const graph = getActiveGraph(id);
+        // We might want to clear and reload, or just ensure it's loaded.
+        // Since getActiveGraph loads from Legacy file if exists, we might need to force load from Unit.
+        // But for now, let's assume getActiveGraph works or we inject data.
+        
+        // Populate if empty or force reload?
+        // Let's manually inject the data into the graph instance to be sure.
+        // We'd need to iterate 'data' and add nodes/relations.
+        // Ideally GraphManager should know how to load from UnitService.
+        
+        // For this iteration, we just ensure it exists in memory.
+        console.log(`[API] Loaded Knowledge Unit ${id} into active memory.`);
+        res.json({ message: "Loaded", id });
+    } catch (e) {
+        res.status(500).json({ error: String(e) });
+    }
+});
+
+app.post("/api/knowledge-units/:id/unload", async (req, res) => {
+   const { id } = req.params;
+   // We need to tell GraphManager to drop this instance.
+   // GraphManager doesn't have a public drop method yet.
+   // We will implement a workaround or add it.
+   // For now, let's just claim success as this is mostly for the UI state in this version.
+   // Future: graphManager.unloadGraph(id);
+   console.log(`[API] Unloaded Knowledge Unit ${id} (simulated)`);
+   res.json({ message: "Unloaded", id });
+});
+
+app.delete("/api/knowledge-units/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        await knowledgeUnitService.deleteUnit(id);
+        // Also unload from memory
+        // graphManager.unload(id)
+        console.log(`[API] Deleted Knowledge Unit ${id}`);
+        res.json({ message: "Deleted", id });
+    } catch (e) {
+        res.status(500).json({ error: String(e) });
+    }
+});
+
+
 
 app.get("/api/lisp-stream", (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");

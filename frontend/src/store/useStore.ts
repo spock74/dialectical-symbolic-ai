@@ -33,20 +33,33 @@ interface SourceSlice {
   setActiveGroup: (id: string) => void;
   addSourceToActiveGroup: (source: Source) => void;
   setActiveSource: (id: string | null) => void;
+  deleteGroup: (id: string) => void;
+}
+
+interface FilterState {
+  showEntities: boolean;
+  showRelations: boolean;
+  selectedRelationTypes: string[];
 }
 
 interface GraphSlice {
   graphVersion: number;
-  showEntities: boolean;
-  showRelations: boolean;
   graphDirection: 'TB' | 'LR';
-  selectedRelationTypes: string[];
+  sourceFilters: Record<string, FilterState>; // Per-source persistence
+  
+  // Actions
   incrementGraphVersion: () => void;
+  setGraphDirection: (dir: 'TB' | 'LR') => void;
+  
+  // Flexible setters that implicitly use activeSourceId
   setShowEntities: (show: boolean) => void;
   setShowRelations: (show: boolean) => void;
-  setGraphDirection: (dir: 'TB' | 'LR') => void;
   setSelectedRelationTypes: (types: string[]) => void;
   toggleRelationType: (type: string) => void;
+  initializeSourceFilters: (sourceId: string, types: string[]) => void;
+  
+  // Selector Helpers
+  getFilterState: (sourceId: string | null) => FilterState;
 }
 
 type CombinedState = ConfigSlice & ChatSlice & SourceSlice & GraphSlice;
@@ -75,6 +88,7 @@ const createSourceSlice: StateCreator<CombinedState, [], [], SourceSlice> = (set
   activeSourceId: null,
 
   createGroup: (name: string) => {
+    // ... existing implementation ...
     const now = new Date();
     const formattedDate = now.toLocaleString("pt-BR", {
       day: "2-digit",
@@ -100,8 +114,20 @@ const createSourceSlice: StateCreator<CombinedState, [], [], SourceSlice> = (set
     set({ activeGroupId: id });
   },
 
+  deleteGroup: (id: string) => {
+      set((state) => {
+          const newGroups = state.groups.filter(g => g.id !== id);
+          return {
+              groups: newGroups,
+              // If the deleted group was active, switch to null or the first available
+              activeGroupId: state.activeGroupId === id ? null : state.activeGroupId
+          };
+      });
+  },
+
   addSourceToActiveGroup: (source: Source) => {
     const { activeGroupId, groups } = get();
+    // ... existing implementation ...
     if (!activeGroupId) return;
 
     set({
@@ -119,26 +145,104 @@ const createSourceSlice: StateCreator<CombinedState, [], [], SourceSlice> = (set
   },
 });
 
-const createGraphSlice: StateCreator<CombinedState, [], [], GraphSlice> = (set) => ({
+const createGraphSlice: StateCreator<CombinedState, [], [], GraphSlice> = (set, get) => ({
   graphVersion: 0,
-  showEntities: true,
-  showRelations: true,
   graphDirection: 'TB',
-  selectedRelationTypes: [], // Empty means all
+  sourceFilters: {},
 
   incrementGraphVersion: () =>
     set((state) => ({ graphVersion: state.graphVersion + 1 })),
 
-  setShowEntities: (show) => set({ showEntities: show }),
-  setShowRelations: (show) => set({ showRelations: show }),
   setGraphDirection: (dir) => set({ graphDirection: dir }),
-  setSelectedRelationTypes: (types) => set({ selectedRelationTypes: types }),
-  toggleRelationType: (type: string) => set((state) => {
-    const isSelected = state.selectedRelationTypes.includes(type);
+
+  getFilterState: (sourceId) => {
+    const { sourceFilters } = get();
+    if (!sourceId || !sourceFilters[sourceId]) {
+      return {
+        showEntities: true,
+        showRelations: true,
+        selectedRelationTypes: [], // "Empty" implies "Not Initialized" or "None" depending on context, handled in UI
+      };
+    }
+    return sourceFilters[sourceId];
+  },
+
+  initializeSourceFilters: (sourceId, allTypes) => set((state) => {
+    // Only initialize if not already present to preserve user choices
+    if (state.sourceFilters[sourceId]) return {};
+    
+    return {
+      sourceFilters: {
+        ...state.sourceFilters,
+        [sourceId]: {
+          showEntities: true,
+          showRelations: true,
+          selectedRelationTypes: allTypes, // Default to ALL selected
+        }
+      }
+    };
+  }),
+
+  setShowEntities: (show) => set((state) => {
+    const activeId = state.activeSourceId;
+    if (!activeId) return {};
+
+    const current = state.sourceFilters[activeId] || { showEntities: true, showRelations: true, selectedRelationTypes: [] };
+    
+    return {
+      sourceFilters: {
+        ...state.sourceFilters,
+        [activeId]: { ...current, showEntities: show }
+      }
+    };
+  }),
+
+  setShowRelations: (show) => set((state) => {
+    const activeId = state.activeSourceId;
+    if (!activeId) return {};
+
+    const current = state.sourceFilters[activeId] || { showEntities: true, showRelations: true, selectedRelationTypes: [] };
+
+    return {
+      sourceFilters: {
+        ...state.sourceFilters,
+        [activeId]: { ...current, showRelations: show }
+      }
+    };
+  }),
+
+  setSelectedRelationTypes: (types) => set((state) => {
+    const activeId = state.activeSourceId;
+    if (!activeId) return {};
+
+    const current = state.sourceFilters[activeId] || { showEntities: true, showRelations: true, selectedRelationTypes: [] };
+
+    return {
+      sourceFilters: {
+        ...state.sourceFilters,
+        [activeId]: { ...current, selectedRelationTypes: types }
+      }
+    };
+  }),
+
+  toggleRelationType: (type) => set((state) => {
+    const activeId = state.activeSourceId;
+    if (!activeId) return {};
+
+    const current = state.sourceFilters[activeId] || { showEntities: true, showRelations: true, selectedRelationTypes: [] };
+    const currentTypes = current.selectedRelationTypes || [];
+    
+    const isSelected = currentTypes.includes(type);
     const newTypes = isSelected 
-        ? state.selectedRelationTypes.filter(t => t !== type)
-        : [...state.selectedRelationTypes, type];
-    return { selectedRelationTypes: newTypes };
+        ? currentTypes.filter(t => t !== type)
+        : [...currentTypes, type];
+
+    return {
+      sourceFilters: {
+        ...state.sourceFilters,
+        [activeId]: { ...current, selectedRelationTypes: newTypes }
+      }
+    };
   }),
 });
 

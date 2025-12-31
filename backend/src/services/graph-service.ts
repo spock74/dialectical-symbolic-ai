@@ -72,6 +72,8 @@ export function transformMemoriesToGraph(data: LispGraphExport): GraphData {
 
 import { getActiveGraph } from "../logic/graph-engine";
 
+import { knowledgeUnitService } from "./knowledge-unit-service";
+
 export function commitKnowledgeToGraph(
   knowledge: any,
   filename?: string
@@ -121,9 +123,15 @@ export function commitKnowledgeToGraph(
     }
   });
 
-  // GraphManager.getGraph already handles loading.
-  // We just need to make sure we save to the right place.
-  // Actually, the manager should handle the base path.
-  // Let's just save manually for now using the filename or tell the manager to saveAll.
-  graph.saveState(`data/graphs/${filename || "knowledge_base"}.json`);
+  // Save to Knowledge Unit Persistence
+  if (filename) {
+      // @ts-ignore - We will add exportState to KnowledgeGraph
+      const graphData = graph.exportState(); 
+      knowledgeUnitService.createOrUpdateUnit(filename, graphData);
+  } else {
+      // Default fallback
+      const graphData = (graph as any).exportState ? (graph as any).exportState() : { nodes: [], relations: [] };
+      knowledgeUnitService.createOrUpdateUnit("default", graphData);
+  }
 }
+

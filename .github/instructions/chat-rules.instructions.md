@@ -7,7 +7,7 @@ Estas instruções orientam o comportamento do assistente de IA neste workspace.
 
 ## Contexto Técnico (S-Dialectic)
 - **Linguagem**: Preferencialmente Português (Brasil).
-- **Motor Lisp**: O projeto utiliza **JSCL** (JavaScript Common Lisp) como motor simbólico integrado ao Node.js.
+- **Motor Lisp**: O projeto utiliza um processo **SBCL**  como motor simbólico integrado ao Node.js.
 - **Arquitetura Neuro-Simbólica**: Manter a lógica de geração de S-Expressions pelo LLM para interagir com o `KnowledgeGraph`.
 
 ## Estilo de Código e Ferramentas
@@ -15,3 +15,6 @@ Estas instruções orientam o comportamento do assistente de IA neste workspace.
 - **Backend**: TypeScript, Node.js, Genkit.
 - **Frontend**: React, Tailwind CSS, Lucide Icons.
 - **Padrão de Qualidade**: Priorizar estética premium e micro-animações em componentes UI.
+
+## Regras Críticas
+- **Modelos AI**: NUNCA MUDAR O NOME DE UM MODELO AI NO CODEBASE.

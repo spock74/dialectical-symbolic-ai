@@ -1,6 +1,6 @@
 
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import ReactFlow, { 
   Background, 
   Controls, 
@@ -24,7 +24,7 @@ import dagre from 'dagre';
 import 'reactflow/dist/style.css';
 
 import type { KnowledgeBase } from '../types';
-import { fetchGraph, fetchGraphRaw } from '../api';
+import { fetchGraph } from '../api';
 import { useDialecticStore } from '../store/useStore';
 import { CardContent, CardHeader, CardTitle } from './ui/card';
 import { Checkbox } from './ui/checkbox';
@@ -35,6 +35,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "./ui/popover";
+import { RELATION_COLORS, DEFAULT_EDGE_COLOR } from '../config/color_constants';
 
 const nodeWidth = 172;
 const nodeHeight = 40;
@@ -84,29 +85,41 @@ function GraphView({ activeSource }: { activeSource: any }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [availableRelationTypes, setAvailableRelationTypes] = useState<string[]>([]);
+  const [relationCounts, setRelationCounts] = useState<Record<string, number>>({});
   const { fitView } = useReactFlow();
+  const lastSourceIdRef = useRef<string | null>(null);
   
+  // Subscribe to store state needed for filters
   const {
     graphVersion,
-    showEntities,
-    showRelations,
     graphDirection,
-    selectedRelationTypes,
+    activeSourceId,
+    sourceFilters,
     setShowEntities,
     setShowRelations,
     setGraphDirection,
     toggleRelationType,
     setSelectedRelationTypes,
+    initializeSourceFilters,
   } = useDialecticStore();
 
-  const handleDownloadRaw = async () => {
+  // Derive filter state for valid active source or fallback to defaults
+  const activeFilters = (activeSourceId && sourceFilters[activeSourceId]) || {
+    showEntities: true,
+    showRelations: true,
+    selectedRelationTypes: [], // Initially empty, will be populated by effect
+  };
+  
+  const { showEntities, showRelations, selectedRelationTypes } = activeFilters;
+
+  const handleDownloadRaw = () => {
     try {
-      const data = await fetchGraphRaw(activeSource?.name);
+      const data = { nodes, edges };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `knowledge-graph-${new Date().toISOString().split('T')[0]}.json`;
+      link.download = `knowledge-graph-view-${new Date().toISOString().split('T')[0]}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -120,17 +133,72 @@ function GraphView({ activeSource }: { activeSource: any }) {
   useEffect(() => {
     fetchGraph(activeSource?.name)
       .then(data => {
-        // Collect ALL relation types from raw data
-        const types = Array.from(new Set(data.edges.map((e: any) => e.label))).filter(Boolean) as string[];
-        setAvailableRelationTypes(types);
+        // Collect types and count frequencies
+        const counts: Record<string, number> = {};
+        data.edges.forEach((e: any) => {
+            if (e.label) {
+                counts[e.label] = (counts[e.label] || 0) + 1;
+            }
+        });
+        setRelationCounts(counts);
 
-        let filteredEdges = data.edges;
+        // Sort types by count (descending)
+        const sortedTypes = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+        setAvailableRelationTypes(sortedTypes);
 
-        // 1. Filter edges first
+        // Generate Color Map
+        const typeColorMap: Record<string, string> = {};
+        sortedTypes.forEach((type, index) => {
+            typeColorMap[type] = RELATION_COLORS[index % RELATION_COLORS.length];
+        });
+
+        // Initialize filters if this is the first load for this source
+        if (activeSource?.id && !sourceFilters[activeSource.id]) {
+            initializeSourceFilters(activeSource.id, sortedTypes);
+        }
+
+        let filteredEdges = data.edges.map((edge: any) => {
+            const color = typeColorMap[edge.label] || DEFAULT_EDGE_COLOR;
+            // Only override color if it's NOT an inference (which uses purple dashed)
+            // Or maybe we want to color code EVERYTHING by type now?
+            // The user asked to "change dynamically all relations of that type to a certain color".
+            // Let's apply the type color. Inference edges are distinguished by style (dashed).
+            
+            return {
+                ...edge,
+                style: { 
+                    ...edge.style, 
+                    stroke: color,
+                    strokeWidth: 2 
+                },
+                markerEnd: {
+                    type: 'arrowclosed',
+                    color: color
+                },
+                // Store color in data for easy access if needed
+                data: { ...edge.data, color } 
+            };
+        });
+
+        // 1. Filter edges
         if (!showRelations) {
           filteredEdges = [];
-        } else if (selectedRelationTypes.length > 0) {
-          filteredEdges = filteredEdges.filter((e: any) => selectedRelationTypes.includes(e.label));
+        } else {
+             // Explicit filtering: Only show edges whose type is in selectedRelationTypes
+             // If selectedRelationTypes is [], we show NO edges.
+             // But we need to handle the "initial load" case where activeFilters might be empty before the effect runs.
+             // Actually, initializeSourceFilters above will trigger re-render with all selected.
+             // For this specific render pass (before store update reflects), we might want to be careful.
+             // However, since we react to `selectedRelationTypes`, and it starts [], showing nothing is technically correct until initialized.
+             // To avoid "flash of no edges", we could default to "All" if uninitialized, but we made it explicit.
+             // Let's rely on the store update.
+             
+             // BUT: The very first time execution reaches here, selectedRelationTypes is [], 
+             // initializeSourceFilters is called but state update is async/next-tick in React loop.
+             // So for this frame, edges are hidden?
+             // Yes. That's acceptable for a split second, or we can use a local 'isInitialized' check?
+             // Let's just use the standard filter:
+             filteredEdges = filteredEdges.filter((e: any) => selectedRelationTypes.includes(e.label));
         }
 
         // 2. Filter nodes: 
@@ -157,7 +225,12 @@ function GraphView({ activeSource }: { activeSource: any }) {
         setEdges(layoutedEdges);
 
         // 4. Auto-fit centering
-        setTimeout(() => fitView({ duration: 800 }), 50);
+        // Only fit view if this is a new source load (id changed)
+        // This prevents zoom reset when just toggling filters
+        if (activeSource?.id !== lastSourceIdRef.current) {
+            lastSourceIdRef.current = activeSource?.id || null;
+            setTimeout(() => fitView({ duration: 800 }), 50);
+        }
       })
       .catch(err => console.error("Failed to fetch graph nodes:", err));
   }, [
@@ -169,8 +242,12 @@ function GraphView({ activeSource }: { activeSource: any }) {
     showRelations, 
     selectedRelationTypes,
     graphDirection,
-    fitView
-  ]); 
+    fitView,
+    activeSourceId,
+    sourceFilters,
+    initializeSourceFilters
+  ]);
+
 
   const activeFiltersCount = selectedRelationTypes.length + (showEntities ? 0 : 1) + (showRelations ? 0 : 1);
 
@@ -295,21 +372,36 @@ function GraphView({ activeSource }: { activeSource: any }) {
                         </div>
                         <ScrollArea className="h-[200px] -mr-4 pr-4">
                           <div className="space-y-1 pr-2">
-                            {availableRelationTypes.map((type) => (
-                              <div key={type} className="flex items-center justify-between group px-2 py-1.5 rounded hover:bg-muted/50 transition-colors">
-                                <label 
-                                  htmlFor={`pop-filter-${type}`} 
-                                  className="text-xs truncate max-w-[160px] cursor-pointer text-muted-foreground group-hover:text-foreground transition-colors"
-                                >
-                                  {type}
-                                </label>
-                                <Checkbox 
-                                  id={`pop-filter-${type}`} 
-                                  checked={selectedRelationTypes.includes(type)}
-                                  onCheckedChange={() => toggleRelationType(type)}
-                                />
-                              </div>
-                            ))}
+                            {availableRelationTypes.map((type, index) => {
+                              const color = RELATION_COLORS[index % RELATION_COLORS.length];
+                              return (
+                                <div key={type} className="flex items-center justify-between group px-2 py-1.5 rounded hover:bg-muted/50 transition-colors">
+                                  <label 
+                                    htmlFor={`pop-filter-${type}`} 
+                                    className="text-xs truncate max-w-[160px] cursor-pointer text-muted-foreground group-hover:text-foreground transition-colors flex flex-1 items-center mr-2"
+                                  >
+                                    {/* Badge on left */}
+                                    <span 
+                                        className="text-[10px] px-1.5 py-0.5 rounded-full mr-2 font-mono font-bold"
+                                        style={{ backgroundColor: `${color}20`, color: color }}
+                                    >
+                                      {relationCounts[type] || 0}
+                                    </span>
+                                    <span>{type}</span>
+                                  </label>
+                                  <Checkbox 
+                                    id={`pop-filter-${type}`} 
+                                    checked={selectedRelationTypes.includes(type)}
+                                    onCheckedChange={() => toggleRelationType(type)}
+                                    style={{ 
+                                        borderColor: color, // Always keep the colored border
+                                        backgroundColor: selectedRelationTypes.includes(type) ? color : 'transparent' // Fill when checked
+                                    }}
+                                    className="data-[state=checked]:text-white" // Ensure checkmark is white
+                                  />
+                                </div>
+                              );
+                            })}
                           </div>
                         </ScrollArea>
                       </div>

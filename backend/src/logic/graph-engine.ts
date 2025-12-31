@@ -157,11 +157,19 @@ export class KnowledgeGraph {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
-    const data = {
-      nodes: Array.from(this.nodes.values()),
-      relations: Array.from(this.relations.values()).flat()
-    };
+    const data = this.exportState();
     fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
+  }
+
+  /**
+   * Exports the current state of the graph.
+   * Used for Knowledge Unit persistence.
+   */
+  exportState(): { nodes: Concept[], relations: Relation[] } {
+      return {
+          nodes: Array.from(this.nodes.values()),
+          relations: Array.from(this.relations.values()).flat()
+      };
   }
 
   /**

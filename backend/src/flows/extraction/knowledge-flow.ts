@@ -64,71 +64,57 @@ export const extractKnowledge = ai.defineFlow(
         "-------------------------------------------------------------------------"
       );
 
-      const response = await extractionPrompt.generate({
-        model: CONFIG.LISP_MODEL,
-        input: inputVars,
-      });
-
-      let knowledge;
-      try {
-        knowledge = response.output || safeParseJSON(response.text);
-      } catch (e) {
-        console.warn("JSON Parse Error, attempting manual sanitization recovery:", e);
-        knowledge = safeParseJSON(response.text);
-        
-        if (!knowledge) {
-          feedback = `Your previous response was not valid JSON. Error: ${
-            e instanceof Error ? e.message : String(e)
-          }. \n\nEnsure you return ONLY valid JSON.`;
-          attempts++;
-          continue;
-        }
+    // Parse S-Expression output manually since it's not JSON
+    const parseLispRelations = (text: string) => {
+      const regex = /\(make-relation\s+:source\s+"([^"]+)"\s+:target\s+"([^"]+)"\s+:label\s+"([^"]+)"\s+:category\s+:([A-Z]+)\)/g;
+      const relations = [];
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        relations.push({
+          source: match[1],
+          target: match[2],
+          label: match[3],
+          category: match[4]
+        });
       }
+      return relations;
+    };
 
-      if (!knowledge) {
-        throw new Error("No output from model");
-      }
-
-      console.log(
-        `Extracted ${
-          (knowledge as any)?.knowledgeBase?.length
-        } concepts. Validating...`
-      );
-
-      let allValid = true;
-      let newFeedbackItems: string[] = [];
-
-      const concepts = (knowledge as any).knowledgeBase || [];
-
-      for (const concept of concepts) {
-        for (const nugget of concept.knowledgeNuggets) {
-          if (nugget.source_quote) {
-            const isValid = verifyQuoteNative(input.text, nugget.source_quote);
-            if (!isValid) {
-              allValid = false;
-              newFeedbackItems.push(
-                `Quote not found: "${nugget.source_quote}". MUST exist verbatim.`
-              );
-            }
-          }
-        }
-      }
-
-      if (allValid) {
-        return knowledge;
-      }
-
-      feedback = newFeedbackItems.slice(0, 5).join("\n");
-      attempts++;
-    }
+    const response = await extractionPrompt.generate({
+      model: CONFIG.LISP_MODEL,
+      input: inputVars,
+    });
 
     try {
-      throw new Error(
-        `Failed to extract valid knowledge after ${maxAttempts} attempts. Feedback: ${feedback}`
-      );
-    } finally {
-      if (CONFIG.USE_LOCAL_MODELS)
-        scheduleModelUnload(CONFIG.OLLAMA_LISP_MODEL_NAME);
+        const relations = parseLispRelations(response.text);
+        if (relations.length === 0) {
+             console.warn("No relations parsed via Regex. Raw text:", response.text);
+             // Fallback or retry logic could go here
+        }
+
+        // Transform to legacy structure for compatibility if needed, OR just return raw relations
+        // For now, let's map it to a structure that fits the KnowledgeBase expectation slightly,
+        // or just return the relations directly if the caller handles it.
+        // Assuming the caller expects { knowledgeBase: [...] }
+        
+        // Construct minimal concepts from relations to satisfy schema if strict,
+        // but typically we just want the edges now.
+        const conceptsMap = new Map<string, any>();
+        
+        relations.forEach(r => {
+            if (!conceptsMap.has(r.source)) conceptsMap.set(r.source, { concept: r.source, definition: "Extracted Entity", knowledgeNuggets: [] });
+            if (!conceptsMap.has(r.target)) conceptsMap.set(r.target, { concept: r.target, definition: "Extracted Entity", knowledgeNuggets: [] });
+        });
+
+        return {
+            knowledgeBase: Array.from(conceptsMap.values()),
+            relations: relations 
+        };
+
+    } catch (e) {
+      console.error("Error parsing Lisp response:", e);
+      throw e;
+    }
     }
   }
 );

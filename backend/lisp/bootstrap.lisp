@@ -85,7 +85,9 @@
   (predicate nil :type symbol)
   (object nil :type symbol)
   (certainty 1.0f0 :type float)
-  (provenance :user :type symbol)) ; :user ou :inference
+
+  (provenance :user :type symbol)
+  (category :generic :type symbol)) ; e.g., :CAUSAL, :HIERARCHY
 
 (defstruct rule
   (name nil :type symbol)
@@ -139,12 +141,18 @@
           (escape-json-string key)
           (escape-json-string val)))
 
-(defun to-json-triple (sub pred obj prov)
-  (format nil "{\"source\": \"~a\", \"target\": \"~a\", \"relation\": \"~a\", \"provenance\": \"~a\"}"
-          (escape-json-string sub)
-          (escape-json-string obj)
-          (escape-json-string pred)
-          (escape-json-string prov)))
+(defun to-json-triple (rel)
+  (let ((sub (relation-subject rel))
+        (obj (relation-object rel))
+        (pred (relation-predicate rel))
+        (prov (relation-provenance rel))
+        (cat (relation-category rel)))
+    (format nil "{\"source\": \"~a\", \"target\": \"~a\", \"relation\": \"~a\", \"provenance\": \"~a\", \"category\": \"~a\"}"
+            (escape-json-string sub)
+            (escape-json-string obj)
+            (escape-json-string pred)
+            (escape-json-string prov)
+            (escape-json-string cat))))
 
 ;;; --- Math Helpers (Topologia) ---
 
@@ -280,32 +288,33 @@
 ;;; --- Funções de Relação (Edges) ---
 
 (defun adicionar-relacao (sujeito predicado objeto &rest extra-args)
-  "Adiciona uma aresta ao grafo, checando duplicatas."
+  "Adiciona uma aresta ao grafo. Suporta argumentos p/ keys: :category, :certainty"
   (let ((s (normalizar-termo sujeito))
         (p (normalizar-termo predicado))
-        (o (normalizar-termo objeto)))
+        (o (normalizar-termo objeto))
+        (cat :generic))
     
-    ;; Se houver argumentos extras, podemos logar ou ignorar. 
-    ;; Aqui vamos apenas prosseguir com os 3 primeiros para evitar quebra.
-    (unless (null extra-args)
-       (format t "AVISO: adicionar-relacao recebeu argumentos extras e foram ignorados: ~a~%" extra-args))
+    ;; Parse extra-args for keywords
+    (loop for (key val) on extra-args by #'cddr
+          do (case key
+               (:category (setf cat (if (stringp val) (intern (string-upcase val) :keyword) val)))
+               (t (ignore-errors))))
 
-    ;; Verifica duplicidade (O(N) - Pode ser otimizado futuramente)
-    (if (find-if (lambda (r) 
-                   (and (eq (relation-subject r) s)
-                        (eq (relation-predicate r) p)
-                        (eq (relation-object r) o)))
-                 *relations*)
-        (format nil "AVISO: Relacao ~a-~a-~a ja existe." s p o)
-        (progn
-          ;; Auto-Discovery: Garante que nós existam
-          (unless (gethash (string s) *knowledge-graph*)
-            (setf (gethash (string s) *knowledge-graph*) "Conceito Implicito"))
-          (unless (gethash (string o) *knowledge-graph*)
-            (setf (gethash (string o) *knowledge-graph*) "Conceito Implicito"))
-          
-          (push (make-relation :subject s :predicate p :object o :provenance :user) *relations*)
-          (format nil "Relacao adicionada: ~a -[~a]-> ~a" s p o)))))
+    (progn
+      ;; Auto-Discovery: Garante que nós existam
+      (unless (gethash (string s) *knowledge-graph*)
+        (setf (gethash (string s) *knowledge-graph*) "Conceito Implicito"))
+      (unless (gethash (string o) *knowledge-graph*)
+        (setf (gethash (string o) *knowledge-graph*) "Conceito Implicito"))
+      
+      ;; Verifica duplicidade (Ignora categoria na verificação para evitar duplos semanticos)
+      (unless (find-if (lambda (r) 
+                     (and (eq (relation-subject r) s)
+                          (eq (relation-predicate r) p)
+                          (eq (relation-object r) o)))
+                   *relations*)
+          (push (make-relation :subject s :predicate p :object o :provenance :user :category cat) *relations*)
+          (format nil "Relacao adicionada: ~a -[~a (~a)]-> ~a" s p cat o)))))
 
 (defun buscar-relacoes (conceito)
   "Encontra todas as arestas conectadas a um conceito."
@@ -345,7 +354,7 @@
              *knowledge-graph*)
     ;; Arestas
     (dolist (r *relations*)
-      (push (to-json-triple (relation-subject r) (relation-predicate r) (relation-object r) (relation-provenance r)) rel-strings))
+      (push (to-json-triple r) rel-strings))
     
     (format nil "{ \"nodes\": [~{~a~^, ~}], \"edges\": [~{~a~^, ~}] }"
             mem-strings

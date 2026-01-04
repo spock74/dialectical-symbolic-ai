@@ -131,7 +131,15 @@ function GraphView({ activeSource }: { activeSource: any }) {
 
   // Fetch and Filter Logic
   useEffect(() => {
-    fetchGraph(activeSource?.name)
+    if (!activeSource) {
+      setNodes([]);
+      setEdges([]);
+      setRelationCounts({});
+      setAvailableRelationTypes([]);
+      return;
+    }
+
+    fetchGraph(activeSource.name)
       .then(data => {
         // Collect types and count frequencies
         const counts: Record<string, number> = {};
@@ -157,8 +165,24 @@ function GraphView({ activeSource }: { activeSource: any }) {
             initializeSourceFilters(activeSource.id, sortedTypes);
         }
 
+        // Category Color Map (Hardcoded for semantic consistency)
+        const CATEGORY_COLORS: Record<string, string> = {
+            "CAUSAL": "#ef4444",      // Red
+            "METHODOLOGY": "#3b82f6", // Blue
+            "BIBLIOGRAPHIC": "#94a3b8", // Grey (slate-400)
+            "ONTOLOGY": "#22c55e",    // Green
+        };
+
         let filteredEdges = data.edges.map((edge: any) => {
-            const color = typeColorMap[edge.label] || DEFAULT_EDGE_COLOR;
+            // Priority: 1. Category Color, 2. Dynamic Label Color, 3. Default
+            let color = DEFAULT_EDGE_COLOR;
+            if (edge.category) {
+                // Remove leading colon if present in backend export (e.g. ":CAUSAL" -> "CAUSAL")
+                const catKey = edge.category.replace(/^:/, '').toUpperCase();
+                color = CATEGORY_COLORS[catKey] || typeColorMap[edge.label] || DEFAULT_EDGE_COLOR;
+            } else {
+                color = typeColorMap[edge.label] || DEFAULT_EDGE_COLOR;
+            }
             // Only override color if it's NOT an inference (which uses purple dashed)
             // Or maybe we want to color code EVERYTHING by type now?
             // The user asked to "change dynamically all relations of that type to a certain color".

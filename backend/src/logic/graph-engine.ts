@@ -12,6 +12,8 @@ export interface Relation {
   predicate: string;
   object: string;
   provenance?: "user" | "inference";
+  label?: string; // Original rich verb
+  category: 'CAUSAL' | 'METHODOLOGY' | 'BIBLIOGRAPHIC' | 'ONTOLOGY';
 }
 
 // Snapshot type for internal use
@@ -45,7 +47,7 @@ export class KnowledgeGraph {
    * Verifies semantic duplicates (O(1) lookup in subject map).
    * Passo 1: addRelation(s: string, p: string, o: string)
    */
-  addRelation(s: string, p: string, o: string, provenance: "user" | "inference" = "user"): void {
+  addRelation(s: string, p: string, o: string, provenance: "user" | "inference" = "user", category: 'CAUSAL' | 'METHODOLOGY' | 'BIBLIOGRAPHIC' | 'ONTOLOGY' = 'ONTOLOGY'): void {
     this.addNode(s);
     this.addNode(o);
 
@@ -55,7 +57,7 @@ export class KnowledgeGraph {
     );
 
     if (!exists) {
-      subjectRelations.push({ subject: s, predicate: p, object: o, provenance });
+      subjectRelations.push({ subject: s, predicate: p, object: o, provenance, category, label: p });
       this.relations.set(s, subjectRelations);
     }
   }
@@ -76,14 +78,21 @@ export class KnowledgeGraph {
           r => r.predicate === 'e_um' && r.object === r2.object
         );
         if (!exists && r1.subject !== r2.object) {
-          newRelations.push({ subject: r1.subject, predicate: 'e_um', object: r2.object, provenance: 'inference' });
+          newRelations.push({ 
+            subject: r1.subject, 
+            predicate: 'e_um', 
+            object: r2.object, 
+            provenance: 'inference',
+            category: 'ONTOLOGY', // Inferred is-a is Ontology
+            label: 'e_um'
+          });
         }
       }
     }
 
     const added: string[] = [];
     for (const rel of newRelations) {
-      this.addRelation(rel.subject, rel.predicate, rel.object, rel.provenance);
+      this.addRelation(rel.subject, rel.predicate, rel.object, rel.provenance, rel.category);
       added.push(`Inferencia: (${rel.subject} e_um ${rel.object})`);
     }
     return added;

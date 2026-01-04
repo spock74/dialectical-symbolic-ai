@@ -48,6 +48,7 @@ export function ChatInterface() {
   const [isUploading, setIsUploading] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
+  const [clearChatDialogOpen, setClearChatDialogOpen] = useState(false);
   const [reasoningDialogOpen, setReasoningDialogOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -155,6 +156,11 @@ export function ChatInterface() {
     }
   };
 
+  const handleClearChatOnly = () => {
+    clearMessages();
+    setClearChatDialogOpen(false);
+  };
+
   return (
     <div className="flex flex-col h-full bg-background/50 backdrop-blur-sm shadow-sm overflow-hidden">
       {/* Header removed - moved to App.tsx */}
@@ -236,13 +242,13 @@ export function ChatInterface() {
                 <DialogTrigger asChild>
                   <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/40 transition-colors">
                      <Database size={12} />
-                     Limpar Knowledge Base
+                     Limpar KB
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px] border-destructive/20 shadow-2xl bg-background/95 backdrop-blur-xl">
                   <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-destructive">
-                      <Trash2 size={18} />
+                      <Database size={18} />
                       Resetar Base de Conhecimento
                     </DialogTitle>
                     <DialogDescription className="pt-2">
@@ -255,12 +261,40 @@ export function ChatInterface() {
                     </Button>
                     <Button variant="destructive" onClick={handleResetKB} disabled={isResetting} className="gap-2">
                       {isResetting && <Loader2 className="h-4 w-4 animate-spin" />}
-                      Confirmar Reset
+                      Confirmar Reset Full
                     </Button>
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
             )}
+
+            <Dialog open={clearChatDialogOpen} onOpenChange={setClearChatDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="h-7 text-xs gap-1 rounded-full border-dashed bg-background/50 hover:bg-muted-foreground/10 hover:text-foreground hover:border-foreground/40 transition-colors" title="Limpar apenas visualização do chat">
+                     <Trash2 size={12} />
+                     Limpar Chat
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px] border-border/50 shadow-2xl bg-background/95 backdrop-blur-xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                      <Trash2 size={18} />
+                      Limpar Chat (UI)
+                    </DialogTitle>
+                    <DialogDescription className="pt-2">
+                      Esta ação irá remover as mensagens da tela atual. O conhecimento no grafo e no motor Lisp <strong>NÃO</strong> será afetado.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter className="mt-4 gap-2 sm:gap-0">
+                    <Button variant="outline" onClick={() => setClearChatDialogOpen(false)}>
+                      Cancelar
+                    </Button>
+                    <Button onClick={handleClearChatOnly} className="gap-2">
+                      Limpar Mensagens
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
 
             {!useBypassSDialect && (
               <Dialog open={reasoningDialogOpen} onOpenChange={setReasoningDialogOpen}>

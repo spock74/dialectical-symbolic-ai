@@ -25,7 +25,7 @@ export function SourceManager({ onKnowledgeLoaded }: SourceManagerProps) {
     activeGroupId, 
     createGroup, 
     setActiveGroup, 
-    addSourceToActiveGroup,
+    addSourceToGroup,
     deleteGroup,
     incrementGraphVersion,
     addMessage,
@@ -50,10 +50,20 @@ export function SourceManager({ onKnowledgeLoaded }: SourceManagerProps) {
     });
   };
 
-  const processFile = async (file: File) => {
-    if (!activeGroupId) return;
+  const processFile = async (file: File, targetGroupId?: string) => {
+    // Fallback to activeGroupId if strict target not provided
+    const effectiveGroupId = targetGroupId || activeGroupId;
+    if (!effectiveGroupId) {
+        console.error("Cannot upload: No active or target group selected.");
+        return;
+    }
+    
     try {
       setIsProcessing(true);
+      // Ensure the group we are uploading to is active (or becomes active)
+      if (effectiveGroupId !== activeGroupId) {
+          setActiveGroup(effectiveGroupId);
+      }
       const fileType = file.name.split('.').pop()?.toLowerCase();
       
       let result: KnowledgeBase | null = null;
@@ -86,7 +96,7 @@ export function SourceManager({ onKnowledgeLoaded }: SourceManagerProps) {
           active: true
       };
       
-      addSourceToActiveGroup(newSource);
+      addSourceToGroup(effectiveGroupId, newSource);
 
       if (result) {
         onKnowledgeLoaded(result);

@@ -32,6 +32,7 @@ interface SourceSlice {
   createGroup: (name: string) => void;
   setActiveGroup: (id: string) => void;
   addSourceToActiveGroup: (source: Source) => void;
+  addSourceToGroup: (groupId: string, source: Source) => void;
   setActiveSource: (id: string | null) => void;
   deleteGroup: (id: string) => void;
 }
@@ -116,28 +117,41 @@ const createSourceSlice: StateCreator<CombinedState, [], [], SourceSlice> = (set
 
   deleteGroup: (id: string) => {
       set((state) => {
+          const groupToDelete = state.groups.find(g => g.id === id);
           const newGroups = state.groups.filter(g => g.id !== id);
+          
+          let newActiveSourceId = state.activeSourceId;
+          // If the active source belongs to the deleted group, reset it
+          if (groupToDelete && groupToDelete.sources.some(s => s.id === state.activeSourceId)) {
+              newActiveSourceId = null;
+          }
+
           return {
               groups: newGroups,
-              // If the deleted group was active, switch to null or the first available
-              activeGroupId: state.activeGroupId === id ? null : state.activeGroupId
+              activeGroupId: state.activeGroupId === id ? null : state.activeGroupId,
+              activeSourceId: newActiveSourceId
           };
       });
   },
 
-  addSourceToActiveGroup: (source: Source) => {
-    const { activeGroupId, groups } = get();
-    // ... existing implementation ...
-    if (!activeGroupId) return;
-
+  addSourceToGroup: (groupId: string, source: Source) => {
+    const { groups } = get();
     set({
       groups: groups.map((g) =>
-        g.id === activeGroupId
+        g.id === groupId
           ? { ...g, sources: [...g.sources, { ...source, active: true }] }
           : g
       ),
       activeSourceId: source.id,
+      activeGroupId: groupId // Ensure we switch context to the group where we uploaded
     });
+  },
+
+  addSourceToActiveGroup: (source: Source) => {
+    const { activeGroupId } = get();
+    if (activeGroupId) {
+        get().addSourceToGroup(activeGroupId, source);
+    }
   },
 
   setActiveSource: (id: string | null) => {

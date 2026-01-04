@@ -411,6 +411,9 @@ async function initializeSystem() {
 
   try {
     console.log("[System] Initializing Graph Manager...");
+    // Force SBCL Start
+    SBCLProcess.getInstance();
+    
     // The manager initializes with "default" automatically.
     console.log(
       `[System] Graph Manager ready. Loaded ${
@@ -427,6 +430,15 @@ async function initializeSystem() {
     console.log(`[System] Active LISP Model: ${CONFIG.LISP_MODEL}`);
     console.log(`[System] Active CHAT Model: ${CONFIG.CHAT_MODEL}`);
     console.log(`[System] Active VISION Model: ${CONFIG.VISION_MODEL}`);
+    console.log(`[System] Active VISION Model: ${CONFIG.VISION_MODEL}`);
+
+    // Bridge SBCL logs to Frontend Stream
+    const sbcl = SBCLProcess.getInstance();
+    sbcl.on('data', (data) => {
+       // Broadcast raw SBCL output to the event stream
+       kernelEvents.emit('log', data);
+    });
+
     console.log(
       `[System] Environment: ${process.env.NODE_ENV || "development"}\n`
     );

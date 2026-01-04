@@ -23,8 +23,16 @@ export const KnowledgeConceptSchema = z.object({
   metacognitivePrompts: z.array(z.string()).optional(),
 });
 
+export const RelationSchema = z.object({
+  source: z.string(),
+  target: z.string(),
+  label: z.string(),
+  category: z.enum(['CAUSAL', 'METHODOLOGY', 'BIBLIOGRAPHIC', 'ONTOLOGY']),
+});
+
 export const KnowledgeBaseOutputSchema = z.object({
   knowledgeBase: z.array(KnowledgeConceptSchema),
+  relations: z.array(RelationSchema).optional(),
 });
 
 ai.defineSchema('KnowledgeBaseOutputSchema', KnowledgeBaseOutputSchema);

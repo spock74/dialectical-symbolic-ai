@@ -24,7 +24,7 @@ interface GroupItemProps {
   onDelete: () => void;
   activeSourceId?: string | null;
   onSelectSource?: (sourceId: string) => void;
-  onFileUpload?: (file: File) => Promise<void>;
+  onFileUpload?: (file: File, groupId: string) => Promise<void>;
   isProcessing?: boolean;
 }
 
@@ -120,7 +120,7 @@ export function GroupItem({
              {onFileUpload && (
                 <div className="p-2 pb-0">
                     <UploadZone 
-                        onFileUpload={onFileUpload} 
+                        onFileUpload={(file) => onFileUpload(file, group.id)} 
                         isProcessing={isProcessing} 
                         variant="compact"
                     />

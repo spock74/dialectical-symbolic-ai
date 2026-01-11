@@ -59,7 +59,7 @@ export const reflectiveLoop = ai.defineFlow(
         const rendered = await directPrompt.render({
           input: {
             userRequest: originalPrompt,
-            history: input.useMemory !== false ? context : [],
+            history: input.useMemory === true ? context : [],
           },
         });
         console.log("--- [DEBUG] TOTAL CONTEXT (directChat) ---");
@@ -89,7 +89,7 @@ export const reflectiveLoop = ai.defineFlow(
           model: CONFIG.CHAT_MODEL,
           input: {
             userRequest: originalPrompt,
-            history: input.useMemory !== false ? context : [],
+            history: input.useMemory === true ? context : [],
           },
         });
 
@@ -106,12 +106,19 @@ export const reflectiveLoop = ai.defineFlow(
       const orchestrator = new ReflectiveOrchestrator(
         input.prompt,
         input.history || [],
-        input.source
+        input.source,
+        input.useMemory === true
       );
 
       // 2. THINKING PHASE
-      factPackage = await orchestrator.think();
-      reasoningLogs = orchestrator.getReasoningLogs();
+      try {
+        factPackage = await orchestrator.think();
+        reasoningLogs = orchestrator.getReasoningLogs();
+      } catch (error) {
+        console.error("[Flow] ReflectiveOrchestrator crashed:", error);
+        reasoningLogs = `;; [System] The Thinking Layer encountered a critical error: ${error}\n;; Falling back to intuitive response.`;
+        factPackage = "No direct facts were extracted due to a Thinking Layer failure.";
+      }
     }
 
     // 3. SYNTHESIS PHASE
@@ -127,7 +134,7 @@ export const reflectiveLoop = ai.defineFlow(
       const rendered = await synthesisPrompt.render({
         input: {
           userRequest: originalPrompt,
-          history: input.useMemory !== false ? context : [],
+          history: input.useMemory === true ? context : [],
           factPackage: factPackage,
         },
       });
@@ -158,7 +165,7 @@ export const reflectiveLoop = ai.defineFlow(
         model: CONFIG.CHAT_MODEL,
         input: {
           userRequest: originalPrompt,
-          history: input.useMemory !== false ? context : [],
+          history: input.useMemory === true ? context : [],
           factPackage: factPackage,
         },
       });

@@ -68,7 +68,7 @@ type CombinedState = ConfigSlice & ChatSlice & SourceSlice & GraphSlice;
 // --- SLICE IMPLEMENTATIONS ---
 
 const createConfigSlice: StateCreator<CombinedState, [], [], ConfigSlice> = (set) => ({
-  useConversationalMemory: true,
+  useConversationalMemory: false,
   useBypassSDialect: false,
   setUseConversationalMemory: (val) => set({ useConversationalMemory: val }),
   setUseBypassSDialect: (val) => set({ useBypassSDialect: val }),

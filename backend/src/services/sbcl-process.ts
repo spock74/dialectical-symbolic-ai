@@ -127,10 +127,10 @@ export class SBCLProcess extends EventEmitter {
     this.currentBuffer += chunk;
 
     if (this.currentBuffer.includes(SBCLProcess.END_MARKER)) {
-        if (this.activeCommand) {
-            const startIndex = this.currentBuffer.indexOf(SBCLProcess.START_MARKER);
-            const endIndex = this.currentBuffer.indexOf(SBCLProcess.END_MARKER);
+        const startIndex = this.currentBuffer.indexOf(SBCLProcess.START_MARKER);
+        const endIndex = this.currentBuffer.indexOf(SBCLProcess.END_MARKER);
 
+        if (this.activeCommand) {
             let result = "";
             if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
                 const contentStart = startIndex + SBCLProcess.START_MARKER.length;
@@ -140,16 +140,21 @@ export class SBCLProcess extends EventEmitter {
                 result = "NIL"; 
             }
 
-            const remainder = this.currentBuffer.substring(endIndex + SBCLProcess.END_MARKER.length);
-            this.currentBuffer = remainder;
-            
             const resolve = this.activeCommand.resolve;
             this.activeCommand = null;
             this.isProcessing = false;
-            
             resolve(result);
-            this.processQueue();
+        } else {
+            // Se não há comando ativo (ex: timeout ja ocorreu), limpamos apenas
+            this.isProcessing = false;
         }
+
+        // Limpa o buffer indepentente de ter comando ativo ou não (evita acúmulo de markers órfãos)
+        if (endIndex !== -1) {
+            this.currentBuffer = this.currentBuffer.substring(endIndex + SBCLProcess.END_MARKER.length);
+        }
+        
+        this.processQueue();
     }
   }
 

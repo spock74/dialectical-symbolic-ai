@@ -38,16 +38,22 @@ export class EmbeddingService {
       const cleanText = text.trim();
       if (!cleanText) return null;
 
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
       const response = await fetch('http://localhost:11434/api/embeddings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        signal: controller.signal,
         body: JSON.stringify({
           model: this.modelName,
           prompt: cleanText,
         }),
       });
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         console.warn(`[EmbeddingService] Failed to fetch embedding: ${response.statusText}`);

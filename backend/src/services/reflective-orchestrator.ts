@@ -21,10 +21,10 @@ export class ReflectiveOrchestrator {
   private events = kernelEvents;
   private state: WorkspaceState;
 
-  constructor(input: string, history: any[] = [], sourceName?: string) {
+  constructor(input: string, history: any[] = [], sourceName?: string, useMemory: boolean = false) {
     this.state = {
       userRequest: input,
-      history: [...history], // Clone to prevent polluting main history
+      history: useMemory ? [...history] : [], // Use history only if useMemory is true
       sensedContext: [],
       reasoningLogs: "",
       lispProducts: [],

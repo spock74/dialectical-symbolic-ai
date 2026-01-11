@@ -48,6 +48,8 @@
     :inferir
     :listar-regras
     :carregar-regras-essenciais
+    ;; Validação Axiomática (Novo)
+    :validar-axioma
     
     ;; Persistência & Controle
     :salvar-estado
@@ -188,29 +190,45 @@
 (defun normalizar-tripla (tripla)
   (mapcar #'normalizar-termo tripla))
 
+(defun normalizar-condicao (cond)
+  (cond
+    ((eq (first cond) 'similar-p)
+     (list 'similar-p (second cond) (third cond) (fourth cond)))
+    ((eq (first cond) 'not)
+     (list 'not (normalizar-condicao (second cond))))
+    (t (normalizar-tripla cond))))
+
+;; ================================================================
+;; Regra de Proteção A-03: Imutabilidade Matemática
+
+(defun validar-axioma (expressao valor-proposto)
+  (let ((valor-real (handler-case (eval (read-from-string expressao))
+                      (error () nil))))
+    (if (and (numberp valor-real) 
+             (numberp valor-proposto))
+        (if (= valor-real valor-proposto)
+            t
+            (error "VIOLAÇÃO AXIOMÁTICA: A matemática é imutável. ~a não é ~a." 
+                   expressao valor-proposto))
+        t)))
+
 ;;; --- Funções de Memória (Nodes) ---
 
 (defun adicionar-memoria (chave valor &key vector)
-  "Adiciona ou atualiza um nó no grafo. Agora suporta vetores (embeddings)."
   (let* ((k (string-upcase (string chave)))
          (v-str (string valor))
          (existing (gethash k *knowledge-graph*)))
-    
     (if (concept-p existing)
-        ;; Atualiza existente
         (progn
           (setf (concept-description existing) v-str)
           (when vector (setf (concept-vector existing) vector)))
-        ;; Cria novo (ou sobrescreve legado se fosse string)
         (setf (gethash k *knowledge-graph*)
               (make-concept :name (intern k :s-dialectic)
                             :description v-str
                             :vector vector)))
-    
     (format nil "Memorizado: ~a" k)))
 
 (defun atualizar-vetor (chave vector)
-  "Atualiza apenas o vetor de um conceito existente ou cria um novo stub."
   (let* ((k (string-upcase (string chave)))
          (existing (gethash k *knowledge-graph*)))
     (if (concept-p existing)
@@ -225,15 +243,13 @@
   (let ((node (gethash (string-upcase (string chave)) *knowledge-graph*)))
     (cond
       ((concept-p node) (concept-description node))
-      ((stringp node) node) ;; Retrocompatibilidade
+      ((stringp node) node)
       (t "NIL"))))
 
 (defun buscar-conceito (chave)
-  "Retorna a estrutura completa do conceito, nao apenas a descricao."
   (gethash (string-upcase (string chave)) *knowledge-graph*))
 
 (defun buscar-proximos (target-vector &key (threshold 0.7) (limit 5))
-  "Encontra conceitos semanticamente proximos usando cosine-similarity."
   (let ((candidates nil))
     (maphash (lambda (k node)
                (declare (ignore k))
@@ -242,12 +258,10 @@
                    (when (>= sim threshold)
                      (push (cons sim node) candidates)))))
              *knowledge-graph*)
-    ;; Ordena por similaridade (maior primeiro) e pega os top K
     (let ((sorted (sort candidates #'> :key #'car)))
       (subseq sorted 0 (min (length sorted) limit)))))
 
 (defun buscar-similares (chave &key (threshold 0.7) (limit 5))
-  "Busca conceitos similares a chave fornecida (baseado em vetor)."
   (let ((node (gethash (string-upcase (string chave)) *knowledge-graph*)))
     (if (and (concept-p node) (concept-vector node))
         (let ((results (buscar-proximos (concept-vector node) :threshold threshold :limit limit)))
@@ -257,7 +271,6 @@
         "NIL (Sem vetor ou nao encontrado)")))
 
 (defun check-similarity (val1 val2 threshold)
-  "Verifica se dois conceitos sao similares (usado em regras)."
   (let ((k1 (string-upcase (string val1)))
         (k2 (string-upcase (string val2))))
     (let ((n1 (gethash k1 *knowledge-graph*))
@@ -275,94 +288,6 @@
                  (push (list k desc) result))) 
              *knowledge-graph*)
     result))
-
-
-(defun limpar-memoria ()
-  (clrhash *knowledge-graph*)
-  (setf *relations* nil)
-  (setf *rules* nil)
-  (setf *custom-definitions* nil)
-  (carregar-regras-essenciais)
-  "Memoria limpa.")
-
-;;; --- Funções de Relação (Edges) ---
-
-(defun adicionar-relacao (sujeito predicado objeto &rest extra-args)
-  "Adiciona uma aresta ao grafo. Suporta argumentos p/ keys: :category, :certainty"
-  (let ((s (normalizar-termo sujeito))
-        (p (normalizar-termo predicado))
-        (o (normalizar-termo objeto))
-        (cat :generic))
-    
-    ;; Parse extra-args for keywords
-    (loop for (key val) on extra-args by #'cddr
-          do (case key
-               (:category (setf cat (if (stringp val) (intern (string-upcase val) :keyword) val)))
-               (t (ignore-errors))))
-
-    (progn
-      ;; Auto-Discovery: Garante que nós existam
-      (unless (gethash (string s) *knowledge-graph*)
-        (setf (gethash (string s) *knowledge-graph*) "Conceito Implicito"))
-      (unless (gethash (string o) *knowledge-graph*)
-        (setf (gethash (string o) *knowledge-graph*) "Conceito Implicito"))
-      
-      ;; Verifica duplicidade (Ignora categoria na verificação para evitar duplos semanticos)
-      (unless (find-if (lambda (r) 
-                     (and (eq (relation-subject r) s)
-                          (eq (relation-predicate r) p)
-                          (eq (relation-object r) o)))
-                   *relations*)
-          (push (make-relation :subject s :predicate p :object o :provenance :user :category cat) *relations*)
-          (format nil "Relacao adicionada: ~a -[~a (~a)]-> ~a" s p cat o)))))
-
-(defun buscar-relacoes (conceito)
-  "Encontra todas as arestas conectadas a um conceito."
-  (let* ((c (normalizar-termo conceito))
-         (found (remove-if-not (lambda (r) 
-                                 (or (eq (relation-subject r) c)
-                                     (eq (relation-object r) c)))
-                               *relations*)))
-    (if found
-        (mapcar (lambda (r) 
-                  (format nil "(~a ~a ~a)" 
-                          (relation-subject r) 
-                          (relation-predicate r) 
-                          (relation-object r))) 
-                found)
-        (format nil "Nenhuma relacao para: ~a" conceito))))
-
-(defun listar-relacoes (&rest args)
-  (declare (ignore args))
-  (mapcar (lambda (r) 
-            (format nil "(~a ~a ~a)" 
-                    (relation-subject r) 
-                    (relation-predicate r) 
-                    (relation-object r))) 
-          *relations*))
-
-;;; --- Exportação JSON (Para Frontend ReactFlow) ---
-
-(defun listar-dados-json ()
-  "Serializa todo o grafo para JSON."
-  (let ((mem-strings nil)
-        (rel-strings nil))
-    ;; Nós
-    (maphash (lambda (k v) 
-               (let ((desc (if (concept-p v) (concept-description v) v)))
-                 (push (to-json-pair k desc) mem-strings))) 
-             *knowledge-graph*)
-    ;; Arestas
-    (dolist (r *relations*)
-      (push (to-json-triple r) rel-strings))
-    
-    (format nil "{ \"nodes\": [~{~a~^, ~}], \"edges\": [~{~a~^, ~}] }"
-            mem-strings
-            rel-strings)))
-
-(defun print-graph-json ()
-  (princ (listar-dados-json))
-  (values))
 
 ;;; --- Motor de Inferência (Forward Chaining) ---
 
@@ -397,7 +322,6 @@
   (let ((new-facts nil))
     (labels ((find-matches (remaining-conditions current-bindings)
                (if (null remaining-conditions)
-                   ;; Sucesso: Gerar consequências
                    (dolist (cons-pattern (rule-consequences rule))
                      (let ((new-s (subst-bindings (first cons-pattern) current-bindings))
                            (new-p (subst-bindings (second cons-pattern) current-bindings))
@@ -405,62 +329,43 @@
                        (unless (find-if (lambda (f) (and (eq (relation-subject f) new-s)
                                                          (eq (relation-predicate f) new-p)
                                                          (eq (relation-object f) new-o)))
-                                        facts)
+                                         facts)
                          (push (make-relation :subject new-s :predicate new-p :object new-o :provenance :inference) new-facts))))
-                   ;; Continuar buscando matches
                    (let ((condition (first remaining-conditions)))
                      (if (eq (first condition) 'similar-p)
-                         ;; Condição Procedural: (similar-p ?x "Termo" 0.9)
                          (let* ((var (second condition))
                                 (term (third condition))
                                 (thresh (fourth condition))
                                 (val (subst-bindings var current-bindings)))
-                           (if (symbolp val) ;; Se ainda é variável (ex: ?x)
-                               ;; GENERATOR MODE: Itera sobre todos os conceitos buscando similares
+                           (if (symbolp val)
                                (maphash (lambda (k node) 
                                           (declare (ignore k))
                                           (when (and (concept-p node) 
                                                      (check-similarity (concept-name node) term thresh))
-                                            ;; Bind e Recurse
                                             (let ((new-bindings (unify var (concept-name node) current-bindings)))
                                               (when new-bindings
                                                 (find-matches (rest remaining-conditions) new-bindings)))))
                                         *knowledge-graph*)
-                               ;; FILTER MODE: Verifica valor já ligado
                                (when (check-similarity val term thresh)
                                  (find-matches (rest remaining-conditions) current-bindings))))
                          (if (eq (first condition) 'not)
-                             ;; Condição Negada: (not (...))
                              (let ((inner (second condition)))
-                               ;; A negacao so funciona como FILTRO (variaveis devem estar ligadas)
                                (cond
                                  ((eq (first inner) 'similar-p)
                                   (let* ((var (second inner))
                                          (term (third inner))
                                          (thresh (fourth inner))
                                          (val (subst-bindings var current-bindings)))
-                                    ;; Se val for variavel, não podemos negar ainda (unsafe negation).
-                                    ;; Assumimos safeness: variavel ja ligada anteriormente.
                                     (when (or (variable-p val) (not (check-similarity val term thresh)))
-                                      ;; Se for variavel, nao sabemos, entao falha ou assume true?
-                                      ;; Logica padrao Prolog: Negation as Failure. Var deve estar bound.
-                                      ;; Se unbounded, eh complicado. Vamos assumir que deve estar bound.
                                       (when (not (variable-p val))
                                         (find-matches (rest remaining-conditions) current-bindings)))))
-                                 ;; Negacao de relacao
                                  (t
-                                  ;; TODO: Match padrao negado. Simplificado para o exemplo Similar-P.
-                                  ;; Para (not (A pred B)), verificamos se NAO unify.
-                                  ;; Mas unify gera bindings. Negacao nao deve gerar bindings.
-                                  ;; Apenas verificar se match falha.
                                   (let ((matches-found nil))
                                     (dolist (fact facts)
                                       (when (match-pattern inner fact current-bindings)
                                         (setf matches-found t)))
                                     (unless matches-found
                                       (find-matches (rest remaining-conditions) current-bindings))))))
-                             
-                             ;; Condição de Relação Padrão: (?x "pred" ?y)
                              (dolist (fact facts)
                                (let ((new-bindings (match-pattern condition fact current-bindings)))
                                  (when new-bindings
@@ -482,24 +387,10 @@
                                *relations*)
                 (push f new-this-round)
                 (push f *relations*)))))
-        
         (when (null new-this-round) (return))
         (when (> iteration max-iterations) (return))
         (setf derived-count (+ derived-count (length new-this-round)))))
     (format nil "Inferencia: ~a novos fatos derivados." derived-count)))
-
-(defun normalizar-condicao (cond)
-  (cond
-    ((eq (first cond) 'similar-p)
-     (list 'similar-p (second cond) (third cond) (fourth cond)))
-    ((eq (first cond) 'not)
-     (list 'not (normalizar-condicao (second cond))))
-    (t (normalizar-tripla cond))))
-
-(defun normalizar-tripla (tripla)
-  (list (normalizar-termo (first tripla))
-        (normalizar-termo (second tripla))
-        (normalizar-termo (third tripla))))
 
 (defun adicionar-regra (nome condicoes consequencias)
   (let ((n (normalizar-termo nome))
@@ -514,10 +405,97 @@
                    '((?x "e_um" ?z)))
   "Regras base carregadas.")
 
+(defun limpar-memoria ()
+  (clrhash *knowledge-graph*)
+  (setf *relations* nil)
+  (setf *rules* nil)
+  (setf *custom-definitions* nil)
+  (carregar-regras-essenciais)
+  "Memoria limpa.")
 
-(defun listar-regras (&rest args)
+;;; --- Funções de Relação (Edges) ---
+
+(defun tenta-avaliar-matematica (str)
+  "Tenta converter string em numero ou executar expressao matematica."
+  (handler-case 
+      (let ((val (read-from-string str)))
+        (cond 
+          ((numberp val) val)
+          ((listp val) (eval val))
+          (t nil)))
+    (error () nil)))
+
+(defun adicionar-relacao (sujeito predicado objeto &rest extra-args)
+  (let ((s (normalizar-termo sujeito))
+        (p (normalizar-termo predicado))
+        (o (normalizar-termo objeto))
+        (cat :generic))
+    (loop for (key val) on extra-args by #'cddr
+          do (case key
+               (:category (setf cat (if (stringp val) (intern (string-upcase val) :keyword) val)))
+               (t (ignore-errors))))
+    (when (member (string p) '("IS_EQUIVALENT_TO" "EQUALS" "=" "SAME_AS") :test #'string-equal)
+      (let ((val-s (tenta-avaliar-matematica (string s)))
+            (val-o (tenta-avaliar-matematica (string o))))
+        (when (and (numberp val-s) (numberp val-o))
+          (unless (= val-s val-o)
+             (error "VIOLAÇÃO AXIOMÁTICA: O Kernel Lisp recusa a relação ~a = ~a. Na minha realidade, ~a != ~a."
+                    s o val-s val-o)))))
+    (progn
+      (unless (gethash (string s) *knowledge-graph*)
+        (setf (gethash (string s) *knowledge-graph*) "Conceito Implicito"))
+      (unless (gethash (string o) *knowledge-graph*)
+        (setf (gethash (string o) *knowledge-graph*) "Conceito Implicito"))
+      (unless (find-if (lambda (r) 
+                     (and (eq (relation-subject r) s)
+                          (eq (relation-predicate r) p)
+                          (eq (relation-object r) o)))
+                   *relations*)
+          (push (make-relation :subject s :predicate p :object o :provenance :user :category cat) *relations*)
+          (format nil "Relacao adicionada: ~a -[~a (~a)]-> ~a" s p cat o)))))
+
+(defun buscar-relacoes (conceito)
+  (let* ((c (normalizar-termo conceito))
+         (found (remove-if-not (lambda (r) 
+                                 (or (eq (relation-subject r) c)
+                                     (eq (relation-object r) c)))
+                               *relations*)))
+    (if found
+        (mapcar (lambda (r) 
+                  (format nil "(~a ~a ~a)" 
+                          (relation-subject r) 
+                          (relation-predicate r) 
+                          (relation-object r))) 
+                found)
+        (format nil "Nenhuma relacao para: ~a" conceito))))
+
+(defun listar-relacoes (&rest args)
   (declare (ignore args))
-  (mapcar #'rule-name *rules*))
+  (mapcar (lambda (r) 
+            (format nil "(~a ~a ~a)" 
+                    (relation-subject r) 
+                    (relation-predicate r) 
+                    (relation-object r))) 
+          *relations*))
+
+;;; --- Exportação JSON (Para Frontend ReactFlow) ---
+
+(defun listar-dados-json ()
+  (let ((mem-strings nil)
+        (rel-strings nil))
+    (maphash (lambda (k v) 
+               (let ((desc (if (concept-p v) (concept-description v) v)))
+                 (push (to-json-pair k desc) mem-strings))) 
+             *knowledge-graph*)
+    (dolist (r *relations*)
+      (push (to-json-triple r) rel-strings))
+    (format nil "{ \"nodes\": [~{~a~^, ~}], \"edges\": [~{~a~^, ~}] }"
+            mem-strings
+            rel-strings)))
+
+(defun print-graph-json ()
+  (princ (listar-dados-json))
+  (values))
 
 ;;; --- Persistência ---
 
@@ -570,7 +548,6 @@
 
 ;;; --- Inicialização Final ---
 
-;; Carregar regras iniciais
 (carregar-regras-essenciais)
 
 (format t "~&[Bootstrap] Stage 3 Complete. SDialectic Kernel Ready.~%")

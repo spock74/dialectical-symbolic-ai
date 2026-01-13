@@ -546,6 +546,26 @@
 (defmacro definir-regra (nome conds consqs)
   `(adicionar-regra ,nome ,conds ,consqs))
 
+;;; --- META-LEARNING: GERAÇÃO DE REGRAS IMUNOLÓGICAS ---
+
+(defmacro aprender-lei-proibitiva (nome classe-perigosa vitima-protegida threshold)
+  "Cria uma regra que bloqueia interação baseada em similaridade vetorial."
+  (let ((rule-name (intern (string-upcase (format nil "LEI-AUTO-~a" nome)) :s-dialectic)))
+    `(adicionar-regra ',rule-name
+       ;; CONDIÇÕES:
+       ;; 1. Existe uma vítima (ex: Grávida)
+       '((?vitima "TEM_ESTADO" ,vitima-protegida)
+         ;; 2. Existe um agente que é SIMILAR à classe perigosa (ex: Teratogênico)
+         ;; O 'similar-p' usa os embeddings para generalizar!
+         (similar-p ?agente ,classe-perigosa ,threshold))
+       
+       ;; CONSEQUÊNCIA (BLOQUEIO):
+       ;; O sistema aprende que a relação é proibida
+       '((not (?vitima "PODE_INTERAGIR" ?agente))))))
+
+;; Exemplo de uso (O que o LLM vai gerar):
+;; (aprender-lei-proibitiva "TERATOGENIA" "TERATOGENICO" "GRAVIDA" 0.85)
+
 ;;; --- Inicialização Final ---
 
 (carregar-regras-essenciais)

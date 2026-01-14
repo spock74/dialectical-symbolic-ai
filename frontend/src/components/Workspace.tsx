@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState, useRef, useMemo } from 'react';
 import ReactFlow, { 
   Background, 
@@ -40,6 +38,11 @@ import { RELATION_COLORS, DEFAULT_EDGE_COLOR } from '../config/color_constants';
 const nodeWidth = 172;
 const nodeHeight = 40;
 
+// Optimization: Define types outside to avoid re-creation
+const nodeTypes = {};
+const edgeTypes = {};
+const EMPTY_ARRAY: string[] = [];
+
 const getLayoutedElements = (nodes: any[], edges: any[], direction = 'TB') => {
   const isHorizontal = direction === 'LR';
   
@@ -62,16 +65,17 @@ const getLayoutedElements = (nodes: any[], edges: any[], direction = 'TB') => {
 
   const layoutedNodes = nodes.map((node) => {
     const nodeWithPosition = dagreGraph.node(node.id);
-    node.targetPosition = isHorizontal ? 'left' : 'top';
-    node.sourcePosition = isHorizontal ? 'right' : 'bottom';
-
-    // We are shifting the dagre node position (which is center-based) to top-left
-    node.position = {
-      x: nodeWithPosition.x - nodeWidth / 2,
-      y: nodeWithPosition.y - nodeHeight / 2,
+    
+    // Return a new object to avoid mutating the original node
+    return {
+      ...node,
+      targetPosition: isHorizontal ? 'left' : 'top',
+      sourcePosition: isHorizontal ? 'right' : 'bottom',
+      position: {
+        x: nodeWithPosition.x - nodeWidth / 2,
+        y: nodeWithPosition.y - nodeHeight / 2,
+      }
     };
-
-    return node;
   });
 
   return { nodes: layoutedNodes, edges };
@@ -81,6 +85,10 @@ interface WorkspaceProps {
   knowledgeBase: KnowledgeBase | null;
 }
 
+// Optimization: Define types outside to avoid re-creation
+// const nodeTypes = {}; // Already defined above
+// const edgeTypes = {}; // Already defined above
+
 function GraphView({ activeSource }: { activeSource: any }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -89,24 +97,24 @@ function GraphView({ activeSource }: { activeSource: any }) {
   const { fitView } = useReactFlow();
   const lastSourceIdRef = useRef<string | null>(null);
   
-  const {
-    graphVersion,
-    graphDirection,
-    activeSourceId,
-    sourceFilters,
-    setShowEntities,
-    setShowRelations,
-    setGraphDirection,
-    toggleRelationType,
-    setSelectedRelationTypes,
-    initializeSourceFilters,
-  } = useDialecticStore();
+  // Use selectors to avoid unnecessary re-renders
+  const graphVersion = useDialecticStore(state => state.graphVersion);
+  const graphDirection = useDialecticStore(state => state.graphDirection);
+  const activeSourceId = useDialecticStore(state => state.activeSourceId);
+  const sourceFilters = useDialecticStore(state => state.sourceFilters);
+  const setShowEntities = useDialecticStore(state => state.setShowEntities);
+  const setShowRelations = useDialecticStore(state => state.setShowRelations);
+  const setGraphDirection = useDialecticStore(state => state.setGraphDirection);
+  const toggleRelationType = useDialecticStore(state => state.toggleRelationType);
+  const setSelectedRelationTypes = useDialecticStore(state => state.setSelectedRelationTypes);
+  const initializeSourceFilters = useDialecticStore(state => state.initializeSourceFilters);
 
   const activeFilters = (activeSourceId && sourceFilters[activeSourceId]) || null;
   
   const showEntities = activeFilters?.showEntities !== false; // Default to true
   const showRelations = activeFilters?.showRelations !== false; // Default to true
-  const selectedRelationTypes = activeFilters?.selectedRelationTypes || [];
+  // Fix: Use stable empty array reference
+  const selectedRelationTypes = activeFilters?.selectedRelationTypes || EMPTY_ARRAY;
 
   const handleDownloadRaw = () => {
     try {
@@ -157,7 +165,7 @@ function GraphView({ activeSource }: { activeSource: any }) {
 
   // 2. Local Filtering and Mapping
   const { filteredNodes, filteredEdges, availableRelationTypes, relationCounts } = useMemo(() => {
-    if (!rawGraphData) return { filteredNodes: [], filteredEdges: [], availableRelationTypes: [], relationCounts: {} };
+    if (!rawGraphData) return { filteredNodes: EMPTY_ARRAY, filteredEdges: EMPTY_ARRAY, availableRelationTypes: EMPTY_ARRAY, relationCounts: {} };
 
     // A. Recalculate frequencies for UI
     const counts: Record<string, number> = {};
@@ -234,19 +242,27 @@ function GraphView({ activeSource }: { activeSource: any }) {
         return;
     }
 
-    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-      filteredNodes,
-      filteredEdges,
-      graphDirection
-    );
-    
-    setNodes(layoutedNodes);
-    setEdges(layoutedEdges);
+    // console.log('[GraphView] Filtering details:', { ... });
 
-    // Auto-fit on source change
-    if (activeSource?.id !== lastSourceIdRef.current) {
-        lastSourceIdRef.current = activeSource?.id || null;
-        setTimeout(() => fitView({ duration: 800 }), 50);
+    try {
+        const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+          filteredNodes,
+          filteredEdges,
+          graphDirection
+        );
+        
+        // console.log('[GraphView] Layout result:', { ... });
+        
+        setNodes(layoutedNodes);
+        setEdges(layoutedEdges);
+
+        // Auto-fit on source change
+        if (activeSource?.id !== lastSourceIdRef.current) {
+            lastSourceIdRef.current = activeSource?.id || null;
+            setTimeout(() => fitView({ duration: 800 }), 50);
+        }
+    } catch (e) {
+        console.error("Layout calculation failed:", e);
     }
   }, [filteredNodes, filteredEdges, graphDirection, fitView]);
 
@@ -258,6 +274,8 @@ function GraphView({ activeSource }: { activeSource: any }) {
       <ReactFlow 
         nodes={nodes}
         edges={edges}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         connectionLineType={ConnectionLineType.Bezier}
@@ -419,7 +437,10 @@ function GraphView({ activeSource }: { activeSource: any }) {
 }
 
 export function Workspace({ knowledgeBase: _ }: WorkspaceProps) {
-  const { groups, activeGroupId, activeSourceId } = useDialecticStore();
+  const activeGroupId = useDialecticStore(state => state.activeGroupId);
+  const activeSourceId = useDialecticStore(state => state.activeSourceId);
+  const groups = useDialecticStore(state => state.groups);
+  
   const activeGroup = groups.find(g => g.id === activeGroupId);
   const activeSource = activeGroup?.sources.find(s => s.id === activeSourceId);
 
@@ -431,4 +452,3 @@ export function Workspace({ knowledgeBase: _ }: WorkspaceProps) {
     </div>
   );
 }
-

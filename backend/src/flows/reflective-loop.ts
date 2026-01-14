@@ -39,6 +39,7 @@ export const reflectiveLoop = ai.defineFlow(
   async (input) => {
     let context = input.history || [];
     const originalPrompt = input.prompt;
+    console.log(`[Flow] reflectiveLoop Input: Bypass=${input.bypassSDialect} Source=${input.source}`);
 
     let factPackage = "";
     let reasoningLogs = "";

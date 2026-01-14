@@ -5,11 +5,15 @@
       "type": "source"
     },
     {
-      "id": "GIRO_SUPRAMARGINAL",
+      "id": "SMG",
       "type": "concept"
     },
     {
       "id": "AREA_CEREBRAL",
+      "type": "concept"
+    },
+    {
+      "id": "S1",
       "type": "concept"
     },
     {
@@ -25,43 +29,11 @@
       "type": "concept"
     },
     {
-      "id": "CORTEX_SOMATOSSENSORIAL_PRIMARIO",
+      "id": "DECODIFICADOR_FALA_INTERNA",
       "type": "concept"
     },
     {
-      "id": "INTERFACE_CEREBRO-MAQUINA",
-      "type": "concept"
-    },
-    {
-      "id": "DISPOSITIVO_TECNOLOGICO",
-      "type": "concept"
-    },
-    {
-      "id": "COMUNICACAO",
-      "type": "concept"
-    },
-    {
-      "id": "PERDA_FALA",
-      "type": "concept"
-    },
-    {
-      "id": "DOENCAS_NEUROLOGICAS",
-      "type": "concept"
-    },
-    {
-      "id": "LESÕES_CEREBRAIS",
-      "type": "concept"
-    },
-    {
-      "id": "DECODIFICACAO_FALA_INTERNA",
-      "type": "concept"
-    },
-    {
-      "id": "DESAFIO",
-      "type": "concept"
-    },
-    {
-      "id": "LOCALIZACAO_AREA_CEREBRAL",
+      "id": "DISPOSITIVO_BMI",
       "type": "concept"
     },
     {
@@ -69,7 +41,7 @@
       "type": "concept"
     },
     {
-      "id": "IMPLANTE_MICROELETRODO",
+      "id": "IMPLANTE_NEURAL",
       "type": "concept"
     },
     {
@@ -77,51 +49,15 @@
       "type": "concept"
     },
     {
-      "id": "MICROELETRODO",
+      "id": "79_PORCENTO_ACURACIA_ONLINE",
       "type": "concept"
     },
     {
-      "id": "ATIVIDADE_NEURONAL",
+      "id": "55_PORCENTO_ACURACIA_OFFLINE",
       "type": "concept"
     },
     {
-      "id": "REPRESENTACAO_NEURONAL",
-      "type": "concept"
-    },
-    {
-      "id": "ATIVIDADE_POPULACIONAL_SMG",
-      "type": "concept"
-    },
-    {
-      "id": "PRECISÃO_DECODIFICACAO_OFFLINE",
-      "type": "concept"
-    },
-    {
-      "id": "55_PORCENTO",
-      "type": "concept"
-    },
-    {
-      "id": "24_PORCENTO",
-      "type": "concept"
-    },
-    {
-      "id": "NIVEL_ALEATORIO",
-      "type": "concept"
-    },
-    {
-      "id": "12_5_PORCENTO",
-      "type": "concept"
-    },
-    {
-      "id": "PRECISÃO_DECODIFICACAO_ONLINE",
-      "type": "concept"
-    },
-    {
-      "id": "79_PORCENTO",
-      "type": "concept"
-    },
-    {
-      "id": "23_PORCENTO",
+      "id": "PALAVRAS",
       "type": "concept"
     },
     {
@@ -133,7 +69,63 @@
       "type": "concept"
     },
     {
-      "id": "DECODIFICADOR",
+      "id": "23_PORCENTO_ACURACIA_ONLINE",
+      "type": "concept"
+    },
+    {
+      "id": "24_PORCENTO_ACURACIA_OFFLINE",
+      "type": "concept"
+    },
+    {
+      "id": "TAXA_DE_DISPARO_NEURONAL",
+      "type": "concept"
+    },
+    {
+      "id": "FASE_REPOUSO",
+      "type": "concept"
+    },
+    {
+      "id": "NEUROPORT_ARRAY",
+      "type": "concept"
+    },
+    {
+      "id": "COLETA_DADOS",
+      "type": "concept"
+    },
+    {
+      "id": "PSYCHOPHYSICS_TOOLBOX",
+      "type": "concept"
+    },
+    {
+      "id": "ANALISE_DADOS",
+      "type": "concept"
+    },
+    {
+      "id": "MATLAB",
+      "type": "concept"
+    },
+    {
+      "id": "PYTHON",
+      "type": "concept"
+    },
+    {
+      "id": "96_CANAL_ARRAY",
+      "type": "concept"
+    },
+    {
+      "id": "64_CANAL_ARRAY",
+      "type": "concept"
+    },
+    {
+      "id": "REPRESENTACAO_TEMPORAL",
+      "type": "concept"
+    },
+    {
+      "id": "DPC_ANALISE",
+      "type": "concept"
+    },
+    {
+      "id": "IDENTIFICAR_REPRESENTACAO_NEURAL",
       "type": "concept"
     },
     {
@@ -141,7 +133,7 @@
       "type": "concept"
     },
     {
-      "id": "IMAGINACAO_AUDITIVA",
+      "id": "IMAGINACAO_SONORA",
       "type": "concept"
     },
     {
@@ -153,6 +145,762 @@
       "type": "concept"
     },
     {
+      "id": "ESTUDO_CLINICO",
+      "type": "concept"
+    },
+    {
+      "id": "IRB",
+      "type": "concept"
+    },
+    {
+      "id": "PARTICIPANTES",
+      "type": "concept"
+    },
+    {
+      "id": "HOSPITAIS_COLABORADORES",
+      "type": "concept"
+    },
+    {
+      "id": "DADOS_CLINICOS",
+      "type": "concept"
+    },
+    {
+      "id": "CLINICALTRIALS_GOV",
+      "type": "concept"
+    },
+    {
+      "id": "CODIGO_FONTE_CUSTOMIZADO",
+      "type": "concept"
+    },
+    {
+      "id": "ZENODO",
+      "type": "concept"
+    },
+    {
+      "id": "DADOS_DE_ESTUDO",
+      "type": "concept"
+    },
+    {
+      "id": "SUSTENTACULO",
+      "type": "concept"
+    },
+    {
+      "id": "GIRO-SUPRAMARGINAL",
+      "type": "concept"
+    },
+    {
+      "id": "LOBO-PARIETAL",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "ATIVIDADE-CEREBRAL",
+      "type": "concept"
+    },
+    {
+      "id": "DECODIFICACAO-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "SISTEMA-BMI",
+      "type": "concept"
+    },
+    {
+      "id": "ATIVIDADE-NEURONAL",
+      "type": "concept"
+    },
+    {
+      "id": "ARRAY-MICROELETRODO",
+      "type": "concept"
+    },
+    {
+      "id": "AREA-PRIMARIA-SOMATOSSENSORIAL",
+      "type": "concept"
+    },
+    {
+      "id": "MOVIMENTO",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "CONTROLE",
+      "type": "concept"
+    },
+    {
+      "id": "PARTICIPANTE-1",
+      "type": "concept"
+    },
+    {
+      "id": "IMPLANTE-SMG",
+      "type": "concept"
+    },
+    {
+      "id": "IMPLANTE-S1",
+      "type": "concept"
+    },
+    {
+      "id": "PARTICIPANTE-2",
+      "type": "concept"
+    },
+    {
+      "id": "ATIVIDADE-NEURONAL-SMG",
+      "type": "concept"
+    },
+    {
+      "id": "DECODIFICACAO-FALA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "DECODIFICACAO-PALAVRA",
+      "type": "concept"
+    },
+    {
+      "id": "PRECISAO-55-PORCENTO",
+      "type": "concept"
+    },
+    {
+      "id": "PRECISAO-24-PORCENTO",
+      "type": "concept"
+    },
+    {
+      "id": "PRECISAO-79-PORCENTO",
+      "type": "concept"
+    },
+    {
+      "id": "PRECISAO-23-PORCENTO",
+      "type": "concept"
+    },
+    {
+      "id": "NIVEL-NEURONAL-UNICO",
+      "type": "concept"
+    },
+    {
+      "id": "REPRESENTACAO-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "NIVEL-POPULACIONAL",
+      "type": "concept"
+    },
+    {
+      "id": "CODIFICACAO-FONETICA",
+      "type": "concept"
+    },
+    {
+      "id": "ESTRATEGIAS-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "ATIVIDADE-S1",
+      "type": "concept"
+    },
+    {
+      "id": "MOVIMENTO-ARTICULATORIO",
+      "type": "concept"
+    },
+    {
+      "id": "INTERFACE-CEREBRO-MAQUINA",
+      "type": "concept"
+    },
+    {
+      "id": "PROVA-DE-CONCEITO",
+      "type": "concept"
+    },
+    {
+      "id": "POTENCIAL",
+      "type": "concept"
+    },
+    {
+      "id": "PERDA-DE-FALA",
+      "type": "concept"
+    },
+    {
+      "id": "DOENCAS-NEUROLOGICAS",
+      "type": "concept"
+    },
+    {
+      "id": "CAMINHO-TECNOLOGICO",
+      "type": "concept"
+    },
+    {
+      "id": "COMUNICACAO",
+      "type": "concept"
+    },
+    {
+      "id": "HUMANOS",
+      "type": "concept"
+    },
+    {
+      "id": "PACIENTES-ALS",
+      "type": "concept"
+    },
+    {
+      "id": "ECOG",
+      "type": "concept"
+    },
+    {
+      "id": "AMOSTRAGEM-ATIVIDADE-NEURAL",
+      "type": "concept"
+    },
+    {
+      "id": "DIFERENTES-PARTES-DO-CEREBRO",
+      "type": "concept"
+    },
+    {
+      "id": "NEUROPROSTESE-FALA",
+      "type": "concept"
+    },
+    {
+      "id": "DEMONSTRADA",
+      "type": "concept"
+    },
+    {
+      "id": "AUDIO-RECONSTRUÍDO",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-AUDIVEL",
+      "type": "concept"
+    },
+    {
+      "id": "EXISTE",
+      "type": "concept"
+    },
+    {
+      "id": "PRODUCAO-FALA",
+      "type": "concept"
+    },
+    {
+      "id": "SUBVOCALIZACAO",
+      "type": "concept"
+    },
+    {
+      "id": "PROCESSAMENTO-FONOLOGICO",
+      "type": "concept"
+    },
+    {
+      "id": "TAREFA-RIMAR-PALAVRAS",
+      "type": "concept"
+    },
+    {
+      "id": "OUVIR-INTERNAMENTE-PALAVRA",
+      "type": "concept"
+    },
+    {
+      "id": "LESÃO-EM-SMG",
+      "type": "concept"
+    },
+    {
+      "id": "AFASIA",
+      "type": "concept"
+    },
+    {
+      "id": "PALAVRAS-CORES",
+      "type": "concept"
+    },
+    {
+      "id": "RELACAO-DEBATIDA",
+      "type": "concept"
+    },
+    {
+      "id": "SIMILARIDADES-FALA-INTERNA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "EVIDENCIA-PARA-TRADUZIBILIDADE",
+      "type": "concept"
+    },
+    {
+      "id": "PARTICIPANTES-TETRAPLEGIA",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-INTERNA-E-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "INDIRETAS-AUDIO-OU-ESCRITA",
+      "type": "concept"
+    },
+    {
+      "id": "HIPOTESE",
+      "type": "concept"
+    },
+    {
+      "id": "MODULADA_POR-FALA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "MODULADA_POR-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "DESIGN-TAREFA",
+      "type": "concept"
+    },
+    {
+      "id": "FASE-INTER-TRIAL-INTERVALO",
+      "type": "concept"
+    },
+    {
+      "id": "FASE-DE-ESTIMULO",
+      "type": "concept"
+    },
+    {
+      "id": "FASE-DE-DELAY-1",
+      "type": "concept"
+    },
+    {
+      "id": "FASE-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "FASE-DE-DELAY-2",
+      "type": "concept"
+    },
+    {
+      "id": "FASE-FALA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "NEURONIOS-SMG",
+      "type": "concept"
+    },
+    {
+      "id": "MODULACAO-TAXA-DISPARO",
+      "type": "concept"
+    },
+    {
+      "id": "TAXA-DISPARO-NEURONAL",
+      "type": "concept"
+    },
+    {
+      "id": "FASES-ATIVAS",
+      "type": "concept"
+    },
+    {
+      "id": "FASES-DE-REPOUSO",
+      "type": "concept"
+    },
+    {
+      "id": "PADROES-ATIVACAO-ESTEREOTIPADOS",
+      "type": "concept"
+    },
+    {
+      "id": "POPULACAO-NEURONAL",
+      "type": "concept"
+    },
+    {
+      "id": "DURANTE-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "DURANTE-FALA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "DURANTE-ESTIMULO",
+      "type": "concept"
+    },
+    {
+      "id": "ANALISE-POPULACIONAL",
+      "type": "concept"
+    },
+    {
+      "id": "PADROES-NEURONIO-UNICO",
+      "type": "concept"
+    },
+    {
+      "id": "AJUSTE-REGRESSAO-LINEAR",
+      "type": "concept"
+    },
+    {
+      "id": "DEFINIR-TUNING-NEURONAL",
+      "type": "concept"
+    },
+    {
+      "id": "TUNING-NEURONAL",
+      "type": "concept"
+    },
+    {
+      "id": "TAREFA-ESCRITA",
+      "type": "concept"
+    },
+    {
+      "id": "TUNING-NEURONAL-S1",
+      "type": "concept"
+    },
+    {
+      "id": "ESTIMULO",
+      "type": "concept"
+    },
+    {
+      "id": "PADROES-ATIVACAO-GENERALIZADOS",
+      "type": "concept"
+    },
+    {
+      "id": "PALAVRAS-INDIVIDUAIS",
+      "type": "concept"
+    },
+    {
+      "id": "ANALISE-DPCA",
+      "type": "concept"
+    },
+    {
+      "id": "VARIABILIDADE-NEURONAL",
+      "type": "concept"
+    },
+    {
+      "id": "DPCA",
+      "type": "concept"
+    },
+    {
+      "id": "VARIANCIA-TEMPORAL",
+      "type": "concept"
+    },
+    {
+      "id": "VARIANCIA-MODALIDADE-ESTIMULO",
+      "type": "concept"
+    },
+    {
+      "id": "VARIANCIA-PALAVRA",
+      "type": "concept"
+    },
+    {
+      "id": "COMPONENTE-TEMPORAL",
+      "type": "concept"
+    },
+    {
+      "id": "COMPONENTE-TEMPORAL-S1",
+      "type": "concept"
+    },
+    {
+      "id": "COMPONENTE-MODALIDADE-ESTIMULO",
+      "type": "concept"
+    },
+    {
+      "id": "REPRESENTACAO-PALAVRA",
+      "type": "concept"
+    },
+    {
+      "id": "TODAS-FASES",
+      "type": "concept"
+    },
+    {
+      "id": "FASES-DE-ESTIMULO",
+      "type": "concept"
+    },
+    {
+      "id": "CLASSIFICACAO-INTER-FASE",
+      "type": "concept"
+    },
+    {
+      "id": "GENERALIZABILIDADE-MODELO",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-VOCALIZADA-E-ESCRITA",
+      "type": "concept"
+    },
+    {
+      "id": "AUDIO-ESTIMULO",
+      "type": "concept"
+    },
+    {
+      "id": "NEURONIOS-TUNED_A-PALAVRAS",
+      "type": "concept"
+    },
+    {
+      "id": "ENTRE-FASES",
+      "type": "concept"
+    },
+    {
+      "id": "PORCENTAGEM-NEURONIOS-TUNED",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-INTERNA-E-FALA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-INTERNA-E-ESCRITA",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-INTERNA-E-AUDIO",
+      "type": "concept"
+    },
+    {
+      "id": "IMAGINACAO-SOM",
+      "type": "concept"
+    },
+    {
+      "id": "IMAGINACAO-VISUAL",
+      "type": "concept"
+    },
+    {
+      "id": "DECODIFICACAO-ESTRATEGIA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "ESTRATEGIA-SOM",
+      "type": "concept"
+    },
+    {
+      "id": "CONTAMINACAO-AUDIO",
+      "type": "concept"
+    },
+    {
+      "id": "ESTUDOS-ANTERIORES",
+      "type": "concept"
+    },
+    {
+      "id": "MODULACAO-NEURONAL-UNICA",
+      "type": "concept"
+    },
+    {
+      "id": "ATIVIDADE-NEURONAL-S1",
+      "type": "concept"
+    },
+    {
+      "id": "REPRESENTACAO-NEURAL-COMPARTIDA",
+      "type": "concept"
+    },
+    {
+      "id": "PROCESSOS-COGNITIVOS-COMUNS",
+      "type": "concept"
+    },
+    {
+      "id": "LEITURA-SILENCIOSA",
+      "type": "concept"
+    },
+    {
+      "id": "DISPOSITIVO-BMI-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "FLEXIBILIDADE-ESTRATEGIA",
+      "type": "concept"
+    },
+    {
+      "id": "BMI-FALA-INTERNA-ONLINE",
+      "type": "concept"
+    },
+    {
+      "id": "TREINAMENTO-BMI",
+      "type": "concept"
+    },
+    {
+      "id": "POUCOS-MINUTOS-POR-DIA",
+      "type": "concept"
+    },
+    {
+      "id": "BMI-SPELTER",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-TENTADA",
+      "type": "concept"
+    },
+    {
+      "id": "VOCABULARIO-ILIMITADO",
+      "type": "concept"
+    },
+    {
+      "id": "IMPLANTES-SMG-E-S1",
+      "type": "concept"
+    },
+    {
+      "id": "TAREFAS-fMRI-DE-AGARRE",
+      "type": "concept"
+    },
+    {
+      "id": "LOCALIZACAO-IMPLANTE-IDEAL",
+      "type": "concept"
+    },
+    {
+      "id": "AVALIACAO-ATIVIDADE-LINGUAGEM",
+      "type": "concept"
+    },
+    {
+      "id": "ESTUDO-IMAGEM-ANTERIOR",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-INTERNA-SENTENCAS",
+      "type": "concept"
+    },
+    {
+      "id": "BMI-SEM-MOVIMENTO",
+      "type": "concept"
+    },
+    {
+      "id": "OPORTUNIDADES-COMUNICACAO",
+      "type": "concept"
+    },
+    {
+      "id": "ATIVIDADE-LABIAL-FACIAL",
+      "type": "concept"
+    },
+    {
+      "id": "AREA-S1",
+      "type": "concept"
+    },
+    {
+      "id": "DEBATIDA",
+      "type": "concept"
+    },
+    {
+      "id": "NEURONIOS-TUNED_A-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "NEURONIOS-TUNED_A-FALA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "ASSINATURAS-NEURAIS",
+      "type": "concept"
+    },
+    {
+      "id": "MODELOS-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "PRODUCOES-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "PROCESSOS-COGNITIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "REGIOES-CORTICAL-SIMILARES",
+      "type": "concept"
+    },
+    {
+      "id": "ATIVACAO-SMG-ESQUERDO",
+      "type": "concept"
+    },
+    {
+      "id": "INTENSIDADE-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "PROSÓDIA-AUMENTADA",
+      "type": "concept"
+    },
+    {
+      "id": "CROSS-PHASE-DECODING",
+      "type": "concept"
+    },
+    {
+      "id": "ESCRITA-E-FALA",
+      "type": "concept"
+    },
+    {
+      "id": "ESCRITA-E-FALA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "AUDIO-ESTIMULO-E-FALA-INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "AUDIO-ESTIMULO-E-FALA-VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "FALA-INTERNA-EXPERIMENTOS-ANTERIORES",
+      "type": "concept"
+    },
+    {
+      "id": "PRECISAO-DECODIFICACAO",
+      "type": "concept"
+    },
+    {
+      "id": "INTERFACE_CEREBRO-MAQUINA",
+      "type": "concept"
+    },
+    {
+      "id": "COMUNICACAO_PARA_PESSOAS_COM_PERDA_FALA",
+      "type": "concept"
+    },
+    {
+      "id": "SINAIS_CEREBRAIS_PARA_PALAVRAS",
+      "type": "concept"
+    },
+    {
+      "id": "SINAIS_CEREBRAIS_PARA_AUDIO",
+      "type": "concept"
+    },
+    {
+      "id": "RESULTADOS",
+      "type": "concept"
+    },
+    {
+      "id": "ALTA_FUNCIONALIDADE",
+      "type": "concept"
+    },
+    {
+      "id": "DECODIFICACAO_FALA_INTERNA",
+      "type": "concept"
+    },
+    {
+      "id": "MATRIZ_MICROELETRICA",
+      "type": "concept"
+    },
+    {
+      "id": "Giro_Supramarginal",
+      "type": "concept"
+    },
+    {
+      "id": "Cortex_Somatossensorial_Primario",
+      "type": "concept"
+    },
+    {
+      "id": "REPRESENTACAO_NEURAL_SIGNIFICATIVA",
+      "type": "concept"
+    },
+    {
+      "id": "ATIVIDADE_POPULACIONAL_SMG",
+      "type": "concept"
+    },
+    {
+      "id": "PRECISÃO_DECODIFICACAO_OFFLINE",
+      "type": "concept"
+    },
+    {
+      "id": "NIVEL_ALEATORIO",
+      "type": "concept"
+    },
+    {
+      "id": "PRECISÃO_DECODIFICACAO",
+      "type": "concept"
+    },
+    {
+      "id": "PRECISÃO_DECODIFICACAO_ONLINE",
+      "type": "concept"
+    },
+    {
+      "id": "REPRESENTACAO_NEURAL_COMPARTIDA",
+      "type": "concept"
+    },
+    {
+      "id": "LEITURA_PALAVRAS",
+      "type": "concept"
+    },
+    {
+      "id": "REPRESENTACAO_FONETICA",
+      "type": "concept"
+    },
+    {
       "id": "ATIVIDADE_S1",
       "type": "concept"
     },
@@ -161,11 +909,19 @@
       "type": "concept"
     },
     {
+      "id": "PRODUCAO_FALA_INTERNA",
+      "type": "concept"
+    },
+    {
       "id": "TRABALHO",
       "type": "concept"
     },
     {
-      "id": "INTERFACE_CEREBRO-MAQUINA_FALA_INTERNA",
+      "id": "BMIS_FALA_INTERNA_ALTA_PERFORMANCE",
+      "type": "concept"
+    },
+    {
+      "id": "DOENCA_NEUROLOGICA",
       "type": "concept"
     },
     {
@@ -173,15 +929,35 @@
       "type": "concept"
     },
     {
-      "id": "CAMINHO_TECNOLOGICO",
+      "id": "PARALISIA_CORPORAL_TOTAL",
       "type": "concept"
     },
     {
-      "id": "COMUNICACAO_PARA_PESSOAS_SEM_FALA",
+      "id": "AUSENCIA_MEIOS_COMUNICACAO",
       "type": "concept"
     },
     {
-      "id": "METODOS_NAO_INVASIVOS",
+      "id": "PACIENTES_ALS",
+      "type": "concept"
+    },
+    {
+      "id": "PERDA_FALA_COMO_PREOCUPACAO_SERIA",
+      "type": "concept"
+    },
+    {
+      "id": "BMIS",
+      "type": "concept"
+    },
+    {
+      "id": "CAMINHO_TECNOLOGICO_PROMISING",
+      "type": "concept"
+    },
+    {
+      "id": "AVANCOS",
+      "type": "concept"
+    },
+    {
+      "id": "IMAGEM_RESSONANCIA_MAGNETICA_FUNCIONAL",
       "type": "concept"
     },
     {
@@ -189,15 +965,31 @@
       "type": "concept"
     },
     {
-      "id": "GRAVACAO_INTRACORTICAL",
+      "id": "ELETROENCEFALOGRAFIA",
       "type": "concept"
     },
     {
-      "id": "ALTA_RESOLUCAO",
+      "id": "RAZAO_SINAL_RUÍDO",
       "type": "concept"
     },
     {
-      "id": "ALTA_RESOLUCAO_TEMPORAL",
+      "id": "PORTABILIDADE",
+      "type": "concept"
+    },
+    {
+      "id": "GRAVACAO_ELETROFISIOLOGICA_INTRACORTICAL",
+      "type": "concept"
+    },
+    {
+      "id": "RAZAO_SINAL_RUÍDO_ALTA",
+      "type": "concept"
+    },
+    {
+      "id": "RESOLUCAO_TEMPORAL_EXCELENTE",
+      "type": "concept"
+    },
+    {
+      "id": "DISPOSITIVO_DECODIFICACAO_FALA_INTERNA",
       "type": "concept"
     },
     {
@@ -205,11 +997,7 @@
       "type": "concept"
     },
     {
-      "id": "ECOG",
-      "type": "concept"
-    },
-    {
-      "id": "MATRIZES_PROFUNDAS_ESTEREOTAXICAS",
+      "id": "MATRIZES_PROFUNDIDADE_ESTEREOTAXICA",
       "type": "concept"
     },
     {
@@ -221,27 +1009,55 @@
       "type": "concept"
     },
     {
-      "id": "REGIOES_CORTICAIS_LOCALIZADAS",
+      "id": "DECODIFICACAO_FALA_TENTADA",
       "type": "concept"
     },
     {
-      "id": "NEUROPROTESES_FALA",
+      "id": "RECONSTRUCAO_FALA",
       "type": "concept"
     },
     {
-      "id": "MATRIZES_MICROELETRICAS",
+      "id": "REGIOES_CORTICAL_LOCALIZADAS",
       "type": "concept"
     },
     {
-      "id": "ALTA_PRECISÃO",
+      "id": "ELETRDO_NEUROTROFICO",
       "type": "concept"
     },
     {
-      "id": "BAIXA_PRECISÃO_FALA_INTERNA",
+      "id": "SINTESE_FALA_TEMPO_REAL",
       "type": "concept"
     },
     {
-      "id": "BAIXA_RAZAO_SINAL_RUÍDO",
+      "id": "NEUROPROSTESE_FALA",
+      "type": "concept"
+    },
+    {
+      "id": "MATRIZES_MICROELETRICAS_PEQUENAS",
+      "type": "concept"
+    },
+    {
+      "id": "CORTEX_MOTOR",
+      "type": "concept"
+    },
+    {
+      "id": "CORTEX_PREMOTOR",
+      "type": "concept"
+    },
+    {
+      "id": "BMIS_FALA_VOCALIZADA",
+      "type": "concept"
+    },
+    {
+      "id": "SINAIS_NEURAIS_DE_REGIOES_LOCALIZADAS",
+      "type": "concept"
+    },
+    {
+      "id": "AVANCOS_IMPORTANTES",
+      "type": "concept"
+    },
+    {
+      "id": "DECODIFICACAO_FALA_MIMADA",
       "type": "concept"
     },
     {
@@ -249,373 +1065,49 @@
       "type": "concept"
     },
     {
-      "id": "ESTUDO_ANTERIOR",
+      "id": "BAIXAS_PRECISOES_DECODIFICACAO_FALA_INTERNA",
       "type": "concept"
     },
     {
-      "id": "VOGAIS_FALA_INTERNA",
+      "id": "ESTUDO_ECoG",
       "type": "concept"
     },
     {
-      "id": "CONSOANTES_FALA_INTERNA",
+      "id": "VOGAIS",
       "type": "concept"
     },
     {
-      "id": "PALAVRAS_FALA_INTERNA",
+      "id": "CONSOANTES",
       "type": "concept"
     },
     {
-      "id": "ESTUDOS_ANTERIORES",
+      "id": "REDES_NEURAIS_CONVOLUCIONAIS_3D",
       "type": "concept"
     },
     {
-      "id": "ANALISE_OFFLINE",
+      "id": "SINAIS_DE_ALTA_FREQUENCIA",
       "type": "concept"
     },
     {
-      "id": "ESTUDO_REcente",
+      "id": "BANDAS_BETA",
       "type": "concept"
     },
     {
-      "id": "DECODIFICACAO_FALA_TEMPO_REAL",
+      "id": "VOGAIS_INTERNAS",
       "type": "concept"
     },
     {
-      "id": "PRODUCAO_FALA",
+      "id": "PALAVRAS_INTERNAS",
       "type": "concept"
     },
     {
-      "id": "SUBVOCALIZACAO",
-      "type": "concept"
-    },
-    {
-      "id": "PROCESSAMENTO_FONOLOGICO",
-      "type": "concept"
-    },
-    {
-      "id": "OUVIR_PALAVRA_INTERNAMENTE",
-      "type": "concept"
-    },
-    {
-      "id": "LESÕES_GIRO_SUPRAMARGINAL",
-      "type": "concept"
-    },
-    {
-      "id": "AFASIA",
-      "type": "concept"
-    },
-    {
-      "id": "CONSENSO_GERAL",
-      "type": "concept"
-    },
-    {
-      "id": "SIMILARIDADES_ENTRE_FALA_INTERNA_VOCALIZADA",
-      "type": "concept"
-    },
-    {
-      "id": "PARTICIPANTES",
-      "type": "concept"
-    },
-    {
-      "id": "FALA_INTERNA_E_VOCALIZADA",
-      "type": "concept"
-    },
-    {
-      "id": "PALAVRAS_LEXICAIS",
-      "type": "concept"
-    },
-    {
-      "id": "TESTE_FONETICA",
-      "type": "concept"
-    },
-    {
-      "id": "MOVIMENTO",
-      "type": "concept"
-    },
-    {
-      "id": "HIPOTESE",
-      "type": "concept"
-    },
-    {
-      "id": "MODULADA_FALA_VOCALIZADA",
-      "type": "concept"
-    },
-    {
-      "id": "MODULADA_FALA_INTERNA",
-      "type": "concept"
-    },
-    {
-      "id": "DESIGN_TAREFA",
-      "type": "concept"
-    },
-    {
-      "id": "FASES_LINGUAGEM",
-      "type": "concept"
-    },
-    {
-      "id": "INTERVALO_INTERTRIAL",
-      "type": "concept"
-    },
-    {
-      "id": "FASE_DE_SINAL",
-      "type": "concept"
-    },
-    {
-      "id": "PRIMEIRA_FASE_DELAY",
-      "type": "concept"
-    },
-    {
-      "id": "FASE_FALA_INTERNA",
-      "type": "concept"
-    },
-    {
-      "id": "SEGUNDA_FASE_DELAY",
-      "type": "concept"
-    },
-    {
-      "id": "FASE_FALA_VOCALIZADA",
-      "type": "concept"
-    },
-    {
-      "id": "SINAL_AUDIO",
-      "type": "concept"
-    },
-    {
-      "id": "ESTIMULO_CUE",
-      "type": "concept"
-    },
-    {
-      "id": "PALAVRA_ESCRITA",
-      "type": "concept"
-    },
-    {
-      "id": "NEURONIOS",
-      "type": "concept"
-    },
-    {
-      "id": "MODULACAO_TAXA_DISPARO",
-      "type": "concept"
-    },
-    {
-      "id": "TAXA_DISPARO",
-      "type": "concept"
-    },
-    {
-      "id": "FASES_ATIVAS",
-      "type": "concept"
-    },
-    {
-      "id": "FASES_REPOUSO",
-      "type": "concept"
-    },
-    {
-      "id": "NEURONIOS_SELECIONADOS",
-      "type": "concept"
-    },
-    {
-      "id": "AUMENTO_TAXA_DISPARO",
-      "type": "concept"
-    },
-    {
-      "id": "TAXA_DISPARO_NEURONAL",
-      "type": "concept"
-    },
-    {
-      "id": "PADROES_ATIVACAO_ESTEREO_TIPICOS",
-      "type": "concept"
-    },
-    {
-      "id": "NIVEL_POPULACIONAL",
-      "type": "concept"
-    },
-    {
-      "id": "AMPLITUDE_AUDIO",
-      "type": "concept"
-    },
-    {
-      "id": "NEURONIOS_SMG",
-      "type": "concept"
-    },
-    {
-      "id": "DINAMICA_TEMPORAL",
-      "type": "concept"
-    },
-    {
-      "id": "DINAMICA_TEMPORAL_SMG",
-      "type": "concept"
-    },
-    {
-      "id": "DINAMICA_TEMPORAL_S1",
-      "type": "concept"
-    },
-    {
-      "id": "AUSENCIA_MOVIMENTO_FACIAL",
-      "type": "concept"
-    },
-    {
-      "id": "COMPONENTES_MODALIDADE_CUE",
-      "type": "concept"
-    },
-    {
-      "id": "REPRESENTACAO_FALA_INTERNA",
-      "type": "concept"
-    },
-    {
-      "id": "MODALIDADE_CUE",
-      "type": "concept"
-    },
-    {
-      "id": "ASPECTOS_LINGUISTICOS",
-      "type": "concept"
-    },
-    {
-      "id": "MUDANCAS_TEMPORAIS",
-      "type": "concept"
-    },
-    {
-      "id": "MODALIDADE_DE_ENTRADA",
-      "type": "concept"
-    },
-    {
-      "id": "PALAVRAS_UNICAS",
-      "type": "concept"
-    },
-    {
-      "id": "ANALISE_DPCA",
-      "type": "concept"
-    },
-    {
-      "id": "DECOMPOSICAO_VARIANCIA",
-      "type": "concept"
-    },
-    {
-      "id": "DPCA",
-      "type": "concept"
-    },
-    {
-      "id": "COMPONENTES_LINGUISTICOS",
-      "type": "concept"
-    },
-    {
-      "id": "AJUSTE_TEMPORAL_SMG",
-      "type": "concept"
-    },
-    {
-      "id": "AJUSTE_TEMPORAL_S1",
-      "type": "concept"
-    },
-    {
-      "id": "REPRESENTACAO_PALAVRA_REDUZIDA",
-      "type": "concept"
-    },
-    {
-      "id": "DECODIFICACAO_PALAVRA",
-      "type": "concept"
-    },
-    {
-      "id": "TODAS_FASES_ATIVAS",
-      "type": "concept"
-    },
-    {
-      "id": "FASE_ITI",
-      "type": "concept"
-    },
-    {
-      "id": "TREINAMENTO_MINIMO",
-      "type": "concept"
-    },
-    {
-      "id": "16_A_20_ENSAIOS_POR_PALAVRA",
-      "type": "concept"
-    },
-    {
-      "id": "79_PORCENTO_PRECISAO",
-      "type": "concept"
-    },
-    {
-      "id": "74_PORCENTO_PRECISAO",
-      "type": "concept"
-    },
-    {
-      "id": "DECODIFICACAO_FALA_INTERNA_PARTICIPANTE_2",
-      "type": "concept"
-    },
-    {
-      "id": "DECODIFICACAO_ONLINE",
-      "type": "concept"
-    },
-    {
-      "id": "DECODIFICACAO_ONLINE_PARTICIPANTE_2",
-      "type": "concept"
-    },
-    {
-      "id": "23_PORCENTO_PRECISAO",
-      "type": "concept"
-    },
-    {
-      "id": "NEURONIOS_TUNED_FALA_INTERNA",
-      "type": "concept"
-    },
-    {
-      "id": "PALAVRAS_IDENTICAS",
-      "type": "concept"
-    },
-    {
-      "id": "CLASSIFICACAO_CROSS_PHASE",
-      "type": "concept"
-    },
-    {
-      "id": "GENERALIZABILIDADE",
-      "type": "concept"
-    },
-    {
-      "id": "MODELO_TREINADO_FALA_INTERNA",
-      "type": "concept"
-    },
-    {
-      "id": "MODELO_TREINADO_FALA_VOCALIZADA",
-      "type": "concept"
-    },
-    {
-      "id": "MODELO_TREINADO_PALAVRA_ESCRITA",
-      "type": "concept"
-    },
-    {
-      "id": "ESTRATÉGIA_IMAGINACAO_SOM",
-      "type": "concept"
-    },
-    {
-      "id": "CONDIÇÃO_FALA_INTERNA",
-      "type": "concept"
-    },
-    {
-      "id": "ESTRATÉGIA_IMAGINACAO_VISUAL",
-      "type": "concept"
-    },
-    {
-      "id": "CONTAMINACAO_AUDIO",
-      "type": "concept"
-    },
-    {
-      "id": "MODULACAO_NEURONAL_UNICA",
-      "type": "concept"
-    },
-    {
-      "id": "MENOR_NUMERO_NEURONIOS",
-      "type": "concept"
-    },
-    {
-      "id": "MENOR_VARIANCIA_EXPLICADA",
-      "type": "concept"
-    },
-    {
-      "id": "ATIVIDADE_NEURONAL_S1",
+      "id": "MATRIZES_ECoG",
       "type": "concept"
     }
   ],
   "relations": [
     {
-      "subject": "GIRO_SUPRAMARGINAL",
+      "subject": "SMG",
       "predicate": "E_UM",
       "object": "AREA_CEREBRAL",
       "provenance": "user",
@@ -623,7 +1115,7 @@
       "label": "E_UM"
     },
     {
-      "subject": "GIRO_SUPRAMARGINAL",
+      "subject": "SMG",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -631,31 +1123,23 @@
       "label": "tem fonte"
     },
     {
-      "subject": "GIRO_SUPRAMARGINAL",
-      "predicate": "LOCAL_DE_IMPLANTE",
-      "object": "MICROELETRODO",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "LOCAL_DE_IMPLANTE"
-    },
-    {
-      "subject": "GIRO_SUPRAMARGINAL",
-      "predicate": "POSSUI",
-      "object": "REPRESENTACAO_NEURONAL",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "POSSUI"
-    },
-    {
-      "subject": "GIRO_SUPRAMARGINAL",
+      "subject": "SMG",
       "predicate": "REPRESENTA",
-      "object": "PSEUDOPALAVRAS",
+      "object": "FALA_INTERNA",
       "provenance": "user",
       "category": "ONTOLOGY",
       "label": "REPRESENTA"
     },
     {
-      "subject": "GIRO_SUPRAMARGINAL",
+      "subject": "SMG",
+      "predicate": "REPRESENTA",
+      "object": "FALA_VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "REPRESENTA"
+    },
+    {
+      "subject": "SMG",
       "predicate": "POSSUI",
       "object": "CODIFICACAO_FONETICA",
       "provenance": "user",
@@ -663,23 +1147,47 @@
       "label": "POSSUI"
     },
     {
-      "subject": "GIRO_SUPRAMARGINAL",
-      "predicate": "AREA_PARA",
-      "object": "DECODIFICACAO_FALA_VOCALIZADA",
+      "subject": "SMG",
+      "predicate": "POSSUI",
+      "object": "REPRESENTACAO_TEMPORAL",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "AREA_PARA"
+      "label": "POSSUI"
     },
     {
-      "subject": "GIRO_SUPRAMARGINAL",
-      "predicate": "ENVOLVIDO_EM",
-      "object": "PRODUCAO_FALA",
+      "subject": "SMG",
+      "predicate": "REPRESENTA",
+      "object": "PALAVRAS",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "ENVOLVIDO_EM"
+      "label": "REPRESENTA"
     },
     {
-      "subject": "GIRO_SUPRAMARGINAL",
+      "subject": "SMG",
+      "predicate": "REPRESENTA",
+      "object": "PSEUDOPALAVRAS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "REPRESENTA"
+    },
+    {
+      "subject": "SMG",
+      "predicate": "LOCAL_DE-IMPLANTE",
+      "object": "ARRAY-MICROELETRODO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "LOCAL_DE-IMPLANTE"
+    },
+    {
+      "subject": "SMG",
+      "predicate": "ATIVO_DURANTE",
+      "object": "PRODUCAO-FALA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ATIVO_DURANTE"
+    },
+    {
+      "subject": "SMG",
       "predicate": "ENVOLVIDO_EM",
       "object": "SUBVOCALIZACAO",
       "provenance": "user",
@@ -687,39 +1195,55 @@
       "label": "ENVOLVIDO_EM"
     },
     {
-      "subject": "GIRO_SUPRAMARGINAL",
-      "predicate": "MODULACAO_ALTA_FREQUENCIA",
-      "object": "FALA_INTERNA",
+      "subject": "SMG",
+      "predicate": "MODULADO_DURANTE",
+      "object": "FALA-VOCALIZADA",
       "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "MODULACAO_ALTA_FREQUENCIA"
+      "category": "CAUSAL",
+      "label": "MODULADO_DURANTE"
     },
     {
-      "subject": "GIRO_SUPRAMARGINAL",
+      "subject": "SMG",
+      "predicate": "MODULADO_DURANTE",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "MODULADO_DURANTE"
+    },
+    {
+      "subject": "SMG",
       "predicate": "ENVOLVIDO_EM",
-      "object": "PROCESSAMENTO_FONOLOGICO",
+      "object": "PROCESSAMENTO-FONOLOGICO",
       "provenance": "user",
       "category": "ONTOLOGY",
       "label": "ENVOLVIDO_EM"
     },
     {
-      "subject": "GIRO_SUPRAMARGINAL",
-      "predicate": "REPRESENTA",
-      "object": "ASPECTOS_LINGUISTICOS",
+      "subject": "SMG",
+      "predicate": "CONTRIBUI_PARA",
+      "object": "DECODIFICACAO-FALA-VOCALIZADA",
       "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "REPRESENTA"
+      "category": "METHODOLOGY",
+      "label": "CONTRIBUI_PARA"
     },
     {
-      "subject": "FALA_INTERNA",
-      "predicate": "E_UM",
-      "object": "PROCESSO_LINGUISTICO",
+      "subject": "SMG",
+      "predicate": "CANDIDATO_PROMISSO_PARA",
+      "object": "DISPOSITIVO-BMI-FALA-INTERNA",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "E_UM"
+      "label": "CANDIDATO_PROMISSO_PARA"
     },
     {
-      "subject": "FALA_INTERNA",
+      "subject": "AREA_CEREBRAL",
+      "predicate": "NAO_CLARA",
+      "object": "DECODIFICACAO_FALA_INTERNA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "NAO_CLARA"
+    },
+    {
+      "subject": "AREA_CEREBRAL",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -727,23 +1251,7 @@
       "label": "tem fonte"
     },
     {
-      "subject": "FALA_VOCALIZADA",
-      "predicate": "E_UM",
-      "object": "PROCESSO_LINGUISTICO",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "E_UM"
-    },
-    {
-      "subject": "FALA_VOCALIZADA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "CORTEX_SOMATOSSENSORIAL_PRIMARIO",
+      "subject": "S1",
       "predicate": "E_UM",
       "object": "AREA_CEREBRAL",
       "provenance": "user",
@@ -751,7 +1259,7 @@
       "label": "E_UM"
     },
     {
-      "subject": "CORTEX_SOMATOSSENSORIAL_PRIMARIO",
+      "subject": "S1",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -759,31 +1267,63 @@
       "label": "tem fonte"
     },
     {
-      "subject": "CORTEX_SOMATOSSENSORIAL_PRIMARIO",
-      "predicate": "LOCAL_DE_IMPLANTE",
-      "object": "MICROELETRODO",
+      "subject": "S1",
+      "predicate": "MODULADA_POR",
+      "object": "FALA_VOCALIZADA",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "LOCAL_DE_IMPLANTE"
+      "category": "ONTOLOGY",
+      "label": "MODULADA_POR"
     },
     {
-      "subject": "CORTEX_SOMATOSSENSORIAL_PRIMARIO",
-      "predicate": "CONTROLE_PARA",
-      "object": "MOVIMENTO",
+      "subject": "S1",
+      "predicate": "NAO_MODULADA_POR",
+      "object": "FALA_INTERNA",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "CONTROLE_PARA"
+      "category": "ONTOLOGY",
+      "label": "NAO_MODULADA_POR"
     },
     {
-      "subject": "INTERFACE_CEREBRO-MAQUINA",
+      "subject": "S1",
+      "predicate": "POSSUI",
+      "object": "REPRESENTACAO_TEMPORAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "S1",
+      "predicate": "AREA_CEREBRAL",
+      "object": "CONTROLE",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "AREA_CEREBRAL"
+    },
+    {
+      "subject": "S1",
+      "predicate": "MODULADO_POR",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "MODULADO_POR"
+    },
+    {
+      "subject": "S1",
+      "predicate": "NAO-MODULADO_POR",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "NAO-MODULADO_POR"
+    },
+    {
+      "subject": "FALA_INTERNA",
       "predicate": "E_UM",
-      "object": "DISPOSITIVO_TECNOLOGICO",
+      "object": "PROCESSO_LINGUISTICO",
       "provenance": "user",
       "category": "ONTOLOGY",
       "label": "E_UM"
     },
     {
-      "subject": "INTERFACE_CEREBRO-MAQUINA",
+      "subject": "FALA_INTERNA",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -791,79 +1331,39 @@
       "label": "tem fonte"
     },
     {
-      "subject": "INTERFACE_CEREBRO-MAQUINA",
-      "predicate": "PERMITE",
-      "object": "COMUNICACAO",
+      "subject": "FALA_INTERNA",
+      "predicate": "DECODIFICAVEL_EM",
+      "object": "SMG",
       "provenance": "user",
-      "category": "CAUSAL",
-      "label": "PERMITE"
+      "category": "ONTOLOGY",
+      "label": "DECODIFICAVEL_EM"
     },
     {
-      "subject": "INTERFACE_CEREBRO-MAQUINA",
-      "predicate": "OFERECE",
-      "object": "CAMINHO_TECNOLOGICO",
+      "subject": "FALA_INTERNA",
+      "predicate": "DECODIFICACAO_ESPARSA",
+      "object": "RESULTADOS",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "OFERECE"
+      "category": "ONTOLOGY",
+      "label": "DECODIFICACAO_ESPARSA"
     },
     {
-      "subject": "INTERFACE_CEREBRO-MAQUINA",
-      "predicate": "PERMITE",
-      "object": "COMUNICACAO_PARA_PESSOAS_SEM_FALA",
+      "subject": "FALA_INTERNA",
+      "predicate": "NAO_ALCANCADA",
+      "object": "ALTA_FUNCIONALIDADE",
       "provenance": "user",
-      "category": "CAUSAL",
-      "label": "PERMITE"
+      "category": "ONTOLOGY",
+      "label": "NAO_ALCANCADA"
     },
     {
-      "subject": "PERDA_FALA",
-      "predicate": "CAUSADA_POR",
-      "object": "DOENCAS_NEUROLOGICAS",
-      "provenance": "user",
-      "category": "CAUSAL",
-      "label": "CAUSADA_POR"
-    },
-    {
-      "subject": "PERDA_FALA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "PERDA_FALA",
-      "predicate": "CAUSADA_POR",
-      "object": "LESÕES_CEREBRAIS",
-      "provenance": "user",
-      "category": "CAUSAL",
-      "label": "CAUSADA_POR"
-    },
-    {
-      "subject": "DOENCAS_NEUROLOGICAS",
-      "predicate": "CAUSAM",
-      "object": "PERDA_HABILIDADE_FALA",
-      "provenance": "user",
-      "category": "CAUSAL",
-      "label": "CAUSAM"
-    },
-    {
-      "subject": "DOENCAS_NEUROLOGICAS",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "DECODIFICACAO_FALA_INTERNA",
+      "subject": "FALA_VOCALIZADA",
       "predicate": "E_UM",
-      "object": "DESAFIO",
+      "object": "PROCESSO_LINGUISTICO",
       "provenance": "user",
       "category": "ONTOLOGY",
       "label": "E_UM"
     },
     {
-      "subject": "DECODIFICACAO_FALA_INTERNA",
+      "subject": "FALA_VOCALIZADA",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -871,47 +1371,655 @@
       "label": "tem fonte"
     },
     {
-      "subject": "DECODIFICACAO_FALA_INTERNA",
-      "predicate": "PRECISA",
-      "object": "LOCALIZACAO_AREA_CEREBRAL",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "PRECISA"
-    },
-    {
-      "subject": "DECODIFICACAO_FALA_INTERNA",
-      "predicate": "NAO_ALCANCA",
-      "object": "ALTA_PRECISÃO",
+      "subject": "FALA_VOCALIZADA",
+      "predicate": "DECODIFICAVEL_EM",
+      "object": "SMG",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "NAO_ALCANCA"
+      "label": "DECODIFICAVEL_EM"
     },
     {
-      "subject": "DECODIFICACAO_FALA_INTERNA",
+      "subject": "FALA_VOCALIZADA",
+      "predicate": "DECODIFICADA_DE",
+      "object": "REGIOES_CORTICAL_LOCALIZADAS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DECODIFICADA_DE"
+    },
+    {
+      "subject": "DECODIFICADOR_FALA_INTERNA",
+      "predicate": "E_UM",
+      "object": "DISPOSITIVO_BMI",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "E_UM"
+    },
+    {
+      "subject": "DECODIFICADOR_FALA_INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DECODIFICADOR_FALA_INTERNA",
+      "predicate": "ALCANCADO",
+      "object": "79_PORCENTO_ACURACIA_ONLINE",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALCANCADO"
+    },
+    {
+      "subject": "DECODIFICADOR_FALA_INTERNA",
+      "predicate": "ALCANCADO",
+      "object": "55_PORCENTO_ACURACIA_OFFLINE",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALCANCADO"
+    },
+    {
+      "subject": "PARTICIPANTE_1",
+      "predicate": "POSSUI",
+      "object": "IMPLANTE_NEURAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "PARTICIPANTE_1",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PARTICIPANTE_1",
+      "predicate": "ALCANCADO",
+      "object": "79_PORCENTO_ACURACIA_ONLINE",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALCANCADO"
+    },
+    {
+      "subject": "PARTICIPANTE_1",
+      "predicate": "ALCANCADO",
+      "object": "55_PORCENTO_ACURACIA_OFFLINE",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALCANCADO"
+    },
+    {
+      "subject": "PARTICIPANTE_1",
+      "predicate": "POSSUI",
+      "object": "96_CANAL_ARRAY",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "PARTICIPANTE_1",
+      "predicate": "TEM_IMPLANTE",
+      "object": "MATRIZ_MICROELETRICA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "TEM_IMPLANTE"
+    },
+    {
+      "subject": "PARTICIPANTE_1",
+      "predicate": "EXECUTOU",
+      "object": "FALA_INTERNA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "EXECUTOU"
+    },
+    {
+      "subject": "PARTICIPANTE_1",
+      "predicate": "EXECUTOU",
+      "object": "FALA_VOCALIZADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "EXECUTOU"
+    },
+    {
+      "subject": "PARTICIPANTE_1",
+      "predicate": "TEM",
+      "object": "REPRESENTACAO_NEURAL_COMPARTIDA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "TEM"
+    },
+    {
+      "subject": "IMPLANTE_NEURAL",
+      "predicate": "LOCALIZADO_EM",
+      "object": "SMG",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "LOCALIZADO_EM"
+    },
+    {
+      "subject": "IMPLANTE_NEURAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "IMPLANTE_NEURAL",
+      "predicate": "LOCALIZADO_EM",
+      "object": "S1",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "LOCALIZADO_EM"
+    },
+    {
+      "subject": "PARTICIPANTE_2",
+      "predicate": "POSSUI",
+      "object": "IMPLANTE_NEURAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "PARTICIPANTE_2",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PARTICIPANTE_2",
+      "predicate": "ALCANCADO",
+      "object": "23_PORCENTO_ACURACIA_ONLINE",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALCANCADO"
+    },
+    {
+      "subject": "PARTICIPANTE_2",
+      "predicate": "ALCANCADO",
+      "object": "24_PORCENTO_ACURACIA_OFFLINE",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALCANCADO"
+    },
+    {
+      "subject": "PARTICIPANTE_2",
+      "predicate": "POSSUI",
+      "object": "64_CANAL_ARRAY",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "PARTICIPANTE_2",
+      "predicate": "TEM_IMPLANTE",
+      "object": "MATRIZ_MICROELETRICA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "TEM_IMPLANTE"
+    },
+    {
+      "subject": "PARTICIPANTE_2",
+      "predicate": "EXECUTOU",
+      "object": "FALA_INTERNA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "EXECUTOU"
+    },
+    {
+      "subject": "PARTICIPANTE_2",
+      "predicate": "EXECUTOU",
+      "object": "FALA_VOCALIZADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "EXECUTOU"
+    },
+    {
+      "subject": "PALAVRAS",
+      "predicate": "CODIFICADAS_POR",
+      "object": "SMG",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CODIFICADAS_POR"
+    },
+    {
+      "subject": "PALAVRAS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PALAVRAS",
+      "predicate": "APRESENTADAS_COM",
+      "object": "INDIRETAS-AUDIO-OU-ESCRITA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "APRESENTADAS_COM"
+    },
+    {
+      "subject": "PSEUDOPALAVRAS",
+      "predicate": "CODIFICADAS_POR",
+      "object": "SMG",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CODIFICADAS_POR"
+    },
+    {
+      "subject": "PSEUDOPALAVRAS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TAXA_DE_DISPARO_NEURONAL",
+      "predicate": "AUMENTA_DURANTE",
+      "object": "FALA_INTERNA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "AUMENTA_DURANTE"
+    },
+    {
+      "subject": "TAXA_DE_DISPARO_NEURONAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TAXA_DE_DISPARO_NEURONAL",
+      "predicate": "AUMENTA_DURANTE",
+      "object": "FALA_VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "AUMENTA_DURANTE"
+    },
+    {
+      "subject": "TAXA_DE_DISPARO_NEURONAL",
+      "predicate": "DIMINUI_DURANTE",
+      "object": "FASE_REPOUSO",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DIMINUI_DURANTE"
+    },
+    {
+      "subject": "NEUROPORT_ARRAY",
+      "predicate": "UTILIZADO_PARA",
+      "object": "COLETA_DADOS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "UTILIZADO_PARA"
+    },
+    {
+      "subject": "NEUROPORT_ARRAY",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PSYCHOPHYSICS_TOOLBOX",
+      "predicate": "UTILIZADO_PARA",
+      "object": "ANALISE_DADOS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "UTILIZADO_PARA"
+    },
+    {
+      "subject": "PSYCHOPHYSICS_TOOLBOX",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "MATLAB",
+      "predicate": "UTILIZADO_PARA",
+      "object": "ANALISE_DADOS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "UTILIZADO_PARA"
+    },
+    {
+      "subject": "MATLAB",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PYTHON",
+      "predicate": "UTILIZADO_PARA",
+      "object": "ANALISE_DADOS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "UTILIZADO_PARA"
+    },
+    {
+      "subject": "PYTHON",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DPC_ANALISE",
+      "predicate": "UTILIZADO_PARA",
+      "object": "IDENTIFICAR_REPRESENTACAO_NEURAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "UTILIZADO_PARA"
+    },
+    {
+      "subject": "DPC_ANALISE",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ESTRATEGIAS_FALA_INTERNA",
+      "predicate": "DECODIFICAVEIS_EM",
+      "object": "SMG",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DECODIFICAVEIS_EM"
+    },
+    {
+      "subject": "ESTRATEGIAS_FALA_INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "IMAGINACAO_SONORA",
+      "predicate": "E_UM",
+      "object": "ESTRATEGIA_FALA_INTERNA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "E_UM"
+    },
+    {
+      "subject": "IMAGINACAO_SONORA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "IMAGINACAO_VISUAL",
+      "predicate": "E_UM",
+      "object": "ESTRATEGIA_FALA_INTERNA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "E_UM"
+    },
+    {
+      "subject": "IMAGINACAO_VISUAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ESTUDO_CLINICO",
+      "predicate": "APROVADO_POR",
+      "object": "IRB",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "APROVADO_POR"
+    },
+    {
+      "subject": "ESTUDO_CLINICO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PARTICIPANTES",
+      "predicate": "RECRUTADOS_POR",
+      "object": "HOSPITAIS_COLABORADORES",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "RECRUTADOS_POR"
+    },
+    {
+      "subject": "PARTICIPANTES",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DADOS_CLINICOS",
+      "predicate": "DISPONIVEIS_EM",
+      "object": "CLINICALTRIALS_GOV",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "DISPONIVEIS_EM"
+    },
+    {
+      "subject": "DADOS_CLINICOS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "CODIGO_FONTE_CUSTOMIZADO",
+      "predicate": "DISPONIVEL_EM",
+      "object": "ZENODO",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "DISPONIVEL_EM"
+    },
+    {
+      "subject": "CODIGO_FONTE_CUSTOMIZADO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DADOS_DE_ESTUDO",
+      "predicate": "DISPONIVEIS_EM",
+      "object": "ZENODO",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "DISPONIVEIS_EM"
+    },
+    {
+      "subject": "DADOS_DE_ESTUDO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "SUSTENTACULO",
+      "predicate": "E_UM",
+      "object": "AREA_CEREBRAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "E_UM"
+    },
+    {
+      "subject": "SUSTENTACULO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "SUSTENTACULO",
+      "predicate": "LOCALIZADO_EM",
+      "object": "GIRO-SUPRAMARGINAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "LOCALIZADO_EM"
+    },
+    {
+      "subject": "GIRO-SUPRAMARGINAL",
+      "predicate": "PARTE_DE",
+      "object": "LOBO-PARIETAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PARTE_DE"
+    },
+    {
+      "subject": "GIRO-SUPRAMARGINAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "FALA-INTERNA",
+      "predicate": "PROCESSO_NEURAL",
+      "object": "ATIVIDADE-CEREBRAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PROCESSO_NEURAL"
+    },
+    {
+      "subject": "FALA-INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "FALA-INTERNA",
+      "predicate": "E-FALA-VOCALIZADA",
+      "object": "RELACAO-DEBATIDA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "E-FALA-VOCALIZADA"
+    },
+    {
+      "subject": "DECODIFICACAO-FALA-INTERNA",
+      "predicate": "ALVO_DE",
+      "object": "SISTEMA-BMI",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALVO_DE"
+    },
+    {
+      "subject": "DECODIFICACAO-FALA-INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DECODIFICACAO-FALA-INTERNA",
       "predicate": "PRECISA",
-      "object": "TREINAMENTO_MINIMO",
+      "object": "ATIVIDADE-NEURONAL-SMG",
       "provenance": "user",
       "category": "METHODOLOGY",
       "label": "PRECISA"
     },
     {
-      "subject": "DECODIFICACAO_FALA_INTERNA",
+      "subject": "DECODIFICACAO-FALA-INTERNA",
       "predicate": "ALCANCA",
-      "object": "79_PORCENTO_PRECISAO",
+      "object": "PRECISAO-79-PORCENTO",
       "provenance": "user",
       "category": "METHODOLOGY",
       "label": "ALCANCA"
     },
     {
-      "subject": "PARTICIPANTE_1",
-      "predicate": "POSSUI",
-      "object": "IMPLANTE_MICROELETRODO",
+      "subject": "DECODIFICACAO-FALA-INTERNA",
+      "predicate": "ALCANCA",
+      "object": "PRECISAO-23-PORCENTO",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "POSSUI"
+      "label": "ALCANCA"
     },
     {
-      "subject": "PARTICIPANTE_1",
+      "subject": "DECODIFICACAO-FALA-INTERNA",
+      "predicate": "EM-TEMPO-REAL",
+      "object": "DEMONSTRADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "EM-TEMPO-REAL"
+    },
+    {
+      "subject": "DECODIFICACAO-FALA-INTERNA",
+      "predicate": "SIGNIFICATIVA_EM",
+      "object": "TODAS-FASES",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "SIGNIFICATIVA_EM"
+    },
+    {
+      "subject": "DECODIFICACAO-FALA-INTERNA",
+      "predicate": "MAIS-ALTA_EM",
+      "object": "FASES-ATIVAS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "MAIS-ALTA_EM"
+    },
+    {
+      "subject": "DECODIFICACAO-FALA-INTERNA",
+      "predicate": "MAIS-ALTA_EM",
+      "object": "FASES-DE-ESTIMULO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "MAIS-ALTA_EM"
+    },
+    {
+      "subject": "DECODIFICACAO-FALA-INTERNA",
+      "predicate": "MAIS-ALTA_EM",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "MAIS-ALTA_EM"
+    },
+    {
+      "subject": "DECODIFICACAO-FALA-INTERNA",
+      "predicate": "MAIS-ALTA_EM",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "MAIS-ALTA_EM"
+    },
+    {
+      "subject": "SISTEMA-BMI",
+      "predicate": "UTILIZA",
+      "object": "ATIVIDADE-NEURONAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "UTILIZA"
+    },
+    {
+      "subject": "SISTEMA-BMI",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -919,47 +2027,15 @@
       "label": "tem fonte"
     },
     {
-      "subject": "PARTICIPANTE_1",
-      "predicate": "EXECUTOU",
-      "object": "FALA_INTERNA",
+      "subject": "ATIVIDADE-NEURONAL",
+      "predicate": "REGISTRADA_POR",
+      "object": "ARRAY-MICROELETRODO",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "EXECUTOU"
+      "label": "REGISTRADA_POR"
     },
     {
-      "subject": "PARTICIPANTE_1",
-      "predicate": "EXECUTOU",
-      "object": "FALA_VOCALIZADA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "EXECUTOU"
-    },
-    {
-      "subject": "PARTICIPANTE_1",
-      "predicate": "DEMONSTROU",
-      "object": "AJUSTE_TEMPORAL_SMG",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "DEMONSTROU"
-    },
-    {
-      "subject": "PARTICIPANTE_1",
-      "predicate": "DEMONSTROU",
-      "object": "AJUSTE_TEMPORAL_S1",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "DEMONSTROU"
-    },
-    {
-      "subject": "PARTICIPANTE_2",
-      "predicate": "POSSUI",
-      "object": "IMPLANTE_MICROELETRODO",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "POSSUI"
-    },
-    {
-      "subject": "PARTICIPANTE_2",
+      "subject": "ATIVIDADE-NEURONAL",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -967,39 +2043,1615 @@
       "label": "tem fonte"
     },
     {
-      "subject": "PARTICIPANTE_2",
-      "predicate": "EXECUTOU",
-      "object": "FALA_INTERNA",
+      "subject": "ARRAY-MICROELETRODO",
+      "predicate": "IMPLANTADO_EM",
+      "object": "AREA_CEREBRAL",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "EXECUTOU"
+      "label": "IMPLANTADO_EM"
     },
     {
-      "subject": "PARTICIPANTE_2",
-      "predicate": "EXECUTOU",
-      "object": "FALA_VOCALIZADA",
+      "subject": "ARRAY-MICROELETRODO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "AREA-PRIMARIA-SOMATOSSENSORIAL",
+      "predicate": "CONTROLE_PARA",
+      "object": "MOVIMENTO",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CONTROLE_PARA"
+    },
+    {
+      "subject": "AREA-PRIMARIA-SOMATOSSENSORIAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "FALA-VOCALIZADA",
+      "predicate": "PROCESSO_NEURAL",
+      "object": "ATIVIDADE-CEREBRAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PROCESSO_NEURAL"
+    },
+    {
+      "subject": "FALA-VOCALIZADA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PARTICIPANTE-1",
+      "predicate": "POSSUI",
+      "object": "IMPLANTE-SMG",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "PARTICIPANTE-1",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PARTICIPANTE-1",
+      "predicate": "POSSUI",
+      "object": "IMPLANTE-S1",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "PARTICIPANTE-2",
+      "predicate": "POSSUI",
+      "object": "IMPLANTE-SMG",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "PARTICIPANTE-2",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PARTICIPANTE-2",
+      "predicate": "POSSUI",
+      "object": "IMPLANTE-S1",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "DECODIFICACAO-FALA-VOCALIZADA",
+      "predicate": "PRECISA",
+      "object": "ATIVIDADE-NEURONAL-SMG",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "EXECUTOU"
+      "label": "PRECISA"
     },
     {
-      "subject": "PARTICIPANTE_2",
-      "predicate": "DEMONSTROU",
-      "object": "AJUSTE_TEMPORAL_SMG",
+      "subject": "DECODIFICACAO-FALA-VOCALIZADA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DECODIFICACAO-PALAVRA",
+      "predicate": "ALCANCA",
+      "object": "PRECISAO-55-PORCENTO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALCANCA"
+    },
+    {
+      "subject": "DECODIFICACAO-PALAVRA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DECODIFICACAO-PALAVRA",
+      "predicate": "ALCANCA",
+      "object": "PRECISAO-24-PORCENTO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALCANCA"
+    },
+    {
+      "subject": "NIVEL-NEURONAL-UNICO",
+      "predicate": "MOSTRA",
+      "object": "REPRESENTACAO-FALA-INTERNA",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "DEMONSTROU"
+      "label": "MOSTRA"
     },
     {
-      "subject": "PARTICIPANTE_2",
-      "predicate": "DEMONSTROU",
-      "object": "AJUSTE_TEMPORAL_S1",
+      "subject": "NIVEL-NEURONAL-UNICO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "REPRESENTACAO-FALA-INTERNA",
+      "predicate": "EM-SMG",
+      "object": "EXISTE",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "DEMONSTROU"
+      "label": "EM-SMG"
     },
     {
-      "subject": "ATIVIDADE_NEURONAL",
+      "subject": "REPRESENTACAO-FALA-INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "NIVEL-POPULACIONAL",
+      "predicate": "MOSTRA",
+      "object": "REPRESENTACAO-FALA-INTERNA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "MOSTRA"
+    },
+    {
+      "subject": "NIVEL-POPULACIONAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "CODIFICACAO-FONETICA",
+      "predicate": "OCORRE_EM",
+      "object": "SMG",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "OCORRE_EM"
+    },
+    {
+      "subject": "CODIFICACAO-FONETICA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "CODIFICACAO-FONETICA",
+      "predicate": "PRESENTE_EM",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PRESENTE_EM"
+    },
+    {
+      "subject": "CODIFICACAO-FONETICA",
+      "predicate": "PRESENTE_EM",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PRESENTE_EM"
+    },
+    {
+      "subject": "ESTRATEGIAS-FALA-INTERNA",
+      "predicate": "DECODIFICAVEIS_EM",
+      "object": "SMG",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "DECODIFICAVEIS_EM"
+    },
+    {
+      "subject": "ESTRATEGIAS-FALA-INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ESTRATEGIAS-FALA-INTERNA",
+      "predicate": "INCLUEM",
+      "object": "IMAGINACAO-SOM",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "INCLUEM"
+    },
+    {
+      "subject": "ESTRATEGIAS-FALA-INTERNA",
+      "predicate": "INCLUEM",
+      "object": "IMAGINACAO-VISUAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "INCLUEM"
+    },
+    {
+      "subject": "ATIVIDADE-S1",
+      "predicate": "MODULADA_POR",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "MODULADA_POR"
+    },
+    {
+      "subject": "ATIVIDADE-S1",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ATIVIDADE-S1",
+      "predicate": "NAO-MODULADA_POR",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "NAO-MODULADA_POR"
+    },
+    {
+      "subject": "MOVIMENTO-ARTICULATORIO",
+      "predicate": "AUSENTE_DURANTE",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "AUSENTE_DURANTE"
+    },
+    {
+      "subject": "MOVIMENTO-ARTICULATORIO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "INTERFACE-CEREBRO-MAQUINA",
+      "predicate": "PARA-FALA-INTERNA",
+      "object": "PROVA-DE-CONCEITO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "PARA-FALA-INTERNA"
+    },
+    {
+      "subject": "INTERFACE-CEREBRO-MAQUINA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "INTERFACE-CEREBRO-MAQUINA",
+      "predicate": "ALTA-PERFORMANCE",
+      "object": "POTENCIAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALTA-PERFORMANCE"
+    },
+    {
+      "subject": "INTERFACE-CEREBRO-MAQUINA",
+      "predicate": "OFERECE",
+      "object": "CAMINHO-TECNOLOGICO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "OFERECE"
+    },
+    {
+      "subject": "PERDA-DE-FALA",
+      "predicate": "DEVIDO_A",
+      "object": "DOENCAS-NEUROLOGICAS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DEVIDO_A"
+    },
+    {
+      "subject": "PERDA-DE-FALA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PERDA-DE-FALA",
+      "predicate": "PREOCUPACAO-SERIA",
+      "object": "PACIENTES-ALS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PREOCUPACAO-SERIA"
+    },
+    {
+      "subject": "COMUNICACAO",
+      "predicate": "ESSENCIAL_PARA",
+      "object": "HUMANOS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ESSENCIAL_PARA"
+    },
+    {
+      "subject": "COMUNICACAO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ECOG",
+      "predicate": "UTILIZADO_PARA",
+      "object": "AMOSTRAGEM-ATIVIDADE-NEURAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "UTILIZADO_PARA"
+    },
+    {
+      "subject": "ECOG",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ECOG",
+      "predicate": "AMOSTRA",
+      "object": "DIFERENTES-PARTES-DO-CEREBRO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "AMOSTRA"
+    },
+    {
+      "subject": "NEUROPROSTESE-FALA",
+      "predicate": "BASEADA_EM",
+      "object": "ARRAY-MICROELETRODO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "BASEADA_EM"
+    },
+    {
+      "subject": "NEUROPROSTESE-FALA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "AUDIO-RECONSTRUÍDO",
+      "predicate": "PRECISA",
+      "object": "FALA-AUDIVEL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "PRECISA"
+    },
+    {
+      "subject": "AUDIO-RECONSTRUÍDO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TAREFA-RIMAR-PALAVRAS",
+      "predicate": "REQUER",
+      "object": "OUVIR-INTERNAMENTE-PALAVRA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "REQUER"
+    },
+    {
+      "subject": "TAREFA-RIMAR-PALAVRAS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "LESÃO-EM-SMG",
+      "predicate": "ASSOCIADA_A",
+      "object": "AFASIA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "ASSOCIADA_A"
+    },
+    {
+      "subject": "LESÃO-EM-SMG",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PALAVRAS-CORES",
+      "predicate": "DECODIFICAVEIS_DE",
+      "object": "SMG",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "DECODIFICAVEIS_DE"
+    },
+    {
+      "subject": "PALAVRAS-CORES",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "SIMILARIDADES-FALA-INTERNA-VOCALIZADA",
+      "predicate": "FORNECE",
+      "object": "EVIDENCIA-PARA-TRADUZIBILIDADE",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "FORNECE"
+    },
+    {
+      "subject": "SIMILARIDADES-FALA-INTERNA-VOCALIZADA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PARTICIPANTES-TETRAPLEGIA",
+      "predicate": "EXECUTARAM",
+      "object": "FALA-INTERNA-E-VOCALIZADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "EXECUTARAM"
+    },
+    {
+      "subject": "PARTICIPANTES-TETRAPLEGIA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PARTICIPANTES-TETRAPLEGIA",
+      "predicate": "UTILIZARAM",
+      "object": "BMI-FALA-INTERNA-ONLINE",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "UTILIZARAM"
+    },
+    {
+      "subject": "HIPOTESE",
+      "predicate": "ATIVIDADE-SMG-E-S1",
+      "object": "MODULADA_POR-FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ATIVIDADE-SMG-E-S1"
+    },
+    {
+      "subject": "HIPOTESE",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "HIPOTESE",
+      "predicate": "ATIVIDADE-SMG",
+      "object": "MODULADA_POR-FALA-INTERNA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ATIVIDADE-SMG"
+    },
+    {
+      "subject": "DESIGN-TAREFA",
+      "predicate": "INCLUI",
+      "object": "FASE-INTER-TRIAL-INTERVALO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INCLUI"
+    },
+    {
+      "subject": "DESIGN-TAREFA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DESIGN-TAREFA",
+      "predicate": "INCLUI",
+      "object": "FASE-DE-ESTIMULO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INCLUI"
+    },
+    {
+      "subject": "DESIGN-TAREFA",
+      "predicate": "INCLUI",
+      "object": "FASE-DE-DELAY-1",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INCLUI"
+    },
+    {
+      "subject": "DESIGN-TAREFA",
+      "predicate": "INCLUI",
+      "object": "FASE-FALA-INTERNA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INCLUI"
+    },
+    {
+      "subject": "DESIGN-TAREFA",
+      "predicate": "INCLUI",
+      "object": "FASE-DE-DELAY-2",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INCLUI"
+    },
+    {
+      "subject": "DESIGN-TAREFA",
+      "predicate": "INCLUI",
+      "object": "FASE-FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INCLUI"
+    },
+    {
+      "subject": "NEURONIOS-SMG",
+      "predicate": "DEMONSTRARAM",
+      "object": "MODULACAO-TAXA-DISPARO",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DEMONSTRARAM"
+    },
+    {
+      "subject": "NEURONIOS-SMG",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "NEURONIOS-SMG",
+      "predicate": "TUNED_A",
+      "object": "PALAVRAS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "TUNED_A"
+    },
+    {
+      "subject": "NEURONIOS-SMG",
+      "predicate": "MODULAM-TAXA-DISPARO",
+      "object": "DURANTE-FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "MODULAM-TAXA-DISPARO"
+    },
+    {
+      "subject": "NEURONIOS-SMG",
+      "predicate": "MODULAM-TAXA-DISPARO",
+      "object": "DURANTE-FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "MODULAM-TAXA-DISPARO"
+    },
+    {
+      "subject": "NEURONIOS-SMG",
+      "predicate": "MODULAM-TAXA-DISPARO",
+      "object": "DURANTE-ESTIMULO",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "MODULAM-TAXA-DISPARO"
+    },
+    {
+      "subject": "TAXA-DISPARO-NEURONAL",
+      "predicate": "AUMENTA_DURANTE",
+      "object": "FASES-ATIVAS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "AUMENTA_DURANTE"
+    },
+    {
+      "subject": "TAXA-DISPARO-NEURONAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TAXA-DISPARO-NEURONAL",
+      "predicate": "DIMINUI_DURANTE",
+      "object": "FASES-DE-REPOUSO",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIMINUI_DURANTE"
+    },
+    {
+      "subject": "PADROES-ATIVACAO-ESTEREOTIPADOS",
+      "predicate": "EVIDENTES_EM",
+      "object": "POPULACAO-NEURONAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "EVIDENTES_EM"
+    },
+    {
+      "subject": "PADROES-ATIVACAO-ESTEREOTIPADOS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ANALISE-POPULACIONAL",
+      "predicate": "ESPELHA",
+      "object": "PADROES-NEURONIO-UNICO",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ESPELHA"
+    },
+    {
+      "subject": "ANALISE-POPULACIONAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "AJUSTE-REGRESSAO-LINEAR",
+      "predicate": "USADO_PARA",
+      "object": "DEFINIR-TUNING-NEURONAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "USADO_PARA"
+    },
+    {
+      "subject": "AJUSTE-REGRESSAO-LINEAR",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TUNING-NEURONAL",
+      "predicate": "DETERMINADO_POR",
+      "object": "AJUSTE-REGRESSAO-LINEAR",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "DETERMINADO_POR"
+    },
+    {
+      "subject": "TUNING-NEURONAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TUNING-NEURONAL",
+      "predicate": "MAIOR_EM",
+      "object": "PARTICIPANTE-1",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "MAIOR_EM"
+    },
+    {
+      "subject": "TUNING-NEURONAL",
+      "predicate": "MENOR_EM",
+      "object": "PARTICIPANTE-2",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "MENOR_EM"
+    },
+    {
+      "subject": "TAREFA-ESCRITA",
+      "predicate": "USADA_COM",
+      "object": "PARTICIPANTE-2",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "USADA_COM"
+    },
+    {
+      "subject": "TAREFA-ESCRITA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TUNING-NEURONAL-S1",
+      "predicate": "AUMENTA_DURANTE",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "AUMENTA_DURANTE"
+    },
+    {
+      "subject": "TUNING-NEURONAL-S1",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TUNING-NEURONAL-S1",
+      "predicate": "NAO-AUMENTA_DURANTE",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "NAO-AUMENTA_DURANTE"
+    },
+    {
+      "subject": "TUNING-NEURONAL-S1",
+      "predicate": "NAO-AUMENTA_DURANTE",
+      "object": "ESTIMULO",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "NAO-AUMENTA_DURANTE"
+    },
+    {
+      "subject": "PADROES-ATIVACAO-GENERALIZADOS",
+      "predicate": "EM-S1",
+      "object": "DURANTE-FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "EM-S1"
+    },
+    {
+      "subject": "PADROES-ATIVACAO-GENERALIZADOS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PALAVRAS-INDIVIDUAIS",
+      "predicate": "NAO-DECODIFICAVEIS_EM",
+      "object": "S1",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "NAO-DECODIFICAVEIS_EM"
+    },
+    {
+      "subject": "PALAVRAS-INDIVIDUAIS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ANALISE-DPCA",
+      "predicate": "INVESTIGA",
+      "object": "VARIABILIDADE-NEURONAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INVESTIGA"
+    },
+    {
+      "subject": "ANALISE-DPCA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DPCA",
+      "predicate": "EXPLICA",
+      "object": "VARIANCIA-TEMPORAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "EXPLICA"
+    },
+    {
+      "subject": "DPCA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DPCA",
+      "predicate": "EXPLICA",
+      "object": "VARIANCIA-MODALIDADE-ESTIMULO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "EXPLICA"
+    },
+    {
+      "subject": "DPCA",
+      "predicate": "EXPLICA",
+      "object": "VARIANCIA-PALAVRA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "EXPLICA"
+    },
+    {
+      "subject": "COMPONENTE-TEMPORAL",
+      "predicate": "PEAK_DURANTE",
+      "object": "FASES-ATIVAS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PEAK_DURANTE"
+    },
+    {
+      "subject": "COMPONENTE-TEMPORAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "COMPONENTE-TEMPORAL-S1",
+      "predicate": "PEAK_DURANTE",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PEAK_DURANTE"
+    },
+    {
+      "subject": "COMPONENTE-TEMPORAL-S1",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "COMPONENTE-MODALIDADE-ESTIMULO",
+      "predicate": "SEPARAVEL_DURANTE",
+      "object": "FASE-DE-ESTIMULO",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "SEPARAVEL_DURANTE"
+    },
+    {
+      "subject": "COMPONENTE-MODALIDADE-ESTIMULO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "COMPONENTE-MODALIDADE-ESTIMULO",
+      "predicate": "SOBREPOSTO_DURANTE",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "SOBREPOSTO_DURANTE"
+    },
+    {
+      "subject": "COMPONENTE-MODALIDADE-ESTIMULO",
+      "predicate": "SOBREPOSTO_DURANTE",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "SOBREPOSTO_DURANTE"
+    },
+    {
+      "subject": "REPRESENTACAO-PALAVRA",
+      "predicate": "ALTA-VARIABILIDADE_EM",
+      "object": "SMG",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ALTA-VARIABILIDADE_EM"
+    },
+    {
+      "subject": "REPRESENTACAO-PALAVRA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "REPRESENTACAO-PALAVRA",
+      "predicate": "BAIXA-VARIABILIDADE_EM",
+      "object": "S1",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "BAIXA-VARIABILIDADE_EM"
+    },
+    {
+      "subject": "CLASSIFICACAO-INTER-FASE",
+      "predicate": "AVALIA",
+      "object": "GENERALIZABILIDADE-MODELO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "AVALIA"
+    },
+    {
+      "subject": "CLASSIFICACAO-INTER-FASE",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "GENERALIZABILIDADE-MODELO",
+      "predicate": "ALTA_PARA",
+      "object": "FALA-VOCALIZADA-E-ESCRITA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ALTA_PARA"
+    },
+    {
+      "subject": "GENERALIZABILIDADE-MODELO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "GENERALIZABILIDADE-MODELO",
+      "predicate": "MENOR_PARA",
+      "object": "AUDIO-ESTIMULO",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "MENOR_PARA"
+    },
+    {
+      "subject": "NEURONIOS-TUNED_A-PALAVRAS",
+      "predicate": "PRESERVAM-TUNING",
+      "object": "ENTRE-FASES",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PRESERVAM-TUNING"
+    },
+    {
+      "subject": "NEURONIOS-TUNED_A-PALAVRAS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PORCENTAGEM-NEURONIOS-TUNED",
+      "predicate": "ALTA_ENTRE",
+      "object": "FALA-INTERNA-E-FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ALTA_ENTRE"
+    },
+    {
+      "subject": "PORCENTAGEM-NEURONIOS-TUNED",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PORCENTAGEM-NEURONIOS-TUNED",
+      "predicate": "ALTA_ENTRE",
+      "object": "FALA-INTERNA-E-ESCRITA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ALTA_ENTRE"
+    },
+    {
+      "subject": "PORCENTAGEM-NEURONIOS-TUNED",
+      "predicate": "MENOR_ENTRE",
+      "object": "FALA-INTERNA-E-AUDIO",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "MENOR_ENTRE"
+    },
+    {
+      "subject": "IMAGINACAO-VISUAL",
+      "predicate": "PODE-SER-PARTE_DE",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "PODE-SER-PARTE_DE"
+    },
+    {
+      "subject": "IMAGINACAO-VISUAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "IMAGINACAO-VISUAL",
+      "predicate": "PODE-GERAR",
+      "object": "REPRESENTACAO-NEURAL-COMPARTIDA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "PODE-GERAR"
+    },
+    {
+      "subject": "DECODIFICACAO-ESTRATEGIA-INTERNA",
+      "predicate": "ROBUSTA_EM",
+      "object": "SMG",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ROBUSTA_EM"
+    },
+    {
+      "subject": "DECODIFICACAO-ESTRATEGIA-INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ESTRATEGIA-SOM",
+      "predicate": "MAIS-FACIL_PARA",
+      "object": "PARTICIPANTE-1",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "MAIS-FACIL_PARA"
+    },
+    {
+      "subject": "ESTRATEGIA-SOM",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ESTRATEGIA-SOM",
+      "predicate": "MAIS-SIMILAR_A",
+      "object": "FALA-INTERNA-EXPERIMENTOS-ANTERIORES",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "MAIS-SIMILAR_A"
+    },
+    {
+      "subject": "CONTAMINACAO-AUDIO",
+      "predicate": "MITIGADA_EM",
+      "object": "ESTUDOS-ANTERIORES",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "MITIGADA_EM"
+    },
+    {
+      "subject": "CONTAMINACAO-AUDIO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "CONTAMINACAO-AUDIO",
+      "predicate": "AUSENTE_EM",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "AUSENTE_EM"
+    },
+    {
+      "subject": "CONTAMINACAO-AUDIO",
+      "predicate": "NAO-INFLOU",
+      "object": "PRECISAO-DECODIFICACAO",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "NAO-INFLOU"
+    },
+    {
+      "subject": "MODULACAO-NEURONAL-UNICA",
+      "predicate": "OBSERVADA_EM",
+      "object": "PARTICIPANTE-2",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "OBSERVADA_EM"
+    },
+    {
+      "subject": "MODULACAO-NEURONAL-UNICA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ATIVIDADE-NEURONAL-S1",
+      "predicate": "GENERALIZADA_DURANTE",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "GENERALIZADA_DURANTE"
+    },
+    {
+      "subject": "ATIVIDADE-NEURONAL-S1",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "REPRESENTACAO-NEURAL-COMPARTIDA",
+      "predicate": "SUGERE",
+      "object": "PROCESSOS-COGNITIVOS-COMUNS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "SUGERE"
+    },
+    {
+      "subject": "REPRESENTACAO-NEURAL-COMPARTIDA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "REPRESENTACAO-NEURAL-COMPARTIDA",
+      "predicate": "ENTRE-FALA-INTERNA-E-VOCALIZADA",
+      "object": "DEBATIDA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ENTRE-FALA-INTERNA-E-VOCALIZADA"
+    },
+    {
+      "subject": "LEITURA-SILENCIOSA",
+      "predicate": "PODE-ATIVAR",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "PODE-ATIVAR"
+    },
+    {
+      "subject": "LEITURA-SILENCIOSA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "LEITURA-SILENCIOSA",
+      "predicate": "EVOCA",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "EVOCA"
+    },
+    {
+      "subject": "LEITURA-SILENCIOSA",
+      "predicate": "PODE-GERAR",
+      "object": "REPRESENTACAO-NEURAL-COMPARTIDA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "PODE-GERAR"
+    },
+    {
+      "subject": "DISPOSITIVO-BMI-FALA-INTERNA",
+      "predicate": "PERMITE",
+      "object": "FLEXIBILIDADE-ESTRATEGIA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "PERMITE"
+    },
+    {
+      "subject": "DISPOSITIVO-BMI-FALA-INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TREINAMENTO-BMI",
+      "predicate": "CURTO",
+      "object": "POUCOS-MINUTOS-POR-DIA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "CURTO"
+    },
+    {
+      "subject": "TREINAMENTO-BMI",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "BMI-SPELTER",
+      "predicate": "DECODIFICOU",
+      "object": "FALA-TENTADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "DECODIFICOU"
+    },
+    {
+      "subject": "BMI-SPELTER",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "VOCABULARIO-ILIMITADO",
+      "predicate": "POSSIVEL_COM",
+      "object": "BMI-SPELTER",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "POSSIVEL_COM"
+    },
+    {
+      "subject": "VOCABULARIO-ILIMITADO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "IMPLANTES-SMG-E-S1",
+      "predicate": "BASEADOS_EM",
+      "object": "TAREFAS-fMRI-DE-AGARRE",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "BASEADOS_EM"
+    },
+    {
+      "subject": "IMPLANTES-SMG-E-S1",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "LOCALIZACAO-IMPLANTE-IDEAL",
+      "predicate": "REQUER",
+      "object": "AVALIACAO-ATIVIDADE-LINGUAGEM",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "REQUER"
+    },
+    {
+      "subject": "LOCALIZACAO-IMPLANTE-IDEAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ESTUDO-IMAGEM-ANTERIOR",
+      "predicate": "DECODIFICOU",
+      "object": "FALA-INTERNA-SENTENCAS",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "DECODIFICOU"
+    },
+    {
+      "subject": "ESTUDO-IMAGEM-ANTERIOR",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "BMI-SEM-MOVIMENTO",
+      "predicate": "TRADUZ_EM",
+      "object": "OPORTUNIDADES-COMUNICACAO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "TRADUZ_EM"
+    },
+    {
+      "subject": "BMI-SEM-MOVIMENTO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ATIVIDADE-LABIAL-FACIAL",
+      "predicate": "OBSERVAVEL_EM",
+      "object": "AREA-S1",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "OBSERVAVEL_EM"
+    },
+    {
+      "subject": "ATIVIDADE-LABIAL-FACIAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "NEURONIOS-TUNED_A-FALA-INTERNA",
+      "predicate": "TAMBEM-TUNED_A",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "TAMBEM-TUNED_A"
+    },
+    {
+      "subject": "NEURONIOS-TUNED_A-FALA-INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "NEURONIOS-TUNED_A-FALA-INTERNA",
+      "predicate": "NAO-TUNED_A",
+      "object": "FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "NAO-TUNED_A"
+    },
+    {
+      "subject": "NEURONIOS-TUNED_A-FALA-VOCALIZADA",
+      "predicate": "NAO-TUNED_A",
+      "object": "FALA-INTERNA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "NAO-TUNED_A"
+    },
+    {
+      "subject": "NEURONIOS-TUNED_A-FALA-VOCALIZADA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ASSINATURAS-NEURAIS",
+      "predicate": "SIMILARES_MAS-DISTINTAS",
+      "object": "FALA-INTERNA-E-VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "SIMILARES_MAS-DISTINTAS"
+    },
+    {
+      "subject": "ASSINATURAS-NEURAIS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "MODELOS-FALA-INTERNA",
+      "predicate": "NECESSARIOS_PARA",
+      "object": "PRODUCOES-FALA-INTERNA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "NECESSARIOS_PARA"
+    },
+    {
+      "subject": "MODELOS-FALA-INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PROCESSOS-COGNITIVOS",
+      "predicate": "PODEM-MODULAR",
+      "object": "REGIOES-CORTICAL-SIMILARES",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PODEM-MODULAR"
+    },
+    {
+      "subject": "PROCESSOS-COGNITIVOS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ATIVACAO-SMG-ESQUERDO",
+      "predicate": "CORRELACIONADA_COM",
+      "object": "INTENSIDADE-FALA-INTERNA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "CORRELACIONADA_COM"
+    },
+    {
+      "subject": "ATIVACAO-SMG-ESQUERDO",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ATIVACAO-SMG-ESQUERDO",
+      "predicate": "CORRELACIONADA_COM",
+      "object": "PROSÓDIA-AUMENTADA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "CORRELACIONADA_COM"
+    },
+    {
+      "subject": "CROSS-PHASE-DECODING",
+      "predicate": "ALTA_ENTRE",
+      "object": "ESCRITA-E-FALA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALTA_ENTRE"
+    },
+    {
+      "subject": "CROSS-PHASE-DECODING",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "CROSS-PHASE-DECODING",
+      "predicate": "ALTA_ENTRE",
+      "object": "ESCRITA-E-FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALTA_ENTRE"
+    },
+    {
+      "subject": "CROSS-PHASE-DECODING",
+      "predicate": "ALTA_ENTRE",
+      "object": "FALA-INTERNA-E-FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALTA_ENTRE"
+    },
+    {
+      "subject": "CROSS-PHASE-DECODING",
+      "predicate": "ALTA_ENTRE",
+      "object": "FALA-INTERNA-E-ESCRITA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ALTA_ENTRE"
+    },
+    {
+      "subject": "CROSS-PHASE-DECODING",
+      "predicate": "MENOR_ENTRE",
+      "object": "AUDIO-ESTIMULO-E-FALA-INTERNA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "MENOR_ENTRE"
+    },
+    {
+      "subject": "CROSS-PHASE-DECODING",
+      "predicate": "MENOR_ENTRE",
+      "object": "AUDIO-ESTIMULO-E-FALA-VOCALIZADA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "MENOR_ENTRE"
+    },
+    {
+      "subject": "INTERFACE_CEREBRO-MAQUINA",
+      "predicate": "PERMITE",
+      "object": "COMUNICACAO_PARA_PESSOAS_COM_PERDA_FALA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "PERMITE"
+    },
+    {
+      "subject": "INTERFACE_CEREBRO-MAQUINA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "INTERFACE_CEREBRO-MAQUINA",
+      "predicate": "TRADUZ",
+      "object": "SINAIS_CEREBRAIS_PARA_PALAVRAS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "TRADUZ"
+    },
+    {
+      "subject": "INTERFACE_CEREBRO-MAQUINA",
+      "predicate": "TRADUZ",
+      "object": "SINAIS_CEREBRAIS_PARA_AUDIO",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "TRADUZ"
+    },
+    {
+      "subject": "MATRIZ_MICROELETRICA",
+      "predicate": "LOCALIZADA_EM",
+      "object": "Giro_Supramarginal",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "LOCALIZADA_EM"
+    },
+    {
+      "subject": "MATRIZ_MICROELETRICA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "MATRIZ_MICROELETRICA",
+      "predicate": "LOCALIZADA_EM",
+      "object": "Cortex_Somatossensorial_Primario",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "LOCALIZADA_EM"
+    },
+    {
+      "subject": "Giro_Supramarginal",
+      "predicate": "TEM",
+      "object": "REPRESENTACAO_NEURAL_SIGNIFICATIVA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "TEM"
+    },
+    {
+      "subject": "Giro_Supramarginal",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "Giro_Supramarginal",
       "predicate": "REPRESENTA",
       "object": "FALA_INTERNA",
       "provenance": "user",
@@ -1007,17 +3659,25 @@
       "label": "REPRESENTA"
     },
     {
-      "subject": "ATIVIDADE_NEURONAL",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "ATIVIDADE_NEURONAL",
+      "subject": "Giro_Supramarginal",
       "predicate": "REPRESENTA",
       "object": "FALA_VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "REPRESENTA"
+    },
+    {
+      "subject": "Giro_Supramarginal",
+      "predicate": "REPRESENTA",
+      "object": "PALAVRAS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "REPRESENTA"
+    },
+    {
+      "subject": "Giro_Supramarginal",
+      "predicate": "REPRESENTA",
+      "object": "PSEUDOPALAVRAS",
       "provenance": "user",
       "category": "ONTOLOGY",
       "label": "REPRESENTA"
@@ -1027,7 +3687,7 @@
       "predicate": "DECODIFICAVEL",
       "object": "FALA_INTERNA",
       "provenance": "user",
-      "category": "METHODOLOGY",
+      "category": "ONTOLOGY",
       "label": "DECODIFICAVEL"
     },
     {
@@ -1043,16 +3703,16 @@
       "predicate": "DECODIFICAVEL",
       "object": "FALA_VOCALIZADA",
       "provenance": "user",
-      "category": "METHODOLOGY",
+      "category": "ONTOLOGY",
       "label": "DECODIFICAVEL"
     },
     {
       "subject": "PRECISÃO_DECODIFICACAO_OFFLINE",
-      "predicate": "MEDIA",
-      "object": "55_PORCENTO",
+      "predicate": "MEDIA_55_PORCENTO",
+      "object": "PARTICIPANTE_1",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "MEDIA"
+      "category": "ONTOLOGY",
+      "label": "MEDIA_55_PORCENTO"
     },
     {
       "subject": "PRECISÃO_DECODIFICACAO_OFFLINE",
@@ -1064,19 +3724,19 @@
     },
     {
       "subject": "PRECISÃO_DECODIFICACAO_OFFLINE",
-      "predicate": "MEDIA",
-      "object": "24_PORCENTO",
+      "predicate": "MEDIA_24_PORCENTO",
+      "object": "PARTICIPANTE_2",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "MEDIA"
+      "category": "ONTOLOGY",
+      "label": "MEDIA_24_PORCENTO"
     },
     {
       "subject": "NIVEL_ALEATORIO",
-      "predicate": "IGUAL_A",
-      "object": "12_5_PORCENTO",
+      "predicate": "12_5_PORCENTO",
+      "object": "PRECISÃO_DECODIFICACAO",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "IGUAL_A"
+      "category": "ONTOLOGY",
+      "label": "12_5_PORCENTO"
     },
     {
       "subject": "NIVEL_ALEATORIO",
@@ -1088,11 +3748,11 @@
     },
     {
       "subject": "PRECISÃO_DECODIFICACAO_ONLINE",
-      "predicate": "MEDIA",
-      "object": "79_PORCENTO",
+      "predicate": "MEDIA_79_PORCENTO",
+      "object": "PARTICIPANTE_1",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "MEDIA"
+      "category": "ONTOLOGY",
+      "label": "MEDIA_79_PORCENTO"
     },
     {
       "subject": "PRECISÃO_DECODIFICACAO_ONLINE",
@@ -1104,22 +3764,22 @@
     },
     {
       "subject": "PRECISÃO_DECODIFICACAO_ONLINE",
-      "predicate": "MEDIA",
-      "object": "23_PORCENTO",
+      "predicate": "MEDIA_23_PORCENTO",
+      "object": "PARTICIPANTE_2",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "MEDIA"
+      "category": "ONTOLOGY",
+      "label": "MEDIA_23_PORCENTO"
     },
     {
-      "subject": "PSEUDOPALAVRAS",
-      "predicate": "UTILIZADAS",
-      "object": "TESTE_FONETICA",
+      "subject": "REPRESENTACAO_NEURAL_COMPARTIDA",
+      "predicate": "ENTRE",
+      "object": "FALA_INTERNA",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "UTILIZADAS"
+      "category": "ONTOLOGY",
+      "label": "ENTRE"
     },
     {
-      "subject": "PSEUDOPALAVRAS",
+      "subject": "REPRESENTACAO_NEURAL_COMPARTIDA",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -1127,55 +3787,31 @@
       "label": "tem fonte"
     },
     {
-      "subject": "PSEUDOPALAVRAS",
-      "predicate": "SEPARABILIDADE_ALTA",
-      "object": "PALAVRAS_LEXICAIS",
+      "subject": "REPRESENTACAO_NEURAL_COMPARTIDA",
+      "predicate": "ENTRE",
+      "object": "LEITURA_PALAVRAS",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "SEPARABILIDADE_ALTA"
+      "label": "ENTRE"
     },
     {
-      "subject": "DECODIFICADOR",
-      "predicate": "ALTO_CLASSIFICADOR",
-      "object": "ESTRATEGIAS_FALA_INTERNA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "ALTO_CLASSIFICADOR"
-    },
-    {
-      "subject": "DECODIFICADOR",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "IMAGINACAO_AUDITIVA",
-      "predicate": "E_UM",
-      "object": "ESTRATEGIA_FALA_INTERNA",
+      "subject": "REPRESENTACAO_NEURAL_COMPARTIDA",
+      "predicate": "ENTRE",
+      "object": "FALA_VOCALIZADA",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "E_UM"
+      "label": "ENTRE"
     },
     {
-      "subject": "IMAGINACAO_AUDITIVA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "IMAGINACAO_VISUAL",
-      "predicate": "E_UM",
-      "object": "ESTRATEGIA_FALA_INTERNA",
+      "subject": "REPRESENTACAO_FONETICA",
+      "predicate": "EVIDENCIA_DE",
+      "object": "CODIFICACAO_FONETICA",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "E_UM"
+      "label": "EVIDENCIA_DE"
     },
     {
-      "subject": "IMAGINACAO_VISUAL",
+      "subject": "REPRESENTACAO_FONETICA",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -1209,9 +3845,9 @@
     {
       "subject": "MOVIMENTOS_ARTICULATORIOS",
       "predicate": "AUSENTES_DURANTE",
-      "object": "FALA_INTERNA",
+      "object": "PRODUCAO_FALA_INTERNA",
       "provenance": "user",
-      "category": "CAUSAL",
+      "category": "ONTOLOGY",
       "label": "AUSENTES_DURANTE"
     },
     {
@@ -1225,7 +3861,7 @@
     {
       "subject": "TRABALHO",
       "predicate": "PROVA_DE_CONCEITO",
-      "object": "INTERFACE_CEREBRO-MAQUINA_FALA_INTERNA",
+      "object": "BMIS_FALA_INTERNA_ALTA_PERFORMANCE",
       "provenance": "user",
       "category": "ONTOLOGY",
       "label": "PROVA_DE_CONCEITO"
@@ -1239,7 +3875,103 @@
       "label": "tem fonte"
     },
     {
-      "subject": "METODOS_NAO_INVASIVOS",
+      "subject": "DOENCA_NEUROLOGICA",
+      "predicate": "CAUSA",
+      "object": "PERDA_HABILIDADE_FALA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "CAUSA"
+    },
+    {
+      "subject": "DOENCA_NEUROLOGICA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PARALISIA_CORPORAL_TOTAL",
+      "predicate": "RESULTA_EM",
+      "object": "AUSENCIA_MEIOS_COMUNICACAO",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "RESULTA_EM"
+    },
+    {
+      "subject": "PARALISIA_CORPORAL_TOTAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PACIENTES_ALS",
+      "predicate": "RELATAM",
+      "object": "PERDA_FALA_COMO_PREOCUPACAO_SERIA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "RELATAM"
+    },
+    {
+      "subject": "PACIENTES_ALS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "BMIS",
+      "predicate": "OFRECEM",
+      "object": "CAMINHO_TECNOLOGICO_PROMISING",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "OFRECEM"
+    },
+    {
+      "subject": "BMIS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "BMIS",
+      "predicate": "PERMITE",
+      "object": "COMUNICACAO_PARA_PESSOAS_COM_PERDA_FALA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "PERMITE"
+    },
+    {
+      "subject": "DECODIFICACAO_FALA_INTERNA",
+      "predicate": "RESULTADOS_ESPARSOS",
+      "object": "AVANCOS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "RESULTADOS_ESPARSOS"
+    },
+    {
+      "subject": "DECODIFICACAO_FALA_INTERNA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DECODIFICACAO_FALA_INTERNA",
+      "predicate": "NAO_ALCANCADA",
+      "object": "ALTA_FUNCIONALIDADE",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "NAO_ALCANCADA"
+    },
+    {
+      "subject": "IMAGEM_RESSONANCIA_MAGNETICA_FUNCIONAL",
       "predicate": "FALTA",
       "object": "RESOLUCAO_TEMPORAL_ESPACIAL",
       "provenance": "user",
@@ -1247,7 +3979,7 @@
       "label": "FALTA"
     },
     {
-      "subject": "METODOS_NAO_INVASIVOS",
+      "subject": "IMAGEM_RESSONANCIA_MAGNETICA_FUNCIONAL",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -1255,15 +3987,15 @@
       "label": "tem fonte"
     },
     {
-      "subject": "GRAVACAO_INTRACORTICAL",
-      "predicate": "POSSUI",
-      "object": "ALTA_RESOLUCAO",
+      "subject": "ELETROENCEFALOGRAFIA",
+      "predicate": "FALTA",
+      "object": "RESOLUCAO_TEMPORAL_ESPACIAL",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "POSSUI"
+      "label": "FALTA"
     },
     {
-      "subject": "GRAVACAO_INTRACORTICAL",
+      "subject": "ELETROENCEFALOGRAFIA",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -1271,20 +4003,60 @@
       "label": "tem fonte"
     },
     {
-      "subject": "GRAVACAO_INTRACORTICAL",
-      "predicate": "POSSUI",
-      "object": "ALTA_RESOLUCAO_TEMPORAL",
+      "subject": "ELETROENCEFALOGRAFIA",
+      "predicate": "FALTA",
+      "object": "RAZAO_SINAL_RUÍDO",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "POSSUI"
+      "label": "FALTA"
+    },
+    {
+      "subject": "ELETROENCEFALOGRAFIA",
+      "predicate": "FALTA",
+      "object": "PORTABILIDADE",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "FALTA"
+    },
+    {
+      "subject": "GRAVACAO_ELETROFISIOLOGICA_INTRACORTICAL",
+      "predicate": "TEM",
+      "object": "RAZAO_SINAL_RUÍDO_ALTA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "TEM"
+    },
+    {
+      "subject": "GRAVACAO_ELETROFISIOLOGICA_INTRACORTICAL",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "GRAVACAO_ELETROFISIOLOGICA_INTRACORTICAL",
+      "predicate": "TEM",
+      "object": "RESOLUCAO_TEMPORAL_EXCELENTE",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "TEM"
+    },
+    {
+      "subject": "GRAVACAO_ELETROFISIOLOGICA_INTRACORTICAL",
+      "predicate": "ADEQUADA_PARA",
+      "object": "DISPOSITIVO_DECODIFICACAO_FALA_INTERNA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ADEQUADA_PARA"
     },
     {
       "subject": "DECODIFICACAO_FALA_INVASIVA",
-      "predicate": "UTILIZA",
+      "predicate": "TENTADA_COM",
       "object": "ECOG",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "UTILIZA"
+      "label": "TENTADA_COM"
     },
     {
       "subject": "DECODIFICACAO_FALA_INVASIVA",
@@ -1296,19 +4068,19 @@
     },
     {
       "subject": "DECODIFICACAO_FALA_INVASIVA",
-      "predicate": "UTILIZA",
-      "object": "MATRIZES_PROFUNDAS_ESTEREOTAXICAS",
+      "predicate": "TENTADA_COM",
+      "object": "MATRIZES_PROFUNDIDADE_ESTEREOTAXICA",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "UTILIZA"
+      "label": "TENTADA_COM"
     },
     {
       "subject": "RESULTADOS_IMPRESSIONANTES",
-      "predicate": "ALCANCADOS_COM",
-      "object": "ECOG",
+      "predicate": "ALCANCADOS_EM",
+      "object": "DECODIFICACAO_FALA_VOCALIZADA",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "ALCANCADOS_COM"
+      "category": "ONTOLOGY",
+      "label": "ALCANCADOS_EM"
     },
     {
       "subject": "RESULTADOS_IMPRESSIONANTES",
@@ -1319,127 +4091,31 @@
       "label": "tem fonte"
     },
     {
-      "subject": "DECODIFICACAO_FALA_VOCALIZADA",
-      "predicate": "ALCANCADA_EM",
-      "object": "REGIOES_CORTICAIS_LOCALIZADAS",
+      "subject": "RESULTADOS_IMPRESSIONANTES",
+      "predicate": "ALCANCADOS_EM",
+      "object": "DECODIFICACAO_FALA_TENTADA",
       "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "ALCANCADA_EM"
+      "category": "ONTOLOGY",
+      "label": "ALCANCADOS_EM"
     },
     {
-      "subject": "DECODIFICACAO_FALA_VOCALIZADA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
+      "subject": "RESULTADOS_IMPRESSIONANTES",
+      "predicate": "ALCANCADOS_EM",
+      "object": "RECONSTRUCAO_FALA",
       "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
+      "category": "ONTOLOGY",
+      "label": "ALCANCADOS_EM"
     },
     {
-      "subject": "DECODIFICACAO_FALA_VOCALIZADA",
-      "predicate": "ALCANCADA",
-      "object": "74_PORCENTO_PRECISAO",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "ALCANCADA"
-    },
-    {
-      "subject": "NEUROPROTESES_FALA",
-      "predicate": "CONSTRUIDAS_COM",
-      "object": "MATRIZES_MICROELETRICAS",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "CONSTRUIDAS_COM"
-    },
-    {
-      "subject": "NEUROPROTESES_FALA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "BAIXA_PRECISÃO_FALA_INTERNA",
-      "predicate": "POSSIVEL_CAUSA",
-      "object": "BAIXA_RAZAO_SINAL_RUÍDO",
-      "provenance": "user",
-      "category": "CAUSAL",
-      "label": "POSSIVEL_CAUSA"
-    },
-    {
-      "subject": "BAIXA_PRECISÃO_FALA_INTERNA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "BAIXA_PRECISÃO_FALA_INTERNA",
-      "predicate": "POSSIVEL_CAUSA",
-      "object": "DIFERENCAS_ATIVACAO_CORTICAL",
-      "provenance": "user",
-      "category": "CAUSAL",
-      "label": "POSSIVEL_CAUSA"
-    },
-    {
-      "subject": "ESTUDO_ANTERIOR",
-      "predicate": "DECODIFICOU",
-      "object": "VOGAIS_FALA_INTERNA",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "DECODIFICOU"
-    },
-    {
-      "subject": "ESTUDO_ANTERIOR",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "ESTUDO_ANTERIOR",
-      "predicate": "DECODIFICOU",
-      "object": "CONSOANTES_FALA_INTERNA",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "DECODIFICOU"
-    },
-    {
-      "subject": "ESTUDO_ANTERIOR",
-      "predicate": "DECODIFICOU",
-      "object": "PALAVRAS_FALA_INTERNA",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "DECODIFICOU"
-    },
-    {
-      "subject": "ESTUDOS_ANTERIORES",
-      "predicate": "UTILIZARAM",
-      "object": "ANALISE_OFFLINE",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "UTILIZARAM"
-    },
-    {
-      "subject": "ESTUDOS_ANTERIORES",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "ESTUDO_REcente",
+      "subject": "ELETRDO_NEUROTROFICO",
       "predicate": "DEMONSTROU",
-      "object": "DECODIFICACAO_FALA_TEMPO_REAL",
+      "object": "SINTESE_FALA_TEMPO_REAL",
       "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
+      "category": "METHODOLOGY",
       "label": "DEMONSTROU"
     },
     {
-      "subject": "ESTUDO_REcente",
+      "subject": "ELETRDO_NEUROTROFICO",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -1447,15 +4123,15 @@
       "label": "tem fonte"
     },
     {
-      "subject": "PROCESSAMENTO_FONOLOGICO",
-      "predicate": "REQUER",
-      "object": "OUVIR_PALAVRA_INTERNAMENTE",
+      "subject": "NEUROPROSTESE_FALA",
+      "predicate": "CONSTRUIDA_DE",
+      "object": "MATRIZES_MICROELETRICAS_PEQUENAS",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "REQUER"
+      "label": "CONSTRUIDA_DE"
     },
     {
-      "subject": "PROCESSAMENTO_FONOLOGICO",
+      "subject": "NEUROPROSTESE_FALA",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -1463,15 +4139,95 @@
       "label": "tem fonte"
     },
     {
-      "subject": "LESÕES_GIRO_SUPRAMARGINAL",
-      "predicate": "ASSOCIADAS_A",
-      "object": "AFASIA",
+      "subject": "MATRIZES_MICROELETRICAS_PEQUENAS",
+      "predicate": "LOCALIZADAS_EM",
+      "object": "CORTEX_MOTOR",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "LOCALIZADAS_EM"
+    },
+    {
+      "subject": "MATRIZES_MICROELETRICAS_PEQUENAS",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "MATRIZES_MICROELETRICAS_PEQUENAS",
+      "predicate": "LOCALIZADAS_EM",
+      "object": "CORTEX_PREMOTOR",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "LOCALIZADAS_EM"
+    },
+    {
+      "subject": "MATRIZES_MICROELETRICAS_PEQUENAS",
+      "predicate": "LOCALIZADAS_EM",
+      "object": "Giro_Supramarginal",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "LOCALIZADAS_EM"
+    },
+    {
+      "subject": "BMIS_FALA_VOCALIZADA",
+      "predicate": "CONSTRUIDAS_USANDO",
+      "object": "SINAIS_NEURAIS_DE_REGIOES_LOCALIZADAS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "CONSTRUIDAS_USANDO"
+    },
+    {
+      "subject": "BMIS_FALA_VOCALIZADA",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "AVANCOS_IMPORTANTES",
+      "predicate": "FEITOS_EM",
+      "object": "DECODIFICACAO_FALA_VOCALIZADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "FEITOS_EM"
+    },
+    {
+      "subject": "AVANCOS_IMPORTANTES",
+      "predicate": "tem fonte",
+      "object": "mind-reading.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "AVANCOS_IMPORTANTES",
+      "predicate": "FEITOS_EM",
+      "object": "DECODIFICACAO_FALA_TENTADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "FEITOS_EM"
+    },
+    {
+      "subject": "AVANCOS_IMPORTANTES",
+      "predicate": "FEITOS_EM",
+      "object": "DECODIFICACAO_FALA_MIMADA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "FEITOS_EM"
+    },
+    {
+      "subject": "DIFERENCAS_ATIVACAO_CORTICAL",
+      "predicate": "CONTRIBUI_PARA",
+      "object": "BAIXAS_PRECISOES_DECODIFICACAO_FALA_INTERNA",
       "provenance": "user",
       "category": "CAUSAL",
-      "label": "ASSOCIADAS_A"
+      "label": "CONTRIBUI_PARA"
     },
     {
-      "subject": "LESÕES_GIRO_SUPRAMARGINAL",
+      "subject": "DIFERENCAS_ATIVACAO_CORTICAL",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -1479,15 +4235,15 @@
       "label": "tem fonte"
     },
     {
-      "subject": "CONSENSO_GERAL",
-      "predicate": "POSTULA",
-      "object": "SIMILARIDADES_ENTRE_FALA_INTERNA_VOCALIZADA",
+      "subject": "ESTUDO_ECoG",
+      "predicate": "DECODIFICOU",
+      "object": "VOGAIS",
       "provenance": "user",
       "category": "ONTOLOGY",
-      "label": "POSTULA"
+      "label": "DECODIFICOU"
     },
     {
-      "subject": "CONSENSO_GERAL",
+      "subject": "ESTUDO_ECoG",
       "predicate": "tem fonte",
       "object": "mind-reading.pdf",
       "provenance": "user",
@@ -1495,793 +4251,76 @@
       "label": "tem fonte"
     },
     {
-      "subject": "PARTICIPANTES",
-      "predicate": "EXECUTARAM",
-      "object": "FALA_INTERNA_E_VOCALIZADA",
+      "subject": "ESTUDO_ECoG",
+      "predicate": "DECODIFICOU",
+      "object": "CONSOANTES",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DECODIFICOU"
+    },
+    {
+      "subject": "ESTUDO_ECoG",
+      "predicate": "USANDO",
+      "object": "REDES_NEURAIS_CONVOLUCIONAIS_3D",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "EXECUTARAM"
+      "label": "USANDO"
     },
     {
-      "subject": "PARTICIPANTES",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "PALAVRAS_LEXICAIS",
-      "predicate": "UTILIZADAS",
-      "object": "TESTE_FONETICA",
+      "subject": "ESTUDO_ECoG",
+      "predicate": "USANDO",
+      "object": "SINAIS_DE_ALTA_FREQUENCIA",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "UTILIZADAS"
+      "label": "USANDO"
     },
     {
-      "subject": "PALAVRAS_LEXICAIS",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "HIPOTESE",
-      "predicate": "ATIVIDADE_SMG_S1",
-      "object": "MODULADA_FALA_VOCALIZADA",
+      "subject": "ESTUDO_ECoG",
+      "predicate": "USANDO",
+      "object": "BANDAS_BETA",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "ATIVIDADE_SMG_S1"
+      "label": "USANDO"
     },
     {
-      "subject": "HIPOTESE",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
+      "subject": "ESTUDO_ECoG",
+      "predicate": "DECODIFICOU",
+      "object": "VOGAIS_INTERNAS",
       "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
+      "category": "ONTOLOGY",
+      "label": "DECODIFICOU"
     },
     {
-      "subject": "HIPOTESE",
-      "predicate": "ATIVIDADE_SMG",
-      "object": "MODULADA_FALA_INTERNA",
+      "subject": "ESTUDO_ECoG",
+      "predicate": "DECODIFICOU",
+      "object": "PALAVRAS_INTERNAS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DECODIFICOU"
+    },
+    {
+      "subject": "ESTUDO_ECoG",
+      "predicate": "USANDO",
+      "object": "MATRIZES_ECoG",
       "provenance": "user",
       "category": "METHODOLOGY",
-      "label": "ATIVIDADE_SMG"
-    },
-    {
-      "subject": "DESIGN_TAREFA",
-      "predicate": "INCLUIU",
-      "object": "FASES_LINGUAGEM",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "INCLUIU"
-    },
-    {
-      "subject": "DESIGN_TAREFA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "FASES_LINGUAGEM",
-      "predicate": "INCLUEM",
-      "object": "INTERVALO_INTERTRIAL",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "INCLUEM"
-    },
-    {
-      "subject": "FASES_LINGUAGEM",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "FASES_LINGUAGEM",
-      "predicate": "INCLUEM",
-      "object": "FASE_DE_SINAL",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "INCLUEM"
-    },
-    {
-      "subject": "FASES_LINGUAGEM",
-      "predicate": "INCLUEM",
-      "object": "PRIMEIRA_FASE_DELAY",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "INCLUEM"
-    },
-    {
-      "subject": "FASES_LINGUAGEM",
-      "predicate": "INCLUEM",
-      "object": "FASE_FALA_INTERNA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "INCLUEM"
-    },
-    {
-      "subject": "FASES_LINGUAGEM",
-      "predicate": "INCLUEM",
-      "object": "SEGUNDA_FASE_DELAY",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "INCLUEM"
-    },
-    {
-      "subject": "FASES_LINGUAGEM",
-      "predicate": "INCLUEM",
-      "object": "FASE_FALA_VOCALIZADA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "INCLUEM"
-    },
-    {
-      "subject": "SINAL_AUDIO",
-      "predicate": "UTILIZADO_COMO",
-      "object": "ESTIMULO_CUE",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "UTILIZADO_COMO"
-    },
-    {
-      "subject": "SINAL_AUDIO",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "PALAVRA_ESCRITA",
-      "predicate": "UTILIZADA_COMO",
-      "object": "ESTIMULO_CUE",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "UTILIZADA_COMO"
-    },
-    {
-      "subject": "PALAVRA_ESCRITA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "NEURONIOS",
-      "predicate": "DEMONSTRARAM",
-      "object": "MODULACAO_TAXA_DISPARO",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "DEMONSTRARAM"
-    },
-    {
-      "subject": "NEURONIOS",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "TAXA_DISPARO",
-      "predicate": "AUMENTOU_DURANTE",
-      "object": "FASES_ATIVAS",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "AUMENTOU_DURANTE"
-    },
-    {
-      "subject": "TAXA_DISPARO",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "TAXA_DISPARO",
-      "predicate": "DIMINUIU_DURANTE",
-      "object": "FASES_REPOUSO",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "DIMINUIU_DURANTE"
-    },
-    {
-      "subject": "NEURONIOS_SELECIONADOS",
-      "predicate": "DEMONSTRARAM",
-      "object": "AUMENTO_TAXA_DISPARO",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "DEMONSTRARAM"
-    },
-    {
-      "subject": "NEURONIOS_SELECIONADOS",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "TAXA_DISPARO_NEURONAL",
-      "predicate": "MODULADA_POR",
-      "object": "FALA_INTERNA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "MODULADA_POR"
-    },
-    {
-      "subject": "TAXA_DISPARO_NEURONAL",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "TAXA_DISPARO_NEURONAL",
-      "predicate": "MODULADA_POR",
-      "object": "FALA_VOCALIZADA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "MODULADA_POR"
-    },
-    {
-      "subject": "TAXA_DISPARO_NEURONAL",
-      "predicate": "MODULADA_POR",
-      "object": "FASE_DE_SINAL",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "MODULADA_POR"
-    },
-    {
-      "subject": "TAXA_DISPARO_NEURONAL",
-      "predicate": "CORRELACIONADA_COM",
-      "object": "AMPLITUDE_AUDIO",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "CORRELACIONADA_COM"
-    },
-    {
-      "subject": "PADROES_ATIVACAO_ESTEREO_TIPICOS",
-      "predicate": "EVIDENTES_EM",
-      "object": "NIVEL_POPULACIONAL",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "EVIDENTES_EM"
-    },
-    {
-      "subject": "PADROES_ATIVACAO_ESTEREO_TIPICOS",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "NEURONIOS_SMG",
-      "predicate": "DEMONSTRARAM",
-      "object": "DINAMICA_TEMPORAL",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "DEMONSTRARAM"
-    },
-    {
-      "subject": "NEURONIOS_SMG",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "DINAMICA_TEMPORAL_SMG",
-      "predicate": "PICO_DURANTE",
-      "object": "FASES_ATIVAS",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "PICO_DURANTE"
-    },
-    {
-      "subject": "DINAMICA_TEMPORAL_SMG",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "DINAMICA_TEMPORAL_S1",
-      "predicate": "PICO_DURANTE",
-      "object": "FALA_VOCALIZADA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "PICO_DURANTE"
-    },
-    {
-      "subject": "DINAMICA_TEMPORAL_S1",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "AUSENCIA_MOVIMENTO_FACIAL",
-      "predicate": "DURANTE",
-      "object": "FALA_INTERNA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "DURANTE"
-    },
-    {
-      "subject": "AUSENCIA_MOVIMENTO_FACIAL",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "COMPONENTES_MODALIDADE_CUE",
-      "predicate": "SEPARAVEIS_DURANTE",
-      "object": "FASE_DE_SINAL",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "SEPARAVEIS_DURANTE"
-    },
-    {
-      "subject": "COMPONENTES_MODALIDADE_CUE",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "REPRESENTACAO_FALA_INTERNA",
-      "predicate": "NAO_INFLUENCIADA_POR",
-      "object": "MODALIDADE_CUE",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "NAO_INFLUENCIADA_POR"
-    },
-    {
-      "subject": "REPRESENTACAO_FALA_INTERNA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "ASPECTOS_LINGUISTICOS",
-      "predicate": "INCLUEM",
-      "object": "MUDANCAS_TEMPORAIS",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "INCLUEM"
-    },
-    {
-      "subject": "ASPECTOS_LINGUISTICOS",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "ASPECTOS_LINGUISTICOS",
-      "predicate": "INCLUEM",
-      "object": "MODALIDADE_DE_ENTRADA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "INCLUEM"
-    },
-    {
-      "subject": "ASPECTOS_LINGUISTICOS",
-      "predicate": "INCLUEM",
-      "object": "PALAVRAS_UNICAS",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "INCLUEM"
-    },
-    {
-      "subject": "ANALISE_DPCA",
-      "predicate": "UTILIZADA_PARA",
-      "object": "DECOMPOSICAO_VARIANCIA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "UTILIZADA_PARA"
-    },
-    {
-      "subject": "ANALISE_DPCA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "DPCA",
-      "predicate": "IDENTIFICA",
-      "object": "COMPONENTES_LINGUISTICOS",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "IDENTIFICA"
-    },
-    {
-      "subject": "DPCA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "REPRESENTACAO_PALAVRA_REDUZIDA",
-      "predicate": "EM",
-      "object": "PARTICIPANTE_2",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "EM"
-    },
-    {
-      "subject": "REPRESENTACAO_PALAVRA_REDUZIDA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "DECODIFICACAO_PALAVRA",
-      "predicate": "OBSERVADA_EM",
-      "object": "TODAS_FASES_ATIVAS",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "OBSERVADA_EM"
-    },
-    {
-      "subject": "DECODIFICACAO_PALAVRA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "DECODIFICACAO_PALAVRA",
-      "predicate": "NAO_OBSERVADA_EM",
-      "object": "FASE_ITI",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "NAO_OBSERVADA_EM"
-    },
-    {
-      "subject": "DECODIFICACAO_PALAVRA",
-      "predicate": "MAIS_ALTA_EM",
-      "object": "FASES_ATIVAS",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "MAIS_ALTA_EM"
-    },
-    {
-      "subject": "TREINAMENTO_MINIMO",
-      "predicate": "IGUAL_A",
-      "object": "16_A_20_ENSAIOS_POR_PALAVRA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "IGUAL_A"
-    },
-    {
-      "subject": "TREINAMENTO_MINIMO",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "DECODIFICACAO_FALA_INTERNA_PARTICIPANTE_2",
-      "predicate": "PRECISAO_MEDIA",
-      "object": "24_PORCENTO",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "PRECISAO_MEDIA"
-    },
-    {
-      "subject": "DECODIFICACAO_FALA_INTERNA_PARTICIPANTE_2",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "DECODIFICACAO_ONLINE",
-      "predicate": "ALCANCADA",
-      "object": "79_PORCENTO_PRECISAO",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "ALCANCADA"
-    },
-    {
-      "subject": "DECODIFICACAO_ONLINE",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "DECODIFICACAO_ONLINE_PARTICIPANTE_2",
-      "predicate": "ALCANCADA",
-      "object": "23_PORCENTO_PRECISAO",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "ALCANCADA"
-    },
-    {
-      "subject": "DECODIFICACAO_ONLINE_PARTICIPANTE_2",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "NEURONIOS_TUNED_FALA_INTERNA",
-      "predicate": "PRESERVARAM_TUNING",
-      "object": "PALAVRAS_IDENTICAS",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "PRESERVARAM_TUNING"
-    },
-    {
-      "subject": "NEURONIOS_TUNED_FALA_INTERNA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "CLASSIFICACAO_CROSS_PHASE",
-      "predicate": "AVALIADA_PARA",
-      "object": "GENERALIZABILIDADE",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "AVALIADA_PARA"
-    },
-    {
-      "subject": "CLASSIFICACAO_CROSS_PHASE",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "MODELO_TREINADO_FALA_INTERNA",
-      "predicate": "GENERALIZAVEL_PARA",
-      "object": "FALA_VOCALIZADA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "GENERALIZAVEL_PARA"
-    },
-    {
-      "subject": "MODELO_TREINADO_FALA_INTERNA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "MODELO_TREINADO_FALA_INTERNA",
-      "predicate": "GENERALIZAVEL_PARA",
-      "object": "PALAVRA_ESCRITA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "GENERALIZAVEL_PARA"
-    },
-    {
-      "subject": "MODELO_TREINADO_FALA_VOCALIZADA",
-      "predicate": "GENERALIZAVEL_PARA",
-      "object": "FALA_INTERNA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "GENERALIZAVEL_PARA"
-    },
-    {
-      "subject": "MODELO_TREINADO_FALA_VOCALIZADA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "MODELO_TREINADO_FALA_VOCALIZADA",
-      "predicate": "GENERALIZAVEL_PARA",
-      "object": "PALAVRA_ESCRITA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "GENERALIZAVEL_PARA"
-    },
-    {
-      "subject": "MODELO_TREINADO_PALAVRA_ESCRITA",
-      "predicate": "GENERALIZAVEL_PARA",
-      "object": "FALA_INTERNA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "GENERALIZAVEL_PARA"
-    },
-    {
-      "subject": "MODELO_TREINADO_PALAVRA_ESCRITA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "MODELO_TREINADO_PALAVRA_ESCRITA",
-      "predicate": "GENERALIZAVEL_PARA",
-      "object": "FALA_VOCALIZADA",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "GENERALIZAVEL_PARA"
-    },
-    {
-      "subject": "ESTRATÉGIA_IMAGINACAO_SOM",
-      "predicate": "MAIS_FACIL",
-      "object": "PARTICIPANTE_1",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "MAIS_FACIL"
-    },
-    {
-      "subject": "ESTRATÉGIA_IMAGINACAO_SOM",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "ESTRATÉGIA_IMAGINACAO_SOM",
-      "predicate": "MAIS_SIMILAR",
-      "object": "CONDIÇÃO_FALA_INTERNA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "MAIS_SIMILAR"
-    },
-    {
-      "subject": "ESTRATÉGIA_IMAGINACAO_VISUAL",
-      "predicate": "MENOS_FACIL",
-      "object": "PARTICIPANTE_1",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "MENOS_FACIL"
-    },
-    {
-      "subject": "ESTRATÉGIA_IMAGINACAO_VISUAL",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "CONTAMINACAO_AUDIO",
-      "predicate": "MITIGADA_EM",
-      "object": "ESTUDOS_ANTERIORES",
-      "provenance": "user",
-      "category": "METHODOLOGY",
-      "label": "MITIGADA_EM"
-    },
-    {
-      "subject": "CONTAMINACAO_AUDIO",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "CONTAMINACAO_AUDIO",
-      "predicate": "AUSENTE_DURANTE",
-      "object": "FALA_INTERNA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "AUSENTE_DURANTE"
-    },
-    {
-      "subject": "MODULACAO_NEURONAL_UNICA",
-      "predicate": "OBSERVADA_EM",
-      "object": "PARTICIPANTE_2",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "OBSERVADA_EM"
-    },
-    {
-      "subject": "MODULACAO_NEURONAL_UNICA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "MENOR_NUMERO_NEURONIOS",
-      "predicate": "EM",
-      "object": "PARTICIPANTE_2",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "EM"
-    },
-    {
-      "subject": "MENOR_NUMERO_NEURONIOS",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "MENOR_VARIANCIA_EXPLICADA",
-      "predicate": "EM",
-      "object": "PARTICIPANTE_2",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "EM"
-    },
-    {
-      "subject": "MENOR_VARIANCIA_EXPLICADA",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "ATIVIDADE_NEURONAL_S1",
-      "predicate": "GENERALIZADA_DURANTE",
-      "object": "FALA_VOCALIZADA",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "GENERALIZADA_DURANTE"
-    },
-    {
-      "subject": "ATIVIDADE_NEURONAL_S1",
-      "predicate": "tem fonte",
-      "object": "mind-reading.pdf",
-      "provenance": "user",
-      "category": "BIBLIOGRAPHIC",
-      "label": "tem fonte"
-    },
-    {
-      "subject": "ATIVIDADE_NEURONAL_S1",
-      "predicate": "NAO_DECODIFICAVEL",
-      "object": "PALAVRAS_UNICAS",
-      "provenance": "user",
-      "category": "ONTOLOGY",
-      "label": "NAO_DECODIFICAVEL"
+      "label": "USANDO"
     }
   ],
   "rules": [
     "(adicionar-regra 'LEI-DECODIFICACAO-FALA-INTERNA-EM-SMG\n  '((?regiao \"E_UM\" \"GIRO_SUPRAMARGINAL\")\n    (?regiao \"REPRESENTA\" \"FALA_INTERNA\"))\n  '((?regiao \"FONTE_DE\" \"DECODIFICADOR_FALA_INTERNA\"))",
     "(adicionar-regra 'LEI-MODULACAO-S1-FALA-VOCALIZADA\n  '((?regiao \"E_UM\" \"CORTEX_SOMATOSSENSORIAL_PRIMARIO\")\n    (?regiao \"MODULADA_POR\" \"FALA_VOCALIZADA\"))\n  '((?regiao \"NAO_MODULADA_POR\" \"FALA_INTERNA\"))",
-    "(adicionar-regra 'LEI-REPRESENTACAO-FALA-INTERNA-EM-SMG\n  '((?regiao \"E_UM\" \"GIRO_SUPRAMARGINAL\")\n    (?regiao \"REPRESENTA\" \"FALA_INTERNA\")\n    (?regiao \"REPRESENTA\" \"FALA_VOCALIZADA\"))\n  '((?regiao \"POSSUI\" \"REPRESENTACAO_COMPARTILHADA\"))"
+    "(adicionar-regra 'LEI-REPRESENTACAO-FALA-INTERNA-EM-SMG\n  '((?regiao \"E_UM\" \"GIRO_SUPRAMARGINAL\")\n    (?regiao \"REPRESENTA\" \"FALA_INTERNA\")\n    (?regiao \"REPRESENTA\" \"FALA_VOCALIZADA\"))\n  '((?regiao \"POSSUI\" \"REPRESENTACAO_COMPARTILHADA\"))",
+    "(adicionar-regra 'LEI-DECODIFICACAO-FALA-INTERNA-EM-SMG\n  '((?smg \"E_UM\" \"AREA_CEREBRAL\")\n    (?smg \"REPRESENTA\" \"FALA_INTERNA\"))\n  '((?smg \"ALVO_DE\" \"DECODIFICADOR_FALA_INTERNA\"))",
+    "(adicionar-regra 'LEI-MODULACAO-S1-FALA-VOCALIZADA\n  '((?s1 \"E_UM\" \"AREA_CEREBRAL\")\n    (?s1 \"MODULADA_POR\" \"FALA_VOCALIZADA\"))\n  '((?s1 \"NAO_MODULADA_POR\" \"FALA_INTERNA\"))",
+    "(adicionar-regra 'LEI-REPRESENTACAO-FALA-INTERNA-EM-SMG\n  '((?smg \"E_UM\" \"AREA_CEREBRAL\")\n    (?smg \"REPRESENTA\" \"FALA_INTERNA\")\n    (?smg \"REPRESENTA\" \"FALA_VOCALIZADA\"))\n  '((?smg \"POSSUI\" \"REPRESENTACAO_COMPARTILHADA\"))",
+    "(adicionar-regra 'LEI-DECODIFICACAO-FALA-INTERNA-EM-SMG\n  '((?smg \"REGIAO_DO\" \"SUSTENTACULO\")\n    (?fala-interna \"PROCESSO_NEURAL\" ?smg))\n  '((?smg \"PERMITE\" \"DECODIFICACAO-FALA-INTERNA\"))",
+    "(adicionar-regra 'LEI-MODULACAO-S1-FALA-VOCALIZADA\n  '((?s1 \"AREA_CEREBRAL\" \"CONTROLE\")\n    (?fala-vocalizada \"PROCESSO_NEURAL\" ?s1))\n  '((?s1 \"MODULADO_POR\" ?fala-vocalizada))",
+    "(adicionar-regra 'LEI-REPRESENTACAO-FALA-INTERNA-EM-SMG\n  '((?smg \"AREA_CEREBRAL\" \"PARTICIPANTE-1\")\n    (?fala-interna \"REPRESENTADA_POR\" ?smg))\n  '((?smg \"FONTE_DE\" \"ATIVIDADE-NEURONAL\"))",
+    "(adicionar-regra 'LEI-SMG-DECODIFICACAO-FALA-INTERNA\n  '((?smg \"E_UM\" \"AREA_CEREBRAL\")\n    (?smg \"REPRESENTA\" \"FALA_INTERNA\"))\n  '((?smg \"FONTE_DE\" \"DECODIFICADOR_FALA_INTERNA\"))",
+    "(adicionar-regra 'LEI-S1-MODULACAO-FALA-VOCALIZADA\n  '((?s1 \"E_UM\" \"AREA_CEREBRAL\")\n    (?s1 \"MODULADA_POR\" \"FALA_VOCALIZADA\"))\n  '((?s1 \"NAO_MODULADA_POR\" \"FALA_INTERNA\"))",
+    "(adicionar-regra 'LEI-REPRESENTACAO-COMPARTIDA-FALA\n  '((?processo1 \"E_UM\" \"PROCESSO_LINGUISTICO\")\n    (?processo2 \"E_UM\" \"PROCESSO_LINGUISTICO\")\n    (?processo1 \"TEM_REPRESENTACAO_EM\" ?regiao)\n    (?processo2 \"TEM_REPRESENTACAO_EM\" ?regiao))\n  '((?processo1 \"COMPARTILHA_REPRESENTACAO_COM\" ?processo2))",
+    "(adicionar-regra 'LEI-SMG-CODIFICA-FONETICA\n  '((?smg \"E_UM\" \"AREA_CEREBRAL\")\n    (?smg \"CODIFICA\" \"FONEMAS\"))\n  '((?smg \"SUPORTA\" \"CODIFICACAO_FONETICA\"))",
+    "(adicionar-regra 'LEI-BMIS-COMUNICACAO-PESSOAS-COM-PERDA-FALA\n  '((?bmi \"E_UM\" \"TECNOLOGIA\")\n    (?pessoa \"SOFRE_DE\" \"PERDA_FALA\"))\n  '((?bmi \"PERMITE\" \"COMUNICACAO\"))"
   ]
 }

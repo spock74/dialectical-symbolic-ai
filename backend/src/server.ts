@@ -56,11 +56,13 @@ const registerRollback = (req: any, res: any, next: any) => {
 app.post("/api/chat", registerRollback, async (req: any, res: any) => {
   try {
     const { prompt, history, useMemory, bypassSDialect, source } = req.body;
+    console.log(`[API] /chat request. Source: ${source}, Bypass: ${bypassSDialect} (${typeof bypassSDialect})`);
+    
     let result = await reflectiveLoop({
       prompt,
       history,
       useMemory,
-      bypassSDialect,
+      bypassSDialect: bypassSDialect === 'true' || bypassSDialect === true,
       source,
     });
 

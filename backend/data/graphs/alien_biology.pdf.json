@@ -1,0 +1,672 @@
+{
+  "nodes": [
+    {
+      "id": "alien_biology.pdf",
+      "type": "source"
+    },
+    {
+      "id": "Xylophonia Fruits",
+      "type": "concept"
+    },
+    {
+      "id": "Toxicity Analysis",
+      "type": "concept"
+    },
+    {
+      "id": "Human Metabolism",
+      "type": "concept"
+    },
+    {
+      "id": "Xylophonia fruit",
+      "type": "concept"
+    },
+    {
+      "id": "sector 7G",
+      "type": "concept"
+    },
+    {
+      "id": "high caloric density",
+      "type": "concept"
+    },
+    {
+      "id": "spectral analysis",
+      "type": "concept"
+    },
+    {
+      "id": "presence of Zeta-Toxin",
+      "type": "concept"
+    },
+    {
+      "id": "Zeta-Toxin",
+      "type": "concept"
+    },
+    {
+      "id": "high concentrations",
+      "type": "concept"
+    },
+    {
+      "id": "40mg/g",
+      "type": "concept"
+    },
+    {
+      "id": "human tissue",
+      "type": "concept"
+    },
+    {
+      "id": "immediate cellular apoptosis",
+      "type": "concept"
+    },
+    {
+      "id": "fundamental biological law",
+      "type": "concept"
+    },
+    {
+      "id": "consumption of Xylophonia",
+      "type": "concept"
+    },
+    {
+      "id": "due to Zeta-Toxin",
+      "type": "concept"
+    },
+    {
+      "id": "agent containing Zeta-Toxin",
+      "type": "concept"
+    },
+    {
+      "id": "CLASS-A POISON",
+      "type": "concept"
+    },
+    {
+      "id": "Xylophonia",
+      "type": "concept"
+    },
+    {
+      "id": "pleasant aroma",
+      "type": "concept"
+    },
+    {
+      "id": "fatal risk",
+      "type": "concept"
+    },
+    {
+      "id": "humans",
+      "type": "concept"
+    },
+    {
+      "id": "must never be ingested",
+      "type": "concept"
+    },
+    {
+      "id": "Journal of Exobiology",
+      "type": "concept"
+    },
+    {
+      "id": "Vol 42",
+      "type": "concept"
+    },
+    {
+      "id": "chemical composition",
+      "type": "concept"
+    },
+    {
+      "id": "cellular apoptosis",
+      "type": "concept"
+    },
+    {
+      "id": "consumption",
+      "type": "concept"
+    },
+    {
+      "id": "Safety Regulation",
+      "type": "concept"
+    },
+    {
+      "id": "containing Zeta-Toxin",
+      "type": "concept"
+    },
+    {
+      "id": "ingestion",
+      "type": "concept"
+    },
+    {
+      "id": "Zeta-Toxin interaction",
+      "type": "concept"
+    },
+    {
+      "id": "agent",
+      "type": "concept"
+    },
+    {
+      "id": "risk",
+      "type": "concept"
+    },
+    {
+      "id": "ingested",
+      "type": "concept"
+    },
+    {
+      "id": "aroma",
+      "type": "concept"
+    }
+  ],
+  "relations": [
+    {
+      "subject": "Xylophonia Fruits",
+      "predicate": "ANALISE",
+      "object": "Toxicity Analysis",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "ANALISE"
+    },
+    {
+      "subject": "Xylophonia Fruits",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "Xylophonia Fruits",
+      "predicate": "ANALISE",
+      "object": "Human Metabolism",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "ANALISE"
+    },
+    {
+      "subject": "Xylophonia fruit",
+      "predicate": "NATIVO_DE",
+      "object": "sector 7G",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "NATIVO_DE"
+    },
+    {
+      "subject": "Xylophonia fruit",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "Xylophonia fruit",
+      "predicate": "POSSUI",
+      "object": "high caloric density",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "POSSUI"
+    },
+    {
+      "subject": "spectral analysis",
+      "predicate": "CONFIRMA",
+      "object": "presence of Zeta-Toxin",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "CONFIRMA"
+    },
+    {
+      "subject": "spectral analysis",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "spectral analysis",
+      "predicate": "REALIZADO_EM",
+      "object": "Xylophonia fruit",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "REALIZADO_EM"
+    },
+    {
+      "subject": "Zeta-Toxin",
+      "predicate": "CONCENTRACAO",
+      "object": "high concentrations",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CONCENTRACAO"
+    },
+    {
+      "subject": "Zeta-Toxin",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "Zeta-Toxin",
+      "predicate": "CONCENTRACAO",
+      "object": "40mg/g",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CONCENTRACAO"
+    },
+    {
+      "subject": "Zeta-Toxin",
+      "predicate": "INTERACAO",
+      "object": "human tissue",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "INTERACAO"
+    },
+    {
+      "subject": "Zeta-Toxin",
+      "predicate": "CAUSA",
+      "object": "immediate cellular apoptosis",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "CAUSA"
+    },
+    {
+      "subject": "Zeta-Toxin",
+      "predicate": "E_UM",
+      "object": "fundamental biological law",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "E_UM"
+    },
+    {
+      "subject": "Zeta-Toxin",
+      "predicate": "PRESENTE_EM",
+      "object": "Xylophonia fruit",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PRESENTE_EM"
+    },
+    {
+      "subject": "consumption of Xylophonia",
+      "predicate": "ESTRITAMENTE PROHIBITED",
+      "object": "due to Zeta-Toxin",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ESTRITAMENTE PROHIBITED"
+    },
+    {
+      "subject": "consumption of Xylophonia",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "agent containing Zeta-Toxin",
+      "predicate": "CLASSIFICADO_COMO",
+      "object": "CLASS-A POISON",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CLASSIFICADO_COMO"
+    },
+    {
+      "subject": "agent containing Zeta-Toxin",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "Xylophonia",
+      "predicate": "TEM_AROMA",
+      "object": "pleasant aroma",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "TEM_AROMA"
+    },
+    {
+      "subject": "Xylophonia",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "Xylophonia",
+      "predicate": "REPRESENTA_RISCO",
+      "object": "fatal risk",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "REPRESENTA_RISCO"
+    },
+    {
+      "subject": "Xylophonia",
+      "predicate": "RISCO_PARA",
+      "object": "humans",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "RISCO_PARA"
+    },
+    {
+      "subject": "Xylophonia",
+      "predicate": "INGESTAO",
+      "object": "must never be ingested",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "INGESTAO"
+    },
+    {
+      "subject": "Xylophonia",
+      "predicate": "CARACTERISTICA",
+      "object": "pleasant aroma",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CARACTERISTICA"
+    },
+    {
+      "subject": "Journal of Exobiology",
+      "predicate": "VOLUME",
+      "object": "Vol 42",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "VOLUME"
+    },
+    {
+      "subject": "Journal of Exobiology",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "Toxicity Analysis",
+      "predicate": "OBJETO",
+      "object": "Xylophonia Fruits",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "OBJETO"
+    },
+    {
+      "subject": "Toxicity Analysis",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "Toxicity Analysis",
+      "predicate": "OBJETO",
+      "object": "Human Metabolism",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "OBJETO"
+    },
+    {
+      "subject": "chemical composition",
+      "predicate": "ANALISADO_EM",
+      "object": "Xylophonia fruit",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "ANALISADO_EM"
+    },
+    {
+      "subject": "chemical composition",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "cellular apoptosis",
+      "predicate": "OCORRE_EM",
+      "object": "human tissue",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "OCORRE_EM"
+    },
+    {
+      "subject": "cellular apoptosis",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "consumption",
+      "predicate": "REGULADO_POR",
+      "object": "Safety Regulation",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "REGULADO_POR"
+    },
+    {
+      "subject": "consumption",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "consumption",
+      "predicate": "PROIBIDO_PARA",
+      "object": "Xylophonia",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PROIBIDO_PARA"
+    },
+    {
+      "subject": "Safety Regulation",
+      "predicate": "BASEADO_EM",
+      "object": "presence of Zeta-Toxin",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "BASEADO_EM"
+    },
+    {
+      "subject": "Safety Regulation",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "CLASS-A POISON",
+      "predicate": "DEFINIDO_POR",
+      "object": "containing Zeta-Toxin",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DEFINIDO_POR"
+    },
+    {
+      "subject": "CLASS-A POISON",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "fatal risk",
+      "predicate": "ASSOCIADO_A",
+      "object": "Xylophonia",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ASSOCIADO_A"
+    },
+    {
+      "subject": "fatal risk",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "humans",
+      "predicate": "RISCO_DE",
+      "object": "fatal risk",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "RISCO_DE"
+    },
+    {
+      "subject": "humans",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ingestion",
+      "predicate": "PROIBIDA_PARA",
+      "object": "Xylophonia",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PROIBIDA_PARA"
+    },
+    {
+      "subject": "ingestion",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "sector 7G",
+      "predicate": "LOCALIZACAO_DE",
+      "object": "Xylophonia fruit",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "LOCALIZACAO_DE"
+    },
+    {
+      "subject": "sector 7G",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "high caloric density",
+      "predicate": "PROPRIEDADE_DE",
+      "object": "Xylophonia fruit",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PROPRIEDADE_DE"
+    },
+    {
+      "subject": "high caloric density",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "immediate cellular apoptosis",
+      "predicate": "EFEITO_DE",
+      "object": "Zeta-Toxin",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "EFEITO_DE"
+    },
+    {
+      "subject": "immediate cellular apoptosis",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "fundamental biological law",
+      "predicate": "DESCREVE",
+      "object": "Zeta-Toxin interaction",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DESCREVE"
+    },
+    {
+      "subject": "fundamental biological law",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "agent",
+      "predicate": "DEFINICAO",
+      "object": "CLASS-A POISON",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DEFINICAO"
+    },
+    {
+      "subject": "agent",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "risk",
+      "predicate": "ASSOCIADO_A",
+      "object": "humans",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ASSOCIADO_A"
+    },
+    {
+      "subject": "risk",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ingested",
+      "predicate": "PROIBIDO_PARA",
+      "object": "Xylophonia",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "PROIBIDO_PARA"
+    },
+    {
+      "subject": "ingested",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "aroma",
+      "predicate": "CARACTERISTICA_DE",
+      "object": "Xylophonia",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CARACTERISTICA_DE"
+    },
+    {
+      "subject": "aroma",
+      "predicate": "tem fonte",
+      "object": "alien_biology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    }
+  ],
+  "rules": [
+    "(adicionar-regra 'PROIBICAO-CONSUMO-XILOFONIA\n  '((?fruta \"TEM_PRESENCA_DE\" \"ZETA-TOXIN\")\n    (?fruta \"E_UM\" \"Xylophonia\"))\n  '((?fruta \"CONSUMO\" \"PROIBIDO\"))",
+    "(adicionar-regra 'CLASSIFICACAO-POISON-A\n  '((?agente \"CONTEM\" \"ZETA-TOXIN\")\n    (?agente \"E_UM\" \"AGENTE\"))\n  '((?agente \"CLASSIFICADO_COMO\" \"CLASS-A POISON\"))",
+    "(adicionar-regra 'RISCO-FATAL-XILOFONIA\n  '((?fruta \"REPRESENTA_RISCO\" \"FATAL\")\n    (?fruta \"E_UM\" \"Xylophonia\"))\n  '((?fruta \"INGESTAO\" \"PROIBIDA\"))",
+    "(adicionar-regra 'APOPTOSE-CELULAR-ZETA-TOXIN\n  '((?toxina \"CAUSA\" \"APOPTOSE CELULAR\")\n    (?toxina \"E_UM\" \"ZETA-TOXIN\"))\n  '((?toxina \"INTERACAO\" \"TECIDO HUMANO\"))"
+  ]
+}

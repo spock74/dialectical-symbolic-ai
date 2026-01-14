@@ -288,6 +288,22 @@ export const useDialecticStore = create<CombinedState>()(
     {
       name: "dialectic-storage",
       version: 2, // Forced reset for breaking changes in source-specific history/filters
+      migrate: (persistedState, version) => {
+        if (version !== 2) {
+          // If version mismatch, better to discard incompatible state than risk breaks
+          return persistedState as CombinedState; // Returning existing does essentially nothing if version breaks, 
+          // actually standard behavior on version mismatch without migrate is to not use the state.
+          // To simply silence the warning but keep "reset" behavior, we need to return something.
+          // Usually we return `persistedState` if we mapped it, or `{}` if we want to reset?
+          // The error "couldn't be migrated since no migrate function was provided" implies we MUST provide one.
+          // If we want a hard reset, we can just return an empty object or a partial state?
+          // Actually, if we return `persistedState`, it effectively keeps it.
+          // To FORCE RESET (which was our intention with version bump), we should probably not return the old state.
+          
+          return {} as CombinedState; // Return empty state to trigger re-initialization from defaults
+        }
+        return persistedState as CombinedState;
+      },
     }
   )
 );

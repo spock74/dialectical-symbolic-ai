@@ -132,6 +132,9 @@ export class SBCLProcess extends EventEmitter {
 
   private handleStdout(data: Buffer) {
     const chunk = data.toString();
+    // [DEBUG] Pipe to backend console for observability
+    process.stdout.write(chunk); 
+    
     this.checkInitialization(chunk);
     this.emit('data', chunk);
     this.currentBuffer += chunk;
@@ -198,7 +201,7 @@ export class SBCLProcess extends EventEmitter {
     }
   }
 
-  public evaluate(code: string, timeoutMs: number = 30 * 1000, isBootstrap: boolean = false): Promise<string> {
+  public evaluate(code: string, timeoutMs: number = 60 * 1000, isBootstrap: boolean = false): Promise<string> {
     return new Promise((resolve, reject) => {
         if (!this.process) {
             return reject(new Error('SBCL Process not active'));
@@ -231,9 +234,10 @@ export class SBCLProcess extends EventEmitter {
 
     const timer = setTimeout(() => {
         if (this.activeCommand === current) {
+            console.error(`[SBCL] TIMEOUT detected for command: ${current.command.substring(0, 100)}...`);
             this.activeCommand = null;
             this.isProcessing = false;
-            current.reject(new Error(`SBCL Execution Timeout (${current.timeoutMs}ms)`));
+            current.reject(new Error(`SBCL Execution Timeout (${current.timeoutMs}ms) for command: ${current.command.slice(0, 50)}...`));
             this.processQueue();
         }
     }, current.timeoutMs);

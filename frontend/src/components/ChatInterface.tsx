@@ -40,7 +40,8 @@ export function ChatInterface() {
     setUseBypassSDialect,
     lastReasoningLogs,
     setLastReasoningLogs,
-    incrementGraphVersion
+    incrementGraphVersion,
+    resetAllState
   } = useDialecticStore();
 
   const [input, setInput] = useState("");
@@ -143,11 +144,14 @@ export function ChatInterface() {
     const sourceKey = activeSourceId || 'default';
     try {
       await resetKnowledge(activeSource?.name);
-      clearMessages(sourceKey); // Wipe only current source history
-      incrementGraphVersion();
+      
+      
+      // Call Global Frontend Reset
+      resetAllState();
+
       addMessage(sourceKey, { 
         role: 'tool', 
-        content: "Knowledge Base e histórico de chat resetados com sucesso. O motor semântico está limpo." 
+        content: "Factory Reset Concluído. Sistema limpo (Backend + Frontend)." 
       });
       setResetDialogOpen(false);
     } catch (error) {

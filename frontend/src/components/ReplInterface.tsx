@@ -5,6 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { useDialecticStore } from "../store/useStore";
 
+import { API_BASE_URL } from "../api";
 
 interface LogEntry {
   timestamp: string;
@@ -25,27 +26,37 @@ export function ReplInterface() {
 
   useEffect(() => {
     isMounted.current = true;
-    const eventSource = new EventSource('/api/lisp-stream');
     
-    eventSource.onopen = () => {
-      setIsConnected(true);
-      // Direct update for connection message
-      setLogs(prev => [...prev, { timestamp: new Date().toISOString(), content: ";; Stream Connection Established" }]);
+    // [DEBUG] Stream Re-enabled for Monitoring
+    const eventSource = new EventSource(`${API_BASE_URL}/lisp-stream`);
+
+    const setConnectionStatus = (status: string) => {
+      setIsConnected(status === "Connected");
     };
 
+    const addLog = (content: string) => {
+      const newLogEntry = { timestamp: new Date().toISOString(), content };
+      bufferRef.current.push(newLogEntry);
+    };
 
-    eventSource.onmessage = (event) => {
+    eventSource.onopen = () => {
+      setConnectionStatus("Connected");
+      addLog(";; Connected to System Stream");
+    };
+
+    eventSource.onmessage = (event: MessageEvent) => {
       try {
-        const data = JSON.parse(event.data);
-        bufferRef.current.push(data);
+        const parsed = JSON.parse(event.data);
+        addLog(parsed.content);
         
         // Detect state changes to refresh graph
-        const content = data.content || "";
+        const content = parsed.content || "";
         if (
           content.includes("Memorizado:") || 
           content.includes("Relacao estruturada:") ||
           content.includes("Ferramenta aprendida:") ||
           content.includes("Estado carregado") ||
+          content.includes("Auto-Saved Knowledge Graph") ||
           content.includes("Inferencia concluida")
         ) {
            useDialecticStore.getState().incrementGraphVersion();

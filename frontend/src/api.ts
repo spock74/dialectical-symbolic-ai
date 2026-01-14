@@ -1,7 +1,11 @@
 import type { KnowledgeBase } from './types';
 
+// Reverting to direct backend connection to avoid Proxy timeouts
 export const API_BASE_URL = 'http://localhost:3000/api';
-const API_BASE = API_BASE_URL; // Keep local ref for internal use if needed, or just replace usage.
+const API_BASE = API_BASE_URL;
+
+// Helper for long-running AI requests (5 minutes)
+const LONG_TIMEOUT = 300_000;
 
 export async function uploadPdf(file: File): Promise<KnowledgeBase> {
   const formData = new FormData();
@@ -10,6 +14,7 @@ export async function uploadPdf(file: File): Promise<KnowledgeBase> {
   const response = await fetch(`${API_BASE}/extract-from-pdf`, {
     method: 'POST',
     body: formData,
+    signal: AbortSignal.timeout(LONG_TIMEOUT),
   });
 
   if (!response.ok) {
@@ -27,6 +32,7 @@ export async function uploadPdfMultimodal(file: File): Promise<KnowledgeBase> {
   const response = await fetch(`${API_BASE}/extract-multimodal`, {
     method: 'POST',
     body: formData,
+    // signal: AbortSignal.timeout(LONG_TIMEOUT),
   });
 
   if (!response.ok) {

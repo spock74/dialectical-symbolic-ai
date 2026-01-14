@@ -70,6 +70,11 @@ export function transformMemoriesToGraph(data: LispGraphExport): GraphData {
 }
 
 
+// Helper to sanitize logic strings for Lisp
+function escapeLispString(str: string): string {
+    return str.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
 import { getActiveGraph } from "../logic/graph-engine";
 import { knowledgeUnitService } from "./knowledge-unit-service";
 import { SBCLProcess } from "./sbcl-process";
@@ -95,7 +100,7 @@ export async function commitKnowledgeToGraph(
   const lispCommands: string[] = [];
 
   relations.forEach((rel: any) => {
-    lispCommands.push(`(adicionar-relacao "${rel.source}" "${rel.label}" "${rel.target}" :category :${rel.category || "ONTOLOGY"})`);
+    lispCommands.push(`(adicionar-relacao "${escapeLispString(rel.source)}" "${escapeLispString(rel.label)}" "${escapeLispString(rel.target)}" :category :${rel.category || "ONTOLOGY"})`);
   });
 
   // 3. Sync Relations (Facts) in JS Engine
@@ -121,11 +126,19 @@ export async function commitKnowledgeToGraph(
   }
 
   if (lispCommands.length > 0) {
-    const batchedCmd = `(progn ${lispCommands.join(' ')} (values))`;
-    SBCLProcess.getInstance().evaluate(batchedCmd, 45000).catch(e => {
-        console.error(`[Service] Batched injection failed:`, e);
-    });
-    console.log(`[Service] Sent ${lispCommands.length} batched commands to Lisp kernel.`);
+    // CHUNK BATCHES to avoid timeouts on large PDFs
+    const CHUNK_SIZE = 10; 
+    for (let i = 0; i < lispCommands.length; i += CHUNK_SIZE) {
+        const chunk = lispCommands.slice(i, i + CHUNK_SIZE);
+        const batchedCmd = `(progn ${chunk.join(' ')} (values))`;
+        
+        try {
+            await SBCLProcess.getInstance().evaluate(batchedCmd, 60000);
+            console.log(`[Service] Injected chunk ${i/CHUNK_SIZE + 1} (${chunk.length} commands)`);
+        } catch (e) {
+            console.error(`[Service] Chunk injection failed:`, e);
+        }
+    }
   }
 
   // 5. Persistence

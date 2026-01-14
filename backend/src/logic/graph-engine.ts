@@ -230,9 +230,13 @@ export class KnowledgeGraph {
 
         if (data.relations && Array.isArray(data.relations)) {
           console.log(`[GraphEngine] Preparing rehydration for ${data.relations.length} relations for ${this.sourceName}...`);
+          
+          // Helper local
+          const escapeLisp = (str: string) => str.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+
           data.relations.forEach((r: Relation) => {
             this.addRelation(r.subject, r.predicate, r.object, r.provenance, r.category);
-            lispCommands.push(`(adicionar-relacao "${r.subject}" "${r.predicate}" "${r.object}" :category :${r.category || 'generic'})`);
+            lispCommands.push(`(adicionar-relacao "${escapeLisp(r.subject)}" "${escapeLisp(r.predicate)}" "${escapeLisp(r.object)}" :category :${r.category || 'generic'})`);
           });
         }
 
@@ -245,14 +249,26 @@ export class KnowledgeGraph {
         }
 
         if (lispCommands.length > 0) {
-          // Send all rehydration commands as a single batch to avoid queue congestion
-          const batchedCmd = `(progn ${lispCommands.join(' ')} (values))`;
-          console.log(`[GraphEngine] Sending batched rehydration (${lispCommands.length} commands) to SBCL...`);
-          SBCLProcess.getInstance().evaluate(batchedCmd, 60000).then(() => {
-            console.log(`[GraphEngine] Batched rehydration complete for ${this.sourceName}`);
-          }).catch(err => {
-            console.error(`[GraphEngine] Batched rehydration failed for ${this.sourceName}:`, err);
-          });
+          // CHUNK BATCHES to avoid timeouts on large PDFs
+          const CHUNK_SIZE = 50; 
+          
+          // Execute sequentially to not flood the process pipe
+          const runChunks = async () => {
+             for (let i = 0; i < lispCommands.length; i += CHUNK_SIZE) {
+                const chunk = lispCommands.slice(i, i + CHUNK_SIZE);
+                const batchedCmd = `(progn ${chunk.join(' ')} (values))`;
+                
+                try {
+                    await SBCLProcess.getInstance().evaluate(batchedCmd, 60000);
+                    console.log(`[GraphEngine] Rehydrated chunk ${i/CHUNK_SIZE + 1} (${chunk.length} commands)`);
+                } catch (e) {
+                    console.error(`[GraphEngine] Chunk rehydration failed:`, e);
+                }
+             }
+             console.log(`[GraphEngine] Full rehydration complete for ${this.sourceName}`);
+          };
+          
+          runChunks();
         }
       } catch (e) {
         console.error(`Failed to load state from ${filepath}:`, e);
@@ -297,10 +313,21 @@ export class KnowledgeGraph {
     return `(${rels.join(' ')})`;
   }
 
-  clear(): void {
+  async clear(): Promise<void> {
     this.nodes.clear();
     this.relations.clear();
+    this.rules.clear();
     this.snapshot = null;
+
+    try {
+      // Sync with Lisp Kernel
+      // We use a short timeout because reset should be fast. 
+      // strict=false (don't throw if timeout, just warn) is implied by catch
+      await SBCLProcess.getInstance().evaluate("(s-dialectic:reset-total)", 5000);
+      console.log(`[GraphEngine] Lisp Memory Synced (Cleared).`);
+    } catch (e) {
+      console.warn(`[GraphEngine] Warning: Failed to sync clear command to Lisp (Process might be busy or dead):`, e);
+    }
   }
 }
 
@@ -340,6 +367,72 @@ export class GraphManager {
 
   listGraphs(): string[] {
     return Array.from(this.instances.keys());
+  }
+
+  async deleteGraph(sourceName: string): Promise<void> {
+    const graph = this.instances.get(sourceName);
+    if (graph) {
+        // 1. Wipe Internal State (Lisp + JS)
+        await graph.clear(); // This calls Lisp reset-total currently... which is side-effecty for single graph
+        this.instances.delete(sourceName);
+    }
+
+    // 2. Delete Persistence File
+    const filepath = path.join(this.baseDir, `${sourceName}.json`);
+    if (fs.existsSync(filepath)) {
+        fs.unlinkSync(filepath);
+        console.log(`[GraphManager] Deleted persistence file: ${filepath}`);
+    }
+  }
+
+  /*
+   * Performs a Factory Reset.
+   * Wipes ALL JSON files, ALL Memory instances, and resets Lisp.
+   */ 
+  async deleteAll(): Promise<void> {
+      console.log(`[GraphManager] Initiating Factory Reset...`);
+      
+      // 1. Wipe properties in data/graphs/
+      if (fs.existsSync(this.baseDir)) {
+          const files = fs.readdirSync(this.baseDir);
+          for (const file of files) {
+              if (file.endsWith(".json")) {
+                  fs.unlinkSync(path.join(this.baseDir, file));
+                  console.log(`[GraphManager] Deleted: ${file}`);
+              }
+          }
+      }
+
+      // 2. Wipe data/units/ (Recursively)
+      const unitsDir = path.join(process.cwd(), 'data', 'units');
+      if (fs.existsSync(unitsDir)) {
+          try {
+            // Node 14+ supports recursive rmdir/rm
+            if (fs.rmSync) {
+                 fs.rmSync(unitsDir, { recursive: true, force: true });
+            } else {
+                 fs.rmdirSync(unitsDir, { recursive: true });
+            }
+            console.log(`[GraphManager] Deleted Units Directory: ${unitsDir}`);
+            // Recreate empty folder to prevent errors
+            fs.mkdirSync(unitsDir);
+          } catch (e) {
+             console.warn("[GraphManager] Failed to wipe units dir:", e);
+          }
+      }
+
+      // 3. Clear All JS Instances
+      this.instances.clear();
+
+      // 4. Clear Lisp (Global) - Use limpar-memoria (no args)
+      try {
+          // Previously used reset-total which required an arg. 
+          // limpar-memoria is the correct primitive.
+          await SBCLProcess.getInstance().evaluate("(s-dialectic:limpar-memoria)", 5000);
+          console.log(`[GraphManager] Lisp GLOBAL Memory Reset.`);
+      } catch (e) {
+          console.warn(`[GraphManager] Lisp Reset Warning:`, e);
+      }
   }
 }
 

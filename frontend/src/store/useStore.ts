@@ -23,7 +23,10 @@ interface ChatSlice {
   clearMessages: (sourceId: string) => void;
   setMessages: (sourceId: string, msgs: Message[]) => void;
   setLastReasoningLogs: (logs: string) => void;
+  resetAllState: () => void;
 }
+
+
 
 interface SourceSlice {
   groups: Group[];
@@ -96,6 +99,15 @@ const createChatSlice: StateCreator<CombinedState, [], [], ChatSlice> = (set) =>
     }
   })),
   setLastReasoningLogs: (logs) => set({ lastReasoningLogs: logs }),
+  resetAllState: () => set((state) => ({
+    sourceMessages: {},
+    lastReasoningLogs: "",
+    groups: [],
+    activeGroupId: null,
+    activeSourceId: null,
+    graphVersion: 0,
+    sourceFilters: {}
+  })),
 });
 
 const createSourceSlice: StateCreator<CombinedState, [], [], SourceSlice> = (set, get) => ({

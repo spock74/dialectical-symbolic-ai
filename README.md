@@ -20,16 +20,16 @@ The architecture follows a strict separation of concerns, orchestrated by a Node
 
 ```mermaid
 graph TD
-    User([User / Client])
+    User(["User / Client"])
     
     subgraph "Orchestration Layer (The Bridge)"
-        API[Node.js / Express API]
+        API["Node.js / Express API"]
         Store[Knowledge Store]
     end
 
     subgraph "System 1: Probabilistic Cortex"
         Genkit[Google Genkit]
-        Gemini[Gemini 2.5 Flash-Lite]
+        Gemini["Gemini 2.5 Flash-Lite"]
     end
 
     subgraph "System 2: Symbolic Kernel"
@@ -103,8 +103,8 @@ flowchart LR
     Decomposition[Semantic Decomposition] --> Search
     
     subgraph "Hybrid Retrieval"
-        Search --> Vector[Vector Search (Embeddings)]
-        Search --> Symbolic[Symbolic Query (Lisp)]
+        Search --> Vector["Vector Search (Embeddings)"]
+        Search --> Symbolic["Symbolic Query (Lisp)"]
     end
     
     Vector --> Synthesis

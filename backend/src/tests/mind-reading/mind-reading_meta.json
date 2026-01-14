@@ -1,0 +1,1774 @@
+{
+  "table_of_contents": [
+    {
+      "title": "Representation of internal speech by single \nneurons in human supramarginal gyrus",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          38.4140625,
+          110.3653564453125
+        ],
+        [
+          542.162109375,
+          110.3653564453125
+        ],
+        [
+          542.162109375,
+          167.92169189453125
+        ],
+        [
+          38.4140625,
+          167.92169189453125
+        ]
+      ]
+    },
+    {
+      "title": "Results",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          306.1418151855469,
+          703.0127105712891
+        ],
+        [
+          349.80078125,
+          703.0127105712891
+        ],
+        [
+          349.80078125,
+          716.45751953125
+        ],
+        [
+          306.1418151855469,
+          716.45751953125
+        ]
+      ]
+    },
+    {
+      "title": "Task design",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          305.275390625,
+          715.298828125
+        ],
+        [
+          354.2974548339844,
+          715.298828125
+        ],
+        [
+          354.2974548339844,
+          725.3408203125
+        ],
+        [
+          305.275390625,
+          725.3408203125
+        ]
+      ]
+    },
+    {
+      "title": "Population activity represented selective tuning for \nindividual words",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          38.34130859375,
+          89.21923828125
+        ],
+        [
+          253.35299682617188,
+          89.21923828125
+        ],
+        [
+          253.35299682617188,
+          111.813720703125
+        ],
+        [
+          38.34130859375,
+          111.813720703125
+        ]
+      ]
+    },
+    {
+      "title": "Internal speech is decodable in the SMG",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          306.1417236328125,
+          47.1201171875
+        ],
+        [
+          468.13751220703125,
+          47.1201171875
+        ],
+        [
+          468.13751220703125,
+          57.6448974609375
+        ],
+        [
+          306.1417236328125,
+          57.6448974609375
+        ]
+      ]
+    },
+    {
+      "title": "High-accuracy online speech decoder",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          306.1417236328125,
+          595.95361328125
+        ],
+        [
+          460.96875,
+          595.95361328125
+        ],
+        [
+          460.96875,
+          605.99560546875
+        ],
+        [
+          306.1417236328125,
+          605.99560546875
+        ]
+      ]
+    },
+    {
+      "title": "Fig. 5 | Words can be significantly decoded during internal speech in the \nSMG. a, Offline decoding accuracies: 'audio cue' and 'written cue' task data \nwere combined for each individual session day, and leave-one-out CV was \nperformed (black dots). PCA was performed on the training data, an LDA model \nwas constructed, and classification accuracies were plotted with 95% confidence \nintervals, over the session means. The significance of classification accuracies \nwere evaluated by comparing results with a shuffled distribution (averaged \nshuffle results over 100 repetitions indicated by red dots; P\u2009<\u20090.01 indicates \nthat the average mean is >99.5th percentile of shuffle distribution, n\u2009=\u200910). In \nparticipant 1, classification accuracies during action phases (cue, internal and \nspeech) following rest phases (ITI, D1 and D2) were significantly higher (paired \ntwo-tailed t-test: n\u2009=\u200910, d.f. 9, for all P\u2009<\u20090.001, Cohen's d\u2009=\u20096.81, 2.29 and 5.75). \nb, Online decoding accuracies: classification accuracies for internal speech were \nevaluated in a closed-loop internal speech BMI application on three different \nsession days for both participants. In participant 1, decoding accuracies were",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          38.123046875,
+          469.83917236328125
+        ],
+        [
+          293.92578125,
+          469.83917236328125
+        ],
+        [
+          293.92578125,
+          616.8967132568359
+        ],
+        [
+          38.123046875,
+          616.8967132568359
+        ]
+      ]
+    },
+    {
+      "title": "Shared representations between internal speech, written \nwords and vocalized speech",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          305.56640625,
+          670.88232421875
+        ],
+        [
+          543.03515625,
+          670.88232421875
+        ],
+        [
+          543.03515625,
+          691.83837890625
+        ],
+        [
+          305.56640625,
+          691.83837890625
+        ]
+      ]
+    },
+    {
+      "title": "Robust decoding of multiple internal speech strategies within \nthe SMG",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          306.1417236328125,
+          564.6689453125
+        ],
+        [
+          560.49609375,
+          564.6689453125
+        ],
+        [
+          560.49609375,
+          585.525390625
+        ],
+        [
+          306.1417236328125,
+          585.525390625
+        ]
+      ]
+    },
+    {
+      "title": "Table 1 | Internal strategy task",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          39.685001373291016,
+          47.675323486328125
+        ],
+        [
+          163.9873046875,
+          47.675323486328125
+        ],
+        [
+          163.9873046875,
+          58.46563720703125
+        ],
+        [
+          39.685001373291016,
+          58.46563720703125
+        ]
+      ]
+    },
+    {
+      "title": "Discussion",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          39.287109375,
+          400.52099609375
+        ],
+        [
+          95.91825103759766,
+          400.52099609375
+        ],
+        [
+          95.91825103759766,
+          412.7626953125
+        ],
+        [
+          39.287109375,
+          412.7626953125
+        ]
+      ]
+    },
+    {
+      "title": "Single neurons in the SMG encode internal speech",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          39.1416015625,
+          584.7529296875
+        ],
+        [
+          243.0376434326172,
+          584.7529296875
+        ],
+        [
+          243.0376434326172,
+          595.5673828125
+        ],
+        [
+          39.1416015625,
+          595.5673828125
+        ]
+      ]
+    },
+    {
+      "title": "Neurons in S1 are modulated by vocalized but not internal \nspeech",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          306.1417236328125,
+          46.902862548828125
+        ],
+        [
+          544.19921875,
+          46.902862548828125
+        ],
+        [
+          544.19921875,
+          68.33837890625
+        ],
+        [
+          306.1417236328125,
+          68.33837890625
+        ]
+      ]
+    },
+    {
+      "title": "Different face activities are observable but not decodable in \narm area of S1",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          306.1417236328125,
+          220.344482421875
+        ],
+        [
+          552.638671875,
+          218.799560546875
+        ],
+        [
+          552.638671875,
+          240.33837890625
+        ],
+        [
+          306.1417236328125,
+          241.200927734375
+        ]
+      ]
+    },
+    {
+      "title": "Shared neural representations between internal and vocalized \nspeech",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          305.56640625,
+          381.402587890625
+        ],
+        [
+          563.40625,
+          379.857666015625
+        ],
+        [
+          563.40625,
+          401.6796875
+        ],
+        [
+          305.56640625,
+          403.224609375
+        ]
+      ]
+    },
+    {
+      "title": "Shared representation between speech and written cue \npresentation",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          305.56640625,
+          671.65478515625
+        ],
+        [
+          534.88671875,
+          670.10986328125
+        ],
+        [
+          534.88671875,
+          691.8384704589844
+        ],
+        [
+          305.56640625,
+          693.28369140625
+        ]
+      ]
+    },
+    {
+      "title": "Investigating internal speech strategies",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          39.287109375,
+          219.37890625
+        ],
+        [
+          202.43850708007812,
+          219.37890625
+        ],
+        [
+          202.43850708007812,
+          230.193359375
+        ],
+        [
+          39.287109375,
+          230.193359375
+        ]
+      ]
+    },
+    {
+      "title": "Audio contamination in decoding result",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          39.21435546875,
+          412.10791015625
+        ],
+        [
+          203.6328887939453,
+          412.10791015625
+        ],
+        [
+          203.6328887939453,
+          423.69482421875
+        ],
+        [
+          39.21435546875,
+          423.69482421875
+        ]
+      ]
+    },
+    {
+      "title": "Single-neuron modulation during internal speech with a \nsecond participant",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          39.287109375,
+          584.36669921875
+        ],
+        [
+          271.08575439453125,
+          584.36669921875
+        ],
+        [
+          271.08575439453125,
+          605.99560546875
+        ],
+        [
+          39.287109375,
+          605.99560546875
+        ]
+      ]
+    },
+    {
+      "title": "Impact on BMI applications",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          306.1418151855469,
+          218.799560546875
+        ],
+        [
+          419.26531982421875,
+          218.799560546875
+        ],
+        [
+          419.26531982421875,
+          230.000244140625
+        ],
+        [
+          306.1418151855469,
+          230.000244140625
+        ]
+      ]
+    },
+    {
+      "title": "Methods",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          306.1418151855469,
+          453.82080078125
+        ],
+        [
+          353.29296875,
+          453.82080078125
+        ],
+        [
+          353.29296875,
+          466.95263671875
+        ],
+        [
+          306.1418151855469,
+          466.95263671875
+        ]
+      ]
+    },
+    {
+      "title": "Experimental model and participant details",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          306.1418151855469,
+          465.40771484375
+        ],
+        [
+          486.294677734375,
+          465.40771484375
+        ],
+        [
+          486.294677734375,
+          477.76708984375
+        ],
+        [
+          306.1418151855469,
+          477.76708984375
+        ]
+      ]
+    },
+    {
+      "title": "Method details",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          306.1418151855469,
+          680.92431640625
+        ],
+        [
+          369.298828125,
+          680.92431640625
+        ],
+        [
+          369.298828125,
+          692.51123046875
+        ],
+        [
+          306.1418151855469,
+          692.51123046875
+        ]
+      ]
+    },
+    {
+      "title": "Experimental tasks",
+      "heading_level": null,
+      "page_id": 10,
+      "polygon": [
+        [
+          39.105224609375,
+          369.236328125
+        ],
+        [
+          119.09474182128906,
+          369.236328125
+        ],
+        [
+          119.09474182128906,
+          380.43701171875
+        ],
+        [
+          39.105224609375,
+          380.43701171875
+        ]
+      ]
+    },
+    {
+      "title": "Quantification and statistical analysis",
+      "heading_level": null,
+      "page_id": 10,
+      "polygon": [
+        [
+          306.1417236328125,
+          487.4228515625
+        ],
+        [
+          462.71484375,
+          487.4228515625
+        ],
+        [
+          462.71484375,
+          498.3346252441406
+        ],
+        [
+          306.1417236328125,
+          498.3346252441406
+        ]
+      ]
+    },
+    {
+      "title": "Reporting summary",
+      "heading_level": null,
+      "page_id": 11,
+      "polygon": [
+        [
+          305.275390625,
+          466.18017578125
+        ],
+        [
+          389.669921875,
+          466.18017578125
+        ],
+        [
+          389.669921875,
+          476.99462890625
+        ],
+        [
+          305.275390625,
+          476.99462890625
+        ]
+      ]
+    },
+    {
+      "title": "Data availability",
+      "heading_level": null,
+      "page_id": 11,
+      "polygon": [
+        [
+          304.40234375,
+          508.66552734375
+        ],
+        [
+          391.2495422363281,
+          508.66552734375
+        ],
+        [
+          391.2495422363281,
+          520.2626953125
+        ],
+        [
+          304.40234375,
+          520.2626953125
+        ]
+      ]
+    },
+    {
+      "title": "Code availability",
+      "heading_level": null,
+      "page_id": 11,
+      "polygon": [
+        [
+          304.984375,
+          561.19287109375
+        ],
+        [
+          393.453125,
+          561.19287109375
+        ],
+        [
+          393.453125,
+          574.0127105712891
+        ],
+        [
+          304.984375,
+          574.0127105712891
+        ]
+      ]
+    },
+    {
+      "title": "References",
+      "heading_level": null,
+      "page_id": 11,
+      "polygon": [
+        [
+          305.56640625,
+          604.8369140625
+        ],
+        [
+          365.515625,
+          604.8369140625
+        ],
+        [
+          365.515625,
+          617.0127105712891
+        ],
+        [
+          305.56640625,
+          617.0127105712891
+        ]
+      ]
+    },
+    {
+      "title": "",
+      "heading_level": null,
+      "page_id": 13,
+      "polygon": [
+        [
+          40.123779296875,
+          21.785812377929688
+        ],
+        [
+          70.753173828125,
+          21.785812377929688
+        ],
+        [
+          70.753173828125,
+          34.4710693359375
+        ],
+        [
+          40.123779296875,
+          34.4710693359375
+        ]
+      ]
+    },
+    {
+      "title": "Acknowledgements",
+      "heading_level": null,
+      "page_id": 13,
+      "polygon": [
+        [
+          39.468994140625,
+          583.2080078125
+        ],
+        [
+          142.888671875,
+          583.2080078125
+        ],
+        [
+          142.888671875,
+          596.33984375
+        ],
+        [
+          39.468994140625,
+          596.33984375
+        ]
+      ]
+    },
+    {
+      "title": "Author contributions",
+      "heading_level": null,
+      "page_id": 13,
+      "polygon": [
+        [
+          305.857421875,
+          131.6080322265625
+        ],
+        [
+          418.771484375,
+          131.6080322265625
+        ],
+        [
+          418.771484375,
+          144.5467529296875
+        ],
+        [
+          305.857421875,
+          144.5467529296875
+        ]
+      ]
+    },
+    {
+      "title": "Competing interests",
+      "heading_level": null,
+      "page_id": 13,
+      "polygon": [
+        [
+          306.1417236328125,
+          217.833984375
+        ],
+        [
+          412.369140625,
+          217.833984375
+        ],
+        [
+          412.369140625,
+          230.193359375
+        ],
+        [
+          306.1417236328125,
+          230.193359375
+        ]
+      ]
+    },
+    {
+      "title": "Additional information",
+      "heading_level": null,
+      "page_id": 13,
+      "polygon": [
+        [
+          306.1417236328125,
+          249.311767578125
+        ],
+        [
+          427.2109375,
+          249.311767578125
+        ],
+        [
+          427.2109375,
+          262.443603515625
+        ],
+        [
+          306.1417236328125,
+          262.443603515625
+        ]
+      ]
+    },
+    {
+      "title": "",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          11.349609375,
+          29.01556396484375
+        ],
+        [
+          244.162109375,
+          27.47064208984375
+        ],
+        [
+          244.162109375,
+          75.17010498046875
+        ],
+        [
+          11.349609375,
+          76.71502685546875
+        ]
+      ]
+    },
+    {
+      "title": "Reporting Summary",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          12.8046875,
+          122.7247314453125
+        ],
+        [
+          192.2158203125,
+          121.1798095703125
+        ],
+        [
+          192.2158203125,
+          145.1260986328125
+        ],
+        [
+          12.8046875,
+          146.6710205078125
+        ]
+      ]
+    },
+    {
+      "title": "Statistics",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          16.0604248046875,
+          218.99267578125
+        ],
+        [
+          67.58837890625,
+          218.99267578125
+        ],
+        [
+          67.58837890625,
+          233.53704833984375
+        ],
+        [
+          16.0604248046875,
+          233.53704833984375
+        ]
+      ]
+    },
+    {
+      "title": "Software and code",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          15.423828125,
+          497.85107421875
+        ],
+        [
+          123.02685546875,
+          497.85107421875
+        ],
+        [
+          123.02685546875,
+          513.30029296875
+        ],
+        [
+          15.423828125,
+          513.30029296875
+        ]
+      ]
+    },
+    {
+      "title": "Data",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          15.96038818359375,
+          625.5358581542969
+        ],
+        [
+          43.28739929199219,
+          625.5358581542969
+        ],
+        [
+          43.28739929199219,
+          639.59765625
+        ],
+        [
+          15.96038818359375,
+          639.59765625
+        ]
+      ]
+    },
+    {
+      "title": "Research involving human participants, their data, or biological material",
+      "heading_level": null,
+      "page_id": 15,
+      "polygon": [
+        [
+          17.007999420166016,
+          32.9261474609375
+        ],
+        [
+          423.13671875,
+          32.9261474609375
+        ],
+        [
+          423.13671875,
+          48.32708740234375
+        ],
+        [
+          17.007999420166016,
+          48.32708740234375
+        ]
+      ]
+    },
+    {
+      "title": "Field-specific reporting",
+      "heading_level": null,
+      "page_id": 15,
+      "polygon": [
+        [
+          15.589997291564941,
+          237.338623046875
+        ],
+        [
+          200.80078125,
+          237.338623046875
+        ],
+        [
+          200.80078125,
+          259.43359375
+        ],
+        [
+          15.589997291564941,
+          259.43359375
+        ]
+      ]
+    },
+    {
+      "title": "Behavioural & social sciences study design",
+      "heading_level": null,
+      "page_id": 15,
+      "polygon": [
+        [
+          14.9873046875,
+          326.36474609375
+        ],
+        [
+          356.78515625,
+          324.81982421875
+        ],
+        [
+          356.78515625,
+          347.607421875
+        ],
+        [
+          14.9873046875,
+          349.15234375
+        ]
+      ]
+    },
+    {
+      "title": "Reporting for specific materials, systems and methods",
+      "heading_level": null,
+      "page_id": 15,
+      "polygon": [
+        [
+          15.589997291564941,
+          704.09814453125
+        ],
+        [
+          449.9898986816406,
+          704.09814453125
+        ],
+        [
+          449.9898986816406,
+          725.72705078125
+        ],
+        [
+          15.589997291564941,
+          725.72705078125
+        ]
+      ]
+    },
+    {
+      "title": "Clinical data",
+      "heading_level": null,
+      "page_id": 16,
+      "polygon": [
+        [
+          17.007999420166016,
+          200.646728515625
+        ],
+        [
+          85.55859375,
+          200.646728515625
+        ],
+        [
+          85.55859375,
+          216.482177734375
+        ],
+        [
+          17.007999420166016,
+          216.482177734375
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          126
+        ],
+        [
+          "Line",
+          55
+        ],
+        [
+          "Text",
+          10
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          384
+        ],
+        [
+          "Line",
+          149
+        ],
+        [
+          "Text",
+          9
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ],
+        [
+          "Reference",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          387
+        ],
+        [
+          "Line",
+          100
+        ],
+        [
+          "Text",
+          6
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "Reference",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          408
+        ],
+        [
+          "Line",
+          159
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "TextInlineMath",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ],
+        [
+          "Reference",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          369
+        ],
+        [
+          "Line",
+          130
+        ],
+        [
+          "Text",
+          9
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "TextInlineMath",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          281
+        ],
+        [
+          "Line",
+          111
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "Figure",
+          2
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Reference",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          332
+        ],
+        [
+          "Line",
+          125
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Reference",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 7,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          402
+        ],
+        [
+          "Line",
+          154
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "TextInlineMath",
+          3
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Reference",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 8,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          312
+        ],
+        [
+          "Line",
+          125
+        ],
+        [
+          "TableCell",
+          15
+        ],
+        [
+          "Text",
+          10
+        ],
+        [
+          "SectionHeader",
+          7
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Table",
+          1
+        ],
+        [
+          "TextInlineMath",
+          1
+        ],
+        [
+          "Reference",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 9,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          284
+        ],
+        [
+          "Line",
+          126
+        ],
+        [
+          "Text",
+          12
+        ],
+        [
+          "SectionHeader",
+          7
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 10,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          289
+        ],
+        [
+          "Line",
+          122
+        ],
+        [
+          "Text",
+          16
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Equation",
+          1
+        ],
+        [
+          "TextInlineMath",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 11,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          556
+        ],
+        [
+          "Line",
+          144
+        ],
+        [
+          "Text",
+          14
+        ],
+        [
+          "TextInlineMath",
+          4
+        ],
+        [
+          "SectionHeader",
+          4
+        ],
+        [
+          "ListItem",
+          4
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "Equation",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Reference",
+          2
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 12,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          517
+        ],
+        [
+          "Line",
+          132
+        ],
+        [
+          "ListItem",
+          44
+        ],
+        [
+          "Reference",
+          40
+        ],
+        [
+          "PageFooter",
+          3
+        ],
+        [
+          "ListGroup",
+          2
+        ],
+        [
+          "PageHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 13,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          309
+        ],
+        [
+          "Line",
+          98
+        ],
+        [
+          "ListItem",
+          17
+        ],
+        [
+          "Reference",
+          16
+        ],
+        [
+          "Text",
+          11
+        ],
+        [
+          "SectionHeader",
+          5
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "PageHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 14,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          107
+        ],
+        [
+          "Line",
+          38
+        ],
+        [
+          "TableCell",
+          28
+        ],
+        [
+          "Text",
+          9
+        ],
+        [
+          "SectionHeader",
+          5
+        ],
+        [
+          "ListItem",
+          3
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "Form",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 15,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          117
+        ],
+        [
+          "Line",
+          46
+        ],
+        [
+          "TableCell",
+          32
+        ],
+        [
+          "Text",
+          7
+        ],
+        [
+          "SectionHeader",
+          4
+        ],
+        [
+          "Form",
+          3
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    },
+    {
+      "page_id": 16,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          75
+        ],
+        [
+          "TableCell",
+          52
+        ],
+        [
+          "Line",
+          33
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Form",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Table",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/mind-reading"
+}

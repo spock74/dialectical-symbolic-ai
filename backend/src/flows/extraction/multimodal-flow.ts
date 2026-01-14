@@ -1,100 +1,137 @@
 import { ai } from '../../genkit';
 import { z } from 'genkit';
-import { KnowledgeBaseOutputSchema } from './schemas';
-import { imageService } from '../../services/image-service';
-import { CONFIG } from "../../config/constants"; // Import CONFIG
-
+import { ExtractionOutputSchema } from './schemas';
+import { CONFIG } from "../../config/constants";
 import { prompt } from "@genkit-ai/dotprompt";
+import { GoogleGenAI, FileState } from "@google/genai";
 import { scheduleModelUnload } from "../../services/model-cleanup";
-import { safeParseJSON } from '../../logic/json-util';
+
+/**
+ * [CORTEX] Study Track PDF Ingestion via Native File API.
+ * Uses @google/genai to stream binaries directly to Google Cache.
+ */
+
+// Initialize Google Gen AI client with developer key
+const genAI = new GoogleGenAI({ apiKey: CONFIG.GEMINI_API_KEY });
+
+const REGEX_RELATION = /\(adicionar-relacao\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"\s+:category\s+:([A-Z]+)\)/g;
+const REGEX_RULE = /\(adicionar-regra\s+'([^\s\n]+)\s+'(\([\s\S]*?\))\s+'(\([\s\S]*?\))\)/g;
 
 export const extractKnowledgeMultimodal = ai.defineFlow(
   {
     name: "extractKnowledgeMultimodal",
     inputSchema: z.object({
-      pdfBase64: z.string().optional(),
-      filePath: z.string().optional(),
+      filePath: z.string(), // Disk path for streaming upload
+      trackId: z.string().optional(),
     }),
-    outputSchema: KnowledgeBaseOutputSchema,
+    outputSchema: ExtractionOutputSchema,
   },
-  async ({ pdfBase64, filePath }) => {
-    try {
-      // 1. Convert PDF -> Images
-      // We limit to 1 page for now to fit in context window and prevent Node OOM (Exit 137)
-      let images: string[] = [];
+  async ({ filePath, trackId }) => {
+    console.log(`[Flow] Starting Multimodal PDF Extraction (File API) for Track: ${trackId}`);
+    let uploadedFile;
 
-      if (filePath) {
-        console.log(`Processing PDF from disk: ${filePath}`);
-        images = await imageService.convertPdfToImages(filePath, 1);
-      } else if (pdfBase64) {
-        console.log(`Processing PDF from memory buffer`);
-        const buffer = Buffer.from(pdfBase64, "base64");
-        images = await imageService.convertPdfToImages(buffer, 1);
-      } else {
-        throw new Error("Either pdfBase64 or filePath must be provided");
+    try {
+      // 1. NATIVE BINARY UPLOAD (File API)
+      // Streams directly from disk to prevent Node.js memory pressure (Base64 OOM)
+      uploadedFile = await genAI.files.upload({
+        file: filePath,
+        config: {
+          mimeType: "application/pdf",
+          displayName: `StudyTrack_${trackId || 'unknown'}_${Date.now()}`
+        }
+      });
+
+      console.log(`[Flow] Document uploaded to Gemini Cache. Name: ${uploadedFile.name} | URI: ${uploadedFile.uri}`);
+      
+      const fileName = uploadedFile.name;
+      if (!fileName) throw new Error("[Flow] Upload failed: Gemini returned no file name.");
+
+      // 2. POLLING: Wait for PDF processing (ACTIVE state)
+      let fileStatus = await genAI.files.get({ name: fileName });
+      while (fileStatus.state === FileState.PROCESSING) {
+        console.log(`[Flow] File state: ${fileStatus.state}. Waiting 3s...`);
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        fileStatus = await genAI.files.get({ name: fileName });
       }
 
-      console.log(
-        `Converted PDF to ${images.length} images for visual processing.`
-      );
+      if (fileStatus.state === FileState.FAILED) {
+        throw new Error(`[Flow] Gemini PDF Processing failed for file: ${fileName}`);
+      }
 
-      // 2. Load Prompt
+      console.log(`[Flow] PDF is now ACTIVE. Triggering extraction...`);
+
+      // 3. GENERATION
       // @ts-ignore
-      const multimodalPrompt = await prompt(
-        ai.registry as any,
-        "knowledgeExtractionMultimodal"
-      );
-
-      // 3. Generate using dedicated VISION MODEL
-      // We pass 'model' in the options object to override the text-only default
-      const inputVars = {
-        images: images.map((img) => ({
-          url: `data:image/png;base64,${img}`,
-          contentType: "image/png",
-        })),
-      };
-
-      // Render total context for observability
-      // Truncate base64 for cleaner logs in multimodal
-      const rendered = await multimodalPrompt.render({ input: inputVars });
-      const promptText =
-        rendered.messages
-          ?.map((m) =>
-            m.content
-              ?.map((p) => p.text || (p.media ? "[Media]" : JSON.stringify(p)))
-              .join("")
-          )
-          .join("\n---\n") || "No message content";
-      const cleanLog = promptText.replace(
-        /data:image\/png;base64,[^"\s]+/g,
-        "[BASE64_IMAGE_DATA]"
-      );
-      console.log("--- [DEBUG] TOTAL CONTEXT (multimodalExtraction) ---");
-      console.log(cleanLog);
-      console.log("----------------------------------------------------");
+      const multimodalPrompt = await prompt(ai.registry as any, "knowledgeExtractionMultimodal");
 
       const response = await multimodalPrompt.generate({
         model: CONFIG.VISION_MODEL,
-        input: inputVars,
+        input: {
+          pdfFile: uploadedFile.uri,
+          trackId: trackId || "default"
+        },
       });
 
-      let knowledge;
-      try {
-        knowledge = response.output || safeParseJSON(response.text);
-      } catch (e) {
-        console.warn("Multimodal JSON Parse Error, performing manual sanitization:", e);
-        knowledge = safeParseJSON(response.text);
+      const rawText = response.text;
+      console.log(`[Flow] Extraction complete. Raw output length: ${rawText.length}`);
+
+      // 4. PARSING (Strict Lisp Structures)
+      const relations: any[] = [];
+      const rules: any[] = [];
+      let match;
+
+      // Extract Relations
+      while ((match = REGEX_RELATION.exec(rawText)) !== null) {
+        relations.push({
+          source: match[1],
+          label: match[2],
+          target: match[3],
+          category: match[4]
+        });
       }
 
-      if (!knowledge) {
-        throw new Error("Failed to generate knowledge from PDF images (JSON malformed or missing). Raw: " + response.text);
+      // Extract Rules
+      while ((match = REGEX_RULE.exec(rawText)) !== null) {
+        // Clean up the conditions block and split into individual clauses if it's ((c1)(c2))
+        const rawConditions = match[2].trim();
+        // Simple heuristic to extract clauses: look for inner parens if they exist, otherwise treat as one
+        const conditions = rawConditions.startsWith("((") 
+          ? rawConditions.slice(2, -2).split(/\)\s*\(/).map(c => `(${c.trim()})`)
+          : [rawConditions];
+
+        rules.push({
+          name: match[1],
+          conditions: conditions,
+          consequence: match[3].trim()
+        });
       }
 
-      return knowledge;
+      console.log(`[Flow] Sucessfully parsed ${relations.length} relations and ${rules.length} rules.`);
+
+      return {
+        relations,
+        rules,
+        lisp_raw: rawText
+      };
+
+    } catch (error) {
+      console.error("[Flow] Multimodal Flow Error:", error);
+      throw error;
     } finally {
-      // Schedule graceful unload (delayed to allow follow-up questions or retries)
-      if (CONFIG.USE_LOCAL_MODELS)
+      // 5. CLEANUP: Delete remote file to avoid clutter/costs
+      if (uploadedFile?.name) {
+        try {
+          await genAI.files.delete({ name: uploadedFile.name });
+          console.log(`[Flow] Remote file cleanup successful: ${uploadedFile.name}`);
+        } catch (cleanupError) {
+          console.warn(`[Flow] Failed to cleanup remote file: ${uploadedFile.name}`, cleanupError);
+        }
+      }
+
+      // Local model maintenance
+      if (CONFIG.USE_LOCAL_MODELS) {
         scheduleModelUnload(CONFIG.OLLAMA_VISION_MODEL_NAME);
+      }
     }
   }
 );

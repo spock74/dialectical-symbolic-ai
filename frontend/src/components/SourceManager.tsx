@@ -76,12 +76,12 @@ export function SourceManager({ onKnowledgeLoaded }: SourceManagerProps) {
         const content = await readFileContent(file);
         const prompt = `Analise o seguinte documento e extraia conhecimento estruturado:\n\n---\nArquivo: ${file.name}\nConteúdo:\n${content}\n---`;
         
-        addMessage({ role: 'user', content: `[Arquivo carregado: ${file.name}]` });
+        addMessage(activeSourceId || 'default', { role: 'user', content: `[Arquivo carregado: ${file.name}]` });
         
         const { useConversationalMemory, useBypassSDialect } = useDialecticStore.getState();
         const chatResponse = await chat(prompt, [], useConversationalMemory, useBypassSDialect, file.name);
         
-        addMessage({ role: 'model', content: chatResponse.text });
+        addMessage(activeSourceId || 'default', { role: 'model', content: chatResponse.text });
         if (chatResponse.reasoningLogs) {
            setLastReasoningLogs(chatResponse.reasoningLogs);
         }

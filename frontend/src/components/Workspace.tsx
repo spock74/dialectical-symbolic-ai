@@ -1,6 +1,6 @@
 
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import ReactFlow, { 
   Background, 
   Controls, 
@@ -84,12 +84,11 @@ interface WorkspaceProps {
 function GraphView({ activeSource }: { activeSource: any }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [availableRelationTypes, setAvailableRelationTypes] = useState<string[]>([]);
-  const [relationCounts, setRelationCounts] = useState<Record<string, number>>({});
+  const [rawGraphData, setRawGraphData] = useState<{ nodes: any[], edges: any[] } | null>(null);
+  
   const { fitView } = useReactFlow();
   const lastSourceIdRef = useRef<string | null>(null);
   
-  // Subscribe to store state needed for filters
   const {
     graphVersion,
     graphDirection,
@@ -103,14 +102,11 @@ function GraphView({ activeSource }: { activeSource: any }) {
     initializeSourceFilters,
   } = useDialecticStore();
 
-  // Derive filter state for valid active source or fallback to defaults
-  const activeFilters = (activeSourceId && sourceFilters[activeSourceId]) || {
-    showEntities: true,
-    showRelations: true,
-    selectedRelationTypes: [], // Initially empty, will be populated by effect
-  };
+  const activeFilters = (activeSourceId && sourceFilters[activeSourceId]) || null;
   
-  const { showEntities, showRelations, selectedRelationTypes } = activeFilters;
+  const showEntities = activeFilters?.showEntities !== false; // Default to true
+  const showRelations = activeFilters?.showRelations !== false; // Default to true
+  const selectedRelationTypes = activeFilters?.selectedRelationTypes || [];
 
   const handleDownloadRaw = () => {
     try {
@@ -129,148 +125,130 @@ function GraphView({ activeSource }: { activeSource: any }) {
     }
   };
 
-  // Fetch and Filter Logic
+  // 1. Fetch data ONLY on source/version change
   useEffect(() => {
     if (!activeSource) {
-      setNodes([]);
-      setEdges([]);
-      setRelationCounts({});
-      setAvailableRelationTypes([]);
+      setRawGraphData(null);
       return;
     }
 
     fetchGraph(activeSource.name)
       .then(data => {
-        // Collect types and count frequencies
+        setRawGraphData(data);
+        
+        // Count frequencies in raw data for filter UI
         const counts: Record<string, number> = {};
         data.edges.forEach((e: any) => {
-            if (e.label) {
-                counts[e.label] = (counts[e.label] || 0) + 1;
+            const type = e.label || e.relation;
+            if (type) {
+                counts[type] = (counts[type] || 0) + 1;
             }
         });
-        setRelationCounts(counts);
 
-        // Sort types by count (descending)
         const sortedTypes = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
-        setAvailableRelationTypes(sortedTypes);
 
-        // Generate Color Map
-        const typeColorMap: Record<string, string> = {};
-        sortedTypes.forEach((type, index) => {
-            typeColorMap[type] = RELATION_COLORS[index % RELATION_COLORS.length];
-        });
-
-        // Initialize filters if this is the first load for this source
+        // Initialize filters if needed
         if (activeSource?.id && !sourceFilters[activeSource.id]) {
             initializeSourceFilters(activeSource.id, sortedTypes);
         }
-
-        // Category Color Map (Hardcoded for semantic consistency)
-        const CATEGORY_COLORS: Record<string, string> = {
-            "CAUSAL": "#ef4444",      // Red
-            "METHODOLOGY": "#3b82f6", // Blue
-            "BIBLIOGRAPHIC": "#94a3b8", // Grey (slate-400)
-            "ONTOLOGY": "#22c55e",    // Green
-        };
-
-        let filteredEdges = data.edges.map((edge: any) => {
-            // Priority: 1. Category Color, 2. Dynamic Label Color, 3. Default
-            let color = DEFAULT_EDGE_COLOR;
-            if (edge.category) {
-                // Remove leading colon if present in backend export (e.g. ":CAUSAL" -> "CAUSAL")
-                const catKey = edge.category.replace(/^:/, '').toUpperCase();
-                color = CATEGORY_COLORS[catKey] || typeColorMap[edge.label] || DEFAULT_EDGE_COLOR;
-            } else {
-                color = typeColorMap[edge.label] || DEFAULT_EDGE_COLOR;
-            }
-            // Only override color if it's NOT an inference (which uses purple dashed)
-            // Or maybe we want to color code EVERYTHING by type now?
-            // The user asked to "change dynamically all relations of that type to a certain color".
-            // Let's apply the type color. Inference edges are distinguished by style (dashed).
-            
-            return {
-                ...edge,
-                style: { 
-                    ...edge.style, 
-                    stroke: color,
-                    strokeWidth: 2 
-                },
-                markerEnd: {
-                    type: 'arrowclosed',
-                    color: color
-                },
-                // Store color in data for easy access if needed
-                data: { ...edge.data, color } 
-            };
-        });
-
-        // 1. Filter edges
-        if (!showRelations) {
-          filteredEdges = [];
-        } else {
-             // Explicit filtering: Only show edges whose type is in selectedRelationTypes
-             // If selectedRelationTypes is [], we show NO edges.
-             // But we need to handle the "initial load" case where activeFilters might be empty before the effect runs.
-             // Actually, initializeSourceFilters above will trigger re-render with all selected.
-             // For this specific render pass (before store update reflects), we might want to be careful.
-             // However, since we react to `selectedRelationTypes`, and it starts [], showing nothing is technically correct until initialized.
-             // To avoid "flash of no edges", we could default to "All" if uninitialized, but we made it explicit.
-             // Let's rely on the store update.
-             
-             // BUT: The very first time execution reaches here, selectedRelationTypes is [], 
-             // initializeSourceFilters is called but state update is async/next-tick in React loop.
-             // So for this frame, edges are hidden?
-             // Yes. That's acceptable for a split second, or we can use a local 'isInitialized' check?
-             // Let's just use the standard filter:
-             filteredEdges = filteredEdges.filter((e: any) => selectedRelationTypes.includes(e.label));
-        }
-
-        // 2. Filter nodes: 
-        // - Always show nodes that are connected by visible edges.
-        // - Only show "isolated" nodes if showEntities is TRUE.
-        const connectedNodeIds = new Set([
-            ...filteredEdges.map((e: any) => e.source),
-            ...filteredEdges.map((e: any) => e.target)
-        ]);
-
-        let filteredNodes = data.nodes;
-        if (!showEntities) {
-            filteredNodes = filteredNodes.filter((n: any) => connectedNodeIds.has(n.id));
-        }
-
-        // 3. Layout
-        const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-          filteredNodes,
-          filteredEdges,
-          graphDirection
-        );
-        
-        setNodes(layoutedNodes);
-        setEdges(layoutedEdges);
-
-        // 4. Auto-fit centering
-        // Only fit view if this is a new source load (id changed)
-        // This prevents zoom reset when just toggling filters
-        if (activeSource?.id !== lastSourceIdRef.current) {
-            lastSourceIdRef.current = activeSource?.id || null;
-            setTimeout(() => fitView({ duration: 800 }), 50);
-        }
       })
-      .catch(err => console.error("Failed to fetch graph nodes:", err));
-  }, [
-    graphVersion, 
-    setNodes, 
-    setEdges, 
-    activeSource?.name, 
-    showEntities, 
-    showRelations, 
-    selectedRelationTypes,
-    graphDirection,
-    fitView,
-    activeSourceId,
-    sourceFilters,
-    initializeSourceFilters
-  ]);
+      .catch(err => console.error("Failed to fetch graph data:", err));
+  }, [activeSource?.name, graphVersion, activeSourceId]); // Minimal dependencies
+
+  // 2. Local Filtering and Mapping
+  const { filteredNodes, filteredEdges, availableRelationTypes, relationCounts } = useMemo(() => {
+    if (!rawGraphData) return { filteredNodes: [], filteredEdges: [], availableRelationTypes: [], relationCounts: {} };
+
+    // A. Recalculate frequencies for UI
+    const counts: Record<string, number> = {};
+    rawGraphData.edges.forEach((e: any) => {
+        const type = e.label || e.relation;
+        if (type) counts[type] = (counts[type] || 0) + 1;
+    });
+    const sortedTypes = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+
+    // B. Map and Color Edges
+    const CATEGORY_COLORS: Record<string, string> = {
+        "CAUSAL": "#ef4444",
+        "METHODOLOGY": "#3b82f6",
+        "BIBLIOGRAPHIC": "#94a3b8",
+        "ONTOLOGY": "#22c55e",
+    };
+
+    const typeColorMap: Record<string, string> = {};
+    sortedTypes.forEach((type: string, index: number) => {
+        typeColorMap[type] = RELATION_COLORS[index % RELATION_COLORS.length];
+    });
+
+    let currentEdges = rawGraphData.edges.map((edge: any) => {
+        const label = edge.label || edge.relation;
+        let color = DEFAULT_EDGE_COLOR;
+        if (edge.category) {
+            const catKey = edge.category.replace(/^:/, '').toUpperCase();
+            color = CATEGORY_COLORS[catKey] || typeColorMap[label] || DEFAULT_EDGE_COLOR;
+        } else {
+            color = typeColorMap[label] || DEFAULT_EDGE_COLOR;
+        }
+        
+        return {
+            ...edge,
+            label, // Ensure label exists for filtered check
+            style: { ...edge.style, stroke: color, strokeWidth: 2 },
+            markerEnd: { type: 'arrowclosed', color },
+            data: { ...edge.data, color } 
+        };
+    });
+
+    // C. Filter Edges
+    if (!showRelations) {
+        currentEdges = [];
+    } else if (activeFilters) {
+        // Only apply subset filter if filter state has been initialized/modified
+        currentEdges = currentEdges.filter((e: any) => selectedRelationTypes.includes(e.label));
+    }
+
+    // D. Filter Nodes
+    const connectedNodeIds = new Set([
+        ...currentEdges.map((e: any) => e.source),
+        ...currentEdges.map((e: any) => e.target)
+    ]);
+
+    let currentNodes = rawGraphData.nodes;
+    if (!showEntities) {
+        currentNodes = currentNodes.filter((n: any) => connectedNodeIds.has(n.id));
+    }
+
+    return { 
+        filteredNodes: currentNodes, 
+        filteredEdges: currentEdges, 
+        availableRelationTypes: sortedTypes, 
+        relationCounts: counts 
+    };
+  }, [rawGraphData, showEntities, showRelations, selectedRelationTypes]);
+
+  // 3. Layout and Sync
+  useEffect(() => {
+    if (!rawGraphData) {
+        setNodes([]);
+        setEdges([]);
+        return;
+    }
+
+    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+      filteredNodes,
+      filteredEdges,
+      graphDirection
+    );
+    
+    setNodes(layoutedNodes);
+    setEdges(layoutedEdges);
+
+    // Auto-fit on source change
+    if (activeSource?.id !== lastSourceIdRef.current) {
+        lastSourceIdRef.current = activeSource?.id || null;
+        setTimeout(() => fitView({ duration: 800 }), 50);
+    }
+  }, [filteredNodes, filteredEdges, graphDirection, fitView]);
 
 
   const activeFiltersCount = selectedRelationTypes.length + (showEntities ? 0 : 1) + (showRelations ? 0 : 1);

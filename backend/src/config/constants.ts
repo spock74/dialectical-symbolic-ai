@@ -19,7 +19,7 @@ function getEnv(key: string): string {
 export const CONFIG = {
   // AI Model Configuration
   USE_LOCAL_MODELS: process.env.USE_LOCAL_MODELS === "true",
-  GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+  GEMINI_API_KEY: getEnv("GEMINI_API_KEY"),
 
   // Local Model Names
   OLLAMA_LISP_MODEL_NAME: getEnv("OLLAMA_LISP_MODEL_NAME"),

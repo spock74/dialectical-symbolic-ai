@@ -31,7 +31,7 @@ export function ChatInterface() {
     groups, 
     activeGroupId, 
     activeSourceId,
-    messages,
+    sourceMessages,
     addMessage,
     clearMessages,
     useConversationalMemory,
@@ -56,6 +56,7 @@ export function ChatInterface() {
 
   const activeGroup = groups.find(g => g.id === activeGroupId);
   const activeSource = activeGroup?.sources.find(s => s.id === activeSourceId);
+  const messages = sourceMessages[activeSourceId || 'default'] || [];
 
   const adjustHeight = () => {
     if (textareaRef.current) {
@@ -81,7 +82,7 @@ export function ChatInterface() {
     // Context injection removed - system now relies on Lisp symbolic memory
 
     const userMsg: Message = { role: 'user', content: input }; 
-    addMessage(userMsg); // Add to store
+    addMessage(activeSourceId || 'default', userMsg); // Add to store
     setInput("");
     setLoading(true);
 
@@ -100,7 +101,7 @@ export function ChatInterface() {
         useBypassSDialect,
         activeSource?.name
       );
-      addMessage({ role: 'model', content: text });
+      addMessage(activeSourceId || 'default', { role: 'model', content: text });
       
       if (reasoningLogs) {
         setLastReasoningLogs(reasoningLogs);
@@ -109,7 +110,7 @@ export function ChatInterface() {
       }
     } catch (error) {
       console.error(error);
-      addMessage({ role: 'tool', content: `Error: ${String(error)}` });
+      addMessage(activeSourceId || 'default', { role: 'tool', content: `Error: ${String(error)}` });
     } finally {
       setLoading(false);
     }
@@ -126,11 +127,11 @@ export function ChatInterface() {
       // Notify Graph change
       incrementGraphVersion();
       
-      addMessage({ role: 'user', content: `[Uploaded ${file.name}]` });
-      addMessage({ role: 'tool', content: knowledgeSummary + `\n\n(Context added to backend memory)` });
+      addMessage(activeSourceId || 'default', { role: 'user', content: `[Uploaded ${file.name}]` });
+      addMessage(activeSourceId || 'default', { role: 'tool', content: knowledgeSummary + `\n\n(Context added to backend memory)` });
     } catch (error) {
       console.error(error);
-      addMessage({ role: 'tool', content: `Upload Error: ${String(error)}` });
+      addMessage(activeSourceId || 'default', { role: 'tool', content: `Upload Error: ${String(error)}` });
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -139,25 +140,26 @@ export function ChatInterface() {
 
   const handleResetKB = async () => {
     setIsResetting(true);
+    const sourceKey = activeSourceId || 'default';
     try {
       await resetKnowledge(activeSource?.name);
-      clearMessages(); // Full wipe as per user requirement "zerar o Knowledge Base" and context of cleaning up
+      clearMessages(sourceKey); // Wipe only current source history
       incrementGraphVersion();
-      addMessage({ 
+      addMessage(sourceKey, { 
         role: 'tool', 
         content: "Knowledge Base e histórico de chat resetados com sucesso. O motor semântico está limpo." 
       });
       setResetDialogOpen(false);
     } catch (error) {
       console.error(error);
-      addMessage({ role: 'tool', content: `Erro ao resetar: ${String(error)}` });
+      addMessage(sourceKey, { role: 'tool', content: `Erro ao resetar: ${String(error)}` });
     } finally {
       setIsResetting(false);
     }
   };
 
   const handleClearChatOnly = () => {
-    clearMessages();
+    clearMessages(activeSourceId || 'default');
     setClearChatDialogOpen(false);
   };
 

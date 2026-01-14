@@ -55,10 +55,20 @@ export class SBCLProcess extends EventEmitter {
     
     this.process.on('close', (code) => {
       console.warn(`[SBCL] Process exited with code ${code}. Restarting...`);
+      
+      // Reject any pending commands to avoid hanging promises
+      if (this.activeCommand) {
+        this.activeCommand.reject(new Error(`SBCL process exited unexpectedly with code ${code}`));
+      }
+      
+      this.commandQueue.forEach(cmd => cmd.reject(new Error('SBCL process closed')));
+      this.commandQueue = [];
+      
       this.isReady = false;
       this.process = null;
       this.activeCommand = null;
       this.isProcessing = false;
+      this.initialized = false; // Reset init flag so bootstrap is re-loaded on restart
       setTimeout(() => this.spawnProcess(), 1000);
     });
   }

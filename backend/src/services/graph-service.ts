@@ -71,67 +71,71 @@ export function transformMemoriesToGraph(data: LispGraphExport): GraphData {
 
 
 import { getActiveGraph } from "../logic/graph-engine";
-
 import { knowledgeUnitService } from "./knowledge-unit-service";
+import { SBCLProcess } from "./sbcl-process";
 
-export function commitKnowledgeToGraph(
+export async function commitKnowledgeToGraph(
   knowledge: any,
-  filename?: string
-): void {
-  if (!knowledge || !knowledge.knowledgeBase) return;
+  trackId?: string
+): Promise<void> {
+  if (!knowledge) return;
 
-  const graph = getActiveGraph(filename);
+  const relations = knowledge.relations || [];
+  const rules = knowledge.rules || [];
 
-  if (filename) {
-    graph.addNode(filename, "source");
+  const graph = getActiveGraph(trackId);
+
+  // 1. Mark Track as Source
+  if (trackId) {
+    graph.addNode(trackId, "source");
   }
 
-  knowledge.knowledgeBase.forEach((concept: any) => {
-    // 1. Add Concept Node
-    graph.addNode(concept.core_concept, "concept");
+  // 2. THE BRIDGE: Batched Lisp Kernel Injection
+  console.log(`[Service] Queueing knowledge for Lisp Kernel: ${trackId || 'default'}`);
+  const lispCommands: string[] = [];
 
-    if (filename) {
-      graph.addRelation(concept.core_concept, "tem fonte", filename);
-    }
+  relations.forEach((rel: any) => {
+    lispCommands.push(`(adicionar-relacao "${rel.source}" "${rel.label}" "${rel.target}" :category :${rel.category || "ONTOLOGY"})`);
+  });
 
-    // 3. Add Relations
-    if (concept.relatedConcepts) {
-      concept.relatedConcepts.forEach((rel: any) => {
-        const predicate =
-          rel.type === "prerequisite"
-            ? "depende de"
-            : rel.type === "application"
-            ? "aplica-se a"
-            : rel.type === "contrast"
-            ? "contrasta com"
-            : "relacionado a";
+  // 3. Sync Relations (Facts) in JS Engine
+  relations.forEach((rel: any) => {
+    graph.addNode(rel.source, "concept");
+    graph.addNode(rel.target, "concept");
+    graph.addRelation(rel.source, rel.label, rel.target, "user", rel.category || "ONTOLOGY");
 
-        graph.addRelation(concept.core_concept, predicate, rel.conceptId);
-      });
-    }
-
-    // 4. Add Nuggets as atomic facts
-    if (concept.knowledgeNuggets) {
-      concept.knowledgeNuggets.forEach((nugget: any) => {
-        const factId = `fact-${Math.random().toString(36).substring(2, 9)}`;
-        // We use the new KnowledgeGraph ability to store values (though we should check if addNode supports it)
-        // For now, let's just make the factId descriptive or store the text in a way Lisp can see.
-        graph.addNode(factId, "fact");
-        // We add the relation
-        graph.addRelation(concept.core_concept, "contem fato", factId);
-      });
+    if (trackId) {
+      graph.addRelation(rel.source, "tem fonte", trackId, "user", "BIBLIOGRAPHIC");
     }
   });
 
-  // Save to Knowledge Unit Persistence
-  if (filename) {
-      // @ts-ignore - We will add exportState to KnowledgeGraph
-      const graphData = graph.exportState(); 
-      knowledgeUnitService.createOrUpdateUnit(filename, graphData);
-  } else {
-      // Default fallback
-      const graphData = (graph as any).exportState ? (graph as any).exportState() : { nodes: [], relations: [] };
-      knowledgeUnitService.createOrUpdateUnit("default", graphData);
+  // 4. Robust Rule Extraction
+  if (knowledge.lisp_raw) {
+    const REGEX_RULE = /\(adicionar-regra\s+'([^\s\n]+)\s+'(\([\s\S]*?\))\s+'(\([\s\S]*?\))\)/g;
+    let match;
+    while ((match = REGEX_RULE.exec(knowledge.lisp_raw)) !== null) {
+      const fullRuleCode = match[0];
+      lispCommands.push(fullRuleCode);
+      graph.addRule(fullRuleCode);
+    }
   }
+
+  if (lispCommands.length > 0) {
+    const batchedCmd = `(progn ${lispCommands.join(' ')} (values))`;
+    SBCLProcess.getInstance().evaluate(batchedCmd, 45000).catch(e => {
+        console.error(`[Service] Batched injection failed:`, e);
+    });
+    console.log(`[Service] Sent ${lispCommands.length} batched commands to Lisp kernel.`);
+  }
+
+  // 5. Persistence
+  // @ts-ignore
+  const graphData = graph.exportState(); 
+  await knowledgeUnitService.createOrUpdateUnit(trackId || "default", graphData);
+  
+  // Also save to global graphs directory for standard visualization
+  const graphPath = `data/graphs/${trackId || "default"}.json`;
+  // @ts-ignore
+  await graph.saveState(graphPath);
 }
 

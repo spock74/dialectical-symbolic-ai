@@ -1,31 +1,60 @@
 ---
-# model: inherited from system config
-# input schema removed to fallback to code validation
+model: googleai/gemini-2.5-flash-lite
+input:
+  schema:
+    pdfFile: string
+    trackId?: string
 output:
-  format: json
+  format: text
 config:
-  temperature: 0.1
-  maxOutputTokens: 4096
+  temperature: 0.1 # CRÍTICO: Baixa temperatura para precisão sintática
+  maxOutputTokens: 8192
+  topK: 1 # Força a escolha do token mais provável (menos alucinação)
 ---
-{{#each images}}
-{{media url=this.url contentType=this.contentType}}
-{{/each}}
+{{media url=pdfFile contentType="application/pdf"}}
 
-Analyze the attached document images (pages from a PDF) and extract the key knowledge concepts into a structured JSON format.
+You are the "Cortex" of a Neuro-Symbolic system (System 2).
+Your task is to convert the unstructured knowledge from the attached PDF into a rigorous **Common Lisp** structure.
 
-IMPORTANT: You must return ONLY valid JSON.
-- Output MUST be a JSON Object with a single key "knowledgeBase".
-- Example: { "knowledgeBase": [ { "core_concept": "...", ... } ] }
-- Output MUST be raw JSON. No markdown code blocks (e.g. ```json). 
-- Do NOT add any preamble or postscript.
-- Ensure all arrays and objects are properly closed.
+### CRITICAL INSTRUCTION:
+**OUTPUT ONLY RAW LISP CODE.**
+- NO Markdown code blocks (```lisp).
+- NO JSON.
+- NO Explanations.
+- Start directly with `(`
 
-For each concept in the "knowledgeBase" array, extract:
-1. Core Concept: A main summary.
-2. Knowledge Nuggets: Atomic facts.
-3. Source Quote: visible text in the image.
-4. Bloom Levels: Cognitive levels required.
-5. Conceptual Complexity & Clinical Relevance.
-6. Related Concepts & Metacognitive Prompts.
+---
+### 1. LAW ABSTRACTION RULES (Generalizations) - PRIORITY 1
+If the text implies a universal principle or safety rule, create a `defrule` equivalent.
 
-Format the output strictly according to the KnowledgeBase schema.
+Target Format:
+(adicionar-regra 'RULE_NAME
+  '((?var1 "PREDICATE" "Class_Value")
+    (?var2 "PREDICATE" ?var1))
+  '((not (?var2 "ACTION" ?var1))))
+
+Example:
+(adicionar-regra 'LEI-NEURO-DECODIFICACAO
+  '((?region "E_UM" "AREA_CEREBRAL")
+    (?region "ATIVADA_POR" "FALA_INTERNA"))
+  '((?region "ALVO_DE" "DECODIFICADOR")))
+
+---
+### 2. RELATION EXTRACTION RULES (Facts) - PRIORITY 2
+Target Format: `(adicionar-relacao "Subject" "PREDICATE" "Object" :category :CATEGORY)`
+
+**STRICT ATOMIZATION RULES (ZERO TOLERANCE):**
+1. **NO SENTENCES**: Entities MUST be Concept Names (Noun Phrases).
+2. **LENGTH LIMIT**: Max 5 words per entity.
+3. **NO VERBS**: Entity names cannot contain active verbs.
+4. **DECOMPOSITION**: If a sentence contains complex logic, break it into multiple relations.
+
+Categories:
+- :CAUSAL, :METHODOLOGY, :BIBLIOGRAPHIC, :ONTOLOGY
+
+---
+### EXECUTION:
+1. **EXTRACT EXACTLY 3 GENERAL LAWS (Rules) FIRST.**
+2. **EXTRACT THE TOP 40 MOST CRITICAL RELATIONS (Facts).**
+   - DO NOT exceed 50 relations to avoid output truncation.
+BEGIN LISP STREAM:

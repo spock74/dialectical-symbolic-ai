@@ -397,7 +397,10 @@
         (conds (mapcar #'normalizar-condicao condicoes))
         (consq (mapcar #'normalizar-tripla consequencias)))
     (push (make-rule :name n :conditions conds :consequences consq) *rules*)
-    (format nil "Regra ~a aprendida." n)))
+    (let ((msg (format nil "Regra ~a aprendida." n)))
+      (format t "~&[Kernel] ~a~%" msg)
+      (finish-output)
+      msg)))
 
 (defun carregar-regras-essenciais ()
   (adicionar-regra 'TRANSITIVIDADE
@@ -452,7 +455,10 @@
                           (eq (relation-object r) o)))
                    *relations*)
           (push (make-relation :subject s :predicate p :object o :provenance :user :category cat) *relations*)
-          (format nil "Relacao adicionada: ~a -[~a (~a)]-> ~a" s p cat o)))))
+          (let ((msg (format nil "Relacao adicionada: ~a -[~a (~a)]-> ~a" s p cat o)))
+            (format t "~&[Kernel] ~a~%" msg)
+            (finish-output)
+            msg)))))
 
 (defun buscar-relacoes (conceito)
   (let* ((c (normalizar-termo conceito))

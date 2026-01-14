@@ -1,7 +1,7 @@
 import { ai } from '../../genkit';
 import { z } from 'genkit';
 import { extractKnowledge } from './knowledge-flow';
-import { KnowledgeBaseOutputSchema } from './schemas';
+import { ExtractionOutputSchema } from './schemas';
 
 const MarkdownInput = z.object({
   text: z.string(),
@@ -12,7 +12,7 @@ export const extractMarkdown = ai.defineFlow(
   {
     name: 'extractMarkdown',
     inputSchema: MarkdownInput,
-    outputSchema: KnowledgeBaseOutputSchema,
+    outputSchema: ExtractionOutputSchema,
   },
   async (input) => {
     console.log(`Processing Markdown extraction for ${input.filename || 'unknown file'}`);

@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { SBCLProcess } from '../services/sbcl-process';
 
 export interface Concept {
   id: string;
@@ -20,11 +21,13 @@ export interface Relation {
 interface GraphSnapshot {
   nodes: Concept[];
   relations: Relation[];
+  rules?: string[]; // Supporting rules in snapshot
 }
 
 export class KnowledgeGraph {
   private nodes: Map<string, Concept> = new Map();
   private relations: Map<string, Relation[]> = new Map(); // Indexed by subject
+  private rules: Set<string> = new Set(); // NOVO: Persistência das Leis Lisp
   private snapshot: GraphSnapshot | null = null;
   public sourceName: string;
 
@@ -60,6 +63,21 @@ export class KnowledgeGraph {
       subjectRelations.push({ subject: s, predicate: p, object: o, provenance, category, label: p });
       this.relations.set(s, subjectRelations);
     }
+  }
+
+  /**
+   * Adds a rule to the graph.
+   * Stores the raw Lisp code for persistence.
+   */
+  addRule(ruleLispCode: string): void {
+    if (!this.rules.has(ruleLispCode)) {
+      this.rules.add(ruleLispCode);
+      console.log(`[GraphEngine] Rule stored for source ${this.sourceName}`);
+    }
+  }
+
+  getRules(): string[] {
+    return Array.from(this.rules);
   }
 
   /**
@@ -104,12 +122,20 @@ export class KnowledgeGraph {
    */
   getGraphSnapshot() {
     return {
-      nodes: Array.from(this.nodes.values()).map(n => ({ key: n.id, value: n.type, val: n.value })),
+      nodes: Array.from(this.nodes.values()).map(n => ({ 
+        id: n.id, 
+        value: n.type, 
+        val: n.value,
+        data: { label: n.id, type: n.type } // Match transformMemoriesToGraph structure
+      })),
       edges: Array.from(this.relations.values()).flat().map(r => ({
+        id: `js-${r.subject}-${r.object}-${r.predicate}`, // Unique ID for ReactFlow
         source: r.subject,
         target: r.object,
+        label: r.predicate,
         relation: r.predicate,
-        provenance: r.provenance
+        provenance: r.provenance,
+        category: r.category
       }))
     };
   }
@@ -174,10 +200,11 @@ export class KnowledgeGraph {
    * Exports the current state of the graph.
    * Used for Knowledge Unit persistence.
    */
-  exportState(): { nodes: Concept[], relations: Relation[] } {
+  exportState(): { nodes: Concept[], relations: Relation[], rules: string[] } {
       return {
           nodes: Array.from(this.nodes.values()),
-          relations: Array.from(this.relations.values()).flat()
+          relations: Array.from(this.relations.values()).flat(),
+          rules: Array.from(this.rules)
       };
   }
 
@@ -191,16 +218,40 @@ export class KnowledgeGraph {
         const data = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
         this.nodes.clear();
         this.relations.clear();
+        this.rules.clear();
+
         if (data.nodes) {
           data.nodes.forEach((n: Concept) => {
             this.nodes.set(n.id, n);
-            // Ensure relations map is initialized for each node
             if (!this.relations.has(n.id)) this.relations.set(n.id, []);
           });
         }
-        if (data.relations) {
+        const lispCommands: string[] = [];
+
+        if (data.relations && Array.isArray(data.relations)) {
+          console.log(`[GraphEngine] Preparing rehydration for ${data.relations.length} relations for ${this.sourceName}...`);
           data.relations.forEach((r: Relation) => {
-            this.addRelation(r.subject, r.predicate, r.object, r.provenance);
+            this.addRelation(r.subject, r.predicate, r.object, r.provenance, r.category);
+            lispCommands.push(`(adicionar-relacao "${r.subject}" "${r.predicate}" "${r.object}" :category :${r.category || 'generic'})`);
+          });
+        }
+
+        if (data.rules && Array.isArray(data.rules)) {
+          console.log(`[GraphEngine] Preparing rehydration for ${data.rules.length} rules for ${this.sourceName}...`);
+          data.rules.forEach((ruleCode: string) => {
+            this.rules.add(ruleCode);
+            lispCommands.push(ruleCode);
+          });
+        }
+
+        if (lispCommands.length > 0) {
+          // Send all rehydration commands as a single batch to avoid queue congestion
+          const batchedCmd = `(progn ${lispCommands.join(' ')} (values))`;
+          console.log(`[GraphEngine] Sending batched rehydration (${lispCommands.length} commands) to SBCL...`);
+          SBCLProcess.getInstance().evaluate(batchedCmd, 60000).then(() => {
+            console.log(`[GraphEngine] Batched rehydration complete for ${this.sourceName}`);
+          }).catch(err => {
+            console.error(`[GraphEngine] Batched rehydration failed for ${this.sourceName}:`, err);
           });
         }
       } catch (e) {

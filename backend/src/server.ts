@@ -34,7 +34,8 @@ app.use(express.json({ limit: "50mb" }));
 // Middleware to register rollback on client abortion
 const registerRollback = (req: any, res: any, next: any) => {
   req.isAborted = false;
-  const source = req.body?.source || req.query?.source;
+  // Source detection: check body, query, and file (especially for multimodal uploads)
+  const source = req.body?.source || req.query?.source || req.file?.originalname;
   res.on("close", () => {
     if (!res.writableEnded) {
       req.isAborted = true;
@@ -106,8 +107,8 @@ const cleanupFile = async (file: Express.Multer.File | undefined) => {
 
 app.post(
   "/api/extract-from-pdf",
-  registerRollback,
   upload.single("file"),
+  registerRollback,
   async (req: any, res: any) => {
     try {
       if (!req.file) {
@@ -122,6 +123,7 @@ app.post(
       const result = await extractKnowledge({ text });
       if (req.isAborted) return;
 
+      await commitKnowledgeToGraph(result, req.file.originalname);
       res.json(result);
       const graph = getActiveGraph(req.file.originalname);
       graph.saveState(`data/graphs/${req.file.originalname}.json`);
@@ -139,8 +141,8 @@ app.post(
 
 app.post(
   "/api/extract-multimodal",
-  registerRollback,
   upload.single("file"),
+  registerRollback,
   async (req: any, res: any) => {
     try {
       if (!req.file) {
@@ -148,9 +150,13 @@ app.post(
       }
       const result = await extractKnowledgeMultimodal({
         filePath: req.file.path,
+        trackId: req.file.originalname,
       });
       if (req.isAborted) return;
+      
+      await commitKnowledgeToGraph(result, req.file.originalname);
       res.json(result);
+      
       const graph = getActiveGraph(req.file.originalname);
       graph.saveState(`data/graphs/${req.file.originalname}.json`);
     } catch (error) {
@@ -204,7 +210,7 @@ app.post(
         text,
         filename: req.file.originalname,
       });
-      commitKnowledgeToGraph(result, req.file.originalname);
+      await commitKnowledgeToGraph(result, req.file.originalname);
       res.json(result);
     } catch (error) {
       console.error(error);
@@ -227,18 +233,24 @@ app.get("/api/graph-data", async (req, res) => {
     // @ts-ignore
     const { nodes: jsNodes, edges: jsEdges } = transformMemoriesToGraph(rawGraph);
 
-    // 2. Get Lisp-side data
+    // 2. Get Lisp-side data (With 5s timeout to avoid blocking if busy rehydrating)
     let lispNodes: any[] = [];
     let lispEdges: any[] = [];
     try {
-      const lispRaw = await SBCLProcess.getInstance().getLispGraphData();
+      // Use a shorter timeout for the API call than the background rehydration
+      const lispRaw = await SBCLProcess.getInstance().evaluate("(progn (princ (listar-dados-json)) (values))", 5000)
+        .then(out => {
+           try { return JSON.parse(out); } catch { return null; }
+        })
+        .catch(() => null);
+
       if (lispRaw && (lispRaw.nodes || lispRaw.edges)) {
-         const transformed = transformMemoriesToGraph(lispRaw);
-         lispNodes = transformed.nodes || [];
-         lispEdges = transformed.edges || [];
+          const transformed = transformMemoriesToGraph(lispRaw);
+          lispNodes = transformed.nodes || [];
+          lispEdges = transformed.edges || [];
       }
     } catch (e) {
-      console.error("[API] Failed to integrate Lisp graph data:", e);
+      console.warn("[API] Lisp kernel busy or failed to respond in time, falling back to JS state.");
     }
 
     // 3. Merge (Simple deduplication by ID/source-target-relation)
@@ -253,11 +265,13 @@ app.get("/api/graph-data", async (req, res) => {
     });
 
     const allEdges = [...jsEdges];
-    const edgeKeys = new Set(jsEdges.map(e => `${e.source}-${e.target}-${e.label}`));
+    // Standardized deduplication using 'label'
+    const edgeKeys = new Set(jsEdges.map(e => `${e.source}-${e.target}-${e.label || ''}`));
 
     lispEdges.forEach(le => {
       if (le && le.source && le.target) {
-        const key = `${le.source}-${le.target}-${le.label || ''}`;
+        const type = le.label || '';
+        const key = `${le.source}-${le.target}-${type}`;
         if (!edgeKeys.has(key)) {
           allEdges.push(le);
           edgeKeys.add(key);
@@ -265,11 +279,20 @@ app.get("/api/graph-data", async (req, res) => {
       }
     });
 
-    console.log(`[API] Graph State: JS(${jsNodes.length}n, ${jsEdges.length}e), Lisp(${lispNodes.length}n, ${lispEdges.length}e) -> Total(${allNodes.length}n, ${allEdges.length}e)`);
+    console.log(`[API] Graph State for "${source}": JS(${jsNodes.length}n, ${jsEdges.length}e), Lisp(${lispNodes.length}n, ${lispEdges.length}e) -> Total(${allNodes.length}n, ${allEdges.length}e)`);
 
     const response = {
       nodes: allNodes,
       edges: allEdges,
+      metadata: {
+        source,
+        timestamp: new Date().toISOString(),
+        counts: {
+          js: { nodes: jsNodes.length, edges: jsEdges.length },
+          lisp: { nodes: lispNodes.length, edges: lispEdges.length },
+          total: { nodes: allNodes.length, edges: allEdges.length }
+        }
+      }
     };
 
     res.json(response);

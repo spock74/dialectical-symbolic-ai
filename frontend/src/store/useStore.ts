@@ -17,11 +17,11 @@ interface ConfigSlice {
 }
 
 interface ChatSlice {
-  messages: Message[];
+  sourceMessages: Record<string, Message[]>; // Per-source history
   lastReasoningLogs: string;
-  addMessage: (msg: Message) => void;
-  clearMessages: () => void;
-  setMessages: (msgs: Message[]) => void;
+  addMessage: (sourceId: string, msg: Message) => void;
+  clearMessages: (sourceId: string) => void;
+  setMessages: (sourceId: string, msgs: Message[]) => void;
   setLastReasoningLogs: (logs: string) => void;
 }
 
@@ -75,11 +75,26 @@ const createConfigSlice: StateCreator<CombinedState, [], [], ConfigSlice> = (set
 });
 
 const createChatSlice: StateCreator<CombinedState, [], [], ChatSlice> = (set) => ({
-  messages: [],
+  sourceMessages: {},
   lastReasoningLogs: "",
-  addMessage: (msg) => set((state) => ({ messages: [...state.messages, msg] })),
-  clearMessages: () => set({ messages: [] }),
-  setMessages: (msgs) => set({ messages: msgs }),
+  addMessage: (sourceId, msg) => set((state) => ({ 
+    sourceMessages: {
+      ...state.sourceMessages,
+      [sourceId || "default"]: [...(state.sourceMessages[sourceId || "default"] || []), msg]
+    }
+  })),
+  clearMessages: (sourceId) => set((state) => ({ 
+    sourceMessages: {
+      ...state.sourceMessages,
+      [sourceId || "default"]: []
+    }
+  })),
+  setMessages: (sourceId, msgs) => set((state) => ({ 
+    sourceMessages: {
+      ...state.sourceMessages,
+      [sourceId || "default"]: msgs
+    }
+  })),
   setLastReasoningLogs: (logs) => set({ lastReasoningLogs: logs }),
 });
 
@@ -272,6 +287,7 @@ export const useDialecticStore = create<CombinedState>()(
     }),
     {
       name: "dialectic-storage",
+      version: 2, // Forced reset for breaking changes in source-specific history/filters
     }
   )
 );

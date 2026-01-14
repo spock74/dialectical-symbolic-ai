@@ -51,7 +51,8 @@ export async function chat(
   history: any[] = [],
   useMemory: boolean = true,
   bypassSDialect: boolean = false,
-  source?: string
+  source?: string,
+  useEpisodicMemory: boolean = true // [PHASE 11]
 ): Promise<{ text: string; reasoningLogs: string }> {
   const response = await fetch(`${API_BASE}/chat`, {
     method: "POST",
@@ -62,6 +63,7 @@ export async function chat(
       useMemory,
       bypassSDialect,
       source,
+      useEpisodicMemory, // Pass to backend
     }),
   });
 

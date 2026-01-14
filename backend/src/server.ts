@@ -182,19 +182,23 @@ app.post(
       })
       .then(async (result) => {
           console.log(`[Server] Background extraction success for ${req.file.originalname}`);
+          broadcastLog(`[Ingest] Success: Extracted ${result.relations.length} relations from ${req.file.originalname}`);
           
           try {
             await commitKnowledgeToGraph(result, req.file.originalname);
             console.log(`[Server] Background graph injection success for ${req.file.originalname}`);
             
-            // Optional: Notify completion via Kernel Stream if possible, or just Log (which is streamed)
-            console.log(`[Server] JOB_COMPLETE: ${req.file.originalname}`);
+            // Notify completion via Steam for Frontend Auto-Update
+            broadcastLog(`[Ingest] JOB_COMPLETE: ${req.file.originalname}`);
+            broadcastLog(`[Ingest] Graph Injection Complete. Ready for Reasoning.`);
           } catch (graphErr) {
              console.error(`[Server] Background Graph Commit failed for ${req.file.originalname}:`, graphErr);
+             broadcastLog(`[Ingest] ERR: Graph Commit Failed: ${String(graphErr)}`);
           }
       })
       .catch(err => {
          console.error(`[Server] Background Processing FAILED for ${req.file.originalname}:`, err);
+         broadcastLog(`[Ingest] ERR: Extraction Logic Failed: ${String(err)}`);
       })
       .finally(async () => {
          // CLEANUP: Standard disk file
@@ -446,41 +450,48 @@ app.delete("/api/knowledge-units/:id", async (req, res) => {
 
 
 
+// --- Global Stream Broadcaster ---
+const activeStreamClients: Set<(data: string) => void> = new Set();
+
+const broadcastLog = (message: string) => {
+    // Also log to console for server-side persistence
+    // console.log(message); // (optional, avoid double logging if caller already logged)
+    
+    const payload = JSON.stringify({ timestamp: new Date(), content: message });
+    activeStreamClients.forEach(client => client(message));
+};
+
+// Hook Kernel Events to Broadcaster
+kernelEvents.on("log", (data) => {
+    broadcastLog(data);
+});
+
+
 app.get("/api/lisp-stream", (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
 
-  let lastLogTime = 0;
-  const onLog = (data: string) => {
-    const now = Date.now();
-    if (
-      now - lastLogTime < 50 &&
-      !data.includes("ERR") &&
-      !data.includes("Connected")
-    ) {
-      return;
-    }
-    lastLogTime = now;
-
-    res.write(
-      `data: ${JSON.stringify({ timestamp: new Date(), content: data })}\n\n`
-    );
+  const clientHandler = (data: string) => {
+      // Filter out noisy connection/empty logs if needed
+      if (!data.trim()) return;
+      res.write(`data: ${JSON.stringify({ timestamp: new Date(), content: data })}\n\n`);
   };
 
-  kernelEvents.on("log", onLog);
+  activeStreamClients.add(clientHandler);
 
   res.write(
     `data: ${JSON.stringify({
       timestamp: new Date(),
-      content: ";; Connected to TS-Symbolic-Kernel Stream",
+      content: ";; Connected to System Event Stream (Kernel + Ingestion)",
     })}\n\n`
   );
 
   req.on("close", () => {
-    kernelEvents.off("log", onLog);
+    activeStreamClients.delete(clientHandler);
   });
 });
+
 
 async function initializeSystem() {
   console.log(`

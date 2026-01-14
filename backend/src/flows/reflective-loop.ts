@@ -29,6 +29,7 @@ const InputSchema = z.object({
   useMemory: z.boolean().optional(),
   bypassSDialect: z.boolean().optional(),
   source: z.string().optional(),
+  useEpisodicMemory: z.boolean().optional().default(true), // [PHASE 11] Toggle for Chat Layer
 });
 
 export const reflectiveLoop = ai.defineFlow(
@@ -104,6 +105,18 @@ export const reflectiveLoop = ai.defineFlow(
       }
     } else {
       // 1. INITIALIZE COGNITIVE WORKSPACE (System 1.5)
+      
+      // [PHASE 11] Ensure Graph is in correct Layered Mode
+      const source = input.source || "default";
+      const graph = getActiveGraph(source);
+      const desiredMode = input.useEpisodicMemory ?? true;
+      
+      if (graph.getLayeredMode() !== desiredMode) {
+          console.log(`[Flow] Switching Graph Mode for '${source}': Layered=${desiredMode}`);
+          // Force reload to switch layers (Base Only vs Base + Chat)
+          await graph.loadState(`data/graphs/${source}.json`, desiredMode);
+      }
+
       const orchestrator = new ReflectiveOrchestrator(
         input.prompt,
         input.history || [],

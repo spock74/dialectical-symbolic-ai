@@ -28,11 +28,9 @@ export class EmbeddingService {
    */
   public async getEmbedding(text: string): Promise<number[] | null> {
     try {
-      if (!CONFIG.USE_LOCAL_MODELS) {
-        // TODO: Implement Gemini Embeddings if needed. 
-        // For now, return null to skip vector logic in Cloud mode.
-        return null; 
-      }
+      // Always try to use Local Ollama for embeddings, regardless of main model config.
+      // if (!CONFIG.USE_LOCAL_MODELS) { ... } -> REMOVED to enforce hybrid mode.
+
 
       // Sanitize input
       const cleanText = text.trim();

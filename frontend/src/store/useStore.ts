@@ -70,10 +70,26 @@ type CombinedState = ConfigSlice & ChatSlice & SourceSlice & GraphSlice;
 
 // --- SLICE IMPLEMENTATIONS ---
 
+// --- SLICE INTERFACES ---
+
+interface ConfigSlice {
+  useConversationalMemory: boolean;
+  useEpisodicMemory: boolean; // [PHASE 11] Toggle for Chat Layer (Long term overlay)
+  useBypassSDialect: boolean;
+  setUseConversationalMemory: (val: boolean) => void;
+  setUseEpisodicMemory: (val: boolean) => void;
+  setUseBypassSDialect: (val: boolean) => void;
+}
+
+// ... (omitted code) since I can't see lines between 20-70, assuming createConfigSlice is below.
+// Actually I should just replace the CreateConfigSlice part found in lines 73-78
+
 const createConfigSlice: StateCreator<CombinedState, [], [], ConfigSlice> = (set) => ({
-  useConversationalMemory: false,
+  useConversationalMemory: true, 
+  useEpisodicMemory: true, // Default ON
   useBypassSDialect: false,
   setUseConversationalMemory: (val) => set({ useConversationalMemory: val }),
+  setUseEpisodicMemory: (val) => set({ useEpisodicMemory: val }),
   setUseBypassSDialect: (val) => set({ useBypassSDialect: val }),
 });
 

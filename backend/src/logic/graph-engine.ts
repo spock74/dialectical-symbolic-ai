@@ -29,10 +29,15 @@ export class KnowledgeGraph {
   private relations: Map<string, Relation[]> = new Map(); // Indexed by subject
   private rules: Set<string> = new Set(); // NOVO: Persistência das Leis Lisp
   private snapshot: GraphSnapshot | null = null;
+  private isLayeredMode: boolean = false; // [NEW] Track if we are in Base+Chat mode
   public sourceName: string;
 
   constructor(sourceName: string = "default") {
     this.sourceName = sourceName;
+  }
+
+  public getLayeredMode(): boolean {
+      return this.isLayeredMode;
   }
 
   /**
@@ -70,6 +75,22 @@ export class KnowledgeGraph {
    * Stores the raw Lisp code for persistence.
    */
   addRule(ruleLispCode: string): void {
+    if (!ruleLispCode) return;
+    
+    // Simple balanced parentheses check
+    let balance = 0;
+    for (const char of ruleLispCode) {
+      if (char === '(') balance++;
+      if (char === ')') balance--;
+    }
+    
+    if (balance !== 0) {
+      console.warn(`[GraphEngine] Rejected malformed rule (unbalanced parens): ${ruleLispCode}`);
+      // Try to repair if it's just missing closing parens at the end?
+      // For safety, just reject it to avoid file corruption.
+      return; 
+    }
+
     if (!this.rules.has(ruleLispCode)) {
       this.rules.add(ruleLispCode);
       console.log(`[GraphEngine] Rule stored for source ${this.sourceName}`);
@@ -194,6 +215,27 @@ export class KnowledgeGraph {
     }
     const data = this.exportState();
     fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
+
+    // Save Lisp Persistence Strategy
+    if (this.isLayeredMode) {
+        // [PHASE 11] Layered Mode: Save DIFF to _chat.lisp
+        const chatPath = filepath.replace('.json', '_chat.lisp');
+        console.log(`[GraphEngine] Saving Chat Layer Diff to ${chatPath}...`);
+        // Use salvar-estado to persist full state to this specific file
+        const saveDiffCmd = `(s-dialectic:salvar-estado "${chatPath}")`;
+        SBCLProcess.getInstance()
+          .evaluate(saveDiffCmd, 120000)
+          .catch(e => console.error(`[GraphEngine] Failed to save Chat Layer Diff: ${e.message}`));
+    } else {
+        // Base Mode: Overwrite Base File (Classic)
+        const lispPath = filepath.replace('.json', '.lisp');
+        // We use internal save-state to ensure we capture everything
+        const saveCmd = `(s-dialectic:salvar-estado "${lispPath}")`;
+        SBCLProcess.getInstance()
+          .evaluate(saveCmd, 120000)
+          .catch(e => console.error(`[GraphEngine] Failed to save Base Layer Lisp: ${e.message}`));
+        console.log(`[GraphEngine] Saved Base Layer to ${lispPath}`);
+    }
   }
 
   /**
@@ -212,7 +254,14 @@ export class KnowledgeGraph {
    * Hydrates state from a JSON file.
    * Passo 1: loadState(filepath: string)
    */
-  loadState(filepath: string): void {
+  /**
+   * Hydrates state from a JSON file.
+   * Passo 1: loadState(filepath: string)
+   * Updated for Phase 11: Layered Persistence
+   */
+  async loadState(filepath: string, loadChatLayer: boolean = true): Promise<void> {
+    this.isLayeredMode = loadChatLayer; // Track mode
+    
     if (fs.existsSync(filepath)) {
       try {
         const data = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
@@ -226,55 +275,87 @@ export class KnowledgeGraph {
             if (!this.relations.has(n.id)) this.relations.set(n.id, []);
           });
         }
-        const lispCommands: string[] = [];
-
-        if (data.relations && Array.isArray(data.relations)) {
-          console.log(`[GraphEngine] Preparing rehydration for ${data.relations.length} relations for ${this.sourceName}...`);
-          
-          // Helper local
-          const escapeLisp = (str: string) => str.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-
-          data.relations.forEach((r: Relation) => {
-            this.addRelation(r.subject, r.predicate, r.object, r.provenance, r.category);
-            lispCommands.push(`(adicionar-relacao "${escapeLisp(r.subject)}" "${escapeLisp(r.predicate)}" "${escapeLisp(r.object)}" :category :${r.category || 'generic'})`);
-          });
+        
+        const lispPath = filepath.replace('.json', '.lisp');
+        const chatLispPath = filepath.replace('.json', '_chat.lisp');
+        
+        // 1. Load BASE Layer
+        if (fs.existsSync(lispPath)) {
+            try {
+               const loadCmd = `(s-dialectic:carregar-estado "${lispPath}")`;
+               console.log(`[GraphEngine] Base Layer: Loading ${lispPath}`);
+               
+               await SBCLProcess.getInstance().evaluate(loadCmd, 60000).catch(e => console.error(e));
+               
+            } catch (e) {
+               console.warn("[GraphEngine] Failed to init Base Lisp load:", e);
+            }
+        } else {
+             // Fallback: Synthesize Base
+             console.log(`[GraphEngine] Synthesizing Base Lisp Dump...`);
+             this.synthesizeLispDump(data, lispPath);
+             await SBCLProcess.getInstance().evaluate(`(s-dialectic:carregar-estado "${lispPath}")`, 60000);
         }
-
-        if (data.rules && Array.isArray(data.rules)) {
-          console.log(`[GraphEngine] Preparing rehydration for ${data.rules.length} rules for ${this.sourceName}...`);
-          data.rules.forEach((ruleCode: string) => {
-            this.rules.add(ruleCode);
-            lispCommands.push(ruleCode);
-          });
-        }
-
-        if (lispCommands.length > 0) {
-          // CHUNK BATCHES to avoid timeouts on large PDFs
-          const CHUNK_SIZE = 50; 
-          
-          // Execute sequentially to not flood the process pipe
-          const runChunks = async () => {
-             for (let i = 0; i < lispCommands.length; i += CHUNK_SIZE) {
-                const chunk = lispCommands.slice(i, i + CHUNK_SIZE);
-                const batchedCmd = `(progn ${chunk.join(' ')} (values))`;
-                
-                try {
-                    await SBCLProcess.getInstance().evaluate(batchedCmd, 60000);
-                    console.log(`[GraphEngine] Rehydrated chunk ${i/CHUNK_SIZE + 1} (${chunk.length} commands)`);
-                } catch (e) {
-                    console.error(`[GraphEngine] Chunk rehydration failed:`, e);
-                }
+        
+        // 2. Snapshot Base (Mark boundaries)
+        if (this.isLayeredMode) {
+             console.log(`[GraphEngine] Taking Snapshot of Base Layer...`);
+             await SBCLProcess.getInstance().evaluate(`(s-dialectic:snapshot-memoria)`, 10000);
+             
+             // 3. Load Chat Layer (Overlay)
+             if (fs.existsSync(chatLispPath)) {
+                 console.log(`[GraphEngine] Chat Layer: Loading ${chatLispPath}`);
+                 await SBCLProcess.getInstance().evaluate(`(s-dialectic:carregar-estado "${chatLispPath}")`, 60000);
              }
-             console.log(`[GraphEngine] Full rehydration complete for ${this.sourceName}`);
-          };
-          
-          runChunks();
         }
+        
+        // Populate JS side structures (Visuals)
+        if (data.relations) {
+            data.relations.forEach((r: Relation) => {
+                this.addRelation(r.subject, r.predicate, r.object, r.provenance, r.category);
+            });
+        }
+        if (data.rules) {
+            data.rules.forEach((r: string) => this.rules.add(r));
+        }
+
       } catch (e) {
         console.error(`Failed to load state from ${filepath}:`, e);
       }
     }
   }
+
+  /**
+   * DIRECTLY writes a Lisp dump file from JSON data.
+   * Bypasses IPC bottleneck.
+   */
+  private synthesizeLispDump(data: any, outputPath: string): void {
+     const escape = (str: string) => (str || "").replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+     const lines: string[] = [];
+     
+     lines.push(`(in-package :s-dialectic)`);
+     lines.push(`(limpar-memoria)`);
+     lines.push(``);
+     
+     // Note: Nodes are implicitly created by relations in Lisp side usually, 
+     // but we can add specific memories if descriptions exist.
+     // For now, relations are enough to rebuild the graph structure.
+
+     if (data.rules) {
+         data.rules.forEach((r: string) => lines.push(`${r}`))
+     }
+
+     if (data.relations) {
+         data.relations.forEach((r: Relation) => {
+             lines.push(`(adicionar-relacao "${escape(r.subject)}" "${escape(r.predicate)}" "${escape(r.object)}" :category :${r.category || 'generic'})`);
+         });
+     }
+     
+     lines.push(``);
+     fs.writeFileSync(outputPath, lines.join('\n'));
+     console.log(`[GraphEngine] Wrote ${lines.length} lines to ${outputPath}`);
+  }
+
 
   /**
    * Searches for all relations involving a specific node (as subject or object).
@@ -400,8 +481,13 @@ export class GraphManager {
                   fs.unlinkSync(path.join(this.baseDir, file));
                   console.log(`[GraphManager] Deleted: ${file}`);
               }
+              if (file.endsWith(".lisp")) {
+                  fs.unlinkSync(path.join(this.baseDir, file));
+                  console.log(`[GraphManager] Deleted Dump: ${file}`);
+              }
           }
       }
+
 
       // 2. Wipe data/units/ (Recursively)
       const unitsDir = path.join(process.cwd(), 'data', 'units');

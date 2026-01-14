@@ -1,0 +1,1263 @@
+{
+  "nodes": [
+    {
+      "id": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "type": "source"
+    },
+    {
+      "id": "MODELAGEM_COMPUTACIONAL",
+      "type": "concept"
+    },
+    {
+      "id": "CAMPOS_BIOLOGICOS",
+      "type": "concept"
+    },
+    {
+      "id": "CIENCIAS_NUTRICIONAIS",
+      "type": "concept"
+    },
+    {
+      "id": "INTERPRETACAO_DADOS_EM_ESCALAS",
+      "type": "concept"
+    },
+    {
+      "id": "MODELAGEM_SISTEMAS_BIOLOGICOS",
+      "type": "concept"
+    },
+    {
+      "id": "INTERPRETACAO_DADOS",
+      "type": "concept"
+    },
+    {
+      "id": "MECANISMOS_FISIOLOGICOS",
+      "type": "concept"
+    },
+    {
+      "id": "ESCALAS_ESPACIAIS_TEMPORAIS",
+      "type": "concept"
+    },
+    {
+      "id": "FENOTIPAGEM_EXAUSTIVA",
+      "type": "concept"
+    },
+    {
+      "id": "CONCEITO_PACIENTE_VIRTUAL",
+      "type": "concept"
+    },
+    {
+      "id": "BIOMARCADORES_DE_SIGNATURAS_OMIC",
+      "type": "concept"
+    },
+    {
+      "id": "ESTUDOS_OMIC",
+      "type": "concept"
+    },
+    {
+      "id": "DADOS_OMIC",
+      "type": "concept"
+    },
+    {
+      "id": "CARACTERIZACAO_FISIOLOGICA_FENOTIPO",
+      "type": "concept"
+    },
+    {
+      "id": "PESQUISA_NUTRICIONAL",
+      "type": "concept"
+    },
+    {
+      "id": "CONECTAR_DADOS_EM_ESCALAS",
+      "type": "concept"
+    },
+    {
+      "id": "ANALISE_ESTATISTICA",
+      "type": "concept"
+    },
+    {
+      "id": "RELACIONAMENTOS_MECANISTICOS_QUANTITATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "NIVEIS_ORGANIZACAO_BIOLOGICA",
+      "type": "concept"
+    },
+    {
+      "id": "NIVEIS_ORGANIZACAO_FISIOLOGICA",
+      "type": "concept"
+    },
+    {
+      "id": "ABORDAGENS_MODELAGEM",
+      "type": "concept"
+    },
+    {
+      "id": "APLICACAO",
+      "type": "concept"
+    },
+    {
+      "id": "REVISAO",
+      "type": "concept"
+    },
+    {
+      "id": "ABORDAGENS_MODELAGEM_REPRESENTATIVAS",
+      "type": "concept"
+    },
+    {
+      "id": "APLICACOES_MODELAGEM_NUTRICAO",
+      "type": "concept"
+    },
+    {
+      "id": "LACUNAS_CONHECIMENTO_TECNOLOGIA",
+      "type": "concept"
+    },
+    {
+      "id": "INTEGRACAO_ABORDAGENS_MODELAGEM",
+      "type": "concept"
+    },
+    {
+      "id": "NUTRICAO",
+      "type": "concept"
+    },
+    {
+      "id": "McLESTER_1927",
+      "type": "concept"
+    },
+    {
+      "id": "ORGANISMOS_VIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "TERMODINAMICA",
+      "type": "concept"
+    },
+    {
+      "id": "ENERGIA_ALIMENTAR",
+      "type": "concept"
+    },
+    {
+      "id": "MANUTENCAO_VIDA_SAUDE",
+      "type": "concept"
+    },
+    {
+      "id": "COMBUSTIAO_CONTROLADA",
+      "type": "concept"
+    },
+    {
+      "id": "MACRONUTRIENTES",
+      "type": "concept"
+    },
+    {
+      "id": "TEORIA_DINAMICA_ORCAMENTO_ENERGIA",
+      "type": "concept"
+    },
+    {
+      "id": "FLUXO_ENERGIA_ALIMENTAR",
+      "type": "concept"
+    },
+    {
+      "id": "ARMAZENAMENTO_ENERGIA",
+      "type": "concept"
+    },
+    {
+      "id": "DISTRIBUICAO_ENERGIA_CORPORAL",
+      "type": "concept"
+    },
+    {
+      "id": "MICRONUTRIENTES",
+      "type": "concept"
+    },
+    {
+      "id": "SAUDE_GERAL_ORGANISMO",
+      "type": "concept"
+    },
+    {
+      "id": "DEFICIENCIA_MICRONUTRIENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DOENCAS_CLASSICAS",
+      "type": "concept"
+    },
+    {
+      "id": "NUTRIENTES_ESSENCIAIS",
+      "type": "concept"
+    },
+    {
+      "id": "COLHEITA_ENERGIA",
+      "type": "concept"
+    },
+    {
+      "id": "SINTESE_MASSA_ESTRUTURAL",
+      "type": "concept"
+    },
+    {
+      "id": "PRECURSORES_COMPOSTOS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DESORDENS_SAUDE",
+      "type": "concept"
+    },
+    {
+      "id": "DESEQUILIBRIOS_NUTRIENTE_INTAKE_UTILIZACAO",
+      "type": "concept"
+    },
+    {
+      "id": "NUTRIcao_ADEQUADA",
+      "type": "concept"
+    },
+    {
+      "id": "DOENCAS_CRONICAS",
+      "type": "concept"
+    },
+    {
+      "id": "PERTURBACAO_NUTRICIONAL",
+      "type": "concept"
+    },
+    {
+      "id": "ESCALAS_TEMPO_INVESTIGADAS",
+      "type": "concept"
+    },
+    {
+      "id": "BIOATIVIDADE_NUTRIENTE",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPLEXA",
+      "type": "concept"
+    },
+    {
+      "id": "COMPONENTES_BIOATIVOS_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    },
+    {
+      "id": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "type": "concept"
+    }
+  ],
+  "relations": [
+    {
+      "subject": "MODELAGEM_COMPUTACIONAL",
+      "predicate": "UTILIZADA_EM",
+      "object": "CAMPOS_BIOLOGICOS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "UTILIZADA_EM"
+    },
+    {
+      "subject": "MODELAGEM_COMPUTACIONAL",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "MODELAGEM_COMPUTACIONAL",
+      "predicate": "APLICADA_EM",
+      "object": "CIENCIAS_NUTRICIONAIS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "APLICADA_EM"
+    },
+    {
+      "subject": "MODELAGEM_COMPUTACIONAL",
+      "predicate": "APLICADA_A",
+      "object": "NIVEIS_ORGANIZACAO_BIOLOGICA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "APLICADA_A"
+    },
+    {
+      "subject": "MODELAGEM_COMPUTACIONAL",
+      "predicate": "APLICADA_A",
+      "object": "NIVEIS_ORGANIZACAO_FISIOLOGICA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "APLICADA_A"
+    },
+    {
+      "subject": "CIENCIAS_NUTRICIONAIS",
+      "predicate": "DESAFIO_MODELAGEM",
+      "object": "INTERPRETACAO_DADOS_EM_ESCALAS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DESAFIO_MODELAGEM"
+    },
+    {
+      "subject": "CIENCIAS_NUTRICIONAIS",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "CIENCIAS_NUTRICIONAIS",
+      "predicate": "EXPLOSAO_DE_DADOS",
+      "object": "ESTUDOS_OMIC",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "EXPLOSAO_DE_DADOS"
+    },
+    {
+      "subject": "MODELAGEM_SISTEMAS_BIOLOGICOS",
+      "predicate": "INTEGRATIVA",
+      "object": "INTERPRETACAO_DADOS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INTEGRATIVA"
+    },
+    {
+      "subject": "MODELAGEM_SISTEMAS_BIOLOGICOS",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "MODELAGEM_SISTEMAS_BIOLOGICOS",
+      "predicate": "INTEGRATIVA",
+      "object": "MECANISMOS_FISIOLOGICOS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INTEGRATIVA"
+    },
+    {
+      "subject": "MODELAGEM_SISTEMAS_BIOLOGICOS",
+      "predicate": "INTEGRATIVA",
+      "object": "ESCALAS_ESPACIAIS_TEMPORAIS",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INTEGRATIVA"
+    },
+    {
+      "subject": "MODELAGEM_SISTEMAS_BIOLOGICOS",
+      "predicate": "INTEGRATIVA",
+      "object": "FENOTIPAGEM_EXAUSTIVA",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INTEGRATIVA"
+    },
+    {
+      "subject": "MODELAGEM_SISTEMAS_BIOLOGICOS",
+      "predicate": "INTEGRATIVA",
+      "object": "CONCEITO_PACIENTE_VIRTUAL",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INTEGRATIVA"
+    },
+    {
+      "subject": "MODELAGEM_SISTEMAS_BIOLOGICOS",
+      "predicate": "INTEGRATIVA",
+      "object": "BIOMARCADORES_DE_SIGNATURAS_OMIC",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "INTEGRATIVA"
+    },
+    {
+      "subject": "MODELAGEM_SISTEMAS_BIOLOGICOS",
+      "predicate": "REVELA",
+      "object": "RELACIONAMENTOS_MECANISTICOS_QUANTITATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "REVELA"
+    },
+    {
+      "subject": "DADOS_OMIC",
+      "predicate": "RELACIONADOS_A",
+      "object": "CARACTERIZACAO_FISIOLOGICA_FENOTIPO",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "RELACIONADOS_A"
+    },
+    {
+      "subject": "DADOS_OMIC",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PESQUISA_NUTRICIONAL",
+      "predicate": "DESAFIO",
+      "object": "CONECTAR_DADOS_EM_ESCALAS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DESAFIO"
+    },
+    {
+      "subject": "PESQUISA_NUTRICIONAL",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ANALISE_ESTATISTICA",
+      "predicate": "METODO_DE_ESCOLHA",
+      "object": "DADOS_OMIC",
+      "provenance": "user",
+      "category": "METHODOLOGY",
+      "label": "METODO_DE_ESCOLHA"
+    },
+    {
+      "subject": "ANALISE_ESTATISTICA",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ABORDAGENS_MODELAGEM",
+      "predicate": "DIFEREM_AMPLAMENTE",
+      "object": "APLICACAO",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "DIFEREM_AMPLAMENTE"
+    },
+    {
+      "subject": "ABORDAGENS_MODELAGEM",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "REVISAO",
+      "predicate": "DISCUTE",
+      "object": "ABORDAGENS_MODELAGEM_REPRESENTATIVAS",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "DISCUTE"
+    },
+    {
+      "subject": "REVISAO",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "REVISAO",
+      "predicate": "DISCUTE",
+      "object": "APLICACOES_MODELAGEM_NUTRICAO",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "DISCUTE"
+    },
+    {
+      "subject": "REVISAO",
+      "predicate": "IDENTIFICA",
+      "object": "LACUNAS_CONHECIMENTO_TECNOLOGIA",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "IDENTIFICA"
+    },
+    {
+      "subject": "REVISAO",
+      "predicate": "SUGERE",
+      "object": "INTEGRACAO_ABORDAGENS_MODELAGEM",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "SUGERE"
+    },
+    {
+      "subject": "NUTRICAO",
+      "predicate": "DEFINICAO_HISTORICA",
+      "object": "McLESTER_1927",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "DEFINICAO_HISTORICA"
+    },
+    {
+      "subject": "NUTRICAO",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ORGANISMOS_VIVOS",
+      "predicate": "ESTADO_LONGE_EQUILIBRIO",
+      "object": "TERMODINAMICA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "ESTADO_LONGE_EQUILIBRIO"
+    },
+    {
+      "subject": "ORGANISMOS_VIVOS",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "ENERGIA_ALIMENTAR",
+      "predicate": "ESSENCIAL_PARA",
+      "object": "MANUTENCAO_VIDA_SAUDE",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "ESSENCIAL_PARA"
+    },
+    {
+      "subject": "ENERGIA_ALIMENTAR",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "COMBUSTIAO_CONTROLADA",
+      "predicate": "FONTE_DE_ENERGIA",
+      "object": "MACRONUTRIENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "FONTE_DE_ENERGIA"
+    },
+    {
+      "subject": "COMBUSTIAO_CONTROLADA",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TEORIA_DINAMICA_ORCAMENTO_ENERGIA",
+      "predicate": "CONSIDERA",
+      "object": "FLUXO_ENERGIA_ALIMENTAR",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CONSIDERA"
+    },
+    {
+      "subject": "TEORIA_DINAMICA_ORCAMENTO_ENERGIA",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "TEORIA_DINAMICA_ORCAMENTO_ENERGIA",
+      "predicate": "CONSIDERA",
+      "object": "ARMAZENAMENTO_ENERGIA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CONSIDERA"
+    },
+    {
+      "subject": "TEORIA_DINAMICA_ORCAMENTO_ENERGIA",
+      "predicate": "CONSIDERA",
+      "object": "DISTRIBUICAO_ENERGIA_CORPORAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "CONSIDERA"
+    },
+    {
+      "subject": "MICRONUTRIENTES",
+      "predicate": "PAPEL_CHAVE",
+      "object": "SAUDE_GERAL_ORGANISMO",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "PAPEL_CHAVE"
+    },
+    {
+      "subject": "MICRONUTRIENTES",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "DEFICIENCIA_MICRONUTRIENTES",
+      "predicate": "CAUSA",
+      "object": "DOENCAS_CLASSICAS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "CAUSA"
+    },
+    {
+      "subject": "DEFICIENCIA_MICRONUTRIENTES",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "NUTRIENTES_ESSENCIAIS",
+      "predicate": "USADOS_PARA",
+      "object": "COLHEITA_ENERGIA",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "USADOS_PARA"
+    },
+    {
+      "subject": "NUTRIENTES_ESSENCIAIS",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "NUTRIENTES_ESSENCIAIS",
+      "predicate": "USADOS_PARA",
+      "object": "SINTESE_MASSA_ESTRUTURAL",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "USADOS_PARA"
+    },
+    {
+      "subject": "NUTRIENTES_ESSENCIAIS",
+      "predicate": "USADOS_PARA",
+      "object": "PRECURSORES_COMPOSTOS_BIOATIVOS",
+      "provenance": "user",
+      "category": "ONTOLOGY",
+      "label": "USADOS_PARA"
+    },
+    {
+      "subject": "DESORDENS_SAUDE",
+      "predicate": "CAUSADAS_POR",
+      "object": "DESEQUILIBRIOS_NUTRIENTE_INTAKE_UTILIZACAO",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "CAUSADAS_POR"
+    },
+    {
+      "subject": "DESORDENS_SAUDE",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "NUTRIcao_ADEQUADA",
+      "predicate": "PREVINE",
+      "object": "DOENCAS_CRONICAS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "PREVINE"
+    },
+    {
+      "subject": "NUTRIcao_ADEQUADA",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "PERTURBACAO_NUTRICIONAL",
+      "predicate": "EFEITOS_SUBTIS",
+      "object": "ESCALAS_TEMPO_INVESTIGADAS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "EFEITOS_SUBTIS"
+    },
+    {
+      "subject": "PERTURBACAO_NUTRICIONAL",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPLEXA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "tem fonte",
+      "object": "Nutritional Systems Biology Modeling- From Molecular Mechanisms to Physiology.pdf",
+      "provenance": "user",
+      "category": "BIBLIOGRAPHIC",
+      "label": "tem fonte"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "COMPONENTES_BIOATIVOS_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    },
+    {
+      "subject": "BIOATIVIDADE_NUTRIENTE",
+      "predicate": "DIFICIL_DESEMBARACAR",
+      "object": "DIETA_COMPONENTE_FUNDAMENTAL_BACKGROUND_COMPLEXA_OUTROS_BIOATIVOS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS_BIOATIVOS_OUTROS_COMPONENTES_OUTROS",
+      "provenance": "user",
+      "category": "CAUSAL",
+      "label": "DIFICIL_DESEMBARACAR"
+    }
+  ],
+  "rules": []
+}

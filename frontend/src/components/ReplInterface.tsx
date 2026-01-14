@@ -23,6 +23,8 @@ export function ReplInterface() {
    */
   const bufferRef = useRef<LogEntry[]>([]);
   const isMounted = useRef(true);
+  // Buffer for Ingestion Logs to autopopulate Reasoning Panel
+  const ingestionLogBuffer = useRef<string[]>([]);
 
   useEffect(() => {
     isMounted.current = true;
@@ -47,20 +49,38 @@ export function ReplInterface() {
     eventSource.onmessage = (event: MessageEvent) => {
       try {
         const parsed = JSON.parse(event.data);
-        addLog(parsed.content);
-        
-        // Detect state changes to refresh graph
         const content = parsed.content || "";
+        addLog(content);
+        
+        // Accumulate Ingestion Logs
+        if (content.includes("[Ingest]")) {
+            ingestionLogBuffer.current.push(content);
+        }
+
+        // Detect state changes to refresh graph & UI
         if (
           content.includes("Memorizado:") || 
           content.includes("Relacao estruturada:") ||
           content.includes("Ferramenta aprendida:") ||
           content.includes("Estado carregado") ||
           content.includes("Auto-Saved Knowledge Graph") ||
-          content.includes("Inferencia concluida")
+          content.includes("Inferencia concluida") ||
+          content.includes("Background graph injection success")
         ) {
            useDialecticStore.getState().incrementGraphVersion();
         }
+
+        // AUTO-UPDATE REASONING PANEL ON INGESTION COMPLETE
+        if (content.includes("JOB_COMPLETE:")) {
+            const finalLogs = ingestionLogBuffer.current.join("\n");
+            if (finalLogs) {
+                useDialecticStore.getState().setLastReasoningLogs(finalLogs);
+                // Clear buffer for next job
+                ingestionLogBuffer.current = [];
+            }
+            useDialecticStore.getState().incrementGraphVersion();
+        }
+
       } catch (e) {
         console.error("Failed to parse log", e);
       }

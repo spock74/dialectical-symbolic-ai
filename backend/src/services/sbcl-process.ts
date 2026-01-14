@@ -140,6 +140,7 @@ export class SBCLProcess extends EventEmitter {
     this.currentBuffer += chunk;
 
     if (this.currentBuffer.includes(SBCLProcess.END_MARKER)) {
+        // console.log('[SBCLProcess] DEBUG: Found END_MARKER in buffer.');
         const startIndex = this.currentBuffer.indexOf(SBCLProcess.START_MARKER);
         const endIndex = this.currentBuffer.indexOf(SBCLProcess.END_MARKER);
 
@@ -212,6 +213,7 @@ export class SBCLProcess extends EventEmitter {
   }
 
   private async processQueue() {
+    // console.log(`[SBCLProcess] processQueue check. Queue: ${this.commandQueue.length}, Ready: ${this.isReady}, Processing: ${this.isProcessing}`);
     if (this.isProcessing || this.commandQueue.length === 0) return;
 
     // Procura o primeiro comando executável (prioriza bootstrap se !isReady)
@@ -224,7 +226,7 @@ export class SBCLProcess extends EventEmitter {
     }
 
     if (targetIndex === -1) {
-        // Apenas comandos externos esperando bootstrap
+        if (this.commandQueue.length > 0) console.log(`[SBCLProcess] Waiting for Bootstrap to complete before executing ${this.commandQueue.length} commands...`);
         return;
     }
 
@@ -265,6 +267,7 @@ ${wrappedCode}
 `;
     
     if (this.process) {
+      console.log(`[SBCLProcess] Writing to stdin:\n${envelope}`);
       this.process.stdin.write(envelope + '\n');
     }
   }

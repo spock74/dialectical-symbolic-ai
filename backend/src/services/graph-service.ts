@@ -38,11 +38,11 @@ export interface GraphData {
 }
 
 export function transformMemoriesToGraph(data: LispGraphExport): GraphData {
-  const nodes = data.nodes.map((mem) => ({
-    id: mem.key,
+  const nodes = data.nodes.map((mem: any) => ({
+    id: mem.key || mem.id,
     // We use {0,0} because the frontend (Workspace.tsx) will handle the layout using Dagre.
     position: { x: 0, y: 0 },
-    data: { label: mem.key, details: mem.value },
+    data: { label: mem.key || mem.id, details: mem.value },
     type: "default",
   }));
 

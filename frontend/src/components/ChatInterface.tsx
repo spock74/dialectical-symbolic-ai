@@ -36,6 +36,8 @@ export function ChatInterface() {
     clearMessages,
     useConversationalMemory,
     setUseConversationalMemory,
+    useEpisodicMemory, // [PHASE 11]
+    setUseEpisodicMemory, // [PHASE 11]
     useBypassSDialect,
     setUseBypassSDialect,
     lastReasoningLogs,
@@ -88,7 +90,7 @@ export function ChatInterface() {
     setLoading(true);
 
     try {
-      const { useConversationalMemory, useBypassSDialect } = useDialecticStore.getState();
+      const { useConversationalMemory, useBypassSDialect, useEpisodicMemory } = useDialecticStore.getState();
       
       // EXCLUDE the last message from history because it IS the userMsg we just added, 
       // but 'chat' API expects history to be previous turns only.
@@ -100,7 +102,8 @@ export function ChatInterface() {
         history, 
         useConversationalMemory, 
         useBypassSDialect,
-        activeSource?.name
+        activeSource?.name,
+        useEpisodicMemory // [PHASE 11] Pass to API
       );
       addMessage(activeSourceId || 'default', { role: 'model', content: text });
       
@@ -349,6 +352,22 @@ export function ChatInterface() {
                >
                  <Clock size={11} className="opacity-70" />
                  Memória Conversacional
+               </label>
+            </div>
+
+            <div className="flex items-center gap-2 bg-background/50 px-3 py-1 h-7 rounded-full border border-dashed border-border shadow-sm group hover:border-primary/40 transition-colors">
+               <Checkbox 
+                 id="input-episodic-toggle" 
+                 checked={useEpisodicMemory} 
+                 onCheckedChange={(checked) => setUseEpisodicMemory(!!checked)}
+                 className="h-3.5 w-3.5 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+               />
+               <label 
+                 htmlFor="input-episodic-toggle" 
+                 className="text-[11px] font-medium cursor-pointer select-none text-muted-foreground group-hover:text-primary transition-colors flex items-center gap-1"
+               >
+                 <Database size={11} className="opacity-70" />
+                 Episodic Overlay
                </label>
             </div>
 

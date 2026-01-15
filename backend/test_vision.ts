@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 async function describeImage() {
-  const imagePath = '/Users/moraes/.gemini/antigravity/brain/e832238a-34e9-4c52-85cb-3b9dd4e16995/uploaded_image_1766209455909.png';
+  const imagePath = '...........[give ot a right path]...........09.png';
   
   try {
     const imageBuffer = await fs.readFile(imagePath);

@@ -18,6 +18,10 @@
            #:limpar-memoria
            #:atualizar-vetor
            #:recuperar-foco-semantico
+           #:salvar-rapido
+           #:carregar-rapido
+           #:eval-safe
+           #:definir-dialetica
            #:reset-total))
 
 (in-package :s-dialectic)
@@ -80,21 +84,31 @@
   (let ((k (normalizar-termo chave)))
     (setf (gethash k *knowledge-graph*) 
           (make-concept :description valor :vector vector))
+    
+    (when vector
+      (setf *vector-cache* (delete k *vector-cache* :key #'car :test #'string=))
+      (push (cons k vector) *vector-cache*))
+      
     (format nil "Memoria: ~a" k)))
 
+(defparameter *vector-cache* nil) ;; List of (key . vector-ref) tuples
+
 (defun atualizar-vetor (chave vetor)
-  "Atualiza o vetor de embedding de um conceito existente ou cria um novo stub."
+  "Atualiza o vetor de embedding e mantem um cache para busca rapida."
   (let* ((k (normalizar-termo chave))
          (existing (gethash k *knowledge-graph*)))
     (if existing
-        ;; Se ja existe e eh struct, atualiza. Se for string (legado), converte para struct.
         (if (concept-p existing)
             (setf (concept-vector existing) vetor)
             (setf (gethash k *knowledge-graph*) 
                   (make-concept :description existing :vector vetor)))
-        ;; Se nao existe, cria stub
         (setf (gethash k *knowledge-graph*) 
               (make-concept :description "Stub vetorial" :vector vetor)))
+    
+    ;; Update Cache (Remove old entry if exists, push new)
+    (setf *vector-cache* (delete k *vector-cache* :key #'car :test #'string=))
+    (push (cons k vetor) *vector-cache*)
+    
     (format nil "Vetor atualizado para ~a" k)))
 
 (defun adicionar-relacao (sujeito predicado objeto &rest extra-args)
@@ -149,23 +163,27 @@
               (/ dot (* mag1 mag2)))))))
 
 (defun recuperar-foco-semantico (chave &key (limit 5) (threshold 0.4))
-  "Retorna os N conceitos mais similares ao vetor da chave fornecida."
+  "Retorna os N conceitos mais similares usando o *vector-cache*."
   (let* ((k (normalizar-termo chave))
          (concept (gethash k *knowledge-graph*))
          (target-vec (if (concept-p concept) (concept-vector concept) nil))
          (results nil))
     (if target-vec
         (progn
-          (maphash (lambda (other-k other-v)
-                     (when (and (concept-p other-v) (concept-vector other-v) (not (string= k other-k)))
-                       (let ((sim (cosine-similarity target-vec (concept-vector other-v))))
-                         (when (> sim threshold)
-                           (push (cons other-k sim) results)))))
-                   *knowledge-graph*)
+          ;; Iterate cached list instead of hash table
+          (dolist (pair *vector-cache*)
+             (let ((other-k (car pair))
+                   (other-vec (cdr pair)))
+               (unless (string= k other-k)
+                 (let ((sim (cosine-similarity target-vec other-vec)))
+                   (when (> sim threshold)
+                     (push (cons other-k sim) results))))))
+                     
           ;; Sort by similarity desc
           (setf results (sort results #'> :key #'cdr))
           ;; Take top N
           (mapcar #'car (subseq results 0 (min (length results) limit))))
+        (list "NIL (Sem Vetor)"))))
         (list "NIL (Sem Vetor)"))))
 
 ;;; --- SECTION-BARRIER ---
@@ -192,6 +210,66 @@
 (defun carregar-estado (filepath)
   (load filepath)
   (format nil "Estado carregado de ~a" filepath))
+
+;;; --- Metaprogramming / Sandbox ---
+
+(defun eval-safe (expr)
+  "Avalia uma expressao Lisp capturando erros. Retorna (values result error-message)."
+  (handler-case 
+      (values (eval expr) nil)
+    (error (e) (values nil (format nil "Erro na avaliacao: ~a" e)))))
+
+(defmacro definir-dialetica (nome args &body body)
+  "Define uma nova funcao ou macro dialetica dinamicamente.
+   Uso: (definir-dialetica verificar-conflito (a b) ...)"
+  `(progn
+     (defun ,nome ,args ,@body)
+     (export ',nome)
+     (format nil "Dialetica definida: ~a" ',nome)))
+
+;;; --- Fast Persistence (Structure IO) ---
+
+(defun hash-to-alist (ht)
+  (let ((lst nil))
+    (maphash (lambda (k v) (push (cons k v) lst)) ht)
+    lst))
+
+(defun alist-to-hash (lst)
+  (let ((ht (make-hash-table :test #'equal)))
+    (dolist (pair lst)
+      (setf (gethash (car pair) ht) (cdr pair)))
+    ht))
+
+(defun salvar-rapido (filepath)
+  "Salva o estado interno imprimindo as estruturas de dados diretamente."
+  (with-open-file (stream filepath :direction :output :if-exists :supersede)
+    (with-standard-io-syntax
+      (let ((dados (list :graph (hash-to-alist *knowledge-graph*)
+                         :relations *relations*
+                         :rules *rules*)))
+        (print dados stream))))
+  (format nil "Fast Save em ~a" filepath))
+
+(defun carregar-rapido (filepath)
+  "Carrega o estado lendo as estruturas de dados."
+  (with-open-file (stream filepath :direction :input)
+    (let ((dados (read stream)))
+      (setf *knowledge-graph* (alist-to-hash (getf dados :graph)))
+      (setf *relations* (getf dados :relations))
+      (setf *rules* (getf dados :rules))
+      ;; Rebuild index
+      (clrhash *relations-index*)
+      (dolist (r *relations*)
+        (let ((k (format nil "~a|~a|~a" (relation-subject r) (relation-predicate r) (relation-object r))))
+          (setf (gethash k *relations-index*) t)))
+          
+      ;; Rebuild Vector Cache
+      (setf *vector-cache* nil)
+      (maphash (lambda (k v)
+                 (when (and (concept-p v) (concept-vector v))
+                   (push (cons k (concept-vector v)) *vector-cache*)))
+               *knowledge-graph*)))
+  (format nil "Fast Load de ~a" filepath))
 
 ;;; Snapshot logic required by GraphEngine
 (defparameter *snapshot-mem-keys* nil)

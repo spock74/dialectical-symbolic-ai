@@ -216,24 +216,22 @@ export class KnowledgeGraph {
     const data = this.exportState();
     fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
 
-    // Save Lisp Persistence Strategy
+    // Save Lisp Persistence Strategy (FAST BINARY MODE)
     if (this.isLayeredMode) {
-        // [PHASE 11] Layered Mode: Save DIFF to _chat.lisp
-        const chatPath = filepath.replace('.json', '_chat.lisp');
-        console.log(`[GraphEngine] Saving Chat Layer Diff to ${chatPath}...`);
-        // Use salvar-estado to persist full state to this specific file
-        const saveDiffCmd = `(s-dialectic:salvar-estado "${chatPath}")`;
+        // [PHASE 11] Layered Mode: Save DIFF to _chat.bin
+        const chatPath = filepath.replace('.json', '_chat.bin');
+        console.log(`[GraphEngine] Saving Chat Layer Diff (FAST) to ${chatPath}...`);
+        const saveDiffCmd = `(s-dialectic:salvar-rapido "${chatPath}")`;
         SBCLProcess.getInstance()
           .evaluate(saveDiffCmd, 120000)
           .catch(e => console.error(`[GraphEngine] Failed to save Chat Layer Diff: ${e.message}`));
     } else {
         // Base Mode: Overwrite Base File (Classic)
-        const lispPath = filepath.replace('.json', '.lisp');
-        // We use internal save-state to ensure we capture everything
-        const saveCmd = `(s-dialectic:salvar-estado "${lispPath}")`;
+        const lispPath = filepath.replace('.json', '.bin');
+        const saveCmd = `(s-dialectic:salvar-rapido "${lispPath}")`;
         SBCLProcess.getInstance()
           .evaluate(saveCmd, 120000)
-          .catch(e => console.error(`[GraphEngine] Failed to save Base Layer Lisp: ${e.message}`));
+          .catch(e => console.error(`[GraphEngine] Failed to save Base Layer (FAST): ${e.message}`));
         console.log(`[GraphEngine] Saved Base Layer to ${lispPath}`);
     }
   }
@@ -276,14 +274,14 @@ export class KnowledgeGraph {
           });
         }
         
-        const lispPath = filepath.replace('.json', '.lisp');
-        const chatLispPath = filepath.replace('.json', '_chat.lisp');
+        const lispPath = filepath.replace('.json', '.bin'); // NOW BINARY
+        const chatLispPath = filepath.replace('.json', '_chat.bin'); 
         
-        // 1. Load BASE Layer
+        // 1. Load BASE Layer (FAST)
         if (fs.existsSync(lispPath)) {
             try {
-               const loadCmd = `(s-dialectic:carregar-estado "${lispPath}")`;
-               console.log(`[GraphEngine] Base Layer: Loading ${lispPath}`);
+               const loadCmd = `(s-dialectic:carregar-rapido "${lispPath}")`;
+               console.log(`[GraphEngine] Base Layer: Loading (FAST) ${lispPath}`);
                
                await SBCLProcess.getInstance().evaluate(loadCmd, 60000).catch(e => console.error(e));
                
@@ -291,10 +289,20 @@ export class KnowledgeGraph {
                console.warn("[GraphEngine] Failed to init Base Lisp load:", e);
             }
         } else {
-             // Fallback: Synthesize Base
-             console.log(`[GraphEngine] Synthesizing Base Lisp Dump...`);
-             this.synthesizeLispDump(data, lispPath);
-             await SBCLProcess.getInstance().evaluate(`(s-dialectic:carregar-estado "${lispPath}")`, 60000);
+             // Fallback: Check for legacy .lisp or synthesize
+             const legacyPath = filepath.replace('.json', '.lisp');
+             if (fs.existsSync(legacyPath)) {
+                 console.log(`[GraphEngine] Found Legacy Text Dump. Migrating...`);
+                 await SBCLProcess.getInstance().evaluate(`(s-dialectic:carregar-estado "${legacyPath}")`, 120000);
+                 // Save as binary for next time
+                 await SBCLProcess.getInstance().evaluate(`(s-dialectic:salvar-rapido "${lispPath}")`, 60000);
+             } else {
+                 console.log(`[GraphEngine] Synthesizing Base Lisp Dump...`);
+                 this.synthesizeLispDump(data, legacyPath); // Makes text file
+                 await SBCLProcess.getInstance().evaluate(`(s-dialectic:carregar-estado "${legacyPath}")`, 60000);
+                 // Save binary
+                 await SBCLProcess.getInstance().evaluate(`(s-dialectic:salvar-rapido "${lispPath}")`, 60000);
+             }
         }
         
         // 2. Snapshot Base (Mark boundaries)
@@ -304,8 +312,14 @@ export class KnowledgeGraph {
              
              // 3. Load Chat Layer (Overlay)
              if (fs.existsSync(chatLispPath)) {
-                 console.log(`[GraphEngine] Chat Layer: Loading ${chatLispPath}`);
-                 await SBCLProcess.getInstance().evaluate(`(s-dialectic:carregar-estado "${chatLispPath}")`, 60000);
+                 console.log(`[GraphEngine] Chat Layer: Loading (FAST) ${chatLispPath}`);
+                 await SBCLProcess.getInstance().evaluate(`(s-dialectic:carregar-rapido "${chatLispPath}")`, 60000);
+             } else {
+                 const legacyChatPath = chatLispPath.replace('.bin', '.lisp');
+                 if (fs.existsSync(legacyChatPath)) {
+                      console.log(`[GraphEngine] Chat Layer: Loading Legacy ${legacyChatPath}`);
+                      await SBCLProcess.getInstance().evaluate(`(s-dialectic:carregar-estado "${legacyChatPath}")`, 60000);
+                 }
              }
         }
         

@@ -1,6 +1,6 @@
-# Tests Successful: Boolean-Fuzzy Logic is Operational
+# If Test Successful: Boolean-Fuzzy Logic is Operational
 
-I have implemented and verified the `Boolean-Fuzzy Composition` capability.
+It implements and verified the `Boolean-Fuzzy Composition` capability.
 
 ### Scenario Tested
 - **Goal**: Find `?x` that is **Semantic(King)** AND **NOT Semantic(Woman)**.
@@ -10,8 +10,8 @@ I have implemented and verified the `Boolean-Fuzzy Composition` capability.
   - `Queen`: Vector [0.7, 0.7] (Similar to both)
   - `Emperor`: Vector [0.9, 0.0] (Similar to King, Dissimilar to Woman)
 - **Rule Engine Execution**:
-  - `Queen`: Matched `Similarity(King)` (0.7 > 0.6) ✅ -> CHECK `NOT Similarity(Woman)` (0.7 > 0.5) ❌ -> **EXCLUDED**.
-  - `Emperor`: Matched `Similarity(King)` (0.9 > 0.6) ✅ -> CHECK `NOT Similarity(Woman)` (0.0 < 0.5) ✅ -> **INFERRED**.
+  - `Queen`: Matched `Similarity(King)` (0.7 > 0.6)  -> CHECK `NOT Similarity(Woman)` (0.7 > 0.5) -> **EXCLUDED**.
+  - `Emperor`: Matched `Similarity(King)` (0.9 > 0.6)  -> CHECK `NOT Similarity(Woman)` (0.0 < 0.5) -> **INFERRED**.
 
 The system correctly inferred `(EMPEROR is-a MaleMonarch)` and correctly rejected `QUEEN`.
 

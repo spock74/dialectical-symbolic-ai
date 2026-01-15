@@ -1,4 +1,4 @@
-# Diretrizes do Chat Antigravity
+# Diretrizes 
 
 Estas instruções orientam o comportamento do assistente de IA neste workspace.
 
@@ -6,7 +6,6 @@ Estas instruções orientam o comportamento do assistente de IA neste workspace.
 - **Rolagem do Chat**: O usuário prefere rolagem manual. O assistente deve evitar gerar textos desnecessariamente longos que forcem o auto-scroll excessivo.
 
 ## Contexto Técnico (S-Dialectic)
-- **Linguagem**: Preferencialmente Português (Brasil).
 - **Motor Lisp**: O projeto utiliza um processo **SBCL**  como motor simbólico integrado ao Node.js.
 - **Arquitetura Neuro-Simbólica**: Manter a lógica de geração de S-Expressions pelo LLM para interagir com o `KnowledgeGraph`.
 

@@ -31,6 +31,7 @@
 (defparameter *relations* nil)
 (defparameter *rules* nil)
 (defparameter *relations-index* (make-hash-table :test #'equal))
+(defparameter *vector-cache* nil) ;; List of (key . vector-ref) tuples
 
 (defstruct concept
   description
@@ -91,7 +92,7 @@
       
     (format nil "Memoria: ~a" k)))
 
-(defparameter *vector-cache* nil) ;; List of (key . vector-ref) tuples
+
 
 (defun atualizar-vetor (chave vetor)
   "Atualiza o vetor de embedding e mantem um cache para busca rapida."
@@ -183,7 +184,6 @@
           (setf results (sort results #'> :key #'cdr))
           ;; Take top N
           (mapcar #'car (subseq results 0 (min (length results) limit))))
-        (list "NIL (Sem Vetor)"))))
         (list "NIL (Sem Vetor)"))))
 
 ;;; --- SECTION-BARRIER ---

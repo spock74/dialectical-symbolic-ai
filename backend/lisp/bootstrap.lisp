@@ -1,7 +1,4 @@
-;;; ---------------------------------------------------------------------------
-;;; S-DIALECTIC KERNEL (FULL STABLE + LOGIC V2.1)
-;;; ---------------------------------------------------------------------------
-(in-package :cl-user)
+
 
 (defpackage :s-dialectic
   (:use :cl)
@@ -21,9 +18,19 @@
            #:eval-safe
            #:definir-dialetica
            #:reset-total
-           #:resolve-logic-query)) ;; API Lógica Exposta
+           #:resolve-logic-query ;; API Lógica Exposta
+           #:vector-add
+           #:vector-sub
+           #:euclidean-distance
+           #:vector-centroid
+           #:cosine-similarity
+           #:get-concept-vector
+           #:geometric-consistency-score
+           #:verify-triplet-consistency))
 
 (in-package :s-dialectic)
+
+
 
 ;;; --- Globals ---
 (defparameter *knowledge-graph* (make-hash-table :test #'equal))
@@ -144,9 +151,71 @@
     (push r *rules*)
     (format nil "Regra adicionada: ~a" nome)))
 
-;;; --- Math / Semantics ---
+;;; --- Math / Semantics (Vector Algebra) ---
+
+(defun vector-add (v1 v2)
+  "Soma elemento a elemento de dois vetores."
+  (if (or (null v1) (null v2) (/= (length v1) (length v2))) nil
+      (map 'vector #'+ v1 v2)))
+
+(defun vector-sub (v1 v2)
+  "Subtrai elemento a elemento (v1 - v2)."
+  (if (or (null v1) (null v2) (/= (length v1) (length v2))) nil
+      (map 'vector #'- v1 v2)))
+
+(defun euclidean-distance (v1 v2)
+  "Calcula a distancia euclidiana entre dois vetores."
+  (let ((diff (vector-sub v1 v2)))
+    (if diff
+        (magnitude diff)
+        999999.0))) ; Retorna valor alto se erro
+
+(defun vector-centroid (vectors)
+  "Calcula o vetor medio de uma lista de vetores."
+  (let ((len (length vectors))
+        (dim (if vectors (length (car vectors)) 0)))
+    (if (or (zerop len) (zerop dim)) nil
+        (let ((sum (make-array dim :initial-element 0.0)))
+          (dolist (v vectors)
+            (setf sum (map 'vector #'+ sum v)))
+          (map 'vector (lambda (x) (/ x len)) sum)))))
+
+
+
+(defun get-concept-vector (key-or-vector)
+  "Retorna o vetor associado a chave ou o proprio argumento se ja for vetor."
+  (cond
+    ((vectorp key-or-vector) key-or-vector)
+    ((stringp key-or-vector) 
+     (let ((c (gethash (normalizar-termo key-or-vector) *knowledge-graph*)))
+       (if (concept-p c) (concept-vector c) nil)))
+    (t nil)))
+
+(defun geometric-consistency-score (s-key r-key o-key)
+  "Calcula pontuacao de consistencia (0.0 a 1.0) baseada em TransE: ||(S+R)-O||."
+  (let ((vs (get-concept-vector s-key))
+        (vr (get-concept-vector r-key))
+        (vo (get-concept-vector o-key)))
+    
+    (if (and vs vr vo)
+        (let* ((prediction (vector-add vs vr))
+               (distance (euclidean-distance prediction vo)))
+          ;; Score = 1 / (1 + distance^2) ou similar. Usando (1 + dist) para suave decaimento.
+          (/ 1.0 (+ 1.0 distance)))
+        0.0))) ;; Retorna 0 se faltar algum vetor
+
+(defun verify-triplet-consistency (s r o &key (threshold-robust 0.8) (threshold-weak 0.4))
+  "Analisa a tripla (S R O) e retorna status geometrico: :ROBUST, :WEAK, :HALLUCINATION ou :UNKNOWN."
+  (let ((score (geometric-consistency-score s r o)))
+    (cond
+      ((= score 0.0) :UNKNOWN) ;; Faltam vetores
+      ((>= score threshold-robust) :ROBUST)
+      ((>= score threshold-weak) :WEAK)
+      (t :HALLUCINATION))))
+
 
 (defun magnitude (v)
+
   (if (or (null v) (= (length v) 0)) 0.0
       (sqrt (reduce #'+ (map 'vector (lambda (x) (* x x)) v)))))
 

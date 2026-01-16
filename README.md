@@ -8,8 +8,8 @@ SDialectic is an neuro-symbolic experimentintended to be an high-precision knowl
 
 The system is built upon the Dual-Process theory of cognition, distinguishing between two primary modes of processing:
 
-1.  **System 1 (Neural Intuition)**: Handled by **Generation 3 LLMs** (e.g., Gemma 3, Qwen 2.5). This layer manages natural language understanding, context sensing, and creative synthesis.
-2.  **System 2 (Symbolic Logic)**: Driven by the **SBCL Kernel** (Steel Bank Common Lisp). This layer provides an immutable, high-performance environment for formal logic, atomic fact storage, and deterministic inference running as a dedicated native process.
+1.  **System 1 (Neural Intuition)**: Handled by the **Synthesis Model** (e.g., Local Gemma 3 or Cloud Gemini 2.5). This layer manages natural language understanding, context sensing, and creative synthesis.
+2.  **System 2 (Symbolic Logic)**: Driven by the **SBCL Kernel** (Steel Bank Common Lisp) and the **Coder Model** (e.g. Local Qwen 2.5 or Cloud Gemini 2.5). This layer provides an immutable, high-performance environment for formal logic, atomic fact storage, and deterministic inference.
 
 The interaction between these layers is managed by the **Reflective Orchestrator**, ensuring that every neural intuition is grounded in symbolic truth.
 
@@ -28,7 +28,7 @@ graph TD
             SK["Symbolic Kernel (SBCL)<br/>Atomic Facts<br/>Formal Inference"]
         end
         subgraph "Right Hemisphere: Intuition"
-            LLM["LLM Layer<br/>Language Synthesis<br/>Contextual Fluidity"]
+            LLM["Synthesis Model<br/>Language Synthesis<br/>Contextual Fluidity"]
         end
         ORCH["Reflective Orchestrator<br/>(The Bridge)"]
     end
@@ -62,16 +62,18 @@ graph TB
         KG["Knowledge Graph<br/>(Vectors + Symbols)"]
     end
 
-    subgraph "Neural Layer (External)"
-        OLLAMA[Ollama Local]
-        GEMINI[Google Gemini API]
+    subgraph "Neural Layer"
+        CODER["Coder Model (Local/Cloud)"]
+        SYNTH["Synthesis Model (Local/Cloud)"]
+        EMBED["Embedding Model (Local/nomic-embed-text)"]
     end
 
     UI <-->|"JSON Stream"| API
     API <--> RO
     RO <--> GI
-    GI <-->|"Context + Prompt"| OLLAMA
-    GI <-->|"Visual Input"| GEMINI
+    GI <-->|"Context + Prompt"| CODER
+    GI <-->|"Visual Input"| SYNTH
+    GI <-->|"Text Vectorization"| EMBED
     
     RO <-->|"StdIO Pipes"| SP
     SP <--> SBCL
@@ -105,9 +107,10 @@ graph TB
         KG["Knowledge Graph (Hash-Table)"]
     end
 
-    subgraph "Neural Layer: Ollama / Gemini"
-        LOGIC["Logic Model (Qwen 2.5 Coder)"]
-        CHAT["Synthesis Model (Gemma 3)"]
+    subgraph "Neural Layer: Local or Cloud"
+        CODER["Coder Model (Logic/Lisp)"]
+        SYNTH["Synthesis Model (Chat/NL)"]
+        EMBED["Embedding Model (Local Only/nomic-embed-text))"]
     end
 
     %% Interactions
@@ -119,8 +122,9 @@ graph TB
     SP <--> |"Spawn/Pipe"| PROC
     PROC --- LISP
     LISP --- KG
-    RO <--> LOGIC
-    RO <--> CHAT
+    RO <--> CODER
+    RO <--> SYNTH
+    RO <--> EMBED
 ```
 
 ---
@@ -137,12 +141,12 @@ graph LR
     end
 
     subgraph "Neural Processing"
-        CHUNK -->|Embed| VEC[Vector Embeddings]
-        CHUNK -->|Extract| LLM[LLM Extraction]
+        CHUNK -->|Embed| VEC[Embedding Model]
+        CHUNK -->|Extract| CODER[Coder Model]
     end
 
     subgraph "Symbolic Grounding"
-        LLM -->|S-Expr| LISP[Lisp Commands]
+        CODER -->|S-Expr| LISP[Lisp Commands]
         VEC -->|Vector List| LISP
         LISP -->|"(adicionar-memoria)"| NODE[Graph Node]
     end
@@ -170,9 +174,9 @@ sequenceDiagram
     autonumber
     participant U as User
     participant ORCH as Orchestrator
-    participant LM as Logic Model (Qwen)
+    participant CM as Coder Model
     participant SK as SBCL Process
-    participant SM as Synthesis Model (Gemma)
+    participant SM as Synthesis Model
 
     U->>ORCH: Input Query
     
@@ -181,8 +185,8 @@ sequenceDiagram
     
     Note over ORCH, SK: Stage 2: Logical Reasoning (Loop)
     loop Thinking Turn
-        ORCH->>LM: Request Logic Plan (based on Context)
-        LM-->>ORCH: Symbolic Code (S-Expressions)
+        ORCH->>CM: Request Logic Plan (based on Context)
+        CM-->>ORCH: Symbolic Code (S-Expressions)
         ORCH->>SK: Evaluate(Code)
         SK->>SK: SBCL Execution / Inference
         SK-->>ORCH: Execution Result / Observations
@@ -201,16 +205,16 @@ SDialectic extends classical logic with fuzzy predicates (`similar-p`) that leve
 ```mermaid
 sequenceDiagram
     participant U as User
-    participant LLM as Logic Model
+    participant CM as Coder Model
     participant LISP as SBCL Kernel
     participant VEC as Vector Space
 
-    U->>LLM: "Define: If X is similar to King, X is a Monarch."
-    LLM->>LISP: (adicionar-regra "regra-monarca" '((similar-p ?x "King" 0.8)) '((?x "e_um" "Monarch")))
+    U->>CM: "Define: If X is similar to King, X is a Monarch."
+    CM->>LISP: (adicionar-regra "regra-monarca" '((similar-p ?x "King" 0.8)) '((?x "e_um" "Monarch")))
     LISP-->>LISP: Store Fuzzy Rule
 
-    U->>LLM: "The Emperor arrives."
-    LLM->>LISP: (adicionar-memoria "Emperor" "Ruler...")
+    U->>CM: "The Emperor arrives."
+    CM->>LISP: (adicionar-memoria "Emperor" "Ruler...")
     LISP-->>VEC: Calculate Vector("Emperor")
     VEC-->>LISP: [0.12, 0.98, ...]
 
@@ -231,12 +235,12 @@ The system optimizes for accuracy by treating the Logic Model and the Synthesis 
 
 ### 5.1 Model Roles and Context Inputs
 
-| Feature | Logic Model (Qwen 2.5 Coder) | Synthesis Model (Gemma 3) |
-| :--- | :--- | :--- |
-| **Primary Goal** | Translate natural language into formal logic. | Translate formal facts into natural language. |
-| **Primary Context** | User Prompt + Current Graph Snapshot. | User Prompt + Fact Package + Reasoning Trace. |
-| **Output Type** | Executable Lisp (S-Expressions). | Formatted Markdown / Natural Language. |
-| **Tone** | Deterministic / Syntactic. | Explanatory / Grounded. |
+| Feature | Coder Model (e.g., Qwen/Gemini) | Synthesis Model (e.g., Gemma/Gemini) | Embedding Model/nomic-embed-text |
+| :--- | :--- | :--- | :--- |
+| **Primary Goal** | Translate natural language into formal logic. | Translate formal facts into natural language. | Create semantic vectors. |
+| **Primary Context** | User Prompt + Current Graph Snapshot. | User Prompt + Fact Package + Reasoning Trace. | Raw Text Chunks. |
+| **Output Type** | Executable Lisp (S-Expressions). | Formatted Markdown / Natural Language. | Float32 Vector Arrays. |
+| **Hosting** | Local or Cloud. | Local or Cloud. | **Local Only.** |
 
 ### 5.2 The Context Transformation Pipeline
 
@@ -248,18 +252,18 @@ graph LR
 
     subgraph "Phase 1: Logic Context"
         CS --> |"Filter Graph"| GS[Graph Snapshot]
-        UP --> LM[Logic Model<br/>Qwen 2.5 Coder]
-        GS --> LM
+        UP --> CM[Coder Model]
+        GS --> CM
     end
 
     subgraph "Phase 2: Result Transformation"
-        LM --> |"Evaluate (SBCL)"| SK[Symbolic Kernel]
+        CM --> |"Evaluate (SBCL)"| SK[Symbolic Kernel]
         SK --> |"Validate Facts"| FP[Fact Package]
         SK --> |"Log Operations"| RT[Reasoning Trace]
     end
 
     subgraph "Phase 3: Synthesis Context"
-        UP --> SM[Synthesis Model<br/>Gemma 3]
+        UP --> SM[Synthesis Model]
         FP --> SM
         RT --> SM
         SM --> FR([Final Response])
@@ -322,7 +326,11 @@ This allows S-Dialectic to adapt its "personality" and prompt engineering strate
 ## 7. Technical Stack
 
 -   **Orchestration**: Node.js, Genkit, TypeScript.
--   **Cognitive Layer**: Ollama (Gemma 3, Qwen 2.5 Coder) or Google Gemini API.
+-   **Orchestration**: Node.js, Genkit, TypeScript.
+-   **Cognitive Layer**: 
+    - **Coder Model**: Local (Qwen 2.5) or Cloud (Gemini 2.5).
+    - **Synthesis Model**: Local (Gemma 3) or Cloud (Gemini 2.5).
+    - **Embedding Model**: Local Only (nomic-embed-text / mxbai).
 -   **Symbolic Layer**: **SBCL (Steel Bank Common Lisp)** via Node.js Child Process.
 -   **Frontend**: React 19, ReactFlow, Zustand, TailwindCSS, Radix UI.
 -   **State Management**: Unified `useDialecticStore` combining Config, Chat, Source, and Graph slices.

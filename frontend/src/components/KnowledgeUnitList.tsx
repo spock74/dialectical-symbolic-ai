@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Circle, Trash2, Power as PowerIcon, RefreshCw, FileText } from "lucide-react";
+import { Trash2, Power as PowerIcon, RefreshCw, FileText } from "lucide-react";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import { cn } from "@/lib/utils";

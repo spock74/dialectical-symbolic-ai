@@ -4,7 +4,7 @@ module.exports = {
     script: "./src/server.ts",
     interpreter: "node",
     interpreter_args: "--import tsx",
-    watch: ["src", "lisp", "prompts", ".env.local"],
+    watch: ["src", "lisp", "prompts", "logic_reasoning", ".env.local"],
     ignore_watch: ["node_modules", "uploads", "logs"],
     instances: 1,
     autorestart: true,

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 export interface Memory {
   key: string;
   value: string;
@@ -127,14 +134,14 @@ export async function commitKnowledgeToGraph(
 
   if (lispCommands.length > 0) {
     // CHUNK BATCHES to avoid timeouts on large PDFs
-    const CHUNK_SIZE = 10; 
+    const CHUNK_SIZE = 50; 
     for (let i = 0; i < lispCommands.length; i += CHUNK_SIZE) {
         const chunk = lispCommands.slice(i, i + CHUNK_SIZE);
         const batchedCmd = `(progn ${chunk.join(' ')} (values))`;
         
         try {
-            await SBCLProcess.getInstance().evaluate(batchedCmd, 60000);
-            console.log(`[Service] Injected chunk ${i/CHUNK_SIZE + 1} (${chunk.length} commands)`);
+            await SBCLProcess.getInstance().evaluate(batchedCmd, 120000);
+            console.log(`[Service] Injected chunk ${Math.floor(i/CHUNK_SIZE) + 1}/${Math.ceil(lispCommands.length/CHUNK_SIZE)} (${chunk.length} commands)`);
         } catch (e) {
             console.error(`[Service] Chunk injection failed:`, e);
         }

@@ -4,6 +4,7 @@ input:
   schema:
     text: string
     context?: string
+    feedback?: any
 output:
   format: text
 config:

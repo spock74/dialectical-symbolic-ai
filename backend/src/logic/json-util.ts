@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 /**
  * Sanitizes a string that may contain JSON, potentially wrapped in markdown blocks 
  * or containing preamble/postamble.

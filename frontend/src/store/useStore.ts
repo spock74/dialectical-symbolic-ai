@@ -115,7 +115,7 @@ const createChatSlice: StateCreator<CombinedState, [], [], ChatSlice> = (set) =>
     }
   })),
   setLastReasoningLogs: (logs) => set({ lastReasoningLogs: logs }),
-  resetAllState: () => set((state) => ({
+  resetAllState: () => set(() => ({
     sourceMessages: {},
     lastReasoningLogs: "",
     groups: [],

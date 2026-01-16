@@ -1,6 +1,13 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 import { genkit } from 'genkit';
 import { ollama } from 'genkitx-ollama';
-import { dotprompt } from '@genkit-ai/dotprompt';
+// import { dotprompt } from '@genkit-ai/dotprompt';
 
 const ai = genkit({
   plugins: [

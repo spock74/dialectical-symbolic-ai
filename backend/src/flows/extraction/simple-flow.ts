@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 import { ai } from '../../genkit';
 import { prompt } from '@genkit-ai/dotprompt';
 import { z } from 'genkit';

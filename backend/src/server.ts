@@ -1,4 +1,11 @@
-import express from 'express';
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import multer from 'multer';
 import { reflectiveLoop } from './flows/reflective-loop';
@@ -70,7 +77,7 @@ app.post("/api/chat", registerRollback, async (req: any, res: any) => {
     let result = await reflectiveLoop({
       prompt,
       history,
-      useMemory,
+      useEpisodicMemory: useMemory,
       bypassSDialect: bypassSDialect === 'true' || bypassSDialect === true,
       source,
     });

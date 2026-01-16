@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ */
+
+
 import { ai } from './src/genkit';
 import fs from 'fs/promises';
 import path from 'path';

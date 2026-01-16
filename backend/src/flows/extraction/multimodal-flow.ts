@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 import { ai } from '../../genkit';
 import { z } from 'genkit';
 import { ExtractionOutputSchema } from './schemas';
@@ -5,16 +12,12 @@ import { CONFIG } from "../../config/constants";
 import { prompt } from "@genkit-ai/dotprompt";
 import { GoogleGenAI, FileState } from "@google/genai";
 import { scheduleModelUnload } from "../../services/model-cleanup";
-
-/**
- * [CORTEX] Study Track PDF Ingestion via Native File API.
- * Uses @google/genai to stream binaries directly to Google Cache.
- */
+import { imageService } from "../../services/image-service";
 
 // Initialize Google Gen AI client with developer key
 const genAI = new GoogleGenAI({ apiKey: CONFIG.GEMINI_API_KEY });
 
-const REGEX_RELATION = /\(adicionar-relacao\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"\s+:category\s+:([A-Z]+)\)/g;
+const REGEX_RELATION = /\(adicionar-relacao\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"\s+:category\s+:([a-zA-Z0-9_\-]+)\)/g;
 const REGEX_RULE = /\(adicionar-regra\s+'([^\s\n]+)\s+'(\([\s\S]*?\))\s+'(\([\s\S]*?\))\)/g;
 
 export const extractKnowledgeMultimodal = ai.defineFlow(
@@ -27,38 +30,63 @@ export const extractKnowledgeMultimodal = ai.defineFlow(
     outputSchema: ExtractionOutputSchema,
   },
   async ({ filePath, trackId }) => {
-    console.log(`[Flow] Starting Multimodal PDF Extraction (File API) for Track: ${trackId}`);
-    let uploadedFile;
+    console.log(`[Flow] Starting Multimodal PDF Extraction for Track: ${trackId} | Mode: ${CONFIG.USE_LOCAL_MODELS ? 'LOCAL' : 'CLOUD'}`);
+    let uploadedFile: any;
+    let promptInput: any = { trackId: trackId || "default" };
 
     try {
-      // 1. NATIVE BINARY UPLOAD (File API)
-      // Streams directly from disk to prevent Node.js memory pressure (Base64 OOM)
-      uploadedFile = await genAI.files.upload({
-        file: filePath,
-        config: {
-          mimeType: "application/pdf",
-          displayName: `StudyTrack_${trackId || 'unknown'}_${Date.now()}`
-        }
-      });
 
-      console.log(`[Flow] Document uploaded to Gemini Cache. Name: ${uploadedFile.name} | URI: ${uploadedFile.uri}`);
-      
-      const fileName = uploadedFile.name;
-      if (!fileName) throw new Error("[Flow] Upload failed: Gemini returned no file name.");
+      // === BRANCH: LOCAL vs CLOUD ===
+      if (CONFIG.USE_LOCAL_MODELS) {
+          console.log(`[Flow] Local mode detected. Converting PDF to images for ${CONFIG.VISION_MODEL}...`);
+          
+          // 1. Convert PDF to Images (Up to 20 pages), RETURN RAW BASE64 (false)
+          // imageService returns raw base64 strings without prefix.
+          // LOG: Confirming page range
+          console.log(`[Flow] requesting up to 20 pages from PDF...`);
+          const base64Images = await imageService.convertPdfToImages(filePath, { maxPages: 20 }, false);
+          
+          if (base64Images.length === 0) {
+              throw new Error("PDF conversion yielded no images.");
+          }
+           console.log(`[Flow] Converted PDF to ${base64Images.length} images (Base64). Formatting as Data URI...`);
 
-      // 2. POLLING: Wait for PDF processing (ACTIVE state)
-      let fileStatus = await genAI.files.get({ name: fileName });
-      while (fileStatus.state === FileState.PROCESSING) {
-        console.log(`[Flow] File state: ${fileStatus.state}. Waiting 3s...`);
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-        fileStatus = await genAI.files.get({ name: fileName });
+          // 2. Format as Data URIs for Genkit
+          // Genkit/Dotprompt/Ollama plugin generally supports data: URIs for media.
+          // test_vision.ts confirms this pattern works.
+          promptInput.images = base64Images.map(b64 => `data:image/png;base64,${b64}`);
+
+      } else {
+          // === CLOUD (Google GenAI) ===
+          // 1. NATIVE BINARY UPLOAD (File API)
+          uploadedFile = await genAI.files.upload({
+            file: filePath,
+            config: {
+              mimeType: "application/pdf",
+              displayName: `StudyTrack_${trackId || 'unknown'}_${Date.now()}`
+            }
+          });
+
+          console.log(`[Flow] Document uploaded to Gemini Cache. Name: ${uploadedFile.name} | URI: ${uploadedFile.uri}`);
+          
+          const fileName = uploadedFile.name;
+          if (!fileName) throw new Error("[Flow] Upload failed: Gemini returned no file name.");
+
+          // 2. POLLING: Wait for PDF processing (ACTIVE state)
+          let fileStatus = await genAI.files.get({ name: fileName });
+          while (fileStatus.state === FileState.PROCESSING) {
+            console.log(`[Flow] File state: ${fileStatus.state}. Waiting 3s...`);
+            await new Promise((resolve) => setTimeout(resolve, 3000));
+            fileStatus = await genAI.files.get({ name: fileName });
+          }
+
+          if (fileStatus.state === FileState.FAILED) {
+            throw new Error(`[Flow] Gemini PDF Processing failed for file: ${fileName}`);
+          }
+
+          console.log(`[Flow] PDF is now ACTIVE. Triggering extraction...`);
+          promptInput.pdfFile = uploadedFile.uri;
       }
-
-      if (fileStatus.state === FileState.FAILED) {
-        throw new Error(`[Flow] Gemini PDF Processing failed for file: ${fileName}`);
-      }
-
-      console.log(`[Flow] PDF is now ACTIVE. Triggering extraction...`);
 
       // 3. GENERATION
       // @ts-ignore
@@ -66,14 +94,13 @@ export const extractKnowledgeMultimodal = ai.defineFlow(
 
       const response = await multimodalPrompt.generate({
         model: CONFIG.VISION_MODEL,
-        input: {
-          pdfFile: uploadedFile.uri,
-          trackId: trackId || "default"
-        },
+        input: promptInput,
       });
 
       const rawText = response.text;
       console.log(`[Flow] Extraction complete. Raw output length: ${rawText.length}`);
+      console.log(`[DEBUG] RAW MODEL OUTPUT:\n${rawText}\n[DEBUG] END RAW OUTPUT`);
+
 
       // 4. PARSING (Strict Lisp Structures)
       const relations: any[] = [];

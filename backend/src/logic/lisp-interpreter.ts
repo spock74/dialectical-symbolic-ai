@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 import { KnowledgeGraph } from './graph-engine';
 import { SBCLProcess } from '../services/sbcl-process';
 import { kernelEvents } from './kernel-events';

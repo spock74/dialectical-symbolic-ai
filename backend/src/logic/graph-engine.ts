@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 import * as fs from 'fs';
 import * as path from 'path';
 import { SBCLProcess } from '../services/sbcl-process';

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 import { spawn } from 'child_process';
 
 async function checkCommand(cmd: string, args: string[]): Promise<boolean> {

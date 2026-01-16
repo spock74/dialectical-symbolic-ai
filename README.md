@@ -1,181 +1,339 @@
-# SDialectic: A Dual-Process Neurosymbolic Architecture
+# SDialectic: Neuro-Symbolic Cognitive Architecture
 
-**Version:** 0.1.0  
-**Status:** Active Development not ready for Production  
-**License:** Dual License (Free for Personal Non-Commercial Use; Commercial License Required)
+> **Status**: Incipient Personal Research Project. This repository hosts experimental code for researching in Neurosymbolic AI.
 
----
+SDialectic is an neuro-symbolic experimentintended to be an high-precision knowledge extraction and logical reasoning. It implements a **Dual-Process** architecture that bridges the creative flexibility of Large Language Models (LLMs) with the formal rigor of a **Native Symbolic Logic Kernel** (SBCL).
 
-## 1. Abstract
+## 1. Executive Summary: The Dual-Process Theory
 
-**SDialectic** represents a practical implementation of a **Dual-Process cognitive architecture**, designed to bridge the gap between the probabilistic flexibility of Large Language Models (System 1) and the rigorous deterministic consistency of Symbolic Logic (System 2).
+The system is built upon the Dual-Process theory of cognition, distinguishing between two primary modes of processing:
 
-By integrating **Google Gemini** (via Genkit) as the semantic perception layer and **Steel Bank Common Lisp (SBCL)** as the inferential kernel, the system achieves a state of "grounded intelligence". Unstructured data is not merely summarized but transmuted into structured knowledge graphs and executable logic rules, enabling auditable reasoning and persistent memory that survives the ephemeral context window of standard LLMs.
+1.  **System 1 (Neural Intuition)**: Handled by **Generation 3 LLMs** (e.g., Gemma 3, Qwen 2.5). This layer manages natural language understanding, context sensing, and creative synthesis.
+2.  **System 2 (Symbolic Logic)**: Driven by the **SBCL Kernel** (Steel Bank Common Lisp). This layer provides an immutable, high-performance environment for formal logic, atomic fact storage, and deterministic inference running as a dedicated native process.
+
+The interaction between these layers is managed by the **Reflective Orchestrator**, ensuring that every neural intuition is grounded in symbolic truth.
 
 ---
 
 ## 2. System Architecture
 
-The architecture follows a strict separation of concerns, orchestrated by a Node.js middleware that acts as the *Corpus Callosum*, facilitating communication between the Neural and Symbolic hemispheres.
+The architecture is composed of three primary layers: the User Interface, the Orchestration Layer, and the Native Symbolic Kernel.
+
+### 2.1 Concept: The Digital Brain (Didactic View)
 
 ```mermaid
 graph TD
-    User(["User / Client"])
+    subgraph "The Digital Brain"
+        subgraph "Left Hemisphere: Logic"
+            SK["Symbolic Kernel (SBCL)<br/>Atomic Facts<br/>Formal Inference"]
+        end
+        subgraph "Right Hemisphere: Intuition"
+            LLM["LLM Layer<br/>Language Synthesis<br/>Contextual Fluidity"]
+        end
+        ORCH["Reflective Orchestrator<br/>(The Bridge)"]
+    end
     
-    subgraph "Orchestration Layer (The Bridge)"
-        API["Node.js / Express API"]
-        Store[Knowledge Store]
-    end
-
-    subgraph "System 1: Probabilistic Cortex"
-        Genkit[Google Genkit]
-        Gemini["Gemini 2.5 Flash-Lite"]
-    end
-
-    subgraph "System 2: Symbolic Kernel"
-        SBCL[SBCL Child Process]
-        LispMem[In-Memory Fact Base]
-        Inference[Inference Engine]
-    end
-
-    User <-->|HTTP/WebSocket| API
-    API <-->|Unstructured Data| Genkit
-    Genkit <-->|Context/Tokens| Gemini
-    
-    API <-->|Stdin/Stdout Stream| SBCL
-    SBCL -->|S-Expressions| LispMem
-    LispMem -->|Deductions| Inference
-    Inference -->|New Facts| SBCL
+    UserRequest([User Query]) --> ORCH
+    ORCH <--> LLM
+    ORCH <--> SK
+    ORCH --> FinalResponse([Rational Response])
 ```
 
-### Key Components
+### 2.2 Component Topology (High-Level)
 
-*   **The Neural Interface (System 1):** Utilizes Gemini 2.5's multimodal capabilities to perceive messy, real-world data (PDFs, Images, Text) and extract structured propositions and causal laws.
-*   **The Symbolic Kernel (System 2):** A persistent SBCL process that maintains the *True State* of the world. It rejects contradictions, applies forward-chaining inference, and provides a queryable axiomatic base.
-*   **The Graph Engine:** A synchronization layer that maps the rigorous Lisp memory states into visualizable directed acyclic graphs (DAGs) for human interpretation.
+```mermaid
+graph TB
+    subgraph "Frontend Layer"
+        UI[React 19 UI]
+        RF[ReactFlow Engine]
+        ZU[Zustand Store]
+    end
+
+    subgraph "Orchestration Layer (Node.js)"
+        API[Express API]
+        RO[Reflective Orchestrator]
+        GI[Genkit Interface]
+        SP[SBCL Process Manager]
+    end
+
+    subgraph "Symbolic Layer (Native)"
+        SBCL[SBCL Runtime]
+        REPL[Lisp REPL]
+        KG["Knowledge Graph<br/>(Vectors + Symbols)"]
+    end
+
+    subgraph "Neural Layer (External)"
+        OLLAMA[Ollama Local]
+        GEMINI[Google Gemini API]
+    end
+
+    UI <-->|"JSON Stream"| API
+    API <--> RO
+    RO <--> GI
+    GI <-->|"Context + Prompt"| OLLAMA
+    GI <-->|"Visual Input"| GEMINI
+    
+    RO <-->|"StdIO Pipes"| SP
+    SP <--> SBCL
+    SBCL --- REPL
+    REPL --- KG
+    
+    ZU -.->|"State Sync"| UI
+    RF -.->|"Graph Data"| UI
+```
+
+### 2.3 Technical Topology (Detailed)
+
+```mermaid
+graph TB
+    subgraph "Frontend: React Application"
+        UI["UI Layer"]
+        ZST["Zustand State (Modular Slices)"]
+        RF["ReactFlow Analysis Engine"]
+    end
+
+    subgraph "Backend: Node.js / Genkit"
+        API["Express API Server"]
+        RO["Reflective Orchestrator Class"]
+        FLOW["Genkit Knowledge Flow"]
+        SP["SBCL Process Manager"]
+    end
+
+    subgraph "Symbolic Layer: Native Runtime"
+        PROC["SBCL Child Process"]
+        LISP["Common Lisp Env"]
+        KG["Knowledge Graph (Hash-Table)"]
+    end
+
+    subgraph "Neural Layer: Ollama / Gemini"
+        LOGIC["Logic Model (Qwen 2.5 Coder)"]
+        CHAT["Synthesis Model (Gemma 3)"]
+    end
+
+    %% Interactions
+    UI <--> ZST
+    UI <--> API
+    API <--> FLOW
+    FLOW <--> RO
+    RO <--> SP
+    SP <--> |"Spawn/Pipe"| PROC
+    PROC --- LISP
+    LISP --- KG
+    RO <--> LOGIC
+    RO <--> CHAT
+```
 
 ---
 
-## 3. The Knowledge Extraction Pipeline
+## 3. Data Flow: From Text to Topological Knowledge
 
-The core innovation of SDialectic is its "Knowledge Transmutation" pipeline, which converts raw information into executable wisdom.
+The ingestion pipeline transforms unstructured text into structured, vector-grounded symbolic knowledge.
+
+```mermaid
+graph LR
+    subgraph "Ingestion"
+        PDF[PDF Source] --> TXT[Text Extraction]
+        TXT --> CHUNK[Chunking]
+    end
+
+    subgraph "Neural Processing"
+        CHUNK -->|Embed| VEC[Vector Embeddings]
+        CHUNK -->|Extract| LLM[LLM Extraction]
+    end
+
+    subgraph "Symbolic Grounding"
+        LLM -->|S-Expr| LISP[Lisp Commands]
+        VEC -->|Vector List| LISP
+        LISP -->|"(adicionar-memoria)"| NODE[Graph Node]
+    end
+
+    subgraph "Topological Storage"
+        NODE --> SYM[Symbolic Key]
+        NODE --> PROP[Semantic Vector]
+        NODE --> REL[Edges]
+    end
+
+    style NODE fill:#dcfce7,stroke:#16a34a
+    style PROP fill:#e0e7ff,stroke:#4338ca
+```
+
+---
+
+## 4. Core Component: The Reflective Loop
+
+The Reflective Loop is a multi-turn cognitive process where the AI "reasons" by writing and executing symbolic code before presenting a result.
+
+### 4.1 Interaction Sequence
 
 ```mermaid
 sequenceDiagram
-    participant Doc as Raw Document
-    participant LLM as System 1 (Gemini)
-    participant Parser as S-Expression Parser
-    participant Kernel as System 2 (SBCL)
-    participant Graph as Knowledge Graph
+    autonumber
+    participant U as User
+    participant ORCH as Orchestrator
+    participant LM as Logic Model (Qwen)
+    participant SK as SBCL Process
+    participant SM as Synthesis Model (Gemma)
 
-    Doc->>LLM: Ingest Multimodal Content
-    Note right of LLM: Semantic Analysis & Pattern Recognition
-    LLM->>LLM: Generate Lisp Code (Facts + Rules)
-    LLM->>Parser: Stream S-Expressions
-    Parser->>Kernel: Batched Injection (progn ...)
+    U->>ORCH: Input Query
     
-    rect rgb(20, 20, 30)
-        Note right of Kernel: Symbolic Validation & Inference
-        Kernel->>Kernel: Check Consistency
-        Kernel->>Kernel: Apply Forward-Chaining
+    Note over ORCH, SK: Stage 1: Contextual Grounding
+    ORCH->>ORCH: Context Sensing (Keyword Match)
+    
+    Note over ORCH, SK: Stage 2: Logical Reasoning (Loop)
+    loop Thinking Turn
+        ORCH->>LM: Request Logic Plan (based on Context)
+        LM-->>ORCH: Symbolic Code (S-Expressions)
+        ORCH->>SK: Evaluate(Code)
+        SK->>SK: SBCL Execution / Inference
+        SK-->>ORCH: Execution Result / Observations
     end
-    
-    Kernel->>Graph: Export Validated State
-    Graph->>Graph: Update Visualization
+
+    Note over ORCH, SM: Stage 3: Human Synthesis
+    ORCH->>SM: Prompt with Fact Package + Reasoning Trace
+    SM-->>ORCH: Natural Language Response
+    ORCH-->>U: Final Verified Response
 ```
 
-### 3.1 Transmutation Steps
+### 4.2 Neuro-Symbolic Inference (Fuzzy Logic Cycle)
 
-1.  **Semantic Parsing:** The LLM identifies concepts (`Entities`) and the relationships (`Predicates`) between them, adhering to a strict ontology (e.g., Causal, Methodological).
-2.  **Rule Synthesis:** Beyond facts, the system extracts *rules* (e.g., "If X increases, Y decreases"). These are formatted as Lisp macros (`adicionar-regra`) capable of logical execution.
-3.  **Atomic Injection:** Extracted knowledge is broken down into atomic units (triplets) and injected into the Lisp kernel.
-4.  **Inference Propagation:** Once new facts enter the kernel, the inference engine automatically derives second-order consequences, expanding the knowledge graph without further LLM token usage.
-
----
-
-## 4. The Reflective Loop (RAG + Reasoning)
-
-SDialectic replaces the standard "Retrieve-Then-Generate" RAG pattern with a **Reflective Loop**. The system does not just retrieve text chunks; it retrieves *facts* and *logic* to construct an answer.
+SDialectic extends classical logic with fuzzy predicates (`similar-p`) that leverage vector similarity to bridge semantic gaps.
 
 ```mermaid
-flowchart LR
-    Query(User Query) --> Decomposition
-    Decomposition[Semantic Decomposition] --> Search
-    
-    subgraph "Hybrid Retrieval"
-        Search --> Vector["Vector Search (Embeddings)"]
-        Search --> Symbolic["Symbolic Query (Lisp)"]
+sequenceDiagram
+    participant U as User
+    participant LLM as Logic Model
+    participant LISP as SBCL Kernel
+    participant VEC as Vector Space
+
+    U->>LLM: "Define: If X is similar to King, X is a Monarch."
+    LLM->>LISP: (adicionar-regra "regra-monarca" '((similar-p ?x "King" 0.8)) '((?x "e_um" "Monarch")))
+    LISP-->>LISP: Store Fuzzy Rule
+
+    U->>LLM: "The Emperor arrives."
+    LLM->>LISP: (adicionar-memoria "Emperor" "Ruler...")
+    LISP-->>VEC: Calculate Vector("Emperor")
+    VEC-->>LISP: [0.12, 0.98, ...]
+
+    U->>LISP: (inferir)
+    loop Inference Engine
+        LISP->>LISP: Match Rule Conditions
+        LISP->>VEC: CosineSim(Vec("Emperor"), Vec("King"))
+        VEC-->>LISP: 0.85 (True > 0.8)
+        LISP->>LISP: Fire Consequence: (adicionar-relacao "Emperor" "e_um" "Monarch")
     end
-    
-    Vector --> Synthesis
-    Symbolic --> Synthesis
-    
-    Synthesis[Reasoning Synthesis] -->|Context| LLM
-    LLM --> Response(Final Answer)
-    
-    style Vector fill:#2a3,stroke:#333,stroke-width:2px
-    style Symbolic fill:#3a6,stroke:#333,stroke-width:2px
-```
-
-*   **Vector Search:** Finds conceptually related text passages (for nuance and tone).
-*   **Symbolic Query:** Queries the Lisp kernel for definitive relationships (e.g., `(get-rel "Inflammation" ?predicate ?object)`).
-*   **Synthesis:** The LLM receives both the textual context and the "Ground Truth" logical table, significantly reducing hallucinations.
-
----
-
-## 5. Technical Implementation Details
-
-### 5.1 Backend Services
-*   **`sbcl-process.ts`**: Handles the lifecycle of the Lisp child process. It implements a command queue with timeout protection and automatic crash recovery to ensure high availability.
-*   **`graph-service.ts`**: Manages the ingestion flow. It now supports **non-blocking batched injection**, allowing thousands of relations to be processed in milliseconds during rehydration.
-
-### 5.2 Persistence & Recovery
-The state is persisted using a hybrid strategy:
-*   **Hot Memory:** Active SBCL Heap.
-*   **Cold Storage:** JSON snapshots (`data/graphs/*.json`) containing both the graph topology and the raw Lisp rules.
-*   **Rehydration:** Upon restart, the `GraphEngine` reads the JSON snapshot and "re-teaches" the Lisp kernel by replaying the entire history of facts and rules in a single batch transaction.
-
-### 5.3 Frontend Visualization
-The interface is a direct window into the machine's mind:
-*   **Interactive Graph:** Built with ReactFlow, it renders the dynamic topology of the knowledge base.
-*   **Source Isolation:** Chat history and active knowledge contexts are strictly isolated per document source to prevent context leakage.
-*   **SBCL Repl:** A raw console interface allowing power users to interact directly with the Lisp kernel (e.g., `(describe 'concept)`).
-
----
-
-## 6. Getting Started
-
-### Prerequisites
-*   **Node.js** (v18+)
-*   **pnpm** (Package Manager)
-*   **SBCL** (Steel Bank Common Lisp) installed in `$PATH`
-*   **Google Cloud Credentials** (ADC) for Genkit
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/spock74/s-dialectic.git
-
-# Install dependencies (Root, Backend, and Frontend)
-pnpm install
-
-# Build the shared logic packages
-pnpm build
-```
-
-### Running the System
-
-```bash
-# Start the Backend (API + Lisp Kernel)
-cd backend
-pnpm start
-
-# Start the Frontend (Vite)
-cd frontend
-pnpm dev
 ```
 
 ---
 
-**Developed by:** Spock74  
+## 5. Cognitive Specialization and Context Engineering
+
+The system optimizes for accuracy by treating the Logic Model and the Synthesis Model as two specialized agents with distinct context windows.
+
+### 5.1 Model Roles and Context Inputs
+
+| Feature | Logic Model (Qwen 2.5 Coder) | Synthesis Model (Gemma 3) |
+| :--- | :--- | :--- |
+| **Primary Goal** | Translate natural language into formal logic. | Translate formal facts into natural language. |
+| **Primary Context** | User Prompt + Current Graph Snapshot. | User Prompt + Fact Package + Reasoning Trace. |
+| **Output Type** | Executable Lisp (S-Expressions). | Formatted Markdown / Natural Language. |
+| **Tone** | Deterministic / Syntactic. | Explanatory / Grounded. |
+
+### 5.2 The Context Transformation Pipeline
+
+```mermaid
+graph LR
+    subgraph "Input Processing"
+        UP([User Prompt]) --> CS[Context Sensing]
+    end
+
+    subgraph "Phase 1: Logic Context"
+        CS --> |"Filter Graph"| GS[Graph Snapshot]
+        UP --> LM[Logic Model<br/>Qwen 2.5 Coder]
+        GS --> LM
+    end
+
+    subgraph "Phase 2: Result Transformation"
+        LM --> |"Evaluate (SBCL)"| SK[Symbolic Kernel]
+        SK --> |"Validate Facts"| FP[Fact Package]
+        SK --> |"Log Operations"| RT[Reasoning Trace]
+    end
+
+    subgraph "Phase 3: Synthesis Context"
+        UP --> SM[Synthesis Model<br/>Gemma 3]
+        FP --> SM
+        RT --> SM
+        SM --> FR([Final Response])
+    end
+
+    style FP fill:#eff6ff,stroke:#2563eb,stroke-width:2px
+    style RT fill:#f0fdf4,stroke:#16a34a,stroke-width:2px
+```
+
+### 5.3 SBCL Process Integration
+
+Unlike browser-based Lisp implementations, SDialectic uses a robust **Child Process** architecture:
+
+1.  **Spawn**: The backend spawns a dedicated `sbcl` instance (`--noinform --disable-debugger`).
+2.  **Bootstrap**: On startup, it loads `lisp/bootstrap.lisp` into the `:s-dialectic` package.
+3.  **Sanitization**: Output from the REPL is rigorously sanitized to remove prompts (`*`), debugger info, and artifacts, ensuring clean JSON or atomic results.
+4.  **Resilience**: If the Lisp process crashes or enters a debugger loop, the `SBCLProcess` manager detects the stderr pattern, aborts components, or restarts the process automatically.
+
+---
+
+## 6. Key Features
+
+### 6.1 Advanced Graph Analysis
+The system includes a sophisticated visualization suite for interacting with the Knowledge Graph in real-time.
+- **Dynamic Filtering**: Toggle visibility of Entities and Relations independently.
+- **Hybrid State**: Merges React-side "Memories" with Lisp-side "Knowledge Graph" for a unified view.
+- **Flexible Layout**: Switch between Vertical (Top-Bottom) and Horizontal (Left-Right) views via ReactFlow.
+- **Topological Knowledge Graph**: Nodes contain both explicit textual descriptions and high-dimensional vector representations.
+
+### 6.2 Symbolic Live Stream (Live REPL)
+Every logical operation performed by the AI is streamed to the UI in real-time via Server-Sent Events (SSE).
+- Lisp commands being generated.
+- Internal graph mutations.
+- Reasoning traces (`(infer)`, `(add-node)`).
+
+### 6.3 Neuro-Symbolic Inference (New)
+- **Fuzzy Rules**: Logic rules can include `(similar-p ?var "concept" threshold)` conditions, allowing logic to operate on semantic proximity.
+
+### 6.4 Resilience and Data Integrity
+- **Rollback Mechanism**: Middleware registers connection status; if a client aborts, the graph state rolls back to the last consistent checkpoint.
+- **File Cleanup**: Automated cleanup of uploaded PDFs and temporary files after extraction or failure.
+- **Strict Environment**: Uses `dotenv` with strict mode validation to ensure all model configurations are present before boot.
+
+### 6.5 Logic & Set Theory Engine (V2.1)
+The Symbolic Kernel has been upgraded to support pure logical reasoning and set theory, enabling:
+- **Set Operations**: Intersection, Union, Difference on both explicit sets and implicit sets defined by criteria.
+- **Criteria Engine**: The `satisfy-criteria-p` function allows the system to evaluate complex conditions against the graph (e.g., "All Entities BORN_IN Germany").
+- **Solver Mode**: The system can solve mathematical and logical queries (e.g., "Who is in the intersection of X and Y?") by executing Lisp primitives.
+- **Axiomatic Checks**: Prevents logical contradictions (e.g., checking `1 + 1 = 2`) before ingesting facts.
+
+### 6.6 Dynamic Domain Switching
+The architecture now supports hot-swapping "Cognitive Domains" via configuration (`DOMAIN_SPECIFIC_KNOWLEDGE`):
+- **Biomedical Mode**: Specialized in causal pathways, mechanism of action, and systems biology.
+- **Logic Analyst Mode**: Specialized in set definitions, axioms, and propositional logic.
+This allows S-Dialectic to adapt its "personality" and prompt engineering strategy without code changes, just by pointing to a different prompt directory.
+
+
+---
+
+## 7. Technical Stack
+
+-   **Orchestration**: Node.js, Genkit, TypeScript.
+-   **Cognitive Layer**: Ollama (Gemma 3, Qwen 2.5 Coder) or Google Gemini API.
+-   **Symbolic Layer**: **SBCL (Steel Bank Common Lisp)** via Node.js Child Process.
+-   **Frontend**: React 19, ReactFlow, Zustand, TailwindCSS, Radix UI.
+-   **State Management**: Unified `useDialecticStore` combining Config, Chat, Source, and Graph slices.
+
+---
+
+## License: Dual Licensing
+
+This project is licensed under a **Dual License** model:
+
+1.  **Personal & Non-Commercial Use**: Licensed under the **MIT License**. You are free to use, modify, and distribute this software for personal queries, research, or open-source projects.
+2.  **Commercial Use**: When production ready, this project is intended for commercial use besides research. For any commercial application, proprietary software integration, or deployed services generating revenue, a separate **Commercial License** is required.
+
+Please contact the author for commercial licensing inquiries

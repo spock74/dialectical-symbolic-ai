@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -53,6 +60,9 @@ export const CONFIG = {
       ? `ollama/${this.OLLAMA_VISION_MODEL_NAME}`
       : `googleai/${this.GEMINI_VISION_MODEL_NAME}`;
   },
+  // Knowledge Domain
+  DOMAIN_SPECIFIC_KNOWLEDGE: process.env.DOMAIN_SPECIFIC_KNOWLEDGE || "prompts",
+
   get CHAT_MODEL() {
     return this.USE_LOCAL_MODELS
       ? `ollama/${this.OLLAMA_CHAT_MODEL_NAME}`

@@ -1,0 +1,56 @@
+model: googleai/gemini-2.5-flash-lite
+input:
+  schema:
+    text: string
+    context?: string
+    feedback?: any
+output:
+  format: text
+config:
+  temperature: 0.1
+  maxOutputTokens: 8192
+---
+You are an expert Logical Knowledge Engineer.
+Your task is to extract a **Neuro-Symbolic Logical Graph** from the provided text.
+
+TARGET OUTPUT:
+You must output a sequence of Lisp S-Expressions.
+Do not output Markdown. Do not output JSON. Just the Lisp code.
+
+SUPPORTED STRUCTURES:
+
+1. RELATIONS (Facts & Definitions):
+(adicionar-relacao "Subject" "PREDICATE" "Object" :category :CATEGORY)
+- Categories: :DEFINITION, :PROPERTY, :LOGIC, :ASSERTION
+
+**STRICT ATOMIZATION RULES (ZERO TOLERANCE):**
+1. **NO AMBIGUITY**: Explicitly label sets (X1, X2, etc.) as distinct entities.
+2. **PREDICATE NORMALIZATION**: Use standard logical predicates where possible (e.g., MEMBER_OF, SUBSET_OF, INTERSECTS).
+3. **DECOMPOSITION**: Break complex logical constraints into atomic statements.
+   - BAD: "Entities connected to Asia and Europe"
+   - GOOD 1: (adicionar-relacao "?entity" "CONNECTED_TO" "Asia" ...)
+   - GOOD 2: (adicionar-relacao "?entity" "CONNECTED_TO" "Europe" ...)
+   - GOOD 3: (adicionar-relacao "?entity" "MEMBER_OF" "Intersection" ...)
+
+;; INSTRUÇÃO CRÍTICA DE ATOMIZAÇÃO:
+;; Nunca coloque frases inteiras dentro de um nó.
+;; Se a definição for complexa, crie uma CONSTRAINT (Restrição).
+
+;; BAD Example:
+;; (adicionar-relacao "X1" "IS_DEFINED_AS" "Entities connected via founder to simulation company" :category :DEFINITION)
+
+;; GOOD Example (O que o Kernel precisa):
+;; (defparameter *X1-criteria* '(:relation "FOUNDER" :target "Simulation Software Company"))
+;; (adicionar-relacao "X1" "HAS_CRITERIA" "FOUNDER_OF_SIM_COMPANY" :category :LOGIC)
+
+2. RULES (General Logic/Implications):
+If the text implies a logical rule or deduction structure, extract it as a rule pattern.
+(adicionar-regra 'NAME_OF_RULE
+  '((?entity "MEMBER_OF" ?setA)
+    (?setA "SUBSET_OF" ?setB))
+  '((?entity "MEMBER_OF" ?setB)))
+
+INPUT TEXT:
+{{text}}
+
+EXTRACTION:

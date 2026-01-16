@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 import { ai } from '../../genkit';
 import { z } from 'genkit';
 import { extractKnowledge } from './knowledge-flow';

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025 - 2026 J E Moraes.
+ * All rights reserved.
+ * 
+ * Author: J E Moraes
+ */
+
 import { ai } from '../../genkit';
 import { z } from "genkit";
 import { ExtractionOutputSchema } from "./schemas";
@@ -10,7 +17,7 @@ const ExtractionInput = z.object({
   filename: z.string().optional(),
 });
 
-const REGEX_RELATION = /\(adicionar-relacao\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"\s+:category\s+:([A-Z]+)\)/g;
+const REGEX_RELATION = /\(adicionar-relacao\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"\s+:category\s+:([a-zA-Z0-9_\-]+)\)/g;
 const REGEX_RULE = /\(adicionar-regra\s+'([^\s\n]+)\s+'(\([\s\S]*?\))\s+'(\([\s\S]*?\))\)/g;
 
 export const extractKnowledge = ai.defineFlow(

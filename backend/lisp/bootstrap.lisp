@@ -1,4 +1,5 @@
-;;; S-Dialectic Kernel (Minimal Stable Version)
+;;; ---------------------------------------------------------------------------
+;;; S-DIALECTIC KERNEL (FULL STABLE + LOGIC V2.1)
 ;;; ---------------------------------------------------------------------------
 (in-package :cl-user)
 
@@ -14,15 +15,13 @@
            #:snapshot-memoria
            #:limpar-memoria
            #:atualizar-vetor
-           #:snapshot-memoria
-           #:limpar-memoria
-           #:atualizar-vetor
            #:recuperar-foco-semantico
            #:salvar-rapido
            #:carregar-rapido
            #:eval-safe
            #:definir-dialetica
-           #:reset-total))
+           #:reset-total
+           #:resolve-logic-query)) ;; API Lógica Exposta
 
 (in-package :s-dialectic)
 
@@ -51,6 +50,7 @@
   implications)
 
 ;;; --- Utils ---
+
 (defun replace-all (string part replacement &key (test #'char=))
   "Returns a new string with all occurrences of part replaced by replacement."
   (with-output-to-string (out)
@@ -68,7 +68,6 @@
 (defun normalizar-termo (termo)
   (string-trim " " (string-upcase (format nil "~a" termo))))
 
-;;; --- SECTION-BARRIER ---
 ;;; --- Core Logic ---
 
 (defun tenta-avaliar-matematica (expr-str)
@@ -91,8 +90,6 @@
       (push (cons k vector) *vector-cache*))
       
     (format nil "Memoria: ~a" k)))
-
-
 
 (defun atualizar-vetor (chave vetor)
   "Atualiza o vetor de embedding e mantem um cache para busca rapida."
@@ -136,7 +133,6 @@
     (unless (gethash (string o) *knowledge-graph*)
       (setf (gethash (string o) *knowledge-graph*) "Conceito Implicito"))
       
-
     (let ((key (format nil "~a|~a|~a" s p o)))
       (unless (gethash key *relations-index*)
         (setf (gethash key *relations-index*) t)
@@ -145,7 +141,6 @@
 
 (defun adicionar-regra (nome condicoes implicacoes)
   (let ((r (make-rule :name nome :conditions condicoes :implications implicacoes)))
-    (push r *rules*)
     (push r *rules*)
     (format nil "Regra adicionada: ~a" nome)))
 
@@ -179,14 +174,12 @@
                  (let ((sim (cosine-similarity target-vec other-vec)))
                    (when (> sim threshold)
                      (push (cons other-k sim) results))))))
-                     
           ;; Sort by similarity desc
           (setf results (sort results #'> :key #'cdr))
           ;; Take top N
           (mapcar #'car (subseq results 0 (min (length results) limit))))
         (list "NIL (Sem Vetor)"))))
 
-;;; --- SECTION-BARRIER ---
 ;;; --- Persistence ---
 
 (defun salvar-estado (filepath)
@@ -220,8 +213,7 @@
     (error (e) (values nil (format nil "Erro na avaliacao: ~a" e)))))
 
 (defmacro definir-dialetica (nome args &body body)
-  "Define uma nova funcao ou macro dialetica dinamicamente.
-   Uso: (definir-dialetica verificar-conflito (a b) ...)"
+  "Define uma nova funcao ou macro dialetica dinamicamente."
   `(progn
      (defun ,nome ,args ,@body)
      (export ',nome)
@@ -271,7 +263,7 @@
                *knowledge-graph*)))
   (format nil "Fast Load de ~a" filepath))
 
-;;; Snapshot logic required by GraphEngine
+;;; --- Snapshot logic required by GraphEngine ---
 (defparameter *snapshot-mem-keys* nil)
 (defparameter *snapshot-rel-count* 0)
 
@@ -283,7 +275,6 @@
            *knowledge-graph*)
   (setf *snapshot-rel-count* (length *relations*))
   (format nil "Snapshot Taken: ~a keys" (hash-table-count *snapshot-mem-keys*)))
-
 
 (defun limpar-memoria ()
   (clrhash *knowledge-graph*)
@@ -312,7 +303,6 @@
     (if resultado
         resultado
         (list "NIL"))))
-
 
 ;;; --- JSON Export Helpers ---
 
@@ -348,6 +338,90 @@
             rels))
     (format nil "{\"nodes\":[~{~a~^,~}],\"edges\":[~{~a~^,~}]}" concepts rels)))
 
+;;; ---------------------------------------------------------------------------
+;;; S-DIALECTIC LOGIC ENGINE V2.1 (Universal Criteria & Set Theory)
+;;; ---------------------------------------------------------------------------
+
+;; Helper: Parse seguro de strings de critério "(RELATION ...)"
+(defun parse-criteria-string (str)
+  "Tenta converter a string '(RELATION ...)' em uma lista Lisp real."
+  (handler-case 
+      (let ((*read-eval* nil)) 
+        (read-from-string str))
+    (error () nil)))
+
+;; 1. Motor de Satisfação de Critérios
+(defun satisfy-criteria-p (entity criteria-list)
+  "Verifica se uma entidade satisfaz um critério estruturado (Bio ou Lógico)."
+  ;; Formato esperado: (RELATION "PREDICATE" TARGET "OBJECT_KEYWORD")
+  (let ((req-rel (second criteria-list))
+        (req-target (fourth criteria-list))
+        (match-found nil))
+    
+    (unless (and req-rel req-target) (return-from satisfy-criteria-p nil))
+
+    ;; Varre todas as relações conhecidas
+    (dolist (r *relations*)
+      (when (string-equal (relation-subject r) entity)
+        (let ((pred (relation-predicate r))
+              (obj (relation-object r)))
+          ;; Busca flexível (substring) para tolerar variações do LLM
+          (when (and (search (string req-rel) pred :test #'string-equal)
+                     (search (string req-target) obj :test #'string-equal))
+            (setf match-found t)
+            (return)))))
+    match-found))
+
+;; 2. Motor de Resolução de Conjuntos
+(defun get-set-members (set-name)
+  "Retorna membros de um conjunto baseado em declaração explícita OU critério implícito."
+  (let ((members nil)
+        (norm-set (normalizar-termo set-name)))
+    
+    ;; A. Membros Explícitos (MEMBER_OF, TYPE_OF, etc.)
+    (dolist (r *relations*)
+      (when (and (string-equal (relation-object r) norm-set)
+                 (member (relation-predicate r) '("MEMBER_OF" "TYPE_OF" "INSTANCE_OF" "PERTENCE_A") 
+                         :test #'string-equal))
+        (push (relation-subject r) members)))
+    
+    ;; B. Critérios Lógicos (HAS_CRITERIA -> (RELATION ...))
+    (dolist (r *relations*)
+      (when (and (string-equal (relation-subject r) norm-set)
+                 (string-equal (relation-predicate r) "HAS_CRITERIA"))
+        
+        (let* ((criteria-str (relation-object r))
+               (criteria-data (parse-criteria-string criteria-str)))
+          
+          ;; Se detectarmos uma estrutura de regra válida
+          (when (and (listp criteria-data) (eq (first criteria-data) 'RELATION))
+            (maphash (lambda (candidate-key val)
+                       (declare (ignore val))
+                       ;; Ignora o próprio conjunto ou metadados
+                       (unless (search "SET" candidate-key :test #'string-equal)
+                         (when (satisfy-criteria-p candidate-key criteria-data)
+                           (push candidate-key members))))
+                     *knowledge-graph*)))))
+                   
+    (remove-duplicates members :test #'string=)))
+
+;; 3. API Pública (Invocada pelo Orchestrator)
+(defun resolve-logic-query (operation set-a set-b)
+  (let ((result nil)
+        (mems-a (get-set-members set-a))
+        (mems-b (get-set-members set-b))
+        (op-symbol (intern (string-upcase operation) :keyword)))
+    
+    (case op-symbol
+      (:INTERSECTION (setf result (intersection mems-a mems-b :test #'string=)))
+      (:UNION (setf result (union mems-a mems-b :test #'string=)))
+      (:DIFFERENCE (setf result (set-difference mems-a mems-b :test #'string=)))
+      (t (return-from resolve-logic-query (format nil "ERRO: Operacao '~a' nao suportada." operation))))
+    
+    (if result
+        (format nil "LOGIC RESULT (~a ~a ~a) => ~{~a~^, ~}" operation set-a set-b result)
+        (format nil "LOGIC RESULT (~a ~a ~a) => EMPTY SET (NIL)." operation set-a set-b))))
+
 ;;; --- Finalize ---
-(format t "~&[Bootstrap] Minimal Kernel Ready + JSON Support.~%")
+(format t "~&[Bootstrap] S-Dialectic Unified Kernel (Logic V2.1) Loaded.~%")
 (values)

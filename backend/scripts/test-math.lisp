@@ -65,8 +65,25 @@
         
         (if (eq stat-bad :HALLUCINATION)
             (format t "PASS: Verify HALLUCINATION~%")
-            (format t "FAIL: Verify HALLUCINATION (Got ~a)~%" stat-bad))))
-  )
+            (format t "FAIL: Verify HALLUCINATION (Got ~a)~%" stat-bad)))
+
+    ;; Test Integrated Logic (adicionar-relacao)
+    ;; 1. Add concepts with vectors (Simulate Injection)
+    (adicionar-memoria "SUBJ_TEST" "Desc" :vector S)
+    (adicionar-memoria "OBJ_TEST" "Desc" :vector O_good)
+    (atualizar-vetor "PRED_TEST" R) ;; Predicate as a concept/vector holder
+    
+    (let ((res-robust (adicionar-relacao "SUBJ_TEST" "PRED_TEST" "OBJ_TEST")))
+       (if (search "CONSISTENCY: ROBUST" res-robust)
+           (format t "PASS: Integration ROBUST~%")
+           (format t "FAIL: Integration ROBUST (Got: ~s)~%" res-robust)))
+
+    (let ((res-hallu (adicionar-relacao "SUBJ_TEST" "PRED_TEST" "NO_VEC")))
+       ;; Should be normal (no vectors or partial) -> UNKNOWN or default
+       (if (not (search "CONSISTENCY" res-hallu))
+           (format t "PASS: Integration UNKNOWN (No tags)~%")
+           (format t "FAIL: Integration UNKNOWN (Got: ~s)~%" res-hallu)))
+  ))
   (format t "--- Tests Complete ---~%")
   (sb-ext:exit))
 

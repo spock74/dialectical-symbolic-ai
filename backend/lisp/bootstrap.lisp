@@ -144,7 +144,13 @@
       (unless (gethash key *relations-index*)
         (setf (gethash key *relations-index*) t)
         (push (make-relation :subject s :predicate p :object o :category cat) *relations*)
-        (format nil "Relacao adicionada: ~a -[~a]-> ~a" s p o)))))
+        
+        ;; Geometric Consistency Check
+        (let ((consistency (verify-triplet-consistency s p o)))
+           (case consistency
+             (:ROBUST (format nil "Relacao adicionada: ~a -[~a]-> ~a [CONSISTENCY: ROBUST]" s p o))
+             (:HALLUCINATION (format nil "Relacao adicionada: ~a -[~a]-> ~a [WARNING: HALLUCINATION DETECTED]" s p o))
+             (t (format nil "Relacao adicionada: ~a -[~a]-> ~a" s p o))))))))
 
 (defun adicionar-regra (nome condicoes implicacoes)
   (let ((r (make-rule :name nome :conditions condicoes :implications implicacoes)))
@@ -185,7 +191,7 @@
 (defun get-concept-vector (key-or-vector)
   "Retorna o vetor associado a chave ou o proprio argumento se ja for vetor."
   (cond
-    ((vectorp key-or-vector) key-or-vector)
+    ((and (vectorp key-or-vector) (not (stringp key-or-vector))) key-or-vector)
     ((stringp key-or-vector) 
      (let ((c (gethash (normalizar-termo key-or-vector) *knowledge-graph*)))
        (if (concept-p c) (concept-vector c) nil)))

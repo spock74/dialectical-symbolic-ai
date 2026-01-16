@@ -333,6 +333,48 @@ ${knowledge.rels}
 
       // 2. Execute Batch (O(1) IPC round-trip)
       if (batchCommands.length > 0) {
+        // --- NEW: Reactive Relation Injection ---
+        // Scan for (adicionar-relacao "S" "P" "O") and inject vector for "P"
+        const predicates = new Set<string>();
+        // Regex matches: (adicionar-relacao "Subject" "Predicate" "Object" ... )
+        // We want group 1 which is the Predicate.
+        const relRegex = /\(adicionar-relacao\s+"[^"]+"\s+"([^"]+)"/g;
+        
+        batchCommands.forEach(cmd => {
+            let m;
+            // Clean global regex state just in case, though forEach + new regex instance inside loop is safer if not 'g' global outside.
+            // But here we construct regex once. Let's reset lastIndex just in case.
+            relRegex.lastIndex = 0; 
+            while ((m = relRegex.exec(cmd)) !== null) {
+                if (m[1]) predicates.add(m[1]);
+            }
+        });
+
+        if (predicates.size > 0) {
+            this.events.emit("log", `;; [Topology] Reactive Injection: Detected predicates [${Array.from(predicates).join(", ")}]`);
+            const injectCmds: string[] = [];
+            // Use concurrent fetch for speed
+            await Promise.all(Array.from(predicates).map(async (pred) => {
+                try {
+                    const vec = await embeddingService.getEmbedding(pred);
+                    if (vec) {
+                        const vecStr = embeddingService.formatVectorForLisp(vec);
+                        // Using 'atualizar-vetor which normalizes the key to uppercase
+                        injectCmds.push(`(atualizar-vetor "${pred}" ${vecStr})`);
+                    }
+                } catch(e) {
+                    console.warn(`[Orchestrator] Failed embedding for predicate '${pred}':`, e);
+                }
+            }));
+
+            if (injectCmds.length > 0) {
+               this.events.emit("log", `;; [Topology] Injected ${injectCmds.length} relation vectors for consistency verification.`);
+               // Prepend to execution batch
+               batchCommands.unshift(...injectCmds);
+            }
+        }
+        // ----------------------------------------
+
         try {
           const joinedCode = `(progn ${batchCommands.join(" ")} )`;
           console.log(`[Orchestrator] Batch Executing ${batchCommands.length} commands...`);

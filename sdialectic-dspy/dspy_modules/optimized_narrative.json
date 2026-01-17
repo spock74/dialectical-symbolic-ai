@@ -1,0 +1,56 @@
+{
+  "predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "document_chunk": "All men are mortal.",
+        "reasoning": "Not supplied for this particular example. ",
+        "logic_reasoning": "If we define 'man' as being equivalent to any human, and if all humans are mortal by definition or common understanding, then the statement logically follows that men (a subset of humanity) would also be considered immortal in terms of mortality.",
+        "lisp_code": "(FORALL (MAN ?X) ((MORTALITY-MAN ?X)))"
+      },
+      {
+        "document_chunk": "Bitcoin is different from Ethereum.",
+        "lisp_code": "((DISTINCT BITCOIN ETHEREUM))"
+      },
+      {
+        "document_chunk": "Before 1900, flight was impossible.",
+        "lisp_code": "((TIME-CONSTRAINT (BEFORE 1900) (NOT (POSSIBLE FLIGHT))))"
+      },
+      {
+        "document_chunk": "Aristotle is a philosopher. Plato is a philosopher.",
+        "lisp_code": "((IS-A ARISTOTLE PHILOSOPHER) (IS-A PLATO PHILOSOPHER))"
+      }
+    ],
+    "signature": {
+      "instructions": "Based on Prolog-style logical mapping, convert natural language English statements into symbolic predicates expressed as Lisp S-Expressions that capture IS-A relationships or geographical facts while handling negation and existential conditions. Extract entities such as individuals with attributes like 'NOT mortal for Zeus' from document chunks provided.",
+      "fields": [
+        {
+          "prefix": "Document Chunk:",
+          "description": "Raw text segment containing knowledge assertions."
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Logic Reasoning:",
+          "description": "Chain of Thought: Identify entities, relationships, and causal links."
+        },
+        {
+          "prefix": "Lisp Code:",
+          "description": "Valid Lisp S-Expressions. Example: ((RELATION ENTITY-A ENTITY-B) ...)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.1.0",
+      "cloudpickle": "3.0"
+    }
+  }
+}

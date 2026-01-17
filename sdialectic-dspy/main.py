@@ -3,13 +3,14 @@ from pydantic import BaseModel
 import dspy
 from dspy_modules.signatures import NarrativeToLogic
 from core.kernel.sbcl_bridge import SBCLKernel
+from core.config import settings
 import os
 
-app = FastAPI(title="SDialectic Core v2", version="2.0.0")
+app = FastAPI(title=settings.SERVICE_NAME, version=settings.VERSION)
 
 # Setup DSPy (Teacher Model)
-# No futuro, isso usará o Ollama Local se a variável estiver setada
-gemini = dspy.Google("models/gemini-2.5-flash-lite", api_key=os.getenv("GEMINI_API_KEY"))
+# Uses the central configuration
+gemini = dspy.LM(model=settings.TEACHER_MODEL_NAME, api_key=settings.GEMINI_API_KEY)
 dspy.settings.configure(lm=gemini)
 
 # Kernel Global

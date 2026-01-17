@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sdialectic-core"
+version = "2.0.0"  # Or whatever version you want
+dependencies = [
+    "fastapi>=0.110.0",  # Use a more recent version
+    "pydantic>=2.7.0",  # Use a more recent version
+    "dspy==3.1.0",  # Pin to the latest version
+    "uvicorn>=0.41.0"
+]
+
+[tool.setuptools.packages.find]
+include = ["core", "dspy_modules", "optimization"]  # Explicitly list your packages
+exclude = ["tests*"]  # Optional: Exclude test directories

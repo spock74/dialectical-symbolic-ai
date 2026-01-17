@@ -17,7 +17,7 @@ const ExtractionInput = z.object({
   filename: z.string().optional(),
 });
 
-const REGEX_RELATION = /\(adicionar-relacao\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"\s+:category\s+:([a-zA-Z0-9_\-]+)\)/g;
+const REGEX_RELATION = /\(adicionar-relacao\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"\s+:category\s+:([a-zA-Z0-9_\-]+)\s*\)/g;
 const REGEX_RULE = /\(adicionar-regra\s+'([^\s\n]+)\s+'(\([\s\S]*?\))\s+'(\([\s\S]*?\))\)/g;
 
 export const extractKnowledge = ai.defineFlow(
@@ -44,6 +44,7 @@ export const extractKnowledge = ai.defineFlow(
     });
 
     const rawText = response.text;
+    console.log("[DEBUG] Raw LLM Output from ExtractKnowledge:", rawText);
     const relations: any[] = [];
     const rules: any[] = [];
     let match;

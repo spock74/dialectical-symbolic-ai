@@ -1,0 +1,11 @@
+name: sdialectic-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  # SBCL pode ser tentado via conda-forge, mas recomendamos instalação nativa
+  # - sbcl 
+  - pip:
+    - -e .  # Instala as deps do pyproject.toml em modo editável

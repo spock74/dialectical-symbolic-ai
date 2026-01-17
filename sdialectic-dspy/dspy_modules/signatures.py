@@ -2,14 +2,20 @@ import dspy
 
 class NarrativeToLogic(dspy.Signature):
     """
-    Transforma texto narrativo em S-Expressions Lisp estritas.
-    Deve extrair fatos atômicos e remover 'fluff'.
+    CONVERTS narrative text into SYMBOLIC LOGIC (Lisp S-Expressions).
+    
+    GOAL: Atomize knowledge into clear Subject-Predicate-Object triplets.
+    FORMAT: A list of lists. E.g., ((CAUSES SMOKING CANCER) (IS-A CAT MAMMAL)).
+    CONSTRAINTS:
+    - Use UPPERCASE symbols for atoms.
+    - Avoid natural language fluff inside the atoms.
+    - Output MUST be parseable by Common Lisp (SBCL).
     """
     
-    document_chunk = dspy.InputField(desc="Trecho de texto bruto de um PDF ou Paper.")
+    document_chunk = dspy.InputField(desc="Raw text segment containing knowledge assertions.")
     
-    logic_reasoning = dspy.OutputField(desc="Chain of Thought explicando a extração.")
-    lisp_code = dspy.OutputField(desc="Lista de S-Expressions. Ex: ((CAUSES COFFEE CANCER) (IMPLIES RAIN WET))")
+    logic_reasoning = dspy.OutputField(desc="Chain of Thought: Identify entities, relationships, and causal links.")
+    lisp_code = dspy.OutputField(desc="Valid Lisp S-Expressions. Example: ((RELATION ENTITY-A ENTITY-B) ...)")
 
 class DialecticSynthesis(dspy.Signature):
     """

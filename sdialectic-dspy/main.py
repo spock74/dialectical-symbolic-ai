@@ -21,7 +21,7 @@ def startup_event():
     try:
         kernel = SBCLKernel()
     except FileNotFoundError:
-        print("⚠️ AVISO: 'sbcl' não encontrado no PATH. System 2 inativo.")
+        print("[WARNING] 'sbcl' executable not found. System 2 inactive.")
 
 @app.on_event("shutdown")
 def shutdown_event():

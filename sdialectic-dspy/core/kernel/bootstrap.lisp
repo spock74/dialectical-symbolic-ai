@@ -28,11 +28,20 @@
       (format t "ERROR: ~a~%" c)
       nil)))
 
-(defun check-consistency (fact)
-  "Checks if a fact violates NAND constraints."
+(defun check-fact (fact)
+  "Checks a single fact."
   (if (member fact *forbidden-patterns* :test #'equal)
-      (format t "VIOLATION: ~a is forbidden.~%" fact)
-      (format t "SAFE: ~a~%" fact)))
+      (format nil "VIOLATION: ~a" fact)
+      nil))
+
+(defun validate-batch (input)
+  "Validates a list of facts. Returns SAFE only if ALL are safe."
+  ;; Determine if input is a single fact or a list of facts
+  (let ((facts (if (listp (car input)) input (list input))))
+    (let ((violations (remove-if #'null (mapcar #'check-fact facts))))
+      (if violations
+          (format t "~{~a~^; ~}~%" violations)
+          (format t "SAFE: All ~a facts validated.~%" (length facts))))))
 
 ;;; REPL ENTRY POINT
 (defun main-loop ()
@@ -40,7 +49,7 @@
     (format t "~%READY> ")
     (force-output)
     (let ((input (read)))
-      (check-consistency input))))
+      (validate-batch input))))
 
 (main-loop)
 

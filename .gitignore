@@ -61,3 +61,4 @@ reports/*
 !reports/*.md
 .gemini/
 CONTEXT_TRANSFER.md
+sdialectic-dspy/scaffolder.zsh

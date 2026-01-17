@@ -25,7 +25,7 @@ SUPPORTED STRUCTURES:
 
 **STRICT ATOMIZATION RULES (ZERO TOLERANCE):**
 1. **NO AMBIGUITY**: Explicitly label sets (X1, X2, etc.) as distinct entities.
-2. **PREDICATE NORMALIZATION**: Use standard logical predicates where possible (e.g., MEMBER_OF, SUBSET_OF, INTERSECTS).
+2. **PREDICATE STANDARDIZATION**: Always use **UPPERCASE ENGLISH** verbs/prepositions (e.g. CAUSES, LOCATED_IN, PART_OF, STIMULATES, INHIBITS) regardless of the input text language.
 3. **DECOMPOSITION**: Break complex logical constraints into atomic statements.
    - BAD: "Entities connected to Asia and Europe"
    - GOOD 1: (adicionar-relacao "?entity" "CONNECTED_TO" "Asia" ...)

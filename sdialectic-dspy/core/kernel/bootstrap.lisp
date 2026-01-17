@@ -41,3 +41,6 @@
     (force-output)
     (let ((input (read)))
       (check-consistency input))))
+
+(main-loop)
+

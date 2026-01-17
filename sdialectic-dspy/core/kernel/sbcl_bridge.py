@@ -16,7 +16,7 @@ class SBCLKernel:
             text=True,
             bufsize=0
         )
-        print(f"✅ Kernel SBCL iniciado (PID: {self.process.pid})")
+        print(f"[INFO] SBCL Kernel started (PID: {self.process.pid})")
 
     def validate_expression(self, sexpr: str) -> bool:
         """
@@ -28,18 +28,20 @@ class SBCLKernel:
             self.process.stdin.write(f"{sexpr}\n")
             self.process.stdin.flush()
             
-            # Lê a resposta (Simples implementação bloqueante para MVP)
-            # Em prod, usaríamos asyncio ou queues para evitar deadlocks
-            output = self.process.stdout.readline()
-            
-            if "VIOLATION" in output or "ERROR" in output:
-                return False
-            if "SAFE" in output or "VALID" in output:
-                return True
+            # Lê linhas até encontrar uma resposta válida ou timeout (simulado)
+            max_lines = 5
+            for _ in range(max_lines):
+                output = self.process.stdout.readline().strip()
+                # print(f"DEBUG LISP: {output}") # Descomente para debug
+
+                if "VIOLATION" in output or "ERROR" in output:
+                    return False
+                if "SAFE" in output or "VALID" in output:
+                    return True
                 
             return False
         except Exception as e:
-            print(f"❌ Kernel Panic: {e}")
+            print(f"[ERROR] Kernel Panic: {e}")
             return False
 
     def shutdown(self):

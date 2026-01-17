@@ -337,6 +337,27 @@ This allows S-Dialectic to adapt its "personality" and prompt engineering strate
 
 ---
 
+## 8. Inspiration & Acknowledgments
+
+This project was originally inspired by the research on persistent Lisp metaprogramming loops:
+
+> **From Tool Calling to Symbolic Thinking: LLMs in a Persistent Lisp Metaprogramming Loop**  
+> *Jordi de la Torre*  
+> arXiv:2506.10021 [cs.PL]  
+> https://doi.org/10.48550/arXiv.2506.10021  
+
+```bibtex
+@article{delatorre2025symbolic,
+  title={From Tool Calling to Symbolic Thinking: LLMs in a Persistent Lisp Metaprogramming Loop},
+  author={De La Torre, Jordi},
+  journal={arXiv preprint arXiv:2506.10021},
+  year={2025},
+  url={https://arxiv.org/abs/2506.10021}
+}
+```
+
+---
+
 ## License: Dual Licensing
 
 This project is licensed under a **Dual License** model:

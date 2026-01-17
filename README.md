@@ -10,11 +10,11 @@ The project is structured as a **Monorepo** containing two distinct generations 
 
 ### 📂 Directory Structure
 
-#### 1. [`/sdialectic-ts`](./sdialectic-ts) (Legacy / Stable)
+#### 1. [`/sdialectic-ts`](./sdialectic-ts) (Unstable / Conceptually Promising)
 The original implementation (V1).
 - **Stack:** TypeScript (Backend/Frontend) + Common Lisp (SBCL).
 - **Focus:** Regex-based extraction, Lisp-based geometric validation logic (Euclidean Distance), and basic Reactive Orchestration.
-- **Status:** Stable, Reference Implementation.
+- **Status:** Unstable, experimental, but conceptually promising.
 
 #### 2. [`/sdialectic-dspy`](./sdialectic-dspy) (Next-Gen / Active)
 The future of the system (V2).

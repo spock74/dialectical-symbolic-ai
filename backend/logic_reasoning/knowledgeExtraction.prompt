@@ -43,6 +43,15 @@ SUPPORTED STRUCTURES:
 ;; (defparameter *X1-criteria* '(:relation "FOUNDER" :target "Simulation Software Company"))
 ;; (adicionar-relacao "X1" "HAS_CRITERIA" "FOUNDER_OF_SIM_COMPANY" :category :LOGIC)
 
+;; LANGUAGE STANDARDIZATION Examples:
+;; Input: "O Fígado produz bile." (Portuguese)
+;; Output:
+;; <lisp>(adicionar-relacao "Fígado" "PRODUCES" "Bile" :category :PROPERTY)</lisp>
+
+;; Input: "Metaformina reduz glicose." (Portuguese)
+;; Output:
+;; <lisp>(adicionar-relacao "Metaformina" "REDUCES" "Glicose" :category :PROPERTY)</lisp>
+
 2. RULES (General Logic/Implications):
 If the text implies a logical rule or deduction structure, extract it as a rule pattern.
 (adicionar-regra 'NAME_OF_RULE

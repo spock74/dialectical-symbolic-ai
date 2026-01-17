@@ -51,12 +51,18 @@ config:
 ;; <lisp>(adicionar-memoria "X1" "Set Variable")</lisp>
 ;; <lisp>(adicionar-relacao "X1" "IS_DEFINED_AS" "Nobel Prize Winners" :category :DEFINITION)</lisp>
 
-;; Example 2: Entity Property
-;; Input: "Cevat Yerli founded Crytek in Germany."
+;; Example 2: Entity Property (Bilingual Standardization)
+;; Input: "O Pelé jogou no Santos Futebol Clube." (Portuguese)
 ;; Output:
-;; <lisp>(adicionar-memoria "Cevat Yerli" "Entity")</lisp>
-;; <lisp>(adicionar-relacao "Cevat Yerli" "FOUNDED" "Crytek" :category :PROPERTY)</lisp>
-;; <lisp>(adicionar-relacao "Crytek" "LOCATED_IN" "Germany" :category :PROPERTY)</lisp>
+;; <lisp>(adicionar-memoria "Pelé" "Entity")</lisp>
+;; <lisp>(adicionar-relacao "Pelé" "PLAYED_FOR" "Santos Futebol Clube" :category :PROPERTY)</lisp>
+;; <lisp>(adicionar-relacao "Santos Futebol Clube" "LOCATED_IN" "Brazil" :category :PROPERTY)</lisp>
+
+;; Example 3: Causal Chain (Bilingual)
+;; Input: "A chuva causa enchentes que destroem casas." (Portuguese)
+;; Output:
+;; <lisp>(adicionar-relacao "Chuva" "CAUSES" "Enchentes" :category :PROPERTY)</lisp>
+;; <lisp>(adicionar-relacao "Enchentes" "DESTROY" "Casas" :category :PROPERTY)</lisp>
 
 ;; Example 3: Set Operation (The Logic Puzzle)
 ;; Input: "X4 is the intersection of X2 and X3."

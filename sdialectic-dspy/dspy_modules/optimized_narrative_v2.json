@@ -1,0 +1,36 @@
+{
+  "predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "CONVERTS narrative text into SYMBOLIC LOGIC (Lisp S-Expressions).\n\nGOAL: Atomize knowledge into clear Subject-Predicate-Object triplets.\nFORMAT: A list of lists. E.g., ((CAUSES SMOKING CANCER) (IS-A CAT MAMMAL)).\nCONSTRAINTS:\n- Use UPPERCASE symbols for atoms.\n- Avoid natural language fluff inside the atoms.\n- DO NOT use question marks (?) or special characters in symbol names.\n- Output MUST be parseable by Common Lisp (SBCL).",
+      "fields": [
+        {
+          "prefix": "Document Chunk:",
+          "description": "Raw text segment containing knowledge assertions."
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Logic Reasoning:",
+          "description": "Chain of Thought: Identify entities, relationships, and causal links."
+        },
+        {
+          "prefix": "Lisp Code:",
+          "description": "Valid Lisp S-Expressions. Example: ((RELATION ENTITY-A ENTITY-B) ...)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.1.0",
+      "cloudpickle": "3.0"
+    }
+  }
+}

@@ -45,7 +45,7 @@ async def atomize_text(req: IngestRequest):
     """
     # 1. System 1: Extraction (Optimized)
     # Load the optimized program state
-    optimized_path = os.path.join(os.path.dirname(__file__), 'dspy_modules/optimized_narrative.json')
+    optimized_path = os.path.join(os.path.dirname(__file__), 'dspy_modules/optimized_narrative_v2.json')
     
     extractor = dspy.ChainOfThought(NarrativeToLogic)
     

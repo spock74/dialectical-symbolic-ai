@@ -1,0 +1,17 @@
+[
+  {
+    "input": "Chronic stress leads to elevated cortisol levels. High cortisol inhibits the immune system, making the body more susceptible to infections.",
+    "gold_logic": "'((INCREASES CHRONIC-STRESS CORTISOL) (INHIBITS CORTISOL IMMUNE-SYSTEM) (INCREASES CORTISOL INFECTION-SUSCEPTIBILITY) (IMPLIES (INCREASES CHRONIC-STRESS CORTISOL) (INHIBITS CHRONIC-STRESS IMMUNE-SYSTEM)))",
+    "reasoning": "Chain: Stress -> Cortisol -> Immune Inhibition. Transitive property applied."
+  },
+  {
+    "input": "All men are mortal. Socrates is a man. Therefore, Socrates is mortal.",
+    "gold_logic": "'((IS-A SOCRATES MAN) (HAS-PROPERTY MAN MORTAL) (IMPLIES (AND (IS-A ?X MAN) (HAS-PROPERTY MAN MORTAL)) (HAS-PROPERTY ?X MORTAL)) (HAS-PROPERTY SOCRATES MORTAL))",
+    "reasoning": "Classic syllogism. Instantiation of universal rule."
+  },
+  {
+    "input": "Regular aerobic exercise improves cardiovascular health by strengthening the heart muscle and improving circulation.",
+    "gold_logic": "'((IMPROVES AEROBIC-EXERCISE CARDIOVASCULAR-HEALTH) (STRENGTHENS AEROBIC-EXERCISE HEART-MUSCLE) (IMPROVES AEROBIC-EXERCISE CIRCULATION) (CAUSES (STRENGTHENS AEROBIC-EXERCISE HEART-MUSCLE) (IMPROVES AEROBIC-EXERCISE CARDIOVASCULAR-HEALTH)))",
+    "reasoning": "Decomposition of 'by': Mechanism of action."
+  }
+]

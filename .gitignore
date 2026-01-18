@@ -62,3 +62,9 @@ reports/*
 .gemini/
 CONTEXT_TRANSFER.md
 sdialectic-dspy/scaffolder.zsh
+
+.antigravity/
+
+.gemini.md
+
+.agent/

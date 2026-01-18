@@ -2,9 +2,24 @@
   "predict": {
     "traces": [],
     "train": [],
-    "demos": [],
+    "demos": [
+      {
+        "augmented": true,
+        "document_chunk": "Regular aerobic exercise improves cardiovascular health by strengthening the heart muscle and improving circulation.",
+        "reasoning": "Not supplied for this particular example. ",
+        "logic_reasoning": "Cause-Effect relationship between exercise, heart muscle strength and circulation.",
+        "lisp_code": "'((IMPROVES CARDIOVASCULAR HEALTH AEROBIC EXERCISE) (STRENGTHENS HEART-MUSCLE AEROBIC EXERCISE) (BETTER-CIRCULATION-AEROBIC EXERCISE))"
+      },
+      {
+        "augmented": true,
+        "document_chunk": "Chronic stress leads to elevated cortisol levels. High cortisol inhibits the immune system, making the body more susceptible to infections.",
+        "reasoning": "The statement outlines causality and effects related to chronic stress on hormones and immunity.",
+        "logic_reasoning": "Chronic Stress leads to High Cortisol. Elevated Cortisol inhibits Immune System, leading to increased susceptibility to infections.",
+        "lisp_code": "(ELEVATES-CORTISOL CHRONIC-STRESS) (INHIBITS IMMUNE-SYSTEM ELEVATED-CORTISOL) (MAKES-SUSCEPTIBLE TO-INFECIONS INCREASED-IMMUNITY)"
+      }
+    ],
     "signature": {
-      "instructions": "CONVERTS narrative text into SYMBOLIC LOGIC (Lisp S-Expressions).\n\nGOAL: Atomize knowledge into clear Subject-Predicate-Object triplets.\nFORMAT: A list of lists. E.g., ((CAUSES SMOKING CANCER) (IS-A CAT MAMMAL)).\nCONSTRAINTS:\n- Use UPPERCASE symbols for atoms.\n- Avoid natural language fluff inside the atoms.\n- DO NOT use question marks (?) or special characters in symbol names.\n- Output MUST be parseable by Common Lisp (SBCL).",
+      "instructions": "Utilize a language model to convert narrative text segments into symbolic logic by breaking down complex sentences describing relationships between concepts or events. The input is structured prose containing knowledge assertions, which should be processed step-by-step using chain-of-thought reasoning techniques that highlight causal and other significant links among entities within the narratives. Translate these thought processes systematically as valid Lisp S-expressions adhering to Common Lisp (SBCL) syntax rules into a list of lists representing subject-predicate-object triplets or cause-effect relationships.",
       "fields": [
         {
           "prefix": "Document Chunk:",

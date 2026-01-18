@@ -45,6 +45,7 @@ class SBCLKernel:
         Envia uma S-Expression para o Kernel.
         Retorna True se for lógico/seguro, False se violar axiomas.
         """
+        import select
         try:
             with self.lock:
                 if not self.process or self.process.poll() is not None:
@@ -60,18 +61,33 @@ class SBCLKernel:
                     self.process.stdin.write(f"{sexpr}\n")
                     self.process.stdin.flush()
                 
-                # Lê linhas até encontrar uma resposta válida ou timeout (simulado)
-                max_lines = 5
-                for _ in range(max_lines):
-                    output = self.process.stdout.readline().strip()
-                    # print(f"DEBUG LISP: {output}") # Descomente para debug
+                # Lê linhas com TIMEOUT para evitar deadlock
+                # Se o Lisp travar ou aguardar input (ex: parenteses desbalanceados), não congela o Python.
+                TIMEOUT_SECONDS = 5
+                
+                start_time = time.time()
+                while (time.time() - start_time) < TIMEOUT_SECONDS:
+                    # Verify if there is data to read
+                    reads, _, _ = select.select([self.process.stdout], [], [], 1.0)
+                    if self.process.stdout in reads:
+                        output = self.process.stdout.readline().strip()
+                        # print(f"DEBUG LISP: {output}") 
 
-                    if "VIOLATION" in output or "ERROR" in output:
-                        return False
-                    if "SAFE" in output or "VALID" in output:
-                        return True
+                        if "VIOLATION" in output or "ERROR" in output:
+                            return False
+                        if "SAFE" in output or "VALID" in output:
+                            return True
                     
+                    # Check if process died during read
+                    if self.process.poll() is not None:
+                        print("[ERROR] SBCL Process died during validation.")
+                        return False
+
+                print(f"[WARN] SBCL Timeout processing: {sexpr[:50]}...")
+                # Kill/Restart to clear potentially bad state (e.g. waiting for closing paren)
+                self.restart()
                 return False
+                
         except Exception as e:
             print(f"[ERROR] Kernel Panic: {e}")
             return False

@@ -1,0 +1,49 @@
+{
+  "predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "document_chunk": "James Cocks was a British lawyer. James Cocks was a Whig politician who sat in the House of Commons. A British is a European. Any lawyer is familiar with laws. Some Whigs speak French. Therefore, Some European is familiar with laws.",
+        "reasoning": "The conclusion that 'Some Europeans are familiar with laws' may not necessarily follow from James Cocks being British and thus European, nor does his profession as a lawyer or political affiliation automatically imply familiarity of all other Europeans with the law.",
+        "logic_reasoning": "(IS-A EUROPEAN JAMES-COCKS) (FAMILIAR_WITH LAWS LAWYER) (PRESIDENTIAL-POSITION Whig-PROCESSOR-MEMBER-James-Cocks). Therefore, we cannot conclude that 'Some European is familiar with laws'.",
+        "lisp_code": "(IS-A EUROPEAN JAMES_COCKS) (FAMILIAR_WITH LAWS LAWYER_JAMES_COCKS). NOT-ALL-European-FAMILIAR-WITH-LAWS. Some-Whig-Speak-French. "
+      },
+      {
+        "document_chunk": "A heptalogy, is a compound literary or narrative work that is made up of seven distinct works. The Harry Potter series consists of 7 distinct works. The Chronicles of Narnia consists of 7 distinct works. Therefore, The Harry Potter series of books is a heptalogy.",
+        "lisp_code": "",
+        "logic_reasoning": "Derived from FOLIO dataset."
+      }
+    ],
+    "signature": {
+      "instructions": "Convert complex narrative text into symbolic logic represented as valid Common Lisp S-Expressions by identifying key relationships and entities, then structure them according to Subject-Predicate-Object triplets. Ensure UPPERCASE notation for atoms without natural language fluff or special characters in symbol names; the output should be a list of lists parseable via SBCL.",
+      "fields": [
+        {
+          "prefix": "Document Chunk:",
+          "description": "Raw text segment containing knowledge assertions."
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Logic Reasoning:",
+          "description": "Chain of Thought: Identify entities, relationships, and causal links."
+        },
+        {
+          "prefix": "Lisp Code:",
+          "description": "Valid Lisp S-Expressions. Example: ((RELATION ENTITY-A ENTITY-B) ...)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.1.0",
+      "cloudpickle": "3.0"
+    }
+  }
+}

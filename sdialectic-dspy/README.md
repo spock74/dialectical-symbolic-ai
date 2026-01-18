@@ -75,6 +75,13 @@ sequenceDiagram
 
 We engaged in a large-scale optimization run using the **FOLIO** dataset (First-Order Logic for Instruction Optimization) to train our local model (phi4-mini) to think like a logician.
 
+**About the Dataset:**
+*   **Source:** [yale-nlp/FOLIO](https://huggingface.co/datasets/yale-nlp/FOLIO)
+*   **Why it fits:** It provides expert-annotated pairs of Natural Language <-> First-Order Logic, serving as a "Rosetta Stone" for grounding the LLM in formal syntax.
+*   **Challenges:** The original dataset uses standard FOL syntax (quantifiers, implications) which differs slightly from our S-Dialectic Lisp implementation.
+*   **Weakness Identified:** During optimization, our Governor (SBCL) discarded ~15% of valid FOLIO examples because they contained complex nested quantifiers not yet supported by our Lisp grammar. This creates a "Survivorship Bias"—we heavily optimized for simple logic while failing on complex cases.
+*   **Solution (Planned):** Implement "Error-Driven Self-Correction" where the Lisp Kernel's error message (e.g., `UNDEFINED-FUNCTION: EXISTS`) is fed back to the Teacher to teach it how to simplify the logic dynamically.
+
 **The "Emergent Prompt" Phenomenon:**
 Instead of us telling the AI how to write Lisp, the `MIPROv2` optimizer discovered highly specific technical instructions that maximize passing rates in the SBCL compiler:
 

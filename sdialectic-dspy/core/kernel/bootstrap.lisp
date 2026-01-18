@@ -43,6 +43,14 @@
           (format t "~{~a~^; ~}~%" violations)
           (format t "SAFE: All ~a facts validated.~%" (length facts))))))
 
+;;; LOAD PERSISTED KNOWLEDGE
+(let ((knowledge-file "core/kernel/imported_knowledge.lisp"))
+  (if (probe-file knowledge-file)
+      (progn
+        (format t "LOADING KNOWLEDGE: ~a~%" knowledge-file)
+        (load knowledge-file))
+      (format t "NO KNOWLEDGE FILE FOUND at ~a~%" knowledge-file)))
+
 ;;; REPL ENTRY POINT
 (defun main-loop ()
   (loop

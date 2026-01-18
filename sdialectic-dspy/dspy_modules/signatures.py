@@ -9,6 +9,7 @@ class NarrativeToLogic(dspy.Signature):
     CONSTRAINTS:
     - Use UPPERCASE symbols for atoms.
     - Avoid natural language fluff inside the atoms.
+    - DO NOT use question marks (?) or special characters in symbol names.
     - Output MUST be parseable by Common Lisp (SBCL).
     """
     

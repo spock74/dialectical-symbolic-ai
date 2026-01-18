@@ -1,47 +1,61 @@
 # SDialectic Core v2.0 (Sovereign AI)
 
-Arquitetura Neuro-Simbólica para validação axiomática de LLMs.
+Neuro-Symbolic Architecture for axiomatic validation of LLMs.
 
-## Requisitos (Jan 2026)
-- Conda (Miniconda ou Anaconda)
-- SBCL 2.6.0 (Steel Bank Common Lisp) instalado e no PATH.
-- Ollama v0.6.1 (opcional, para inferência local).
+## Requirements (Jan 2026)
+- Conda (Miniconda or Anaconda)
+- SBCL 2.6.0 (Steel Bank Common Lisp) installed and in PATH.
+- Ollama v0.6.1 (optional, for local inference).
 
-## Instalação (Via Conda)
+## Installation (Via Conda)
 
-1. Crie o ambiente:
+1. Create the environment:
    ```bash
    conda env create -f environment.yml
    ```
-2. Ative o ambiente:
+2. Activate the environment:
    ```bash
    conda activate sdialectic-env
    ```
-3. Instale SBCL (se não tiver no sistema):
+3. Install SBCL (if not already on the system):
    ```bash
    sudo apt install sbcl  # Debian/Ubuntu
-   # ou
+   # or
    brew install sbcl      # macOS
    ```
-4. Configure `.env` com suas chaves.
+4. Configure `.env` with your API keys.
 
-## Execução
+## Execution
 `python main.py`
 
-## Filosofia
-- **System 2 (SBCL):** Valida a lógica e bloqueia alucinações.
+## Philosophy
+- **System 2 (SBCL):** Validates logic and blocks hallucinations.
 
+## Experiments
 
-### TODO
+### 1. Logical Narrative Optimization (FOLIO Dataset)
+*Status: Completed on 2026-01-18*
 
-## Deployment & Scaling (Kaggle/Colab) - In very near future
+The system used `MIPROv2` with the FOLIO dataset and our hybrid metric (Syntax+Connectivity). The result (`optimized_narrative_folio.json`) demonstrated the emergence of a highly specialized "Lisp Prompt Engineer".
 
+#### What Did the System Learn by Itself?
+The optimizer converged to a precise technical instruction that maximizes compatibility with SBCL:
+> *"Convert complex narrative text into symbolic logic represented as valid Common Lisp S-Expressions... Ensure UPPERCASE notation... the output should be a list of lists parseable via SBCL."*
 
-Para escalar a otimização (MIPROv2) além do hardware local, utilizamos uma estratégia de **Injeção de Binário Estático**:
+#### Caveats
+Several S-expressions were discarded by SBCL, which may cause a severe optimization bias (survivorship bias). To address this, changes are planned (e.g., Error-Driven Self-Correction).
 
-1.  **Docker Build (Local):** Compilamos o SBCL e dependências (`quicklisp`, libs) em um único executável monolítico usando `sb-ext:save-lisp-and-die`.
-2.  **Dataset Injection:** Subimos este binário como um "Dataset" no Kaggle.
-3.  **Zero-Setup Runtime:** O notebook apenas copia e executa o binário.
-    *   **Vantagem 1:** Zero latência de instalação (pula `apt-get` e compilação).
-    *   **Vantagem 2:** Reprodutibilidade exata do ambiente local.
-    *   **Vantagem 3:** Bypassa restrições de root em ambientes cloud gratuitos de alta performance (TPU/GPU).
+#### Performance
+- **Final Score:** 100.0 (Validation Set).
+- **Resilience:** The system learned to use compound predicates (`IS-A`, `FAMILIAR_WITH`) and snake_case (`LAWYER_JAMES_COCKS`) to avoid syntax errors in Lisp.
+
+## Deployment & Scaling (Kaggle/Colab) - Roadmap
+
+To scale optimization (`MIPROv2`) beyond local hardware limits, we employ a **Static Binary Injection** strategy:
+
+1.  **Docker Build (Local):** Compile SBCL and dependencies (`quicklisp`, libs) into a single monolithic executable using `sb-ext:save-lisp-and-die`.
+2.  **Dataset Injection:** Upload this binary as a "Dataset" on Kaggle.
+3.  **Zero-Setup Runtime:** The notebook simply copies and executes the binary.
+    *   **Advantage 1:** Zero installation latency (skips `apt-get` and compilation).
+    *   **Advantage 2:** Exact reproducibility of the local environment.
+    *   **Advantage 3:** Bypasses root restrictions in high-performance free cloud environments (TPU/GPU).

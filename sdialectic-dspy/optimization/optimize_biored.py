@@ -11,7 +11,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from dspy_modules.signatures import NarrativeToLogic
 from optimization.metrics import sbcl_metric
 from core.config import settings
+from dspy_modules.signatures import NarrativeToLogic
+from optimization.metrics import sbcl_metric
+from core.config import settings
 from optimization.instrumentation import GeminiLogger
+from core.gemini_client import NativeGeminiClient
 
 # ==============================================================================
 # CONFIGURATION CONSTANTS
@@ -25,7 +29,7 @@ USAGE_LOG_FILE = "gemini_usage.csv"
 
 # Data Selection
 # Set NUM_TRAIN_SAMPLES to an integer for FAST MODE, or None for full dataset
-NUM_TRAIN_SAMPLES = 25  
+NUM_TRAIN_SAMPLES = 5  # DEBUG MODE
 # Set NUM_VAL_SAMPLES to integer for subset, or None to use full Golden Set
 NUM_VAL_SAMPLES = None 
 
@@ -89,7 +93,11 @@ def main():
         )
         
         # Teacher: Gemini (Flash) - WRAPPED WITH LOGGER
-        raw_teacher = dspy.LM(model=settings.TEACHER_MODEL_NAME, api_key=settings.GEMINI_API_KEY)
+        # Using Native Client to bypass LiteLLM as requested
+        # Model name from .env is now "gemini-2.5-flash-lite" (clean)
+        teacher_model_id = settings.TEACHER_MODEL_NAME
+            
+        raw_teacher = NativeGeminiClient(model=teacher_model_id, api_key=settings.GEMINI_API_KEY)
         teacher_lm = GeminiLogger(raw_teacher, filename=USAGE_LOG_FILE)
         
         dspy.settings.configure(lm=student_lm, teacher=teacher_lm)
@@ -139,8 +147,7 @@ def main():
             max_bootstrapped_demos=MIPRO_MAX_BOOTSTRAPPED_DEMOS,
             max_labeled_demos=MIPRO_MAX_LABELED_DEMOS,
             requires_permission_to_run=MIPRO_REQUIRES_PERMISSION,
-            minibatch_size=MIPRO_MINIBATCH_SIZE,
-            num_trials=MIPRO_NUM_TRIALS
+            minibatch_size=MIPRO_MINIBATCH_SIZE
         )
         
         print("[SUCCESS] BioRED Optimization Completed!")

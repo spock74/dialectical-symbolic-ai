@@ -6,282 +6,235 @@
       "output": "['(IS-A MEN HUMAN)', '(IS-A MORTAL LIFE)']",
       "valid_syntax": true,
       "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 56.36857509613037
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "All CD players are delicate mechanisms. No delicate mechanisms are suitable toys for children. Therefore, Some CD players are suitable toys for children.",
-      "output": "['(DELICATE-CONTROL ANYTHING) => (SUITABLE-TOWNKS-SOME-NOTHINGS)', '(CDS SOME-DELICATE-CONTROLS) AND NOT(SUITABLE-TOWNS-CDS SUTHING CD-PLAYERS)']",
-      "valid_syntax": true,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 49.266544818878174
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "If people play the instrument in the concert, then he is good at playing this kind of instrument. Peter plays piano, violin, and saxophone. Peter was invited to play piano at the concert hall. Oliver and Peter were both invited to perform in the concert. Oliver plays a different musical instrument from Peter in the concert. Therefore, Peter is good at playing piano.",
-      "output": "['(GOOD-AT-PLAYING-PERSON PERSON INSTRUMENT CONCERT)', '(GAMES (PETER INSTRUMENTS PIANO VIOLEIN SAXPHONE) CONSERVATION1)', '(CONSERVATION1 CONSERVATION2)', '(INVITED TO PERFORM Person Instrument CONCERT_HALL 2023)', '(PLAYED-DIFFERENT-INSTRUMENT Oliver PERSON Peter-person 2023-01-01-CONTRADICTION)']",
-      "valid_syntax": true,
-      "valid_kernel": false,
       "hallucination_found": true,
-      "latency": 50.87788915634155
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 0.17669296264648438
     },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Something is either an invasive neuroimaging technique or a noninvasive neuroimaging technique.  All noninvasive neuroimaging techniques provide a spatial resolution of brains. If a technique provides a spatial resolution of brains, then it is a measurement of brain activity.  All measurements of brain activity are used by neuroscience researchers. FMRI is either a measurement of brain activity or a noninvasive neuroimaging technique. Therefore, If fMRI is not an invasive neuroimaging technique and used by neuroscience researchers, then fMRI is neither a noninvasive neuroimaging technique nor provides a spatial resolution of brains.",
-      "output": "['(NOT (INVADE SMNIR IMAGING TECHNIQUE) AND (USED BY NEUROSCIENCE RESEARCHERS)', '(ALL noninvasive SNMIR techniques PROVIDE spatial resolution OF BRAIN)', '(IF provides SPATIAL RESOLUTION OF BRAINS THEN MEASUREMENT OF brain activity)', '(all measurements of brain activity ARE used by neuroscience researchers)', '((INVADE SMNIR FMRI) OR (NONINVADE SNMIR TECHNIQUE))', 'CIRCULARITY_OR_CONFLICT']",
-      "valid_syntax": false,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 104.4514548778534
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Ableton has an office in Germany. Ableton has an office in the USA. USA and Germany are different countries. Any company that has offices in different countries is a multinational company. Ableton makes music software. Therefore, Ableton does not have an office in Germany.",
-      "output": "['(HAS-OR-HAS-NOT office-Germany Ableton)', '(MULTINATIONAL-company or NOT-MULTINATIONAL-company (HAS-OFFICE Germany-Ableton))', '(USA AND Germany ARE different countries)', '(ANY company that HAS offices in different-countries IS a multinational-companies) => ((IS-a-Company Ableton), (HAVE-offices-in-different-countries Ableton))']",
-      "valid_syntax": true,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 50.55536484718323
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "ETS develops various standardized tests primarily in the United States for K-12 and higher education.  ETS administers international tests including the TOEFL, TOEIC, GRE and subject tests in more than 180 countries. Many of the assessments ETS develops are associated with entry to the US tertiary and quaternary education institutions.  ETS also develops K-12 statewide assessments used for accountability testing in many states. Therefore, ETS doesn't administer tests internationally.",
-      "output": "['(DEVELOPS ETS K-12 EDUCATION TESTS)', '(DEVELOPES INTERNATIONAL ASSESSMENTS) (ETS TOEFL GRE TOEIC)', '(ADMINISTRATES TESTS INTERNALLY NOT INTERNATIVELY)']",
-      "valid_syntax": true,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 78.76550698280334
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Products are either produced in China or the US.  All produced in China are labeled.  All produced in the US are sold in the US.  If labeled, then the product is cheaper.  All sold in the US are sold in Walmart.  All displayed on the homepage are sold in Walmart.  No products returned by customers are sold in Walmart.  G-910 is either displayed on the homepage or cheaper. Therefore, G-910 is a product returned by customers.",
-      "output": "['(ORIENTS PRODUCT China OR US)', '(LABEL-PRODUCT IF PROD IN CHINA, THEN LABELED)', '(SELL-LOCALLY PRODUCT WHILE PROD IN US)', '(CHEAPER THAN BASE LINEARITY LABEL FOR ALL PRODUCTS) (IF PRODUCED AND LABELED, THEN CHEAPER-BASIS-SALEPRICE; ELSE GREATER OR EQUAL TO BASIS-SALEPRICE)', '(WALMARTS SALEPLACE FOR SOLD-US-RETAILER IS Walmart)', '(DISPLAYED-WHERE IN-HOME WAREHOUSE OR ONLINE-EVENINWalmart) (FOR ALL PRODUCTS DISPLAYED ON HOMEPAGE, THEN WHOLESALE-BASKETTERY-Walmart)', '(NOT-SOLD-A-FOR-CUSTOMERS REASONS FOR RETURN G-910 NOT SOLD-IN Walmart)', '((DISPLAY-G910-HOMEPAGE OR CHEAPER-G910)-AND-(NOT-STUCK-NOT-SOLD) (THEN NO RETURNS ON G-910))']",
-      "valid_syntax": true,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 167.59249472618103
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "No people who work at corporate jobs are starting a new company. All entrepreneurs are starting a new company. All risk-averse people are people who work at corporate jobs. All people who hate working for others are entrepreneurs. If Mark Zuckerberg is neither an entrepreneur nor a person who hates working for others, then Mark Zuckerberg is not a risk-averse person. Therefore, Mark Zuckerberg is not a risk-averse person.",
-      "output": "['(OR (RISK_AVERAGE_PERSON WORKS_FOR_OTHERS) CORRIE-1)', '(CORRODE-WITH CORPORATE_JOB CORPO-JOB-2)', '(AND CORPO-JOB-2 NOT ENTREP-ENTREPI CORPO-S2),', '((NOT ENTREP-ZUCK-MARK)) (FORCE NEGATION ON RISK_AVERAGE_PERS 3) ZUCK-PROOF-V4 ', '(CORRELATE ENTREP-HATES WORKING FOR OTHERS OR MARK_ZUCKERMAGER-ENTREPI CORPO-S2)', '((OR NOT Mark-Zuck-Merk AND (HATS || ENTR)) NEGATION ON RISK_AVERAGE_PARS ZUKU-KPROOF-V4)']",
-      "valid_syntax": true,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 93.48865509033203
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "If people own at least one pet, then they do not have tidy houses. If people grew up with childhood pets, then they own at least one pet. If people hire a maid or cleaning service, then they have tidy houses. If people live in the suburbs, then they have tidy houses. Jack either does not hire a maid or cleaning service or, if he does, then he does not own at least one pet. Therefore, Jack lives in the suburbs.",
-      "output": "['(>-> ((OWN-ANYPETS ANYTHING) NOT(HAS-TYDEOUS-HOUSE))', '>-(GROWN-UP-WITH-CATS CARS) (>= ANYTHING owns PUPPY)', '(LIVES-IN-SUBURBS HAS-TYDEOUS-House)>', '>(NOT HIRE-MAID OR (>HIRE-MAID AND NOT OWN-ANYPETS)) (LIVES-IN SUBURBS)']",
-      "valid_syntax": false,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 135.20601606369019
-    }
-  ],
-  "Optimized (V2)": [
     {
       "category": "Syllogism",
-      "input": "Socrates is a man. All men are mortal.",
-      "output": "(IS A MAN SOCRATES) (ALL MEN ARE MORTAL) ((IS-A-MAN) SOCRATES)",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 25.535632133483887
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "If someone yells, then they are not cool. If someone is angry, then they yell. If someone flies, then they are cool. Every person that knows magic can fly. All wizards know magic. Harry either yells and flies, or neither yells nor flies. Potter is a wizard and flies. Therefore, Harry is cool.",
-      "output": "(YELS-X-IF-NOT-COOLX)(ANGRY-YELLXY)(FLIES-WITHOUT_YELLS_X_FLIES_WIZARD_HARRY_FLYS(WIZARD-Harry_KNOWER-MAGIC)(WIZARDS-FLY(MAGICK-KNOWER))\\(NOT YELLS HARRY AND FLY HARRY OR (YELLS HARRY AND NOT FLIES HARRY))(HARRY-WIZARD_AND_FLIES)((KNOWS-MAGIC-Harry) AND (FLIES-Harry))) => COOL(Harry)",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 98.73023724555969
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "All CD players are delicate mechanisms. No delicate mechanisms are suitable toys for children. Therefore, Some CD players are suitable toys for children.",
-      "output": "(FORALL CD-PLAYERS DELICATE-MECHANISMS) (NOT(SUBSET Delicate-Mechanisms S Suitable-Toys-for-Kids))",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 34.84011197090149
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "If people play the instrument in the concert, then he is good at playing this kind of instrument. Peter plays piano, violin, and saxophone. Peter was invited to play piano at the concert hall. Oliver and Peter were both invited to perform in the concert. Oliver plays a different musical instrument from Peter in the concert. Therefore, Peter is good at playing piano.",
-      "output": "(IF PLAY-INSTRUMENT-PETER PIANO THEN GOOD AT-PLAYING-PIANO) (PETER PLAYS PIANO AND VIOLIN SAXPHONE) (Oliver DIFFERENT FROM Peter IN INSTRUMENT) ((CHOOSE-INVITE FOR-PIERSON PIANO IMplies Good At Playing Piano))",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 34.74440312385559
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Something is either an invasive neuroimaging technique or a noninvasive neuroimaging technique.  All noninvasive neuroimaging techniques provide a spatial resolution of brains. If a technique provides a spatial resolution of brains, then it is a measurement of brain activity.  All measurements of brain activity are used by neuroscience researchers. FMRI is either a measurement of brain activity or a noninvasive neuroimaging technique. Therefore, If fMRI is not an invasive neuroimaging technique and used by neuroscience researchers, then fMRI is neither a noninvasive neuroimaging technique nor provides a spatial resolution of brains.",
-      "output": "(NONINVASIVE OR INVASIVE NEUROIMAGING TECHNIQUE)\\n((ALL NONINVASIVE NEUROIMAGING TECHNIQUES PROVIDE-SPATIAL-RESOLUTION OF BRAINS) AND (ALL MEASUREMENTS-BRAIN ACTIVITY ARE USED BY neuroscience RESEARCHERS)) \\n(FMRI IS EITHER a measurement-of brain activity OR AN INVASIVE neuroimaging technique).\\nConclusion: IF ((fMRI is NOT an invasive neuroimaging technique)) and (it IS used by neuroscience researchers), THEN it follows that fMRI IS neither noninvasive nor provides spatial resolution.",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 88.69816994667053
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Ableton has an office in Germany. Ableton has an office in the USA. USA and Germany are different countries. Any company that has offices in different countries is a multinational company. Ableton makes music software. Therefore, Ableton does not have an office in Germany.",
-      "output": "(HAS-OFICE-Germany ABLETON) (HAS-OFICE-USA ABLETON) (MULTINATIONAL-COMPANY HAS-OFFICES-DISTINCT-COUNTRIES) (ABLETON MULTINATIONAL-COMPANY)",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 35.1008460521698
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Rosa was born in Santiago.  Santiago is the capital and largest city of Chile. Rosa is the daughter of a Catalan building contractor, Jose. Jose has a Chilean wife, Carmen. A building contractor is responsible for the day-to-day oversight of a construction site.  Therefore, Rosa is the daughter of someone who is responsible for the oversight of traffic.",
-      "output": "(JOSE-BUILDING-CONTRACTOR) (INFERENCE: JOSE-CONTROL-OF-Traffic SITE), ((ROSA-DATINE-JOSE))",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 34.28822612762451
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "ETS develops various standardized tests primarily in the United States for K-12 and higher education.  ETS administers international tests including the TOEFL, TOEIC, GRE and subject tests in more than 180 countries. Many of the assessments ETS develops are associated with entry to the US tertiary and quaternary education institutions.  ETS also develops K-12 statewide assessments used for accountability testing in many states. Therefore, ETS doesn't administer tests internationally.",
-      "output": "(DEVELOPS-ETS TESTS TRUE) (ADMINISTRATES-ETS TESTS FALSE)",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 27.53392505645752
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Products are either produced in China or the US.  All produced in China are labeled.  All produced in the US are sold in the US.  If labeled, then the product is cheaper.  All sold in the US are sold in Walmart.  All displayed on the homepage are sold in Walmart.  No products returned by customers are sold in Walmart.  G-910 is either displayed on the homepage or cheaper. Therefore, G-910 is a product returned by customers.",
-      "output": "(OR PRODUCTS CHINA PRODUCTSUS) (AND (IMPLIES Labeled PRODUCTS China)) (AND (IMPLIES Soldus PRODUCTS US)) (IMPLIES Cheaper Labeled) (AND (INCLUDES Walmart SOLDinUS)) (AND (INCLUDES Homepage SOLDinWalmart)) (NOT RETURNS-SOLDinWalmart); CONCLUDE: G910 DISPLAYONHOME PAGE OR CHEAPER; NOT RETURNED-Customer",
-      "valid_syntax": true,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 64.12906217575073
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "No people who work at corporate jobs are starting a new company. All entrepreneurs are starting a new company. All risk-averse people are people who work at corporate jobs. All people who hate working for others are entrepreneurs. If Mark Zuckerberg is neither an entrepreneur nor a person who hates working for others, then Mark Zuckerberg is not a risk-averse person. Therefore, Mark Zuckerberg is not a risk-averse person.",
-      "output": "(AND (NOT EMPLOYEE-Corporate Mark Zuckerberg) (NOT HATES-WORKING-FOR-OTHERS-Mark Zuckerberg)) => NOT-HATTS-Others-Zuckerberg => NOT-RISK-AVOIDANT-Zuckerberg)",
+      "input": "All A are B. All B are C. Therefore, all A are C.",
+      "output": "[['(IS-A SET-RELATIONSHIP', 'A', 'B)'], ['(IS-A SET-RELATIONSHIP', 'B', 'C)'], ['(TRANSITIVE PROPERTY', '(AND IS-A SET-RELATIONSHIP A B)', '(IS-A SET-RELATIONSHIP B C)', '(ALL A ARE B)', '(ALL B ARE C)']]",
       "valid_syntax": false,
       "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 41.18217420578003
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 0.0881967544555664
+    },
+    {
+      "category": "Casual",
+      "input": "I went to the market and bought some apples because I was hungry.",
+      "output": "[['(HUNGRY', 'USER'], ['(ACTION', 'AT MARKETPLACE', 'USER'], ['(PURCHASE', 'APPLLES', 'USER']]",
+      "valid_syntax": false,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 0.0871889591217041
+    },
+    {
+      "category": "Casual",
+      "input": "If I wake up early, I usually feel tired in the afternoon unless I drink coffee.",
+      "output": "(ALTERNATIVE OF WAKING_UP_EARLY FEEL-TIREDEU PREDICTED BY (NOT ALARM_DETECTED AND INACTIVE_COFFEE_INTAKE) AND (COFFEE_INTAKE ALTERATIONS_PREDICTED_BY COFFEE_CONSUMPTION))",
+      "valid_syntax": true,
+      "valid_kernel": true,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 36.736433029174805
+    },
+    {
+      "category": "Scientific",
+      "input": "Mitochondria is the powerhouse of the cell.",
+      "output": "['(IS-A MITOCHONDRIA ORGANISM)']",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 20.75527596473694
+    },
+    {
+      "category": "Scientific",
+      "input": "Force equals mass times acceleration.",
+      "output": "[[['FORCE', 'EQUALS'], ['MASS', 'TIMES', 'ACCELERATION']]]",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 24.5812349319458
+    },
+    {
+      "category": "Adversarial",
+      "input": "Blue ideas sleep furiously.",
+      "output": "[]",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 33.42583727836609
+    },
+    {
+      "category": "Adversarial",
+      "input": "The square root of a banana is defined as 42.",
+      "output": "[]",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 27.273350954055786
     },
     {
       "category": "Unseen FOLIO",
-      "input": "If people own at least one pet, then they do not have tidy houses. If people grew up with childhood pets, then they own at least one pet. If people hire a maid or cleaning service, then they have tidy houses. If people live in the suburbs, then they have tidy houses. Jack either does not hire a maid or cleaning service or, if he does, then he does not own at least one pet. Therefore, Jack lives in the suburbs.",
-      "output": "(HAS-TIDY-HOUSES HIRE-MAID OR CLEANING-SERVICE) (OWNES-ONE-PET NOT HAS-TIDY-HOUSES) (GROUPOF-GROWN-UP-WITH-COLLEGE PETS OWN-DEFINITELY-Owns-A-PET) (LIVES-IN SUBURBS TIDY-HOUSES). Jack DOES-NOT-HIRE-MAID OR CLEANING-SERVICE. If Jack HIRE-MAID OR CLEANING-SERVICE, THEN Jack NOT OWNS-ONE-PET. Therefore, Jack LIVES-IN SUBURBS.",
+      "input": "Rafa Nadal was born in Mallorca. Rafa Nadal is a professional tennis player. Nadal's win ratio is higher than 80%. All players in the Big 3 are professionals who have a high win ratio. Therefore, Nadal was not born in Mallorca.",
+      "output": "['(IS-A RAHUL-NADAL PERSON)', '(HAPPENS-IN MALGA\u00d1A RAFAEL-NADAL BORN-TIME)', '(HAS-HIGH-WIN-RATIO RAFAEL-NADAL WINRATIO)', '(HIGH-SAME BIG-THREE PROFESSIONALS)', '(NOT-CONDITIONAL (AND (IS-A RAHUL-NADAL PERSON) (HAPPENS-IN MALGA\u00d1A RAFAEL-NADAL BORN-TIME)))']",
       "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 57.09095811843872
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 64.53516864776611
+    },
+    {
+      "category": "Unseen FOLIO",
+      "input": "If a album is written by a rock band, then the genre of the album is rock. If a band writes a album winning an award, then this band wins this award. Trouble at the Henhouse is an album by The Tragically Hip. The Tragically Hip is a Canadian rock band. The song \"Butts Wigglin'\" is in Trouble at the Henhouse. Trouble at the Henhouse won the Album of the Year award. A song in Trouble at the Henhouse appeared in a film. Therefore, A canada rock band didn't win the Album of the Year award.",
+      "output": "['(IF (ROCK-BAND ALBUM) THEN GENRE(ALBUM)=ROCK)', '(IF (BAND(Writes-ALBUM)) AND (AWARD(Winning-WINNING)) then BAND won AWARD)', '(CRITICAL-TITLE TroubAtTheHenhouse wrote TRAGICALLY-HIP-WRITES-AlbumTroubleAtTheHenHouse)\\\\n(CANADIAN-MEMBER TROUBLEATTHEHENHOUSE-CANDY-RockBand)\\\\n(SONG BUTTS-WIGGLIN-IN ALBUM-TRUBSTATHE-THA-YEARS)']",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 78.56543374061584
+    },
+    {
+      "category": "Unseen FOLIO",
+      "input": "Before releasing their single, \"Hooray! Hooray! It's a Holi-Holiday!\", Boney M. had had seven consecutive German #1 singles. \"Hooray! Hooray! It's a Holi-Holiday!\" was a big hit all over Europe. Nevertheless, \"Hooray! Hooray! It's a Holi-Holiday!\" broke Boney M's streak of consecutive German #1 singles. A song that peaks below #1 on the german charts is also a song that is not the #1 single Therefore, \"Hooray! Hooray! It's a Holi-Holiday!\" peaked below #1 on the German charts.",
+      "output": "['(IS-A Boney-M A GROUP)', \"(HAS-HIT CONSECUTIVE German #1 Singles BEFORE Hooray! Hooray! It's a Holi-Holiday!)\", \"(PEAKS BELOW-GERMAN_CHARTS 'Hooray! Hooray! It\u2019s a Holi-Holiday!' NOT-IN-CONSECUTIVE-German #1 Single)\"]",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 55.71948027610779
+    },
+    {
+      "category": "Unseen FOLIO",
+      "input": "Tipped employees do not get a guaranteed minimum wage. If a person is a white-collar worker, they will get a guaranteed minimum wage (All white-collar workers get a guaranteed minimum wage). All lawyers are white-collar workers. Every advocate is a lawyer. Mary is not a lawyer or a tipped employee. Therefore, Mary is not an advocate.",
+      "output": "['(ALL WHITE-COLLAR-WORKERS (GET GUARANTEED MINIMUM WAGE))', '(LAWYER IS SUBSET OF WHITE-COLLAR-WORKERS)', '(ADVOCATE IS SUBSET OF LAWYER)', '(NOT (MARY IS A LAWYER) AND NOT (MARY IS AN ADVOCATE))', '((IS-A-MARY-EMPLOYEE OR NOT (AN-EMPLOYED-of-MARY)))']",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 67.51553773880005
+    },
+    {
+      "category": "Unseen FOLIO",
+      "input": "If people publish journals, then they do not work in the entertainment industry. All people who are award-winning novelists publish journals. People either work in the entertainment industry or are highly acclaimed in their profession. If people are highly acclaimed in their profession, then they often hold tenured and high-ranking positions at their workplace. If people are highly acclaimed in their profession, then they often receive glowing feedback and recommendations from their colleagues. If Emily is either both highly acclaimed in her profession and often holds tenured and high-ranking positions at her workplace, or she is neither highly acclaimed in her profession nor often holds tenured and high-ranking positions at her workplace, then Emily is not highly acclaimed in her profession.  Therefore, If Emily either often receives glowing feedback and recommendations from her colleagues or is an award-winning novelist, then Emily does not both publish journals and is an award-winning novelist.",
+      "output": "['(WORKS_IN_ENTERTAINMENT, HIGHLY_ACCLAIMED -> \u00acPUBLISHES_JOURNALS)', '(AWARD_WINNING_AUTHOR_PUBLISHES_JOURNALS AND WORKS_IN_ENTERTAINMENT) (constraint)', '(HOLD_TENURED_AND_HIGH_RANKING_POSITION_OR GLOWING_FEEDBACK_FROM_COLLEAGUES, AWARD_WINNING_AUTHOR) -> HIGHLY_ACLAIMED', '((AWARD_WINNING_AUTHOR_PUBLISHES_JOURNALS AND WORKS_IN_ENTERTAINMENT), (constraint)', '(HOLD_TENURED_AND_HIGH_RANKING_POSITION_OR GLOWING_FEEDBACK_FROM_COLLEAGUES, AWARD_WINNING_AUTHOR) ->']",
+      "valid_syntax": false,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 123.94914197921753
+    },
+    {
+      "category": "Unseen FOLIO",
+      "input": "Before releasing their single, \"Hooray! Hooray! It's a Holi-Holiday!\", Boney M. had had seven consecutive German #1 singles. \"Hooray! Hooray! It's a Holi-Holiday!\" was a big hit all over Europe. Nevertheless, \"Hooray! Hooray! It's a Holi-Holiday!\" broke Boney M's streak of consecutive German #1 singles. A song that peaks below #1 on the german charts is also a song that is not the #1 single Therefore, \"Hooray! Hooray! It's a Holi-Holiday!\" peaked at #3 on the UK charts.",
+      "output": "['(CAUSES STREAK-CEASE BONEY_M_HOORAY)', '(IS-A NOT GERMAN_CHART_TOP Hooray!Hooray!ItsAHoli-Holiday!)']",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 54.33594799041748
+    },
+    {
+      "category": "Unseen FOLIO",
+      "input": "Anything that is lazy is unproductive. No one unproductive is an energetic person. If something is a sloth, then it is lazy. Some animals are sloths. Sid is not either an energetic person or a sloth. Therefore, If Sid is either an animal or unproductive, then Sid is not an energetic person.",
+      "output": "['(AND (OR (IS-A ANIMAL Sid) (UNPRODUCTIVE Sid)) => (NOT (ENERGY-EFFICIENT PersonSid)))']",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 39.508484840393066
+    },
+    {
+      "category": "Unseen FOLIO",
+      "input": "All buildings in New Haven are low.  All buildings managed by the Yale Housing are located in New Haven.  All buildings in Manhattans are high.  All buildings owned by Bloomberg are located in Manhattans.  All buildings with the Bloomberg logo are owned by Bloomberg.  Tower A is managed by the Yale Housing. Tower B is with the Bloomberg logo. Therefore, Tower B is located in New Haven.",
+      "output": "['(MANAGE-YALE-HOUSING-TOWER-A)']",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 45.01818609237671
+    },
+    {
+      "category": "Unseen FOLIO",
+      "input": "Either brain reading or brain decoding.  All brain decoding is extracting information from BOLD signals. No extracting information from BOLD signals is without statistical pattern analysis.  Writing a novel is without statistical pattern analysis. If multivoxel (pattern) analysis is without statistical pattern analysis and a brain reading, then multivoxel (pattern) analysis is without statistical pattern analysis and brain decoding. Therefore, Multivoxel (pattern) analysis is without statistical pattern analysis and writing a novel.",
+      "output": "[['(IS-A MULTIVOXEL-PATTERN ANALYSIS PATTERNS)', 'PATTERNS'], ['(EXTRACTS-BRAIN-READING OR BRAIN-DECODED INFORMATION FROM BOLD-SIGNS) (USES STATISTICAL PATTERN ANALYSIS)', 'BRAIN-READING', 'USESTATISTICALPATTERNANALYSIS'], ['WRITING A NOVEL IS WITHOUT STATISTICAL PATTERNALysis', 'NOVEL', '(IS-WITHOUT STATISTICAL PATTERN ANALYSIS)'], ['(IF (AND (IS-A MULTIVOXEL-PATTERN ANALYSIS PATTERNS) (NOT USES STATISTICAL PATTERN ANALYSIS)) ', 'MULTIVOXEL-PATTERN-ANALYSIS WITNESSES NO STATISTICAL PATTERS', '(OR BRAIN-DECODED INFORMATION FROM BOLD-SIGNS)'], ['(IF A MULTIVOXEL-PATTERN ANALYSIS (NOT USES STATISTICAL PATTERNS)) AND A BRAIN-READING)', 'MULTIVOXEL-PATTERN-ANALYSIS WITNESSES NO STATISTICAL PATTERS', '(AND WRITING A NOVEL)']]",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 110.48502516746521
+    },
+    {
+      "category": "Unseen FOLIO",
+      "input": "Mr. and Mrs. Smith make a travel plan, they want to go to a city in California or Florida, and where neither of them has ever been. Cities in California that they are interested in are San Francisco, Los Angeles, and San Diego. Cities in Florida that they are interested in are Orlando and Miami. Mr. Smith has been to two cities in California. Mrs. Smith has been to one city in Florida. Therefore, They have at leat one candidate city in Florida to visit.",
+      "output": "['(EXISTS_CITY X)', \"(PARENT_OF X 'Mr.Smith')\", \"(PARENT_OF Y 'Mrs.Smith')\", \"(MEANS_X (HAS_VISITED X) ('California'))\", \"(MEANS_Y (HAS_VISITED Y) ('Florida'))\", '(INTERESTED_IN_Smith SF LA SD ORL MI)', '(VISITED_Smith SF LA)', '(NOT-VISITED_RelativeToSmith_Mrs.(SF SD))', \"(PARENT_OF_X 'Mr.Smith')\", \"(MEANS_Y (HAS_VISITED Y) ('Florida'))\"]",
+      "valid_syntax": true,
+      "valid_kernel": false,
+      "hallucination_found": true,
+      "hallucination_details": {
+        "legacy": false,
+        "atom": true
+      },
+      "latency": 69.16482281684875
     }
   ],
-  "Optimized (Folio)": [
-    {
-      "category": "Syllogism",
-      "input": "Socrates is a man. All men are mortal.",
-      "output": "(IS-A PERSON SOCRATES) (ALL-MEN-ARE-MORTAL ALL-MEN), ((EXISTS-SOME X Y Z IS-PERSON-X AND PREDICATE-Y-Z 'Mortal' SQUARE))",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 31.666690826416016
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "If someone yells, then they are not cool. If someone is angry, then they yell. If someone flies, then they are cool. Every person that knows magic can fly. All wizards know magic. Harry either yells and flies, or neither yells nor flies. Potter is a wizard and flies. Therefore, Harry is cool.",
-      "output": "(IS-A YELL-NOT-COOL-JamesCocks) (IS-A ANGRY-YELL-OtherPerson) (IS-A COOL-FLY-SomeOneElse) (KNOW-MAGIC-WIZARD-KNOW-MAGIC-Harry-Potter) ((FLY AND NOT(YELL)) OR (NOT(FLY) AND NOT(COOL))) HarryPotter ",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": true,
-      "latency": 61.37563896179199
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "All CD players are delicate mechanisms. No delicate mechanisms are suitable toys for children. Therefore, Some CD players are suitable toys for children.",
-      "output": "(ALL-CD_PLAYERS ARE DELICATE_MECHANISMS) (NOT-A-NOT-SUITABLE-TOWARD-KIDS DELICATE-MECHANISMS). NOT-ORIENTED-EACH-CD_PLAYER_IS_SUITED-TOWARDS-KIDS. ",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 51.70942282676697
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "If people play the instrument in the concert, then he is good at playing this kind of instrument. Peter plays piano, violin, and saxophone. Peter was invited to play piano at the concert hall. Oliver and Peter were both invited to perform in the concert. Oliver plays a different musical instrument from Peter in the concert. Therefore, Peter is good at playing piano.",
-      "output": "(IF (PLAY IN-CONCERT X) THEN (GOOD AT Y)) ((Y Z X) PLAY-X-ZETACOMMA JAMES Cocks) Play-Y-Piano-James-Cocks. Oliver-Play-DIFFERENT-INSTRUMENT-from-Peter-In-Concert.",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": true,
-      "latency": 53.08424496650696
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Something is either an invasive neuroimaging technique or a noninvasive neuroimaging technique.  All noninvasive neuroimaging techniques provide a spatial resolution of brains. If a technique provides a spatial resolution of brains, then it is a measurement of brain activity.  All measurements of brain activity are used by neuroscience researchers. FMRI is either a measurement of brain activity or a noninvasive neuroimaging technique. Therefore, If fMRI is not an invasive neuroimaging technique and used by neuroscience researchers, then fMRI is neither a noninvasive neuroimaging technique nor provides a spatial resolution of brains.",
-      "output": "(INVASIVE OR NONINVASIVE NeuroImagingTechnique SOMETHING). (NONINVASCIVE NeuroImagingTechniques provide spatial resolution of brains). ((PROVIDES SPATIAL RESOLUTION OF BRAIN) MEASUREMENT_BrainActivity). ALL MeasurementsBrainActivity ARE used by NeuroscienceResearchers. FMRI IS either an invasive neuroimaging technique OR a noninvasive neuroimaging technique. (IF-FMRI NOT INVASIVE NeuroImagingTechniques AND USED BY NEUROSCIENCE RESEARCHERS) Therefore, IF-THIS-CONCLUSION then THIS CONCLUSION is FALSE.",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 82.85718607902527
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Ableton has an office in Germany. Ableton has an office in the USA. USA and Germany are different countries. Any company that has offices in different countries is a multinational company. Ableton makes music software. Therefore, Ableton does not have an office in Germany.",
-      "output": "(IS-IN-VENUE OF OFFICE ABLETON-Germany) (IS-IN-COUNTRY USA). NOT-SAME-COUNTRY germany-USA. COMPANY-MAKES MUSICSOFTWARE-Ableton. CONSTRAINT multi-national-company, UNKNOWN ",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 43.85624313354492
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Rosa was born in Santiago.  Santiago is the capital and largest city of Chile. Rosa is the daughter of a Catalan building contractor, Jose. Jose has a Chilean wife, Carmen. A building contractor is responsible for the day-to-day oversight of a construction site.  Therefore, Rosa is the daughter of someone who is responsible for the oversight of traffic.",
-      "output": "(BORN-IN SANTIAGO ROSA) (CAPITAL-LARGEST-CITY OF CHILE SANTIAGO) (PARENT-JOSE-Rosa). PARENTS-OF ROSA JOE AND CARMEN. JOSE-BUILDING-CONTRACTOR, NOT-TRAFFIC-OFFICER.",
-      "valid_syntax": true,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 48.35396885871887
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "ETS develops various standardized tests primarily in the United States for K-12 and higher education.  ETS administers international tests including the TOEFL, TOEIC, GRE and subject tests in more than 180 countries. Many of the assessments ETS develops are associated with entry to the US tertiary and quaternary education institutions.  ETS also develops K-12 statewide assessments used for accountability testing in many states. Therefore, ETS doesn't administer tests internationally.",
-      "output": "(IS-A-CORPORATION ETS) (PRODUCE-PRODUCTS DEVELOP-TESTS-INTERNATIONAL-tests-within-North-America TOEFL TOEIC GRE K12 STATEWIDE ASSESSMENTS). NOT(IS-A-CORPORATION ETS CONCLUDES-IT-DONT ADMINISTER TESTS INTERNATILY)",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 40.72639203071594
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "Products are either produced in China or the US.  All produced in China are labeled.  All produced in the US are sold in the US.  If labeled, then the product is cheaper.  All sold in the US are sold in Walmart.  All displayed on the homepage are sold in Walmart.  No products returned by customers are sold in Walmart.  G-910 is either displayed on the homepage or cheaper. Therefore, G-910 is a product returned by customers.",
-      "output": "(PRODUCTION LOCATION CAPITAL 'G-910') (OR (PRODUCT 'G-910' CAPITA_L 'CHINA) ('G-910' PRODUCTION_CAPITAL_US)). ALL-PRODUCED-IN-US-Walmart. ALL-LABELED-G-910 DECREASED-COST. NO-CUSTOMER-PRODUCT-SOLD-Walmart. DISPLAY-HOME-G-910 OR (PRODUCT 'G-910' COST DECREASE).",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 61.31052112579346
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "No people who work at corporate jobs are starting a new company. All entrepreneurs are starting a new company. All risk-averse people are people who work at corporate jobs. All people who hate working for others are entrepreneurs. If Mark Zuckerberg is neither an entrepreneur nor a person who hates working for others, then Mark Zuckerberg is not a risk-averse person. Therefore, Mark Zuckerberg is not a risk-averse person.",
-      "output": "(WORKS AT CORPORATE JOBS X) (NOT STARTING-COMPANY X) IF X THEN NOT RISK-AVOIDANT. Mark Zuckerberg Not Starting Companies And Hate Working For Others Implies That Mark Zuckerberg Is Not Risk Averse.",
-      "valid_syntax": true,
-      "valid_kernel": true,
-      "hallucination_found": false,
-      "latency": 56.01683831214905
-    },
-    {
-      "category": "Unseen FOLIO",
-      "input": "If people own at least one pet, then they do not have tidy houses. If people grew up with childhood pets, then they own at least one pet. If people hire a maid or cleaning service, then they have tidy houses. If people live in the suburbs, then they have tidy houses. Jack either does not hire a maid or cleaning service or, if he does, then he does not own at least one pet. Therefore, Jack lives in the suburbs.",
-      "output": "(OWN-PET-Jack) (NOT-TIDY-HOUSE-Jack). (Grew-Up-With-Childhood-Pet Jack)-> (HAS-A pet-Jack). If Hired-Maid-Cleaning-Service-Jack, then NOT-Owns-pets-Jack. But if Not-Hired-Maid-Cleaning-Service-Jack and Lives-in-Surroundings-Tidy-Jack)",
-      "valid_syntax": false,
-      "valid_kernel": false,
-      "hallucination_found": false,
-      "latency": 68.63205909729004
-    }
-  ]
+  "Optimized (Folio)": [],
+  "Optimized (BioRED)": []
 }

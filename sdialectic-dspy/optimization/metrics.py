@@ -159,19 +159,22 @@ def sbcl_metric(gold, pred, trace=None):
     # This is the "Guarda-Costas"
     is_hallucinated, diffs = check_hallucinations(lisp_code, input_text)
     if is_hallucinated:
-        # print(f"HALLUCINATION PENALTY: {diffs}") # Optional debug
+        print(f"[RunDebug] Hallucination: {diffs}")
         return 0.0
 
     # 1. Sanitize (Simulate main.py behavior)
     lisp_code = lisp_code.replace("?", "").upper()
     if lisp_code.count('(') != lisp_code.count(')'):
-        # Naive verify
+        print(f"[RunDebug] Invalid Parens: {lisp_code[:50]}...")
         return 0.0
 
     # 2. Axiomatic Validation
     is_valid = False
     if kernel:
         is_valid = kernel.validate_expression(lisp_code)
+
+    if not is_valid:
+        print(f"[RunDebug] SBCL Invalid: {lisp_code[:50]}...")
         
     score_valid = 1.0 if is_valid else 0.0
     

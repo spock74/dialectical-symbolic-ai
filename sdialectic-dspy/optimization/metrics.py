@@ -96,27 +96,86 @@ def calculate_connectivity(lisp_code):
     except Exception:
         return 0.0
 
+# Whitelist of DSL keywords relative to the domain or logic
+DSL_KEYWORDS = {
+    "IS-A", "IMPLIES", "AND", "OR", "NOT", "IF", "THEN", "EQUIV", "XOR", 
+    "PROMOTES", "SUPPRESSES", "CAUSES", "PREVENTS", "ASSOCIATED-WITH", 
+    "POSITIVELY-CORRELATES", "NEGATIVELY-CORRELATES", "BINDS", "INTERACTS",
+    "COMPARES-TO", "CONVERTS-TO", "TREATS", "DIAGNOSES", "IS-A-PART-OF"
+}
+
+def check_hallucinations(lisp_code, source_text):
+    """
+    Returns True if the lisp_code contains atoms (Named Entities) 
+    not present in source_text.
+    """
+    # 1. Extract atoms from Lisp
+    # Remove parens and split
+    clean_lisp = lisp_code.replace("(", " ").replace(")", " ")
+    atoms = [x.strip() for x in clean_lisp.split() if x.strip()]
+    
+    # 2. Extract words from Source
+    # Simple tokenization: preserve casing? 
+    # BioRED entities are usually upper/cased.
+    # Let's verify presence case-insensitively for robustness?
+    source_tokens = set(re.findall(r'\w+', source_text.upper()))
+    
+    hallucinations = []
+    
+    for atom in atoms:
+        # Skip keywords
+        if atom.upper() in DSL_KEYWORDS:
+            continue
+            
+        # Check numeric/logic ids
+        if atom.startswith("ENT-") or atom.isdigit():
+            # If generated ID, maybe okay? 
+            continue
+            
+        # Check against source
+        # Split atom by dashes for compound terms "LUNG-CANCER" -> "LUNG", "CANCER"
+        parts = atom.replace("-", " ").split()
+        match_all = True
+        for p in parts:
+             if p.upper() not in source_tokens:
+                 match_all = False
+                 break
+        
+        if not match_all:
+            hallucinations.append(atom)
+            
+    return len(hallucinations) > 0, hallucinations
+
 def sbcl_metric(gold, pred, trace=None):
     """
     Advanced Neuro-Symbolic Metric.
     Score = 0.5 * Valid + 0.5 * Connected
+    PENALTY: If hallucinated, Score = 0.0
     """
     lisp_code = pred.lisp_code
+    input_text = gold.document_chunk # Access input from example
     
-    # 0. Sanitize (Simulate main.py behavior)
+    # 0. Anti-Hallucination Check
+    # This is the "Guarda-Costas"
+    is_hallucinated, diffs = check_hallucinations(lisp_code, input_text)
+    if is_hallucinated:
+        # print(f"HALLUCINATION PENALTY: {diffs}") # Optional debug
+        return 0.0
+
+    # 1. Sanitize (Simulate main.py behavior)
     lisp_code = lisp_code.replace("?", "").upper()
     if lisp_code.count('(') != lisp_code.count(')'):
         # Naive verify
         return 0.0
 
-    # 1. Axiomatic Validation
+    # 2. Axiomatic Validation
     is_valid = False
     if kernel:
         is_valid = kernel.validate_expression(lisp_code)
         
     score_valid = 1.0 if is_valid else 0.0
     
-    # 2. Connectivity (Reasoning Quality)
+    # 3. Connectivity (Reasoning Quality)
     score_conn = calculate_connectivity(lisp_code)
     
     # Weighted Score
@@ -125,3 +184,4 @@ def sbcl_metric(gold, pred, trace=None):
         return 0.0 # Strict Fail
         
     return 0.5 + (0.5 * score_conn)
+

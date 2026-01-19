@@ -1,0 +1,34 @@
+[
+  {
+    "category": "Syllogism",
+    "text": "Socrates is a man. All men are mortal."
+  },
+  {
+    "category": "Syllogism",
+    "text": "All A are B. All B are C. Therefore, all A are C."
+  },
+  {
+    "category": "Casual",
+    "text": "I went to the market and bought some apples because I was hungry."
+  },
+  {
+    "category": "Casual",
+    "text": "If I wake up early, I usually feel tired in the afternoon unless I drink coffee."
+  },
+  {
+    "category": "Scientific",
+    "text": "Mitochondria is the powerhouse of the cell."
+  },
+  {
+    "category": "Scientific",
+    "text": "Force equals mass times acceleration."
+  },
+  {
+    "category": "Adversarial",
+    "text": "Blue ideas sleep furiously."
+  },
+  {
+    "category": "Adversarial",
+    "text": "The square root of a banana is defined as 42."
+  }
+]

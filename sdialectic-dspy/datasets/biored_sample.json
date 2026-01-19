@@ -1,0 +1,6 @@
+[
+  {
+    "input": "Doxorubicin induced cardiomyopathy.",
+    "gold_logic": "(CAUSES DOXORUBICIN CARDIOMYOPATHY)"
+  }
+]

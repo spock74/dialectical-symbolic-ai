@@ -68,3 +68,12 @@ sdialectic-dspy/scaffolder.zsh
 .gemini.md
 
 .agent/
+
+# BioRED & Optimization Artifacts
+*.csv
+*.png
+sdialectic-dspy/datasets/biored_processed.json
+sdialectic-dspy/datasets/BIORED.zip
+sdialectic-dspy/datasets/BioRED/
+
+sdialectic-dspy/audit_report_latest.md

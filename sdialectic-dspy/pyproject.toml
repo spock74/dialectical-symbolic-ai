@@ -8,7 +8,12 @@ version = "2.0.0"  # Or whatever version you want
 dependencies = [
     "fastapi>=0.110.0",  # Use a more recent version
     "pydantic>=2.7.0",  # Use a more recent version
-    "dspy==3.1.0",  # Pin to the latest version
+    "matplotlib>=3.8.0",
+    "pandas>=2.2.0",
+    "datasets>=2.17.0",
+    "bioc>=2.1.0",
+    "dspy",
+    "google-genai",
     "uvicorn[standard]>=0.30.0",
 ]
 

@@ -56,8 +56,15 @@
   (loop
     (format t "~%READY> ")
     (force-output)
-    (let ((input (read)))
-      (validate-batch input))))
+    (handler-case
+        (let ((input (read)))
+          (validate-batch input))
+      (sb-int:simple-reader-error (c)
+        (format t "VIOLATION: Invalid Syntax (Reader Error). ~a~%" c)
+        (clear-input))
+      (error (c)
+        (format t "VIOLATION: Execution Error. ~a~%" c)
+        (clear-input)))))
 
 (main-loop)
 

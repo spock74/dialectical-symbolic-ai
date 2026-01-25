@@ -22,6 +22,10 @@ export interface KnowledgeConcept {
 
 export interface KnowledgeBase {
   knowledgeBase: KnowledgeConcept[];
+  relations?: any[];
+  rules?: any[];
+  lisp_raw?: string;
+  _async?: boolean;
 }
 
 export interface Source {

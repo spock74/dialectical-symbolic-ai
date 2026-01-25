@@ -2,11 +2,11 @@ import { useState } from "react"
 import { Plus, Folder } from "lucide-react"
 import { uploadPdf, uploadPdfMultimodal, extractMarkdown } from "../api"
 import type { KnowledgeBase, Source } from "../types"
-import { useDialecticStore } from "../store/useStore"
 import { Button } from "./ui/button"
 import { ScrollArea } from "./ui/scroll-area"
 import { Checkbox } from "./ui/checkbox"
 import { Input } from "./ui/input"
+import { useDialecticStore } from "../store/useStore"
 
 import { GroupItem } from "./GroupItem"
 
@@ -28,6 +28,8 @@ export function SourceManager({ onKnowledgeLoaded }: SourceManagerProps) {
     addSourceToGroup,
     deleteGroup,
     incrementGraphVersion,
+    addMessage,
+    setLastReasoningLogs,
     activeSourceId,
     setActiveSource
   } = useDialecticStore();
@@ -64,9 +66,22 @@ export function SourceManager({ onKnowledgeLoaded }: SourceManagerProps) {
           ? await uploadPdfMultimodal(file) 
           : await uploadPdf(file);
       } else if (fileType === 'md' || fileType === 'txt') {
-      } else if (fileType === 'md' || fileType === 'txt') {
+        const sourceId = activeSourceId || 'default';
+        addMessage(sourceId, { role: 'user', content: `[System] Ingesting Markdown File: ${file.name}...` });
+        
         // [REFACTORED] Use dedicated extraction pipeline for persistent symbolic knowledge
         result = await extractMarkdown(file);
+
+        const relationsCount = result.relations ? result.relations.length : 0;
+        const rulesCount = result.rules ? result.rules.length : 0;
+        const summary = `Extracted Knowledge:\n- Relations: ${relationsCount}\n- Rules: ${rulesCount}\n\nSymbolic Lisp Code Generated.`;
+        
+        addMessage(sourceId, { role: 'model', content: summary });
+        
+        // Expose raw Lisp generation to the UI (Reasoning Logs)
+        if (result.lisp_raw) {
+            setLastReasoningLogs(result.lisp_raw);
+        }
       }
       
       const newSource: Source = {

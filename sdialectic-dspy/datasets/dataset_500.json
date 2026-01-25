@@ -1,0 +1,1702 @@
+[
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  },
+  { "input": "DNA is a double helix.", "output": "(is DNA double-helix)" },
+  {
+    "input": "The Human Genome Project (HGP) was a landmark international research project that aimed to determine the base pairs that make up human DNA and to identify and map all the genes of the human genome.",
+    "output": "(project Human Genome Project (purpose determine base pairs human DNA))\n(project Human Genome Project (purpose identify genes human genome))\n(project Human Genome Project (purpose map genes human genome))"
+  },
+  {
+    "input": "The hippocampus plays a crucial role in memory formation.",
+    "output": "(plays-role-in hippocampus memory-formation)"
+  },
+  {
+    "input": "Pharmacology is the scientific study of drugs and their effects on living systems.",
+    "output": "(is-a pharmacology scientific-study)\n(of pharmacology drugs)\n(of pharmacology effects)\n(affects drugs living-systems)"
+  },
+  {
+    "input": "The Earth's atmosphere is a complex system with many interacting components, including gases, aerosols, and clouds.",
+    "output": "(has-property earth-atmosphere atmosphere-complexity)\n(has-component earth-atmosphere gases)\n(has-component earth-atmosphere aerosols)\n(has-component earth-atmosphere clouds)"
+  }
+]

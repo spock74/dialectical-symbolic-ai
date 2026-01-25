@@ -1,0 +1,377 @@
+[
+    {
+        "input": "Insulin is a hormone produced by the pancreas that regulates blood glucose levels.",
+        "output": [
+            "(produced-by insulin pancreas)",
+            "(regulates insulin blood-glucose-levels)"
+        ]
+    },
+    {
+        "input": "The p53 protein acts as a tumor suppressor by inducing cell cycle arrest or apoptosis.",
+        "output": [
+            "(acts-as p53 tumor-suppressor)",
+            "(induces p53 cell-cycle-arrest)",
+            "(induces p53 apoptosis)"
+        ]
+    },
+    {
+        "input": "Alzheimer's disease is characterized by the accumulation of amyloid plaques and neurofibrillary tangles in the brain.",
+        "output": [
+            "(characterized-by alzheimers-disease amyloid-plaques)",
+            "(characterized-by alzheimers-disease neurofibrillary-tangles)",
+            "(location amyloid-plaques brain)",
+            "(location neurofibrillary-tangles brain)"
+        ]
+    },
+    {
+        "input": "Aspirin is an NSAID commonly used to reduce fever, pain, and inflammation.",
+        "output": [
+            "(is-a aspirin nsaid)",
+            "(used-for aspirin reduce-fever)",
+            "(used-for aspirin reduce-pain)",
+            "(used-for aspirin reduce-inflammation)"
+        ]
+    },
+    {
+        "input": "Mitochondria are often called the 'powerhouses' of the cell because they generate most of the cell's supply of adenosine triphosphate (ATP).",
+        "output": [
+            "(nickname mitochondria powerhouses-of-the-cell)",
+            "(generates mitochondria adenosine-triphosphate)",
+            "(atp-is adenosine-triphosphate)"
+        ]
+    },
+    {
+        "input": "The gene BRCA1 is associated with an increased risk of breast and ovarian cancer.",
+        "output": [
+            "(associated-with gene-brca1 increased-risk-breast-cancer)",
+            "(associated-with gene-brca1 increased-risk-ovarian-cancer)"
+        ]
+    },
+    {
+        "input": "Ribosomes are responsible for protein synthesis within the cell.",
+        "output": [
+            "(responsible-for ribosomes protein-synthesis)",
+            "(location protein-synthesis cell)"
+        ]
+    },
+    {
+        "input": "Metformin is a first-line medication for the treatment of type 2 diabetes.",
+        "output": [
+            "(is-a metformin medication)",
+            "(first-line-treatment metformin type-2-diabetes)"
+        ]
+    },
+    {
+        "input": "The immune system protects the body against pathogens.",
+        "output": [
+            "(protects immune-system body)",
+            "(protects-against immune-system pathogens)"
+        ]
+    },
+    {
+        "input": "Parkinson's disease is a neurodegenerative disorder affecting dopamine-producing neurons in the substantia nigra.",
+        "output": [
+            "(is-a parkinsons-disease neurodegenerative-disorder)",
+            "(affects parkinsons-disease dopamine-producing-neurons)",
+            "(location dopamine-producing-neurons substantia-nigra)"
+        ]
+    },
+    {
+        "input": "Antibiotics like penicillin target bacterial cell wall synthesis.",
+        "output": [
+            "(targets antibiotics bacterial-cell-wall-synthesis)",
+            "(example-of antibiotics penicillin)"
+        ]
+    },
+    {
+        "input": "The liver plays a vital role in detoxification and metabolism.",
+        "output": [
+            "(plays-role liver detoxification)",
+            "(plays-role liver metabolism)"
+        ]
+    },
+    {
+        "input": "HIV infects CD4+ T cells, leading to immunodeficiency.",
+        "output": [
+            "(infects hiv cd4+-t-cells)",
+            "(leads-to hiv immunodeficiency)"
+        ]
+    },
+    {
+        "input": "Chemotherapy uses drugs to kill fast-growing cells, including cancer cells.",
+        "output": [
+            "(uses chemotherapy drugs)",
+            "(kills chemotherapy fast-growing-cells)",
+            "(example-of fast-growing-cells cancer-cells)"
+        ]
+    },
+    {
+        "input": "The hypothalamus regulates body temperature and hunger.",
+        "output": [
+            "(regulates hypothalamus body-temperature)",
+            "(regulates hypothalamus hunger)"
+        ]
+    },
+    {
+        "input": "Statins are a class of drugs used to lower cholesterol levels.",
+        "output": [
+            "(is-a statins drugs)",
+            "(used-for statins lower-cholesterol-levels)"
+        ]
+    },
+    {
+        "input": "Epigenetics refers to heritable changes in gene expression that do not involve alterations to the underlying DNA sequence.",
+        "output": [
+            "(refers-to epigenetics heritable-changes-gene-expression)",
+            "(does-not-involve heritable-changes-gene-expression alterations-dna-sequence)"
+        ]
+    },
+    {
+        "input": "The spleen filters blood and plays a role in the immune system.",
+        "output": [
+            "(filters spleen blood)",
+            "(plays-role spleen immune-system)"
+        ]
+    },
+    {
+        "input": "Down syndrome is a genetic disorder caused by the presence of all or part of a third copy of chromosome 21.",
+        "output": [
+            "(is-a down-syndrome genetic-disorder)",
+            "(caused-by down-syndrome presence-third-copy-chromosome-21)"
+        ]
+    },
+    {
+        "input": "Vaccination stimulates the immune system to develop immunity to a specific disease.",
+        "output": [
+            "(stimulates vaccination immune-system)",
+            "(develops-immunity-to vaccination specific-disease)"
+        ]
+    },
+    {
+        "input": "The adrenal glands produce hormones like adrenaline and cortisol.",
+        "output": [
+            "(produce adrenal-glands hormones)",
+            "(example-of hormones adrenaline)",
+            "(example-of hormones cortisol)"
+        ]
+    },
+    {
+        "input": "Osteoporosis is a condition characterized by decreased bone density and increased risk of fracture.",
+        "output": [
+            "(is-a osteoporosis condition)",
+            "(characterized-by osteoporosis decreased-bone-density)",
+            "(characterized-by osteoporosis increased-risk-fracture)"
+        ]
+    },
+    {
+        "input": "Endorphins are neurotransmitters that act as natural painkillers.",
+        "output": [
+            "(is-a endorphins neurotransmitters)",
+            "(act-as endorphins natural-painkillers)"
+        ]
+    },
+    {
+        "input": "The cerebellum is primarily responsible for coordinating voluntary movements such as posture, balance, coordination, and speech.",
+        "output": [
+            "(responsible-for cerebellum coordinating-voluntary-movements)",
+            "(example-of coordinating-voluntary-movements posture)",
+            "(example-of coordinating-voluntary-movements balance)",
+            "(example-of coordinating-voluntary-movements coordination)",
+            "(example-of coordinating-voluntary-movements speech)"
+        ]
+    },
+    {
+        "input": "Diabetes mellitus is a group of metabolic diseases characterized by high blood sugar levels.",
+        "output": [
+            "(is-a diabetes-mellitus metabolic-diseases)",
+            "(characterized-by diabetes-mellitus high-blood-sugar-levels)"
+        ]
+    },
+    {
+        "input": "The human heart pumps blood throughout the body.",
+        "output": [
+            "(pumps human-heart blood)",
+            "(throughout human-heart body)"
+        ]
+    },
+    {
+        "input": "Glaucoma is an eye disease that damages the optic nerve, often associated with high intraocular pressure.",
+        "output": [
+            "(is-a glaucoma eye-disease)",
+            "(damages glaucoma optic-nerve)",
+            "(associated-with glaucoma high-intraocular-pressure)"
+        ]
+    },
+    {
+        "input": "Gene therapy aims to treat or prevent disease by correcting or replacing faulty genes.",
+        "output": [
+            "(aims-to gene-therapy treat-disease)",
+            "(aims-to gene-therapy prevent-disease)",
+            "(by gene-therapy correcting-faulty-genes)",
+            "(by gene-therapy replacing-faulty-genes)"
+        ]
+    },
+    {
+        "input": "The thyroid gland produces hormones that regulate metabolism.",
+        "output": [
+            "(produces thyroid-gland hormones)",
+            "(regulate hormones metabolism)"
+        ]
+    },
+    {
+        "input": "Ebola virus causes severe hemorrhagic fever in humans.",
+        "output": [
+            "(causes ebola-virus severe-hemorrhagic-fever)",
+            "(affects ebola-virus humans)"
+        ]
+    },
+    {
+        "input": "Radiotherapy uses high-energy radiation to kill cancer cells.",
+        "output": [
+            "(uses radiotherapy high-energy-radiation)",
+            "(kills radiotherapy cancer-cells)"
+        ]
+    },
+    {
+        "input": "The pancreas produces digestive enzymes and hormones like insulin and glucagon.",
+        "output": [
+            "(produces pancreas digestive-enzymes)",
+            "(produces pancreas hormones)",
+            "(example-of hormones insulin)",
+            "(example-of hormones glucagon)"
+        ]
+    },
+    {
+        "input": "Asthma is a chronic respiratory disease characterized by inflammation of the airways.",
+        "output": [
+            "(is-a asthma chronic-respiratory-disease)",
+            "(characterized-by asthma inflammation-airways)"
+        ]
+    },
+    {
+        "input": "Neurotransmitters are chemical messengers that transmit signals across a synapse.",
+        "output": [
+            "(are neurotransmitters chemical-messengers)",
+            "(transmit-signals-across neurotransmitters synapse)"
+        ]
+    },
+    {
+        "input": "The human skeleton provides structural support and protection for organs.",
+        "output": [
+            "(provides human-skeleton structural-support)",
+            "(provides human-skeleton protection-organs)"
+        ]
+    },
+    {
+        "input": "Influenza, commonly known as the flu, is a viral respiratory illness.",
+        "output": [
+            "(commonly-known-as influenza flu)",
+            "(is-a influenza viral-respiratory-illness)"
+        ]
+    },
+    {
+        "input": "Blood plasma is the liquid component of blood, in which the blood cells are suspended.",
+        "output": [
+            "(is-a blood-plasma liquid-component-blood)",
+            "(in-which blood-cells-suspended blood-plasma)"
+        ]
+    },
+    {
+        "input": "The adrenal medulla is responsible for producing adrenaline and noradrenaline.",
+        "output": [
+            "(responsible-for adrenal-medulla producing-adrenaline)",
+            "(responsible-for adrenal-medulla producing-noradrenaline)"
+        ]
+    },
+    {
+        "input": "Cystic fibrosis is a genetic disorder that affects the lungs and other organs.",
+        "output": [
+            "(is-a cystic-fibrosis genetic-disorder)",
+            "(affects cystic-fibrosis lungs)",
+            "(affects cystic-fibrosis other-organs)"
+        ]
+    },
+    {
+        "input": "The enzyme lactase breaks down lactose into glucose and galactose.",
+        "output": [
+            "(breaks-down lactase lactose)",
+            "(into lactase glucose)",
+            "(into lactase galactose)"
+        ]
+    },
+    {
+        "input": "Schizophrenia is a chronic mental disorder characterized by distorted thoughts and perceptions.",
+        "output": [
+            "(is-a schizophrenia chronic-mental-disorder)",
+            "(characterized-by schizophrenia distorted-thoughts)",
+            "(characterized-by schizophrenia distorted-perceptions)"
+        ]
+    },
+    {
+        "input": "The appendix is a small pouch attached to the large intestine.",
+        "output": [
+            "(is-a appendix small-pouch)",
+            "(attached-to appendix large-intestine)"
+        ]
+    },
+    {
+        "input": "Autoimmune diseases occur when the immune system mistakenly attacks the body's own tissues.",
+        "output": [
+            "(occur autoimmune-diseases)",
+            "(when autoimmune-diseases immune-system-attacks-own-tissues)"
+        ]
+    },
+    {
+        "input": "The cornea is the transparent outer layer of the eye that covers the iris, pupil, and anterior chamber.",
+        "output": [
+            "(is-a cornea transparent-outer-layer-eye)",
+            "(covers cornea iris)",
+            "(covers cornea pupil)",
+            "(covers cornea anterior-chamber)"
+        ]
+    },
+    {
+        "input": "Antivirals are drugs used to treat viral infections.",
+        "output": [
+            "(are antivirals drugs)",
+            "(used-for antivirals treat-viral-infections)"
+        ]
+    },
+    {
+        "input": "The pituitary gland secretes hormones that control growth and metabolism.",
+        "output": [
+            "(secretes pituitary-gland hormones)",
+            "(control hormones growth)",
+            "(control hormones metabolism)"
+        ]
+    },
+    {
+        "input": "Rheumatoid arthritis is an inflammatory condition affecting joints.",
+        "output": [
+            "(is-a rheumatoid-arthritis inflammatory-condition)",
+            "(affecting rheumatoid-arthritis joints)"
+        ]
+    },
+    {
+        "input": "The gall bladder stores bile produced by the liver.",
+        "output": [
+            "(stores gall-bladder bile)",
+            "(produced-by bile liver)"
+        ]
+    },
+    {
+        "input": "Cloning is the process of producing genetically identical individuals.",
+        "output": [
+            "(is-a cloning process)",
+            "(produces cloning genetically-identical-individuals)"
+        ]
+    },
+    {
+        "input": "The skin acts as a barrier against pathogens and environmental damage.",
+        "output": [
+            "(acts-as skin barrier)",
+            "(barrier-against skin pathogens)",
+            "(barrier-against skin environmental-damage)"
+        ]
+    }
+]

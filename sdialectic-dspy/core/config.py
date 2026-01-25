@@ -14,7 +14,7 @@ class Config:
     # Model Configuration (Single Source of Truth)
     # User can override in .env
     TEACHER_MODEL_NAME = os.getenv("TEACHER_MODEL_NAME", "gemini/models/gemini-2.5-flash-lite")
-    STUDENT_MODEL_NAME = os.getenv("STUDENT_MODEL_NAME", "ollama/phi4-mini:latest")
+    STUDENT_MODEL_NAME = os.getenv("STUDENT_MODEL_NAME", "ollama/qwen-medico-spv:latest")
     
     # API Keys & Hosts
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")

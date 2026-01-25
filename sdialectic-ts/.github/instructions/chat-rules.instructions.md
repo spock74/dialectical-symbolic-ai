@@ -16,4 +16,4 @@ Estas instruções orientam o comportamento do assistente de IA neste workspace.
 - **Padrão de Qualidade**: Priorizar estética premium e micro-animações em componentes UI.
 
 ## Regras Críticas
-- **Modelos AI**: NUNCA MUDAR O NOME DE UM MODELO AI NO CODEBASE.
+- **Modelos AI**: NUNCA MUDAR O NOME DE UM MODELO DE IA NO CODEBASE.

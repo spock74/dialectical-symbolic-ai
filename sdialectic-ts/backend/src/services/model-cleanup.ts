@@ -39,7 +39,8 @@ async function executeUnload(modelName: string, innerFetch: typeof fetch) {
 
     // Only attempt to unload local Ollama models.
     // If it's a googleai/ model, we can't unload it via local fetch.
-    if (!modelName.includes("ollama") && !CONFIG.USE_LOCAL_MODELS) {
+    // If model is not local (ollama), skip unload
+    if (!modelName.includes("ollama") && !CONFIG.LISP_MODEL.startsWith("ollama/")) {
       console.log(
         `[Resource Manager] Skipping unload for non-Ollama model: ${modelName}`
       );

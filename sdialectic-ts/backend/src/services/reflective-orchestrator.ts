@@ -409,8 +409,8 @@ ${knowledge.rels}
       turn++;
     }
 
-    if (CONFIG.USE_LOCAL_MODELS)
-      scheduleModelUnload(CONFIG.OLLAMA_LISP_MODEL_NAME);
+    if (CONFIG.IS_LOCAL_LISP)
+      scheduleModelUnload(CONFIG.RAW_LISP_MODEL_NAME);
   }
 
   /**

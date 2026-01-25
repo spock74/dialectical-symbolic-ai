@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Plus, Folder } from "lucide-react"
-import { uploadPdf, uploadPdfMultimodal, chat } from "../api"
+import { uploadPdf, uploadPdfMultimodal, extractMarkdown } from "../api"
 import type { KnowledgeBase, Source } from "../types"
 import { useDialecticStore } from "../store/useStore"
 import { Button } from "./ui/button"
@@ -28,8 +28,6 @@ export function SourceManager({ onKnowledgeLoaded }: SourceManagerProps) {
     addSourceToGroup,
     deleteGroup,
     incrementGraphVersion,
-    addMessage,
-    setLastReasoningLogs,
     activeSourceId,
     setActiveSource
   } = useDialecticStore();
@@ -41,14 +39,7 @@ export function SourceManager({ onKnowledgeLoaded }: SourceManagerProps) {
     setIsCreatingGroup(false);
   };
 
-  const readFileContent = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target?.result as string);
-      reader.onerror = (e) => reject(e);
-      reader.readAsText(file);
-    });
-  };
+
 
   const processFile = async (file: File, targetGroupId?: string) => {
     // Fallback to activeGroupId if strict target not provided
@@ -73,18 +64,9 @@ export function SourceManager({ onKnowledgeLoaded }: SourceManagerProps) {
           ? await uploadPdfMultimodal(file) 
           : await uploadPdf(file);
       } else if (fileType === 'md' || fileType === 'txt') {
-        const content = await readFileContent(file);
-        const prompt = `Analise o seguinte documento e extraia conhecimento estruturado:\n\n---\nArquivo: ${file.name}\nConteúdo:\n${content}\n---`;
-        
-        addMessage(activeSourceId || 'default', { role: 'user', content: `[Arquivo carregado: ${file.name}]` });
-        
-        const { useConversationalMemory, useBypassSDialect } = useDialecticStore.getState();
-        const chatResponse = await chat(prompt, [], useConversationalMemory, useBypassSDialect, file.name);
-        
-        addMessage(activeSourceId || 'default', { role: 'model', content: chatResponse.text });
-        if (chatResponse.reasoningLogs) {
-           setLastReasoningLogs(chatResponse.reasoningLogs);
-        }
+      } else if (fileType === 'md' || fileType === 'txt') {
+        // [REFACTORED] Use dedicated extraction pipeline for persistent symbolic knowledge
+        result = await extractMarkdown(file);
       }
       
       const newSource: Source = {

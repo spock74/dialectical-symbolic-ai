@@ -107,8 +107,8 @@ export const reflectiveLoop = ai.defineFlow(
           reasoningLogs: "S-Dialect bypassed. No symbolic trace available.",
         };
       } finally {
-        if (CONFIG.USE_LOCAL_MODELS)
-          scheduleModelUnload(CONFIG.OLLAMA_CHAT_MODEL_NAME);
+        if (CONFIG.IS_LOCAL_CHAT)
+          scheduleModelUnload(CONFIG.RAW_CHAT_MODEL_NAME);
       }
     } else {
       // 1. INITIALIZE COGNITIVE WORKSPACE (System 1.5)
@@ -203,8 +203,8 @@ export const reflectiveLoop = ai.defineFlow(
         reasoningLogs: reasoningLogs,
       };
     } finally {
-      if (CONFIG.USE_LOCAL_MODELS)
-        scheduleModelUnload(CONFIG.OLLAMA_CHAT_MODEL_NAME);
+      if (CONFIG.IS_LOCAL_CHAT)
+        scheduleModelUnload(CONFIG.RAW_CHAT_MODEL_NAME);
     }
   }
 );

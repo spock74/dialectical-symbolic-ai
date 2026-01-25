@@ -30,14 +30,14 @@ export const extractKnowledgeMultimodal = ai.defineFlow(
     outputSchema: ExtractionOutputSchema,
   },
   async ({ filePath, trackId }) => {
-    console.log(`[Flow] Starting Multimodal PDF Extraction for Track: ${trackId} | Mode: ${CONFIG.USE_LOCAL_MODELS ? 'LOCAL' : 'CLOUD'}`);
+    console.log(`[Flow] Starting Multimodal PDF Extraction for Track: ${trackId} | Mode: ${CONFIG.IS_LOCAL_VISION ? 'LOCAL' : 'CLOUD'}`);
     let uploadedFile: any;
     let promptInput: any = { trackId: trackId || "default" };
 
     try {
 
       // === BRANCH: LOCAL vs CLOUD ===
-      if (CONFIG.USE_LOCAL_MODELS) {
+      if (CONFIG.IS_LOCAL_VISION) {
           console.log(`[Flow] Local mode detected. Converting PDF to images for ${CONFIG.VISION_MODEL}...`);
           
           // 1. Convert PDF to Images (Up to 20 pages), RETURN RAW BASE64 (false)
@@ -156,8 +156,8 @@ export const extractKnowledgeMultimodal = ai.defineFlow(
       }
 
       // Local model maintenance
-      if (CONFIG.USE_LOCAL_MODELS) {
-        scheduleModelUnload(CONFIG.OLLAMA_VISION_MODEL_NAME);
+      if (CONFIG.IS_LOCAL_VISION) {
+        scheduleModelUnload(CONFIG.RAW_VISION_MODEL_NAME);
       }
     }
   }

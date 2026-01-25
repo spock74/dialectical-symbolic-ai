@@ -77,8 +77,8 @@ export const extractSimpleTranscription = ai.defineFlow(
     try {
       return response.output;
     } finally {
-      if (CONFIG.USE_LOCAL_MODELS)
-        scheduleModelUnload(CONFIG.OLLAMA_VISION_MODEL_NAME);
+      if (CONFIG.IS_LOCAL_VISION)
+        scheduleModelUnload(CONFIG.RAW_VISION_MODEL_NAME);
     }
   }
 );

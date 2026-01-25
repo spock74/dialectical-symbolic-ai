@@ -25,21 +25,15 @@ function getEnv(key: string): string {
 
 export const CONFIG = {
   // AI Model Configuration
-  USE_LOCAL_MODELS: process.env.USE_LOCAL_MODELS === "true",
   GEMINI_API_KEY: getEnv("GEMINI_API_KEY"),
 
-  // Local Model Names
-  OLLAMA_LISP_MODEL_NAME: getEnv("OLLAMA_LISP_MODEL_NAME"),
-  OLLAMA_VISION_MODEL_NAME: getEnv("OLLAMA_VISION_MODEL_NAME"),
-  OLLAMA_CHAT_MODEL_NAME: getEnv("OLLAMA_CHAT_MODEL_NAME"),
+  // Consolidated Model Definitions (Provider/ModelName)
+  LISP_MODEL: getEnv("LISP_MODEL"),
+  VISION_MODEL: getEnv("VISION_MODEL"),
+  CHAT_MODEL: getEnv("CHAT_MODEL"),
   
-  // Embedding Model
+  // Embedding Model (Static for now, can be elevated to env if needed)
   OLLAMA_EMBED_MODEL_NAME: "nomic-embed-text:latest",
-
-  // Gemini Model Names
-  GEMINI_LISP_MODEL_NAME: getEnv("GEMINI_LISP_MODEL_NAME"),
-  GEMINI_VISION_MODEL_NAME: getEnv("GEMINI_VISION_MODEL_NAME"),
-  GEMINI_CHAT_MODEL_NAME: getEnv("GEMINI_CHAT_MODEL_NAME"),
 
   OLLAMA_UNLOAD_DELAY_SECONDS: parseInt(
     getEnv("OLLAMA_UNLOAD_DELAY_SECONDS"),
@@ -49,23 +43,16 @@ export const CONFIG = {
   // Server Configuration
   PORT: parseInt(getEnv("PORT"), 10),
 
-  // Dynamic Model References
-  get LISP_MODEL() {
-    return this.USE_LOCAL_MODELS
-      ? `ollama/${this.OLLAMA_LISP_MODEL_NAME}`
-      : `googleai/${this.GEMINI_LISP_MODEL_NAME}`;
-  },
-  get VISION_MODEL() {
-    return this.USE_LOCAL_MODELS
-      ? `ollama/${this.OLLAMA_VISION_MODEL_NAME}`
-      : `googleai/${this.GEMINI_VISION_MODEL_NAME}`;
-  },
   // Knowledge Domain
   DOMAIN_SPECIFIC_KNOWLEDGE: process.env.DOMAIN_SPECIFIC_KNOWLEDGE || "prompts",
 
-  get CHAT_MODEL() {
-    return this.USE_LOCAL_MODELS
-      ? `ollama/${this.OLLAMA_CHAT_MODEL_NAME}`
-      : `googleai/${this.GEMINI_CHAT_MODEL_NAME}`;
-  },
+  // Helpers for identifying model type
+  get IS_LOCAL_LISP() { return this.LISP_MODEL.startsWith("ollama/"); },
+  get IS_LOCAL_VISION() { return this.VISION_MODEL.startsWith("ollama/"); },
+  get IS_LOCAL_CHAT() { return this.CHAT_MODEL.startsWith("ollama/"); },
+
+  // Helpers for raw model names (stripping provider prefix)
+  get RAW_LISP_MODEL_NAME() { return this.LISP_MODEL.replace(/^(ollama|googleai)\//, ""); },
+  get RAW_VISION_MODEL_NAME() { return this.VISION_MODEL.replace(/^(ollama|googleai)\//, ""); },
+  get RAW_CHAT_MODEL_NAME() { return this.CHAT_MODEL.replace(/^(ollama|googleai)\//, ""); },
 };
